@@ -1,262 +1,284 @@
-# polsia-next-v2
+<div align="center">
 
-The canonical Next.js template for Polsia-generated customer apps.
+# FounderNexora
 
-This repository is a scaffold with the shadcn UI baseline built in. It ships the
-framework defaults every app needs on day one: Next.js 16 App Router, React 19,
-Tailwind 4, Prisma client wiring, Biome, Vitest, security headers, a token-driven
-theme, and a broad shadcn primitive set. Product capabilities such as auth,
-billing, email, analytics, dashboards, and multi-tenant workflows are installed
-from `Polsia-Inc/modules`.
+### Building useful AI-native products — and the operating system behind them.
 
-## What This Is
+**FounderNexora** is the public company hub for a growing set of products, research systems, media, and revenue engines coordinated through a durable Company OS.
 
-This is a template, not a hand-customized starter app. The Polsia engineering
-agent reads the ownership map, installs modules when needed, and edits only the
-bounded app-owned zones. The directory shape and `.polsia/ownership.json` are
-the contract that keeps framework files, module files, and customer code
-separate.
+[![Status](https://img.shields.io/badge/status-building-111827?style=for-the-badge)](#current-state)
+[![Company OS](https://img.shields.io/badge/company%20os-continuity%20v0.1-312e81?style=for-the-badge)](#company-os)
+[![Web](https://img.shields.io/badge/web-Next.js%2016-000000?style=for-the-badge&logo=nextdotjs)](#repository)
+[![License](https://img.shields.io/badge/license-MIT-0f766e?style=for-the-badge)](LICENSE)
 
-The canonical template id is `polsia-next-v2`; the GitHub repository is
-`Polsia-Inc/template-next`.
+</div>
 
-## What Is Included
+---
 
-- Next.js 16 App Router, React 19, TypeScript, and Tailwind 4.
-- shadcn UI baseline: `components.json`, `cn()`, a committed primitive set in
-  `src/components/ui/**`, sonner toasts, next-themes, and theme tokens in
-  `src/app/globals.css`.
-- Prisma 6 client setup: `prisma/schema/_base.prisma`, `prisma.config.ts`, and
-  the server-only singleton in `src/lib/db.ts`. The actual database is external;
-  Polsia provisions Postgres and injects `DATABASE_URL`.
-- Typed environment validation through `src/lib/env.ts`.
-- Data-plane examples: a shared zod contract, an `/api/example` route handler,
-  and a client page that uses `apiFetch`.
-- CSP and security headers in `proxy.ts`, `next.config.ts`, and
-  `src/lib/csp.ts`.
-- SEO plumbing: `src/lib/brand.ts`, `src/lib/site.ts`, `robots.ts`,
-  `sitemap.ts`, `manifest.ts`, and a default Open Graph image route.
-- Unit tests covering the ownership map, CSP posture, env validation, and the
-  example data contract.
+## Why this exists
 
-## What Is Not Included
+Most AI projects are isolated tools.
 
-- No auth, billing, email, analytics, dashboards, or other product modules.
-- No database server, Dockerfile, compose file, or Procfile.
-- No real env files. `.env.example` documents the expected variables; deploys
-  receive actual values from the platform.
-- No Server Actions. Product pages call `/api/*` route handlers through
-  `src/lib/api-client.ts`.
+FounderNexora is being built around a different idea:
 
-## Ownership Model
+> **Products should share durable memory, proven workflows, evidence, and infrastructure — without collapsing into one giant monolith.**
 
-Always read `.polsia/installed.json`, `.polsia/ownership.json`, and
-`.polsia/overrides.json` before editing.
+The company is growing as a federation of specialized stations. Each station can use the best model, tool, or runtime for its job while Company Core preserves what the organization learns.
 
-| Tier | Examples | Who edits |
+The long-term aim is simple to say and difficult to build well:
+
+**turn real problems into tested solutions, preserve the learning, and compound the useful assets.**
+
+---
+
+## Company map
+
+```mermaid
+flowchart TD
+    O[Owner] --> C[Company Core / Aether]
+    C --> R[Renor / FounderLab]
+    C --> F[Fiverr Revenue]
+    C --> Y[YouTube Media]
+    C --> T[Trading Lab]
+    C --> A[Aether Operating Lane]
+
+    R --> P1[AI workspace & products]
+    F --> P2[Client cashflow]
+    Y --> P3[Audience & distribution]
+    T --> P4[Research & experiments]
+    A --> P5[Operations, memory, events, finance]
+```
+
+### The five stations
+
+| Station | Role | Current direction |
 | --- | --- | --- |
-| `framework_owned` | `src/lib/db.ts`, `src/lib/utils.ts`, `components.json`, `prisma.config.ts`, `AGENTS.md`, `.polsia/installed.json`, `.polsia/ownership.json` | Framework or owning module only. |
-| `user_owned` | `src/components/ui/**`, `src/app/(setup)/page.tsx`, `src/app/(custom)/**`, `src/lib/brand.ts`, `src/lib/nav.ts`, `public/**`, `README.md`, `.polsia/overrides.json` | The app agent or customer. |
-| `shared` | `src/app/globals.css`, `src/lib/env.ts`, `src/app/layout.tsx`, `proxy.ts`, `next.config.ts`, `package.json`, `.env.example` | Edit only through declared slots or the documented merge strategy. |
+| **Aether / Company Core** | Memory, events, work orders, controls, finance, improvement loops | Internal operating substrate |
+| **Renor / FounderLab** | AI workspace, coding, building, voice, connectors, product experience | Public product + intelligence workspace |
+| **Fiverr Revenue** | Legitimate client work and near-term cashflow | Revenue station |
+| **YouTube Media** | Original content, audience, distribution, documentation | Media station |
+| **Trading Lab** | Evidence-based market research and paper experimentation | Research station |
 
-`.polsia/ownership.json` is the source of truth. Source banners are reader
-signage only.
+These are **operating stations**, not five public products. The public product portfolio will remain smaller and clearer than the internal company architecture.
 
-## What Not To Edit
+---
 
-- Anything marked `framework_owned` in `.polsia/ownership.json`.
-  Comment-capable source files carry `@polsia:framework-owned` banners as
-  signage, but the ownership map is the authority.
-- Anything outside declared slot markers in shared files such as
-  `next.config.ts`, `proxy.ts`, `src/lib/env.ts`, `src/app/layout.tsx`, and
-  `src/app/globals.css`.
-- `.polsia/installed.json` and `.polsia/ownership.json`. They are generated
-  state files. Use `.polsia/overrides.json` for hand-editable module policy.
+## Company OS
 
-## Platform Rules
+The company is being designed so that important knowledge does not disappear when a chat ends, a model changes, or an external worker is replaced.
 
-- Keep Cache Components off unless the platform explicitly changes that policy.
-- Use `proxy.ts`; do not add `middleware.ts`.
-- Keep data and mutations behind `/api/*` route handlers. Do not add Server
-  Actions.
-- Keep Prisma datasource and generator declarations in `prisma/schema/_base.prisma`.
-  App or module schema files add models only.
-- `src/app/(auth)/**` and `src/app/(dashboard)/**` pages are user-owned — build and
-  restyle them freely. Don't hand-roll the auth security surface (`src/lib/auth.ts`,
-  `src/app/api/auth/**`, the prisma auth schema, `require-auth`/`require-admin`):
-  those are framework-owned, installed by the auth module.
-- Put recurring work in `polsia.toml` `[[crons]]`; do not use in-process
-  schedulers for product behavior.
+Core principles:
 
-## Agent Workflow
+- **one fact → one canonical owner → projections everywhere else**
+- **agents boot from durable company state, not chat memory**
+- **resume from checkpoint; do not restart completed work**
+- **no critical company knowledge lives only inside one AI vendor**
+- **evidence before "done"**
+- **federate first; merge systems only when the evidence justifies it**
+- **observe → propose → review → apply → measure → promote/revert**
 
-1. Read `AGENTS.md` and the three `.polsia/` state files.
-2. Decide whether the request is app-specific UI/business logic or a reusable
-   capability that should come from a module.
-3. Install modules through the Polsia module installer when a module owns the
-   capability. Do not clone module files by hand.
-4. Write app-specific code in user-owned areas:
-   - Routes: `src/app/(custom)/<feature>/page.tsx`
-   - API handlers: `src/app/api/<resource>/route.ts`
-   - Contracts: `src/lib/contracts/<resource>.ts`
-   - Business logic: `src/lib/business/<feature>.ts`
-   - Custom components: `src/components/custom/<feature>.tsx`
-   - Hooks: `src/hooks/use-<feature>.ts`
-5. Replace the starter home by editing `src/app/(setup)/page.tsx` in place, or
-   delete the `(setup)` route group before adding another page that resolves to
-   `/`.
-6. Set the product identity in `src/lib/brand.ts`, update `src/lib/nav.ts` for
-   reachable public pages, and rely on the built-in robots, sitemap, metadata,
-   and Open Graph plumbing.
-7. Keep every feature reachable from the home page or, for authenticated
-   features, the dashboard.
-8. Run the relevant checks before shipping.
+The canonical Company OS architecture and continuity rules live in the Aether repository under:
 
-Module installs go through the Polsia module installer. The installer owns
-module file writes, ownership-map updates, install hashes, and module validators.
-Do not clone module files or copy them by hand.
+`Company-System-Memory/`
 
-## Data Plane
+---
 
-Product pages are client components. They call route handlers through
-`apiFetch`, passing a shared zod schema to validate the response at runtime.
+## Current state
 
-Each resource should have one shared contract in `src/lib/contracts/<resource>.ts`.
-The route handler validates request and response shapes with that contract, and
-the client imports the same schema.
+### Shipped / real today
 
-Validation errors from route handlers use:
+- A functioning FounderNexora public website foundation.
+- FounderLab/Renor application with AI Chat, Code AI, Builder, YouTube tooling, notes, tasks, workspaces, connectors and voice foundations.
+- Aether company substrate with append-only events, work orders, budgets, ledger, structured/vector memory, agent runtime and control-plane foundations.
+- Durable engineering memory and handoff systems in both Aether and FounderLab/Renor.
+- Company Continuity v0.1: portfolio memory, station registry, roadmap, handoff protocol, portability standard and engineering policy.
 
-```ts
-{ errors: { fieldName: 'Message' } }
+### Being improved
+
+- cross-station Station Contract
+- Smart Context Router
+- agent continuation commands
+- Grok/external-worker portability
+- unified owner Control Center
+- memory-drift elimination
+- repository/branch hygiene
+- public company identity and website architecture
+
+### Not claimed yet
+
+We do **not** claim:
+- fully autonomous company operation
+- verified live trading edge
+- large user/revenue numbers
+- production maturity for unverified systems
+- partnerships or capabilities that have not been proven
+
+Truthful status is part of the product.
+
+---
+
+## Ground → Moon roadmap
+
+```mermaid
+flowchart LR
+    G[Ground
+Preserve truth]
+    F[Foundation
+Standardize stations]
+    W[Wiring
+Continuity engine]
+    N[Nervous system
+Events + adapters]
+    M[Memory
+Smart context]
+    C[Control
+Owner cockpit]
+    L[Learning
+Measured improvement]
+    AU[Autonomy
+Proven envelopes]
+    P[Product
+Dogfood Company OS]
+    E[Ecosystem
+External platform]
+    MO[Moon
+Compound intelligence]
+
+    G --> F --> W --> N --> M --> C --> L --> AU --> P --> E --> MO
 ```
 
-Client forms map those errors with `applyServerErrors`. Transient success or
-unexpected failure feedback should use `toast` from `sonner`.
+The roadmap advances by **evidence**, not by dates or hype.
 
-## UI
+---
 
-The template already includes a broad shadcn primitive set under
-`src/components/ui/**`. Compose those primitives first, restyle through theme
-tokens and component variants, and add new primitives with:
+## Renor
 
-```bash
-npx shadcn@latest add <name> --yes
+**Renor** is the public-facing evolution of FounderLab.
+
+The internal FounderLab identifiers stay stable where renaming would break storage, credentials, deployments, or compatibility. Renor is the presentation/product identity; FounderLab remains part of the engineering origin and internal implementation history.
+
+The goal is not another generic chatbot.
+
+The goal is an intelligent workspace that can understand work, use tools, build, code, coordinate and remember.
+
+---
+
+## Aether
+
+**Aether** is the internal operating substrate.
+
+It already contains foundations for:
+
+- append-only event history
+- work orders
+- budgets and autonomy envelopes
+- double-entry ledger
+- structured + vector memory
+- agent runtime
+- model gateway
+- approvals
+- control plane
+- self-improvement proposals
+- recovery and auditability
+
+Aether is deliberately boring where infrastructure should be boring, and ambitious where organizational design can create leverage.
+
+---
+
+## Engineering standard
+
+The company engineering policy is built around:
+
+**truthful state · durable memory · excellent execution · measured learning · controlled autonomy · recoverability**
+
+Important work should inspect current code, verify canonical state, preserve rollback, run real gates, and leave a durable handoff another strong engineer or agent can continue from.
+
+We prefer:
+
+- small coherent changes over giant rewrites
+- proven chokepoints over duplicated guards
+- real runtime evidence over confident claims
+- reversible architecture over premature consolidation
+- independent review for high-impact work
+- model independence over vendor lock-in
+
+---
+
+## Repository
+
+This repository is the **public FounderNexora website / company hub**.
+
+It is built on the Polsia Next.js v2 scaffold, with the public product surface living in user-owned zones defined by `.polsia/ownership.json`.
+
+### Current stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- shadcn/ui
+- Prisma
+- Vitest
+- Biome
+
+### Important ownership rule
+
+Before editing the application, read:
+
+- `AGENTS.md`
+- `.polsia/installed.json`
+- `.polsia/ownership.json`
+- `.polsia/overrides.json`
+
+The Polsia ownership map is authoritative. Framework-owned files should not be casually edited.
+
+---
+
+## Public-site direction
+
+The current site is a real foundation, but it is not the final company experience.
+
+The next public redesign should progressively add:
+
+- a distinctive FounderNexora/Nexora identity
+- clear product pages
+- company story
+- public roadmap
+- developer/open-source surface
+- truthful live status where useful
+- high-quality motion/3D only where it improves understanding
+- excellent mobile, accessibility, performance, SEO and social previews
+
+The public site should explain the company in under 90 seconds without exposing private company data or internal security details.
+
+---
+
+## Build philosophy
+
+We are not trying to make the repository *look* busy.
+
+We are trying to make the company stronger every time it changes.
+
+```
+Understand
+→ Inspect
+→ Design
+→ Build
+→ Test
+→ Verify
+→ Record
+→ Learn
+→ Improve
 ```
 
-Reusable app-specific UI belongs in `src/components/custom/**`.
+If a change cannot explain what improved and how that was verified, it is not finished.
 
-## Directory Guide
+---
 
-```text
-.
-├── .polsia/                          Generated state and ownership map
-├── prisma/
-│   ├── schema/_base.prisma           Datasource + generator only
-│   └── migrations/migration_lock.toml Project-level migration lock
-├── public/                           Customer assets
-├── src/
-│   ├── app/
-│   │   ├── (setup)/page.tsx          Starter home served at /
-│   │   ├── (custom)/example/page.tsx Data-plane example page
-│   │   ├── api/example/route.ts      Data-plane example route
-│   │   ├── health/route.ts           Deploy healthcheck
-│   │   ├── layout.tsx                Root layout and providers slot
-│   │   └── globals.css               Tailwind theme and brand token slot
-│   ├── components/
-│   │   ├── ui/                       shadcn primitives
-│   │   ├── custom/                   App-owned compositions
-│   │   └── theme-provider.tsx        next-themes wrapper
-│   ├── hooks/                        App-owned React hooks
-│   ├── lib/
-│   │   ├── api-client.ts             Client transport helper
-│   │   ├── brand.ts                  Product name and description
-│   │   ├── contracts/example.ts      Example shared zod contract
-│   │   ├── csp.ts                    CSP builder
-│   │   ├── db.ts                     Prisma singleton
-│   │   ├── env.ts                    Typed env schema
-│   │   ├── forms.ts                  Server error mapping
-│   │   ├── nav.ts                    App navigation config
-│   │   └── utils.ts                  cn()
-│   └── modules/                      Vendored module installs
-├── tests/unit/                       Vitest unit tests
-├── next.config.ts                    Next config and security headers
-├── proxy.ts                          CSP nonce and middleware chain slot
-├── polsia.toml                       Deploy manifest and scheduled jobs
-└── AGENTS.md                         Engineering agent operating manual
-```
+<div align="center">
 
-## Security Headers
+### FounderNexora
 
-`next.config.ts` sets baseline response headers:
+**Build useful things. Preserve what works. Improve the system that builds the next thing.**
 
-- `Strict-Transport-Security`
-- `X-Content-Type-Options`
-- `X-Frame-Options`
-- `Referrer-Policy`
-- `Permissions-Policy`
-- `Cross-Origin-Opener-Policy`
-- `Cross-Origin-Resource-Policy`
-
-`proxy.ts` sets a per-request Content Security Policy. `script-src` stays strict
-with a nonce and `strict-dynamic`; `style-src` allows inline styles so Radix and
-shadcn runtime positioning works in production.
-
-## Day-1 Validators
-
-The bare scaffold validator floor is declared in
-`.polsia/installed.json#day_1_floor`. Module-specific validators are added by
-module manifests when modules install.
-
-- `no-secrets-in-client-bundle`
-- `server-only-import-on-secret-modules`
-- `agent-has-no-prod-db-credentials`
-- `db-ssl-required`
-- `parameterized-queries-only`
-- `security-headers-present`
-- `lockfile-committed-and-pinned`
-- `lifecycle-scripts-disabled`
-- `next-version-not-affected-by-cve-2025-29927`
-
-## Local Development
-
-Use npm; the lockfile is committed.
-
-```bash
-npm install
-npm run typecheck
-npm run lint
-npm run test
-SKIP_ENV_VALIDATION=1 npm run dev
-```
-
-`npm run dev` and `npm run build` validate `DATABASE_URL` and
-`NEXT_PUBLIC_APP_URL` when `SKIP_ENV_VALIDATION` is not set. On a local clone
-without a provisioned database, either set the required vars in `.env.local` or
-prefix the command with `SKIP_ENV_VALIDATION=1`.
-
-`typecheck`, `lint`, and `test` do not require env. With no modules installed,
-`/` serves the `(setup)` placeholder until a module or app-authored root page
-takes over.
-
-## Versions
-
-Pinned exact versions are used for the framework stack:
-
-- Next.js 16.2.6, App Router
-- React 19.2.7
-- Tailwind CSS 4.3.0, CSS-first `@theme`
-- shadcn/ui New York style
-- sonner 2.0.7
-- TypeScript 5.5.4, strict mode
-- Biome 2.3.1, lint and format
-- Vitest 3.2.6
-- Prisma 6.19.3
-- Node >=20.18.1
-
-Security `overrides` in `package.json` pin patched transitive dependency
-versions that direct framework pins cannot reach on their own.
-
-## License
-
-MIT. See [LICENSE](./LICENSE).
+</div>
