@@ -1,3 +1,93 @@
 /* @polsia:user-owned — your custom global CSS: keyframes, animation classes, one-off global
  * styles, and @import your own .css files. Prefer tw-animate-css for motion (animate-in,
  * fade-in, slide-in-from-bottom-N, duration-*). globals.css is framework-owned — edit HERE. */
+
+.nexora-page {
+  background: var(--background);
+}
+.nexora-hero {
+  background:
+    radial-gradient(circle at 82% 35%, oklch(0.67 0.18 255 / 0.1), transparent 36%),
+    var(--background);
+}
+.nexora-grid {
+  background-image:
+    linear-gradient(to right, oklch(0.5 0.03 255 / 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.5 0.03 255 / 0.055) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: linear-gradient(to right, transparent, black 35%, black 85%, transparent);
+}
+.nexora-gradient-text {
+  color: var(--brand-500);
+  background: linear-gradient(110deg, var(--brand-600), var(--brand-400));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nexora-console {
+  background:
+    radial-gradient(circle at 50% 36%, #172953, transparent 50%),
+    linear-gradient(140deg, #0d162b, #070b16 75%);
+  border: 1px solid #263b68;
+  box-shadow: 0 30px 90px -45px #13264b;
+}
+.nexora-orbit {
+  border: 1px solid #4c7ad6;
+  box-shadow:
+    inset 0 0 28px #3978f633,
+    0 0 38px #3978f62a;
+}
+.nexora-orbit::before,
+.nexora-orbit::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a9d1ff;
+  box-shadow: 0 0 15px #58a7ff;
+}
+.nexora-orbit::before {
+  top: 13%;
+  left: 14%;
+}
+.nexora-orbit::after {
+  right: 6%;
+  bottom: 24%;
+}
+.nexora-orbit-inner {
+  border-color: #48669b88;
+  transform: rotate(-28deg);
+}
+.nexora-core {
+  background: radial-gradient(circle at 30% 20%, #315ba5, #122650 58%, #08172d);
+  border: 1px solid #6da8ff88;
+  box-shadow:
+    0 0 35px #3d81fa55,
+    inset 0 0 25px #68a5ff22;
+}
+.nexora-feature,
+.nexora-station {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+.nexora-feature:hover,
+.nexora-station:hover {
+  transform: translateY(-3px);
+  border-color: var(--brand-300);
+  box-shadow: var(--shadow-lg);
+}
+.nexora-last {
+  background: radial-gradient(circle at 10% 100%, oklch(0.67 0.18 255 / 0.1), transparent 45%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nexora-feature,
+  .nexora-station {
+    transition: none;
+  }
+  .nexora-feature:hover,
+  .nexora-station:hover {
+    transform: none;
+  }
+}

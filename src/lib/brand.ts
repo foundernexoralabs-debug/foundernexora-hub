@@ -1,7 +1,8 @@
 // @polsia:user-owned — brand identity.
 
 export const siteName = 'FounderNexora';
-export const siteDescription = 'Tools built for founders who move fast. AI-powered apps that work the way you think.';
+export const siteDescription =
+  'FounderNexora builds Renor, an AI workspace for useful work, and a company system that preserves evidence and improves what it builds.';
 
 export const brandVisual = {
   themeColor: '#6366f1',
