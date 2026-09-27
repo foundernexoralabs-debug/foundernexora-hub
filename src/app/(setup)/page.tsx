@@ -8,7 +8,6 @@ import {
   Code2,
   Compass,
   Layers3,
-  MoveUpRight,
   Radio,
   ShieldCheck,
   Sparkles,
@@ -17,7 +16,6 @@ import {
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { RENOR_APP_URL } from '@/lib/business/company-links';
 import { siteDescription, siteName } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -66,7 +64,7 @@ const stations = [
     id: '02',
     name: 'Product',
     role: 'Renor',
-    detail: 'The AI workspace and public product experience.',
+    detail: 'The AI workspace and product experience.',
     icon: Blocks,
     state: 'Active build',
   },
@@ -76,7 +74,7 @@ const stations = [
     role: 'Client work',
     detail: 'Practical service work and delivery learning.',
     icon: Workflow,
-    state: 'Operating',
+    state: 'Developing',
   },
   {
     id: '04',
@@ -84,7 +82,7 @@ const stations = [
     role: 'Audience',
     detail: 'Original content and distribution.',
     icon: Radio,
-    state: 'Operating',
+    state: 'Developing',
   },
   {
     id: '05',
@@ -132,7 +130,7 @@ export default function HomePage() {
             </div>
             <p className="mt-7 flex items-center gap-2 text-sm text-muted-foreground">
               <ShieldCheck className="size-4 text-brand-600" aria-hidden="true" />
-              Built in public. Capabilities are labelled by what we can prove.
+              Built carefully. Capabilities are labelled by what we can prove.
             </p>
           </div>
           <section
@@ -181,7 +179,7 @@ export default function HomePage() {
       <section id="renor" className="container-page py-20 sm:py-28">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
-            <p className="text-eyebrow mb-4">01 / The public product</p>
+            <p className="text-eyebrow mb-4">01 / Product in development</p>
             <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
               One workspace.
               <br />
@@ -219,15 +217,9 @@ export default function HomePage() {
             </article>
           ))}
         </div>
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <Button asChild>
-            <Link href={RENOR_APP_URL} target="_blank" rel="noopener noreferrer">
-              Open the current app <MoveUpRight className="ml-2 size-4" />
-            </Link>
-          </Button>
-          <span className="text-sm text-muted-foreground">
-            Preview access. Some AI flows are still being verified.
-          </span>
+        <div className="mt-8 rounded-2xl border border-border bg-muted/35 p-5 text-sm leading-relaxed text-muted-foreground">
+          Renor is in private development while we verify the AI runtime and complete the first
+          end-to-end Builder jobs. We will share access when those core flows meet the release bar.
         </div>
       </section>
 
@@ -339,8 +331,8 @@ export default function HomePage() {
             </p>
           </div>
           <Button size="lg" asChild>
-            <Link href={RENOR_APP_URL} target="_blank" rel="noopener noreferrer">
-              Explore Renor <MoveUpRight className="ml-2 size-4" />
+            <Link href="#renor">
+              See product status <ArrowRight className="ml-2 size-4" />
             </Link>
           </Button>
         </div>
