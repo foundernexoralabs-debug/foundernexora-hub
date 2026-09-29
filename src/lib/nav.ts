@@ -1,4 +1,5 @@
-// @polsia:user-owned — app navigation
+// @polsia:user-owned — Company-first navigation; official preview link verified with Vercel.
+import { RENOR_WEB_PREVIEW_URL } from '@/lib/business/renor-links';
 
 export type NavGroup = 'primary' | 'secondary' | 'footer';
 
@@ -12,8 +13,10 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  { label: 'Home',         href: '/',            group: 'primary',   order: 0 },
-  { label: 'Apps',         href: '/#apps',       group: 'primary',   order: 1 },
-  { label: 'FounderLab AI',href: '/#founderlab', group: 'primary',   order: 2 },
-  { label: 'Try FounderLab AI', href: 'https://founderlab-ai0-1.vercel.app', group: 'secondary', order: 0 },
+  { label: 'Home', href: '/', group: 'primary', order: 0 },
+  { label: 'Company', href: '/#company', group: 'primary', order: 1 },
+  { label: 'Projects', href: '/#projects', group: 'primary', order: 2 },
+  { label: 'Renor', href: '/renor', group: 'primary', order: 3 },
+  { label: 'Progress', href: '/#updates', group: 'footer', order: 0 },
+  { label: 'Open Renor preview', href: RENOR_WEB_PREVIEW_URL, group: 'secondary', order: 0 },
 ];
