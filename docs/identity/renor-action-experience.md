@@ -20,3 +20,6 @@ Renor aims to be a focused, human-controlled AI workspace that can understand a 
 Renor is a product, not an uncontrolled chain of external agents. Claude Code can handle high-effort engineering in the designated work lane; Codex can review and test; an owner-approved coordinator can route tasks. Agent-to-agent messages need identity, scope, work-order ID, checkpoint and audit trail. Provider availability and integration limits must never be misrepresented.
 
 **Status:** design intent. Publish only verified features on the main product page.
+
+## Cost and provider integration gate
+Chat subscription entitlements and production model API access are separate unless a provider explicitly says otherwise. Do not assume a founder's ChatGPT Plus or Claude Max plan gives Renor unlimited or included commercial API calls. Use supported provider APIs or explicitly approved integrations with their own rate limits and billing controls. Before launching a connector or model route, record verified pricing, per-task cost ceilings, spend alerts, trial/credit expiry and a hard stop on unauthorised overage. This architecture must not depend on another agent being awake or having access to a private personal account.
