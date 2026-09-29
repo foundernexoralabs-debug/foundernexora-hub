@@ -90,7 +90,7 @@ export default function RenorPage() {
               Product under development. Availability and features will be confirmed at launch.
             </p>
           </div>
-          <div className="relative mx-auto w-full max-w-lg" aria-label="Illustrative concept of Renor's workflow">
+          <div role="group" className="relative mx-auto w-full max-w-lg" aria-label="Illustrative concept of Renor's workflow">
             <div aria-hidden="true" className="absolute -inset-5 -z-10 rounded-[3rem] bg-indigo-400/10 blur-3xl" />
             <div className="overflow-hidden rounded-[1.8rem] border border-white/15 bg-gradient-to-br from-[#171728] via-[#10101c] to-[#0a0a12] p-5 shadow-[0_32px_110px_rgba(0,0,0,0.4)] sm:p-8">
               <div className="mb-8 flex items-center justify-between border-b border-white/10 pb-5">
