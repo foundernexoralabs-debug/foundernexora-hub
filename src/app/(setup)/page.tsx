@@ -2,7 +2,7 @@
 // Truthful development-preview copy: no unsupported product, privacy, pricing or download promises.
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, CheckCircle2, CircleDot, Command, Globe2, Layers3, LockKeyhole, Monitor, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, CheckCircle2, CircleDot, Globe2, Layers3, LockKeyhole, Monitor, ShieldCheck, Sparkles } from 'lucide-react';
 import { siteDescription, siteName } from '@/lib/site';
 import { RENOR_WEB_PREVIEW_URL } from '@/lib/business/renor-links';
 import { Badge } from '@/components/ui/badge';
@@ -81,7 +81,7 @@ export default function HomePage() {
               Renor is in development. A web preview exists, but some capabilities are still being verified.
             </p>
           </div>
-          <div className="relative mx-auto flex aspect-square w-full max-w-md items-center justify-center" aria-label="Decorative conceptual visualization of Renor">
+          <div className="relative mx-auto flex aspect-square w-full max-w-md items-center justify-center">
             <div aria-hidden="true" className="absolute size-[85%] rounded-full border border-brand-400/15" />
             <div aria-hidden="true" className="absolute size-[66%] rounded-full border border-sky-400/15" />
             <div aria-hidden="true" className="absolute size-[48%] rounded-full bg-brand-500/20 blur-[55px]" />
