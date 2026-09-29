@@ -25,4 +25,21 @@ Clear 1-sentence promise; measured benefits, real specifications and provenance;
 ## Later Renor integration — only when justified
 Read-only store health and analytics first; Shopify OAuth or approved app authorization, least-privilege scopes, encrypted credentials and revocation. Show evidence-backed order and sales receipts in chat, with fresh timestamps and consent. Every write action (products, discounts, refunds, inventory) needs specific user approval, idempotency and audit logs. Do not expose customer personal data to other products or memory scopes.
 
-**Current state:** Shopify AI preview generation was requested on 2026-09-29. Pending previews must be reviewed before any selection. No paid plan approved.
+
+## Selected design direction — owner review, 2026-09-29
+The owner selected the **first Shopify-generated preview** as the visual starting point. Source is an unclaimed `setup.shopify.com` mobile preview provided as a screenshot in the founder conversation. The visible hero reads **“Elevate your workspace quietly”** and uses a restrained graphite-grey canvas, strong white typography, sparse matte desk photography and a modular organiser product. The displayed sample price ($98) is **unverified placeholder information**, not an approved price, supplier cost, product listing or market evidence.
+
+### Upgrade brief for a zero-cost standalone concept
+- **Keep:** quiet, architectural mood; whitespace; direct headline; premium still-life product photography; monochromatic graphite base; visually coherent modular desk organisers.
+- **Improve:** greater text/background contrast and hierarchy; distinct but restrained signature accent (cool mint or pale silver rather than generic neon), one high-quality cinematic lifestyle hero, visible navigation and credible CTA, elegant section transitions, intentionally edited product photography, concise real product benefits, legible price/action spacing, useful mobile product cards and trust/policy links **only when real**.
+- **Expand cautiously:** the store can later curate functional desk tools and future-facing accessories, but launch with one coherent desk setup offer instead of a random “winning products” catalogue.
+- **Mobile first:** verify at 375px and 390px as well as desktop; high-quality image crop, sticky navigation or cart only if it demonstrably improves conversion and accessibility; reduced-motion support for any animation.
+- **Differentiation:** thoughtful material details, product demonstrations, reversible modularity and one consistent visual system, not fabricated technology claims or fake social proof. Write benefits only after a real sample and supplier specifications exist.
+- **Ownership:** this is a **visual concept**, not a live Shopify theme edit. Shopify's native new-store preview tool cannot modify the already selected preview in place. Preserve its look as the reference; build/critique a separate improved mockup, and only claim/create a store once owner approves plan and costs.
+
+### Decision checkpoints
+1. Compare improved concept against selected first screenshot for clarity, product desirability, differentiation, mobile usability and photographic realism.
+2. Obtain actual quotes/samples and approve a £0-first validation plan; no recurring plan until founder approves a funded launch.
+3. If proceeding, confirm store identity and any promotional eligibility **in the exact checkout/transfer terms**, then rebuild the approved design within a store the owner controls.
+
+**Current state:** The owner has selected the first AI-generated preview as the reference; a no-cost upgraded concept is next. The Shopify preview remains unclaimed, no live store theme has been modified, and no paid plan is approved.
