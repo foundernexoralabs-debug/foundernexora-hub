@@ -294,5 +294,8 @@ export const CHANNELS: readonly Channel[] = [
 
 export const RENOR_APP_URL = RENOR_WEB_PREVIEW_URL;
 export const PUBLIC_REPO_URL = 'https://github.com/foundernexoralabs-debug/foundernexora-hub';
+/** The company's public email, confirmed by the founder on 5 October 2026. */
+export const CONTACT_EMAIL = 'founder.nexoralabs@gmail.com';
+export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}`;
 export const FEEDBACK_URL =
   'https://github.com/foundernexoralabs-debug/foundernexora-hub/issues/new';

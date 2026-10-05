@@ -1,13 +1,18 @@
 // @polsia:user-owned — Contact and feedback. Only routes that reach a person today.
-import { ArrowUpRight, Bug, MessageSquare } from 'lucide-react';
+import { ArrowUpRight, Bug, Mail, MessageSquare } from 'lucide-react';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/custom/ecosystem';
-import { FEEDBACK_URL, RENOR_APP_URL } from '@/lib/business/ecosystem';
+import {
+  CONTACT_EMAIL,
+  CONTACT_MAILTO,
+  FEEDBACK_URL,
+  RENOR_APP_URL,
+} from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
   title: 'Contact FounderNexora',
   description:
-    'How to reach FounderNexora: feedback on the website and Renor, bug reports and questions.',
+    'How to reach FounderNexora: email, feedback on the website and Renor, bug reports and questions.',
   alternates: { canonical: '/contact' },
 };
 
@@ -20,7 +25,21 @@ export default function ContactPage() {
         lede="Feedback shapes what we build next. These are the ways to reach us today."
       />
       <section className="px-5 py-16 sm:px-8 sm:py-20">
-        <div className="mx-auto grid max-w-screen-xl gap-5 md:grid-cols-2">
+        <div className="mx-auto grid max-w-screen-xl gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <article className="flex flex-col rounded-2xl border border-border/70 bg-card/60 p-7">
+            <Mail aria-hidden="true" className="size-6 text-brand-500 dark:text-brand-400" />
+            <h2 className="mt-5 text-xl font-semibold">Email</h2>
+            <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+              For business, partnerships, privacy and data requests, or anything you would rather
+              not post in public. A person reads every message.
+            </p>
+            <a
+              href={CONTACT_MAILTO}
+              className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold break-all text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+            >
+              {CONTACT_EMAIL}
+            </a>
+          </article>
           <article className="flex flex-col rounded-2xl border border-border/70 bg-card/60 p-7">
             <Bug aria-hidden="true" className="size-6 text-brand-500 dark:text-brand-400" />
             <h2 className="mt-5 text-xl font-semibold">Public feedback and bug reports</h2>
@@ -60,9 +79,6 @@ export default function ContactPage() {
             </a>
           </article>
         </div>
-        <p className="mx-auto mt-10 max-w-screen-xl text-sm text-muted-foreground">
-          A direct email address for business and privacy requests will be published here.
-        </p>
       </section>
     </main>
   );

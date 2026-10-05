@@ -128,3 +128,11 @@ describe('claims', () => {
     expect([...times].sort((a, b) => b - a)).toEqual(times);
   });
 });
+
+describe('public contact email', () => {
+  it('is the founder-confirmed address, linked as mailto', async () => {
+    const { CONTACT_EMAIL, CONTACT_MAILTO } = await import('../../src/lib/business/ecosystem');
+    expect(CONTACT_EMAIL).toBe('founder.nexoralabs@gmail.com');
+    expect(CONTACT_MAILTO).toBe('mailto:founder.nexoralabs@gmail.com');
+  });
+});

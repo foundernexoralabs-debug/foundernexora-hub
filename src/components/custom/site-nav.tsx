@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { type NavGroup, type NavItem, navItems } from '@/lib/nav';
 import { siteName } from '@/lib/site';
 import { cn } from '@/lib/utils';
@@ -399,9 +400,17 @@ export function SiteFooter() {
         ))}
       </div>
       <div className="border-t border-border/70">
-        <p className="mx-auto max-w-screen-xl px-5 py-5 text-xs text-muted-foreground sm:px-8">
-          © {new Date().getFullYear()} {siteName}. Renor is in preview.
-        </p>
+        <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-5 py-5 text-xs text-muted-foreground sm:px-8">
+          <p>
+            © {new Date().getFullYear()} {siteName}. Renor is in preview.
+          </p>
+          <a
+            href={CONTACT_MAILTO}
+            className="inline-flex min-h-11 items-center underline-offset-4 hover:text-foreground hover:underline sm:min-h-0"
+          >
+            {CONTACT_EMAIL}
+          </a>
+        </div>
       </div>
     </footer>
   );

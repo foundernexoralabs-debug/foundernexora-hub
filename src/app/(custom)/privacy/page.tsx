@@ -3,6 +3,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
   title: 'Privacy',
@@ -78,7 +79,11 @@ export default function PrivacyPage() {
 
         <h2>Questions and requests</h2>
         <p>
-          To ask about your data, see{' '}
+          To ask about your data, or to have it corrected or deleted, email{' '}
+          <a href={CONTACT_MAILTO} className="text-foreground underline underline-offset-4">
+            {CONTACT_EMAIL}
+          </a>{' '}
+          or see{' '}
           <Link href="/contact" className="text-foreground underline underline-offset-4">
             Contact
           </Link>

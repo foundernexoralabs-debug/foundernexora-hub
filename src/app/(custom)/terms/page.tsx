@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
   title: 'Terms',
@@ -51,6 +52,10 @@ export default function TermsPage() {
         <h2>Changes and contact</h2>
         <p>
           We may update these terms and will change the date at the top when we do. Questions:{' '}
+          <a href={CONTACT_MAILTO} className="text-foreground underline underline-offset-4">
+            {CONTACT_EMAIL}
+          </a>{' '}
+          or{' '}
           <Link href="/contact" className="text-foreground underline underline-offset-4">
             Contact
           </Link>
