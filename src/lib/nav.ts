@@ -35,4 +35,5 @@ export const navItems: NavItem[] = [
   { label: 'Privacy', href: '/privacy', group: 'footer', menu: 'Legal', order: 7 },
   { label: 'Terms', href: '/terms', group: 'footer', menu: 'Legal', order: 8 },
   { label: 'Store policies', href: '/store#policies', group: 'footer', menu: 'Legal', order: 9 },
+  { label: 'Accessibility', href: '/accessibility', group: 'footer', menu: 'Legal', order: 10 },
 ];

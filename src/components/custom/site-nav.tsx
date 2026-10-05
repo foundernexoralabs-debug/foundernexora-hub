@@ -126,7 +126,10 @@ export function SiteNav() {
         aria-label="Primary"
         className="mx-auto flex h-14 max-w-screen-xl items-center gap-2 px-4"
       >
-        <Link href="/" className="mr-2 shrink-0 truncate text-base font-semibold tracking-tight">
+        <Link
+          href="/"
+          className="mr-2 inline-flex min-h-11 shrink-0 items-center truncate text-base font-semibold tracking-tight"
+        >
           {siteName}
         </Link>
 
@@ -252,13 +255,13 @@ export function SiteNav() {
           </div>
 
           {/* Always visible */}
-          <ThemeToggle />
+          <ThemeToggle className="size-11 md:size-9" />
 
           {/* Mobile (below md): burger + drawer — only when there's something to collapse */}
           {collapsedCount > 0 && (
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
+                <Button variant="ghost" size="icon" className="size-11 md:hidden">
                   <Menu />
                   <span className="sr-only">Open menu</span>
                 </Button>
@@ -372,7 +375,10 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-card/30">
       <div className="mx-auto grid max-w-screen-xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-[1.2fr_repeat(3,1fr)]">
         <div>
-          <Link href="/" className="text-base font-semibold tracking-tight">
+          <Link
+            href="/"
+            className="inline-flex min-h-11 items-center text-base font-semibold tracking-tight"
+          >
             {siteName}
           </Link>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">

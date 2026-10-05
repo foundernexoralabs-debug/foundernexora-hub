@@ -74,7 +74,7 @@ export default function ProjectsPage() {
       <PageHero
         eyebrow="Projects"
         title="What we are building, and how far along it is."
-        lede="Every project carries one honest status. Hover or focus a status to see exactly what it means."
+        lede="Every project carries one honest status. The key at the end of this page says exactly what each one means."
       />
       <section className="px-5 py-16 sm:px-8 sm:py-20">
         <div className="mx-auto grid max-w-screen-xl gap-16">

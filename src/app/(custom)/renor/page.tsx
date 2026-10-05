@@ -59,7 +59,7 @@ export default function RenorPage() {
             <span className="text-brand-500 dark:text-brand-400">and prove it works.</span>
           </>
         }
-        lede="Renor brings chat, coding, website building and your projects together, and shows you evidence of what it actually did. It is in preview: useful today, still being verified."
+        lede="Renor brings chat, coding, website building and your projects together, and shows you evidence of what it actually did. It is in preview: useful today, still being verified. The public preview still opens under its earlier name, FounderLab AI."
       >
         <Button
           asChild
@@ -187,8 +187,10 @@ export default function RenorPage() {
             <div className="rounded-2xl border border-brand-500/30 bg-gradient-to-br from-brand-500/10 to-background p-7">
               <p className="text-sm font-semibold">Web preview</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                The public preview runs the 19 September build. Newer features shown above arrive
-                when the release candidate is approved.
+                The public preview runs the 19 September build, which still carries the earlier
+                name <span className="font-medium text-foreground">FounderLab AI</span>. Newer
+                features shown above, and the Renor name, arrive when the release candidate is
+                approved.
               </p>
               <a
                 href={RENOR_APP_URL}
