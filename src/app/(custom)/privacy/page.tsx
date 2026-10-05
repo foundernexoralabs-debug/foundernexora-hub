@@ -62,8 +62,8 @@ export default function PrivacyPage() {
         <p>
           Renor is a separate app that you sign in to. It stores your account, projects, notes and
           settings so you can come back to them, and it sends your requests to the AI provider you
-          use. In the next Renor release, code you run with Python in Code AI runs in your own browser. Renor’s full privacy
-          terms will be published before any paid plan exists.
+          use. In the next Renor release, code you run with Python in Code AI runs in your own
+          browser. Renor’s full privacy terms will be published before any paid plan exists.
         </p>
 
         <h2>The store</h2>

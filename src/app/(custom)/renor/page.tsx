@@ -187,10 +187,9 @@ export default function RenorPage() {
             <div className="rounded-2xl border border-brand-500/30 bg-gradient-to-br from-brand-500/10 to-background p-7">
               <p className="text-sm font-semibold">Web preview</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                The public preview runs the 19 September build, which still carries the earlier
-                name <span className="font-medium text-foreground">FounderLab AI</span>. Newer
-                features shown above, and the Renor name, arrive when the release candidate is
-                approved.
+                The public preview runs the 19 September build, which still carries the earlier name{' '}
+                <span className="font-medium text-foreground">FounderLab AI</span>. Newer features
+                shown above, and the Renor name, arrive when the release candidate is approved.
               </p>
               <a
                 href={RENOR_APP_URL}
