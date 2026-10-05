@@ -37,6 +37,8 @@ function useIsAuthenticated(): boolean {
   return false;
 }
 
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+
 function visibleItems(group: NavGroup, isAuthenticated: boolean): NavItem[] {
   return navItems
     .filter((item) => item.group === group && (!item.requiresAuth || isAuthenticated))
@@ -234,9 +236,16 @@ export function SiteNav() {
           <div className="hidden items-center gap-1 md:flex">
             {secondary.map((item) => (
               <Button key={item.href} asChild variant="secondary" size="sm">
-                <Link href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
-                  {item.label}
-                </Link>
+                {isExternal(item.href) ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer">
+                    {item.label}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                ) : (
+                  <Link href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </Link>
+                )}
               </Button>
             ))}
           </div>
@@ -314,13 +323,25 @@ export function SiteNav() {
                           variant="secondary"
                           className="w-full justify-start"
                         >
-                          <Link
-                            href={item.href}
-                            aria-current={isActive(item.href) ? 'page' : undefined}
-                            onClick={() => setOpen(false)}
-                          >
-                            {item.label}
-                          </Link>
+                          {isExternal(item.href) ? (
+                            <a
+                              href={item.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => setOpen(false)}
+                            >
+                              {item.label}
+                              <span className="sr-only"> (opens in a new tab)</span>
+                            </a>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              aria-current={isActive(item.href) ? 'page' : undefined}
+                              onClick={() => setOpen(false)}
+                            >
+                              {item.label}
+                            </Link>
+                          )}
                         </Button>
                       ))}
                     </div>
@@ -339,19 +360,49 @@ export function SiteFooter() {
   const isAuthenticated = useIsAuthenticated();
   const footer = visibleItems('footer', isAuthenticated);
   if (footer.length === 0) return null;
+  // Columns in first-seen order; an item without a `menu` lands in "More".
+  const columns = new Map<string, NavItem[]>();
+  for (const item of footer) {
+    const key = item.menu ?? 'More';
+    columns.set(key, [...(columns.get(key) ?? []), item]);
+  }
 
   return (
-    <footer className="border-t border-border">
-      <nav
-        aria-label="Footer"
-        className="mx-auto flex max-w-screen-xl flex-wrap items-center gap-1 px-4 py-6 text-sm"
-      >
-        {footer.map((item) => (
-          <Button key={item.href} asChild variant="link" size="sm">
-            <Link href={item.href}>{item.label}</Link>
-          </Button>
+    <footer className="border-t border-border bg-card/30">
+      <div className="mx-auto grid max-w-screen-xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-[1.2fr_repeat(3,1fr)]">
+        <div>
+          <Link href="/" className="text-base font-semibold tracking-tight">
+            {siteName}
+          </Link>
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            Technology for the work ahead. Every product and feature shows its real status.
+          </p>
+        </div>
+        {[...columns].map(([heading, items]) => (
+          <nav key={heading} aria-label={heading}>
+            <p className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+              {heading}
+            </p>
+            <ul className="mt-3 grid gap-1">
+              {items.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="inline-flex min-h-9 items-center text-sm text-foreground/80 underline-offset-4 hover:text-foreground hover:underline"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         ))}
-      </nav>
+      </div>
+      <div className="border-t border-border/70">
+        <p className="mx-auto max-w-screen-xl px-5 py-5 text-xs text-muted-foreground sm:px-8">
+          © {new Date().getFullYear()} {siteName}. Renor is in preview.
+        </p>
+      </div>
     </footer>
   );
 }
