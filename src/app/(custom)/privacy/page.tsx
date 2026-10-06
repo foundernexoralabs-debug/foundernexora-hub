@@ -8,7 +8,7 @@ import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 export const metadata: Metadata = {
   title: 'Privacy',
   description:
-    'What the FounderNexora website collects, what it does not, and how Renor handles your work.',
+    'What the FounderLab website collects, what it does not, and how Renor handles your work.',
   alternates: { canonical: '/privacy' },
 };
 
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
       <article className="prose-legal mx-auto max-w-3xl px-5 py-16 text-base leading-relaxed text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
         <h2>This website</h2>
         <p>
-          The FounderNexora website is for reading. It has no accounts, no sign-up forms and no
+          The FounderLab website is for reading. It has no accounts, no sign-up forms and no
           advertising.
         </p>
         <ul>

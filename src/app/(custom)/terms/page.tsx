@@ -6,8 +6,7 @@ import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
   title: 'Terms',
-  description:
-    'Terms for using the FounderNexora website, and where Renor and store terms will live.',
+  description: 'Terms for using the FounderLab website, and where Renor and store terms will live.',
   alternates: { canonical: '/terms' },
 };
 
@@ -20,9 +19,9 @@ export default function TermsPage() {
       <article className="mx-auto max-w-3xl px-5 py-16 text-base leading-relaxed text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
         <h2>What this website is</h2>
         <p>
-          This website describes FounderNexora and its projects. We work to keep it accurate, and
-          every product and feature shows its status (live, preview, experimental or planned).
-          Features described as planned are intentions, not promises, and may change.
+          This website describes FounderLab and its projects. We work to keep it accurate, and every
+          product and feature shows its status (live, preview, experimental or planned). Features
+          described as planned are intentions, not promises, and may change.
         </p>
 
         <h2>Previews</h2>
@@ -35,8 +34,8 @@ export default function TermsPage() {
         <h2>Content and code</h2>
         <p>
           The source code of this website is public on GitHub under its stated licence. Product
-          names, the Renor and FounderNexora brands and the screenshots on this site belong to
-          FounderNexora.
+          names, the Renor and FounderLab brands and the screenshots on this site belong to
+          FounderLab.
         </p>
 
         <h2>Product and store terms</h2>

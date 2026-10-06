@@ -1,4 +1,4 @@
-// @polsia:user-owned — shared building blocks for the FounderNexora pages.
+// @polsia:user-owned — shared building blocks for the FounderLab pages.
 // One status vocabulary, one page header, one screenshot frame: every page
 // composes these so the site reads as one connected system.
 import Image from 'next/image';

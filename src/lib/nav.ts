@@ -1,4 +1,4 @@
-// @polsia:user-owned — FounderNexora navigation. One list drives the top bar, the footer and the sitemap.
+// @polsia:user-owned — FounderLab navigation. One list drives the top bar, the footer and the sitemap.
 import { RENOR_APP_URL } from '@/lib/business/ecosystem';
 
 export type NavGroup = 'primary' | 'secondary' | 'footer';

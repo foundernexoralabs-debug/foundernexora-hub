@@ -6,6 +6,7 @@ import { ChevronDown, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
+import { BrandMark } from '@/components/custom/brand-mark';
 import { ThemeToggle } from '@/components/custom/theme-toggle';
 import { Button } from '@/components/ui/button';
 import {
@@ -128,9 +129,11 @@ export function SiteNav() {
       >
         <Link
           href="/"
-          className="mr-2 inline-flex min-h-11 shrink-0 items-center truncate text-base font-semibold tracking-tight"
+          aria-label={`${siteName} home`}
+          className="mr-2 inline-flex min-h-11 shrink-0 items-center gap-2.5 rounded-lg text-base font-semibold tracking-tight"
         >
-          {siteName}
+          <BrandMark />
+          <span>{siteName}</span>
         </Link>
 
         {/* Desktop (md+): inline slots — direct links + `menu` dropdowns */}
@@ -395,7 +398,7 @@ export function SiteFooter() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="inline-flex min-h-9 items-center text-sm text-foreground/80 underline-offset-4 hover:text-foreground hover:underline"
+                    className="inline-flex min-h-11 items-center text-sm text-foreground/80 sm:min-h-9 underline-offset-4 hover:text-foreground hover:underline"
                   >
                     {item.label}
                   </Link>

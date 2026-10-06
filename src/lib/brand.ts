@@ -1,8 +1,11 @@
 // @polsia:user-owned — brand identity.
+//
+// The company is FounderLab; its product is Renor ("Renor by FounderLab").
+// The public email and repository URLs keep their original addresses on purpose.
 
-export const siteName = 'FounderNexora';
+export const siteName = 'FounderLab';
 export const siteDescription =
-  'FounderNexora builds Renor, an AI workspace for chatting, coding, building websites and keeping projects together, plus a small family of practical technology projects.';
+  'FounderLab builds Renor, an AI workspace for chatting, coding, building websites and keeping projects together, alongside the Renor Labs Store and Zero to Prove, its build-in-public journey.';
 
 export const brandVisual = {
   themeColor: '#6366f1',
@@ -10,6 +13,6 @@ export const brandVisual = {
   og: {
     background: '#09090f',
     foreground: '#eeeef8',
-    tagline: 'Technology for the work ahead.',
+    tagline: 'The company behind Renor.',
   },
 } as const;

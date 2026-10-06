@@ -6,7 +6,7 @@ import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 export const metadata: Metadata = {
   title: 'Accessibility',
   description:
-    'How the FounderNexora website is built to be usable by everyone, what we have checked, its known limits and how to report a barrier.',
+    'How the FounderLab website is built to be usable by everyone, what we have checked, its known limits and how to report a barrier.',
   alternates: { canonical: '/accessibility' },
 };
 

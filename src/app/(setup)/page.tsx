@@ -1,4 +1,4 @@
-// @polsia:user-owned — FounderNexora public company front door.
+// @polsia:user-owned — FounderLab public company front door.
 // Truthful copy: every project, feature and milestone comes from src/lib/business/ecosystem.ts.
 import {
   ArrowRight,
@@ -34,9 +34,9 @@ export const metadata: Metadata = {
   description: siteDescription,
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'FounderNexora — technology for the work ahead',
+    title: 'FounderLab — the company behind Renor',
     description:
-      'Meet FounderNexora, explore Renor AI and follow the development of practical AI-native tools.',
+      'Meet FounderLab, explore Renor and follow the development of practical AI-native tools.',
   },
 };
 
@@ -87,7 +87,7 @@ export default function HomePage() {
               className="mb-7 border-brand-500/40 bg-brand-500/10 px-4 py-2 text-xs font-medium tracking-[0.13em] text-brand-500 dark:text-brand-400"
             >
               <CircleDot aria-hidden="true" className="mr-2 size-3" />
-              FOUNDERNEXORA<span className="hidden sm:inline">&nbsp;· BUILDING WITH PURPOSE</span>
+              FOUNDERLAB<span className="hidden sm:inline">&nbsp;· MAKERS OF RENOR</span>
             </Badge>
             <h1 className="font-display text-5xl leading-[1.03] font-semibold tracking-[-0.055em] sm:text-7xl">
               Technology for{' '}
@@ -96,9 +96,9 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              We build Renor, an AI workspace for people who make things, and a small family of
-              related projects. Explore what works today, see what is being built, and judge us by
-              the evidence.
+              FounderLab builds Renor, an AI workspace for people who make things, and a small
+              family of related projects. Explore what works today, see what is being built, and
+              judge us by the evidence.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button
@@ -229,7 +229,7 @@ export default function HomePage() {
                 <li key={area.id}>
                   <Link
                     href={`/renor#${area.id}`}
-                    className="inline-flex min-h-9 items-center gap-2 font-medium underline-offset-4 hover:underline"
+                    className="inline-flex min-h-11 items-center gap-2 font-medium underline-offset-4 hover:underline sm:min-h-9"
                   >
                     <ArrowRight
                       aria-hidden="true"

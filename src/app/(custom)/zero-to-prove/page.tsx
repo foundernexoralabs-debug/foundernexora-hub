@@ -16,7 +16,7 @@ import {
 export const metadata: Metadata = {
   title: 'Zero to Prove — building Renor in public',
   description:
-    'Zero to Prove follows FounderNexora’s founder building Renor in public: what was built, what broke, and what was actually proven.',
+    'Zero to Prove follows FounderLab’s founder building Renor in public: what was built, what broke, and what was actually proven.',
   alternates: { canonical: '/zero-to-prove' },
 };
 
@@ -58,7 +58,7 @@ export default function ZeroToProvePage() {
       <PageHero
         eyebrow="Zero to Prove"
         title="Building a real AI product in public, from zero to proven."
-        lede="Zero to Prove follows the founder of FounderNexora building Renor: what was built, what broke, and what was actually proven. If you came from a video, this is where the work lives."
+        lede="Zero to Prove follows the founder of FounderLab building Renor: what was built, what broke, and what was actually proven. If you came from a video, this is where the work lives."
       >
         <Button
           asChild

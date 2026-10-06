@@ -10,9 +10,9 @@ import {
 } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
-  title: 'Contact FounderNexora',
+  title: 'Contact FounderLab',
   description:
-    'How to reach FounderNexora: email, feedback on the website and Renor, bug reports and questions.',
+    'How to reach FounderLab: email, feedback on the website and Renor, bug reports and questions.',
   alternates: { canonical: '/contact' },
 };
 

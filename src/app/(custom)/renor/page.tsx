@@ -16,7 +16,7 @@ import { RENOR_APP_URL, RENOR_AREAS } from '@/lib/business/ecosystem';
 export const metadata: Metadata = {
   title: 'Renor AI — chat, code, websites and projects in one workspace',
   description:
-    'Renor is FounderNexora’s AI workspace: Chat AI, Code AI, a Website Builder and a Project Office, with results you can check. In preview.',
+    'Renor is FounderLab’s AI workspace: Chat AI, Code AI, a Website Builder and a Project Office, with results you can check. In preview.',
   alternates: { canonical: '/renor' },
   openGraph: {
     title: 'Renor AI — from idea to verified work',
@@ -52,7 +52,7 @@ export default function RenorPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <PageHero
-        eyebrow="Renor AI · Preview"
+        eyebrow="Renor by FounderLab · Preview"
         title={
           <>
             One workspace to think, build{' '}

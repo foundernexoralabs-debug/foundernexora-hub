@@ -1,4 +1,4 @@
-// @polsia:user-owned — About FounderNexora. Only facts that can be checked; no invented history.
+// @polsia:user-owned — About FounderLab. Only facts that can be checked; no invented history.
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -6,9 +6,9 @@ import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
 import { PUBLIC_REPO_URL } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
-  title: 'About FounderNexora',
+  title: 'About FounderLab',
   description:
-    'FounderNexora is a technology company building Renor and practical AI-native tools, with honest status for everything it makes.',
+    'FounderLab is a technology company building Renor and practical AI-native tools, with honest status for everything it makes.',
   alternates: { canonical: '/company' },
 };
 
@@ -37,7 +37,7 @@ export default function CompanyPage() {
       <PageHero
         eyebrow="About"
         title="A small technology company that would rather prove than promise."
-        lede="FounderNexora builds Renor, an AI workspace for people who make things, and a small family of related projects. Everything we publish says plainly what works today and what does not yet."
+        lede="FounderLab builds Renor, an AI workspace for people who make things, and a small family of related projects. Everything we publish says plainly what works today and what does not yet."
       />
       <section className="px-5 py-20 sm:px-8 sm:py-24">
         <div className="mx-auto grid max-w-screen-xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">

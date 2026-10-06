@@ -7,7 +7,7 @@ import { ProductCard } from '@/components/custom/store';
 import { PRODUCTS, productsIn, STORE_CATEGORIES } from '@/lib/business/store';
 
 export const metadata: Metadata = {
-  title: 'Renor Labs Store — digital tools from FounderNexora',
+  title: 'Renor Labs Store — digital tools from FounderLab',
   description:
     'Renor Labs Store will offer digital AI tools, developer resources and creator products. The store is being prepared; nothing is on sale yet.',
   alternates: { canonical: '/store' },
@@ -22,7 +22,7 @@ export default function StorePage() {
         title="Digital tools, built and tested with Renor."
         lede={
           open
-            ? 'Digital AI tools, developer resources and creator products from the FounderNexora team.'
+            ? 'Digital AI tools, developer resources and creator products from the FounderLab team.'
             : 'The store is being prepared. Products will appear here once they are finished, priced and ready to deliver. Nothing is on sale yet.'
         }
       />
@@ -111,7 +111,7 @@ export default function StorePage() {
               </span>
             </p>
             <p>
-              Payments will be handled by our checkout provider; FounderNexora will not see or store
+              Payments will be handled by our checkout provider; FounderLab will not see or store
               your card details. No checkout is active today.
             </p>
             <p>

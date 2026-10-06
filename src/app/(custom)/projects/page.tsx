@@ -1,4 +1,4 @@
-// @polsia:user-owned — every FounderNexora project, grouped by how real it is today.
+// @polsia:user-owned — every FounderLab project, grouped by how real it is today.
 import { ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -6,9 +6,9 @@ import { PageHero, StatusBadge } from '@/components/custom/ecosystem';
 import { PROJECTS, type Project, STATUS, type StatusKey } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
-  title: 'Projects — what FounderNexora is building',
+  title: 'Projects — what FounderLab is building',
   description:
-    'FounderNexora’s projects, separated into what you can use today, what is being tested and what is planned.',
+    'FounderLab’s projects, separated into what you can use today, what is being tested and what is planned.',
   alternates: { canonical: '/projects' },
 };
 
