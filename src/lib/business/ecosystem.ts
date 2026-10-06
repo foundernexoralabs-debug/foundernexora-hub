@@ -63,9 +63,9 @@ export const PROJECTS: readonly Project[] = [
     status: 'planned',
     kind: 'Digital products',
     summary:
-      'A store for digital AI tools, developer resources and creator products. Nothing is on sale yet; products appear only when they are finished.',
+      'Practical digital products. The first two, TradeLaunch kits for electricians, are listed as coming soon; nothing can be bought yet.',
     href: '/store',
-    action: 'See the store plan',
+    action: 'Browse the store',
   },
   {
     slug: 'zero-to-prove',

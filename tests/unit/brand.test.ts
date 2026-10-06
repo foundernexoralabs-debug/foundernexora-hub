@@ -34,4 +34,16 @@ describe('brand', () => {
       expect(/nexora/i.test(text), path.relative(srcDir, file)).toBe(false);
     }
   });
+
+  it('publishes exactly one email address: the public company email', () => {
+    for (const file of sourceFiles(srcDir)) {
+      const emails =
+        readFileSync(file, 'utf-8').match(
+          /[\w.%+-]+@[A-Za-z][\w-]*(?:\.[\w-]+)*\.[A-Za-z]{2,}\b/g,
+        ) ?? [];
+      for (const email of emails) {
+        expect(email, path.relative(srcDir, file)).toBe('founder.nexoralabs@gmail.com');
+      }
+    }
+  });
 });

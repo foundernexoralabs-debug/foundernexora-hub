@@ -68,9 +68,9 @@ export default function PrivacyPage() {
 
         <h2>The store</h2>
         <p>
-          The Renor Labs Store is not open. Before it sells anything, its privacy and payment terms
-          will be published, and payments will be handled by the checkout provider, not stored by
-          us. See the{' '}
+          The Renor Labs Store lists its first products but does not sell anything yet. Before it
+          does, its privacy and payment terms will be published, and payments will be handled by the
+          checkout provider, not stored by us. See the{' '}
           <Link href="/store#policies" className="text-foreground underline underline-offset-4">
             store policies
           </Link>

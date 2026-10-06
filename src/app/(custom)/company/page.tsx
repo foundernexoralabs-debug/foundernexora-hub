@@ -49,8 +49,8 @@ export default function CompanyPage() {
               make, and Zero to Prove, where the building happens in public.
             </p>
             <p>
-              We are early. The product is in preview, the store is not open yet, and we say so. You
-              can follow every public change to this website on GitHub.
+              We are early. Renor is in preview, the store’s first products are not on sale yet, and
+              we say so. You can follow every public change to this website on GitHub.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-base">
               <Link
