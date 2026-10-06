@@ -3,6 +3,7 @@ import { ArrowUpRight, CircleCheck, CircleDashed } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { Button } from '@/components/ui/button';
 import { RENOR_APP_URL } from '@/lib/business/ecosystem';
 import { PLAN_PRINCIPLES, PLANS } from '@/lib/business/plans';
@@ -156,6 +157,7 @@ export default function PlansPage() {
           </p>
         </div>
       </section>
+      <ExploreBand page="plans" />
     </main>
   );
 }

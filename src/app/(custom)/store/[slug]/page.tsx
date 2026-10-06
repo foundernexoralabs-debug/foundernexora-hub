@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Eyebrow } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { categoryName, ProductCard, ProductEmblem, PurchasePanel } from '@/components/custom/store';
 import { findProduct, isPurchasable, PRODUCTS, relatedProducts } from '@/lib/business/store';
 
@@ -171,6 +172,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
       ) : null}
+      <ExploreBand page="product" />
     </main>
   );
 }

@@ -1,6 +1,7 @@
 // @polsia:user-owned — accessibility statement for this website. States only what has been checked.
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
@@ -72,6 +73,7 @@ export default function AccessibilityPage() {
           . Tell us the page and what happened, and we will reply and fix what we can.
         </p>
       </article>
+      <ExploreBand page="accessibility" />
     </main>
   );
 }

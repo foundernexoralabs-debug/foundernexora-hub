@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { PUBLIC_REPO_URL } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
@@ -98,6 +99,7 @@ export default function CompanyPage() {
           </div>
         </div>
       </section>
+      <ExploreBand page="company" />
     </main>
   );
 }

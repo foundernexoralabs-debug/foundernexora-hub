@@ -4,6 +4,7 @@ import { ArrowRight, PackageOpen, ShieldCheck } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Eyebrow, PageHero, SectionHeading } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { ProductCard } from '@/components/custom/store';
 import { Button } from '@/components/ui/button';
 import { isPurchasable, PRODUCTS, productsIn, STORE_CATEGORIES } from '@/lib/business/store';
@@ -168,6 +169,7 @@ export default function StorePage() {
           </div>
         </div>
       </section>
+      <ExploreBand page="store" />
     </main>
   );
 }

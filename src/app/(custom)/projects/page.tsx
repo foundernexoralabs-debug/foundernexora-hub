@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero, StatusBadge } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { PROJECTS, type Project, STATUS, type StatusKey } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
@@ -111,6 +112,7 @@ export default function ProjectsPage() {
           </dl>
         </div>
       </section>
+      <ExploreBand page="projects" />
     </main>
   );
 }

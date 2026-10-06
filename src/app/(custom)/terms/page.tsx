@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
@@ -61,6 +62,7 @@ export default function TermsPage() {
           .
         </p>
       </article>
+      <ExploreBand page="terms" />
     </main>
   );
 }

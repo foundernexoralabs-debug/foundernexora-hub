@@ -10,6 +10,7 @@ import {
   SectionHeading,
   StatusBadge,
 } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { Button } from '@/components/ui/button';
 import { RENOR_APP_URL, RENOR_AREAS } from '@/lib/business/ecosystem';
 
@@ -215,6 +216,7 @@ export default function RenorPage() {
           </div>
         </div>
       </section>
+      <ExploreBand page="renor" />
     </main>
   );
 }

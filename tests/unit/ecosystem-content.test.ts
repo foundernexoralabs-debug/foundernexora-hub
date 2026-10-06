@@ -65,6 +65,7 @@ describe('internal links', () => {
       '/contact',
       '/privacy',
       '/terms',
+      '/accessibility',
     ]) {
       expect(ROUTES.has(route), route).toBe(true);
     }

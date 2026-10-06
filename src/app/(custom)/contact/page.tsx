@@ -2,6 +2,7 @@
 import { ArrowUpRight, Bug, Mail, MessageSquare } from 'lucide-react';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import {
   CONTACT_EMAIL,
   CONTACT_MAILTO,
@@ -80,6 +81,7 @@ export default function ContactPage() {
           </article>
         </div>
       </section>
+      <ExploreBand page="contact" />
     </main>
   );
 }

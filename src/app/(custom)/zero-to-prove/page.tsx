@@ -1,9 +1,9 @@
 // @polsia:user-owned — Zero to Prove: the founder's build-in-public journey.
 // For visitors arriving from YouTube or TikTok: what this is, what has been proven, where to go next.
-import { ArrowRight, ArrowUpRight, Github, Youtube } from 'lucide-react';
+import { ArrowUpRight, Github, Youtube } from 'lucide-react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { Button } from '@/components/ui/button';
 import {
   CHANNELS,
@@ -164,17 +164,9 @@ export default function ZeroToProvePage() {
               </li>
             ))}
           </ul>
-          <p className="mt-10 text-sm text-muted-foreground">
-            Want to see the product itself?{' '}
-            <Link
-              href="/renor"
-              className="inline-flex items-center gap-1 font-medium text-foreground underline underline-offset-4"
-            >
-              Explore Renor <ArrowRight aria-hidden="true" className="size-3.5" />
-            </Link>
-          </p>
         </div>
       </section>
+      <ExploreBand page="zero-to-prove" />
     </main>
   );
 }

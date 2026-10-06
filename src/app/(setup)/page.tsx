@@ -18,6 +18,7 @@ import {
   SCREENSHOT_CAPTION,
   StatusBadge,
 } from '@/components/custom/ecosystem';
+import { ExploreBand } from '@/components/custom/explore';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -329,6 +330,7 @@ export default function HomePage() {
           </ol>
         </div>
       </section>
+      <ExploreBand page="home" />
     </main>
   );
 }

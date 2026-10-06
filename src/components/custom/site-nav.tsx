@@ -2,7 +2,7 @@
 
 'use client';
 
-import { ChevronDown, Menu } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
@@ -363,6 +363,9 @@ export function SiteNav() {
   );
 }
 
+const FOOTER_LINK =
+  'inline-flex min-h-11 items-center gap-1 rounded-sm text-sm text-foreground/75 underline-offset-4 transition-colors hover:text-foreground hover:underline sm:min-h-9';
+
 export function SiteFooter() {
   const isAuthenticated = useIsAuthenticated();
   const footer = visibleItems('footer', isAuthenticated);
@@ -373,44 +376,72 @@ export function SiteFooter() {
     const key = item.menu ?? 'More';
     columns.set(key, [...(columns.get(key) ?? []), item]);
   }
+  const appLink = navItems.find((item) => item.group === 'secondary' && isExternal(item.href));
 
   return (
     <footer className="border-t border-border bg-card/30">
-      <div className="mx-auto grid max-w-screen-xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-[1.2fr_repeat(3,1fr)]">
-        <div>
+      <div className="mx-auto grid max-w-screen-xl gap-12 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.35fr_2fr] lg:gap-16">
+        <div className="max-w-sm">
           <Link
             href="/"
-            className="inline-flex min-h-11 items-center text-base font-semibold tracking-tight"
+            aria-label={`${siteName} home`}
+            className="inline-flex min-h-11 items-center gap-2.5 rounded-lg text-base font-semibold tracking-tight"
           >
-            {siteName}
+            <BrandMark />
+            <span>{siteName}</span>
           </Link>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Technology for the work ahead. Every product and feature shows its real status.
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            {siteName} builds <span className="font-medium text-foreground">Renor</span>, the AI
+            workspace for chat, code, websites and projects, alongside the{' '}
+            <span className="font-medium text-foreground">Renor Labs Store</span> and{' '}
+            <span className="font-medium text-foreground">Zero to Prove</span>, our build in public.
+            Every product shows its real status.
           </p>
+          {appLink ? (
+            <Button asChild variant="secondary" className="mt-6 min-h-11 rounded-full px-5">
+              <a href={appLink.href} target="_blank" rel="noopener noreferrer">
+                {appLink.label}
+                <ArrowUpRight aria-hidden="true" className="ml-1.5 size-4" />
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </Button>
+          ) : null}
         </div>
-        {[...columns].map(([heading, items]) => (
-          <nav key={heading} aria-label={heading}>
-            <p className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-              {heading}
-            </p>
-            <ul className="mt-3 grid gap-1">
-              {items.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="inline-flex min-h-11 items-center text-sm text-foreground/80 sm:min-h-9 underline-offset-4 hover:text-foreground hover:underline"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ))}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
+          {[...columns].map(([heading, items]) => (
+            <nav key={heading} aria-label={`${heading} links`}>
+              <p className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                {heading}
+              </p>
+              <ul className="mt-3 grid gap-0.5">
+                {items.map((item) => (
+                  <li key={item.href}>
+                    {isExternal(item.href) ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={FOOTER_LINK}
+                      >
+                        {item.label}
+                        <ArrowUpRight aria-hidden="true" className="size-3.5 opacity-70" />
+                        <span className="sr-only"> (opens in a new tab)</span>
+                      </a>
+                    ) : (
+                      <Link href={item.href} className={FOOTER_LINK}>
+                        {item.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
       </div>
       <div className="border-t border-border/70">
-        <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-5 py-5 text-xs text-muted-foreground sm:px-8">
-          <p>
+        <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-5 py-4 text-xs text-muted-foreground sm:px-8">
+          <p className="py-2">
             © {new Date().getFullYear()} {siteName}. Renor is in preview.
           </p>
           <a
