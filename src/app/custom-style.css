@@ -1,3 +1,45 @@
 /* @polsia:user-owned — your custom global CSS: keyframes, animation classes, one-off global
  * styles, and @import your own .css files. Prefer tw-animate-css for motion (animate-in,
  * fade-in, slide-in-from-bottom-N, duration-*). globals.css is framework-owned — edit HERE. */
+
+/* Anchors land below the sticky header; in-page jumps glide unless motion is reduced. */
+html {
+  scroll-padding-top: 5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Respect reduced motion everywhere: no hover lifts, no animated transitions. Unlayered
+   rules already outrank Tailwind's layered utilities, so no !important is needed. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
+  }
+  .hover\:-translate-y-0\.5:hover {
+    transform: none;
+  }
+}
+
+@layer base {
+  /* One visible, on-brand keyboard focus ring for every link and control. */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  /* Selection in the brand colour. */
+  ::selection {
+    background: color-mix(in oklch, var(--brand-500) 35%, transparent);
+  }
+}

@@ -1,10 +1,10 @@
 <div align="center">
 
-# FounderNexora
+# FounderLab
 
 ### Building useful AI-native products — and the operating system behind them.
 
-**FounderNexora** is the public company hub for a growing set of products, research systems, media, and revenue engines coordinated through a durable Company OS.
+**FounderLab** is the public company hub for a growing set of products, research systems, media, and revenue engines coordinated through a durable Company OS.
 
 [![Status](https://img.shields.io/badge/status-building-111827?style=for-the-badge)](#current-state)
 [![Company OS](https://img.shields.io/badge/company%20os-continuity%20v0.1-312e81?style=for-the-badge)](#company-os)
@@ -19,7 +19,7 @@
 
 Most AI projects are isolated tools.
 
-FounderNexora is being built around a different idea:
+FounderLab is being built around a different idea:
 
 > **Products should share durable memory, proven workflows, evidence, and infrastructure — without collapsing into one giant monolith.**
 
@@ -36,7 +36,7 @@ The long-term aim is simple to say and difficult to build well:
 ```mermaid
 flowchart TD
     O[Owner] --> C[Company Core / Aether]
-    C --> R[Renor / FounderLab]
+    C --> R[Renor]
     C --> F[Fiverr Revenue]
     C --> Y[YouTube Media]
     C --> T[Trading Lab]
@@ -54,7 +54,7 @@ flowchart TD
 | Station | Role | Current direction |
 | --- | --- | --- |
 | **Aether / Company Core** | Memory, events, work orders, controls, finance, improvement loops | Internal operating substrate |
-| **Renor / FounderLab** | AI workspace, coding, building, voice, connectors, product experience | Public product + intelligence workspace |
+| **Renor** | AI workspace, coding, building, voice, connectors, product experience | Public product + intelligence workspace |
 | **Fiverr Revenue** | Legitimate client work and near-term cashflow | Revenue station |
 | **YouTube Media** | Original content, audience, distribution, documentation | Media station |
 | **Trading Lab** | Evidence-based market research and paper experimentation | Research station |
@@ -87,10 +87,10 @@ The canonical Company OS architecture and continuity rules live in the Aether re
 
 ### Shipped / real today
 
-- A functioning FounderNexora public website foundation.
-- FounderLab/Renor application with AI Chat, Code AI, Builder, YouTube tooling, notes, tasks, workspaces, connectors and voice foundations.
+- A functioning FounderLab public website foundation.
+- The Renor application (previously FounderLab AI) with AI Chat, Code AI, Builder, YouTube tooling, notes, tasks, workspaces, connectors and voice foundations.
 - Aether company substrate with append-only events, work orders, budgets, ledger, structured/vector memory, agent runtime and control-plane foundations.
-- Durable engineering memory and handoff systems in both Aether and FounderLab/Renor.
+- Durable engineering memory and handoff systems in both Aether and Renor.
 - Company Continuity v0.1: portfolio memory, station registry, roadmap, handoff protocol, portability standard and engineering policy.
 
 ### Being improved
@@ -153,9 +153,9 @@ The roadmap advances by **evidence**, not by dates or hype.
 
 ## Renor
 
-**Renor** is the public-facing evolution of FounderLab.
+**Renor** is FounderLab's product: the AI workspace that grew out of the earlier FounderLab AI app.
 
-The internal FounderLab identifiers stay stable where renaming would break storage, credentials, deployments, or compatibility. Renor is the presentation/product identity; FounderLab remains part of the engineering origin and internal implementation history.
+Internal identifiers from that earlier name stay stable where renaming would break storage, credentials, deployments, or compatibility. FounderLab is the company; Renor is the product ("Renor by FounderLab").
 
 The goal is not another generic chatbot.
 
@@ -206,7 +206,7 @@ We prefer:
 
 ## Repository
 
-This repository is the **public FounderNexora website / company hub**.
+This repository is the **public FounderLab website / company hub**.
 
 It is built on the Polsia Next.js v2 scaffold, with the public product surface living in user-owned zones defined by `.polsia/ownership.json`.
 
@@ -240,7 +240,7 @@ The current site is a real foundation, but it is not the final company experienc
 
 The next public redesign should progressively add:
 
-- a distinctive FounderNexora/Nexora identity
+- a distinctive FounderLab identity, with Renor as its product
 - clear product pages
 - company story
 - public roadmap
@@ -277,7 +277,7 @@ If a change cannot explain what improved and how that was verified, it is not fi
 
 <div align="center">
 
-### FounderNexora
+### FounderLab
 
 **Build useful things. Preserve what works. Improve the system that builds the next thing.**
 
