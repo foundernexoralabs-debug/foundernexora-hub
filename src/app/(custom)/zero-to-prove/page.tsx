@@ -12,13 +12,14 @@ import {
   MILESTONES,
   RENOR_APP_URL,
 } from '@/lib/business/ecosystem';
+import { pageMetadata } from '@/lib/business/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Zero to Prove — building Renor in public',
   description:
     'Zero to Prove follows FounderLab’s founder building Renor in public: what was built, what broke, and what was actually proven.',
-  alternates: { canonical: '/zero-to-prove' },
-};
+  path: '/zero-to-prove',
+});
 
 const rules = [
   {

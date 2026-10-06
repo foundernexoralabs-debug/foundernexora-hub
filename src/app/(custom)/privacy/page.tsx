@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
+import { pageMetadata } from '@/lib/business/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Privacy',
   description:
     'What the FounderLab website collects, what it does not, and how Renor handles your work.',
-  alternates: { canonical: '/privacy' },
-};
+  path: '/privacy',
+});
 
 const UPDATED = '5 October 2026';
 

@@ -5,7 +5,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Eyebrow } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
-import { categoryName, ProductCard, ProductEmblem, PurchasePanel } from '@/components/custom/store';
+import {
+  categoryName,
+  displayName,
+  ProductEmblem,
+  ProductRow,
+  PurchasePanel,
+} from '@/components/custom/store';
+import { pageMetadata } from '@/lib/business/seo';
 import { findProduct, isPurchasable, PRODUCTS, relatedProducts } from '@/lib/business/store';
 
 // Every product page is generated from the catalogue; any other slug is a 404.
@@ -22,16 +29,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const product = findProduct((await params).slug);
   if (!product) return {};
-  const title = `${product.name} — Renor Labs Store`;
-  const description = isPurchasable(product)
-    ? product.summary
-    : `${product.summary} Coming soon: not available to buy yet.`;
-  return {
-    title,
-    description,
-    alternates: { canonical: `/store/${product.slug}` },
-    openGraph: { title, description, url: `/store/${product.slug}` },
-  };
+  return pageMetadata({
+    title: `${product.name} — Renor Labs Store`,
+    description: isPurchasable(product)
+      ? product.summary
+      : `${product.summary} Coming soon: not available to buy yet.`,
+    path: `/store/${product.slug}`,
+  });
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -83,7 +87,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div>
               <Eyebrow>{product.line ?? categoryName(product.category)}</Eyebrow>
               <h1 className="mt-4 max-w-3xl font-display text-4xl leading-[1.05] font-semibold tracking-[-0.035em] text-balance sm:text-6xl">
-                {product.name}
+                {displayName(product.name)}
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">
                 {product.summary}
@@ -154,7 +158,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {related.length > 0 ? (
         <section
           aria-labelledby="related"
-          className="border-t border-border/60 bg-card/30 px-5 py-20 sm:px-8 sm:py-24"
+          className="border-t border-border/60 px-5 py-20 sm:px-8 sm:py-24"
         >
           <div className="mx-auto max-w-screen-xl">
             <Eyebrow>Same range</Eyebrow>
@@ -164,9 +168,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             >
               More from {product.line}
             </h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2">
+            <div className="mt-10 grid gap-4">
               {related.map((other) => (
-                <ProductCard key={other.slug} product={other} />
+                <ProductRow key={other.slug} product={other} />
               ))}
             </div>
           </div>

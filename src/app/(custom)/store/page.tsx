@@ -7,18 +7,16 @@ import { Eyebrow, PageHero, SectionHeading } from '@/components/custom/ecosystem
 import { ExploreBand } from '@/components/custom/explore';
 import { ProductCard } from '@/components/custom/store';
 import { Button } from '@/components/ui/button';
+import { pageMetadata } from '@/lib/business/seo';
 import { isPurchasable, PRODUCTS, productsIn, STORE_CATEGORIES } from '@/lib/business/store';
 import { cn } from '@/lib/utils';
 
-const description =
-  'Practical digital products from FounderLab, starting with TradeLaunch kits for electricians. Listed as coming soon: nothing can be bought yet.';
-
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Renor Labs Store — digital products from FounderLab',
-  description,
-  alternates: { canonical: '/store' },
-  openGraph: { title: 'Renor Labs Store', description, url: '/store' },
-};
+  description:
+    'Practical digital products from FounderLab, starting with TradeLaunch kits for electricians. Listed as coming soon: nothing can be bought yet.',
+  path: '/store',
+});
 
 export default function StorePage() {
   const onSale = PRODUCTS.filter(isPurchasable).length;
@@ -77,7 +75,12 @@ export default function StorePage() {
                   {products.some(isPurchasable) ? 'on sale' : 'not on sale yet'}
                 </p>
               </div>
-              <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              <div
+                className={cn(
+                  'mt-12 grid gap-5 md:grid-cols-2',
+                  products.length > 2 && 'lg:grid-cols-3',
+                )}
+              >
                 {products.map((product) => (
                   <ProductCard key={product.slug} product={product} />
                 ))}

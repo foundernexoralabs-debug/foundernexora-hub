@@ -9,13 +9,14 @@ import {
   FEEDBACK_URL,
   RENOR_APP_URL,
 } from '@/lib/business/ecosystem';
+import { pageMetadata } from '@/lib/business/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Contact FounderLab',
   description:
     'How to reach FounderLab: email, feedback on the website and Renor, bug reports and questions.',
-  alternates: { canonical: '/contact' },
-};
+  path: '/contact',
+});
 
 export default function ContactPage() {
   return (

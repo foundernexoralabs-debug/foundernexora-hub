@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
+import { pageMetadata } from '@/lib/business/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Terms',
   description: 'Terms for using the FounderLab website, and where Renor and store terms will live.',
-  alternates: { canonical: '/terms' },
-};
+  path: '/terms',
+});
 
 const UPDATED = '5 October 2026';
 

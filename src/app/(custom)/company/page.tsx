@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { PUBLIC_REPO_URL } from '@/lib/business/ecosystem';
+import { pageMetadata } from '@/lib/business/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'About FounderLab',
   description:
     'FounderLab is a technology company building Renor and practical AI-native tools, with honest status for everything it makes.',
-  alternates: { canonical: '/company' },
-};
+  path: '/company',
+});
 
 const principles = [
   {

@@ -7,14 +7,15 @@ import { ExploreBand } from '@/components/custom/explore';
 import { Button } from '@/components/ui/button';
 import { RENOR_APP_URL } from '@/lib/business/ecosystem';
 import { PLAN_PRINCIPLES, PLANS } from '@/lib/business/plans';
+import { pageMetadata } from '@/lib/business/seo';
 import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Renor plans — Free, Pro and Advanced (proposed)',
   description:
     'Renor’s proposed Free, Pro and Advanced plans. Nothing is on sale and no price is set; this page shows what each plan is designed to include.',
-  alternates: { canonical: '/renor/plans' },
-};
+  path: '/renor/plans',
+});
 
 export default function PlansPage() {
   return (

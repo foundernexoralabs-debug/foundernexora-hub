@@ -8,6 +8,11 @@ import { CONTACT_EMAIL } from '@/lib/business/ecosystem';
 import { isPurchasable, STORE_CATEGORIES, type StoreProduct } from '@/lib/business/store';
 import { cn } from '@/lib/utils';
 
+/** Keeps names like "90-Day" together: a non-breaking hyphen between digits and words. */
+export function displayName(name: string): string {
+  return name.replace(/(\d)-(\w)/g, '$1\u2011$2');
+}
+
 export function categoryName(id: StoreProduct['category']): string {
   return STORE_CATEGORIES.find((category) => category.id === id)?.name ?? id;
 }
@@ -30,12 +35,13 @@ export function ProductEmblem({
     <div
       aria-hidden="true"
       className={cn(
-        'relative flex items-center justify-center overflow-hidden rounded-xl border border-brand-500/25 bg-gradient-to-br from-brand-500/20 via-brand-500/5 to-sky-400/10',
+        'relative flex items-center justify-center overflow-hidden rounded-xl border border-brand-500/30 bg-gradient-to-br from-brand-500/30 via-brand-500/10 to-sky-400/20',
         className,
       )}
     >
       <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(currentColor_1px,transparent_1px)] [background-size:14px_14px]" />
-      <Icon className="relative size-1/3 text-brand-500 dark:text-brand-300" strokeWidth={1.5} />
+      <div className="absolute top-1/2 left-1/2 size-2/3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/25 blur-2xl" />
+      <Icon className="relative size-1/3 text-brand-600 dark:text-brand-200" strokeWidth={1.5} />
     </div>
   );
 }
@@ -89,7 +95,7 @@ export function ProductCard({
           href={`/store/${product.slug}`}
           className="outline-none after:absolute after:inset-0 after:rounded-2xl after:content-['']"
         >
-          {product.name}
+          {displayName(product.name)}
         </Link>
       </Heading>
       <p className="mt-1 text-sm text-muted-foreground">For {product.audience.toLowerCase()}</p>
@@ -150,5 +156,42 @@ export function PurchasePanel({ product }: { product: StoreProduct }) {
         Opens your email app with a short note to {CONTACT_EMAIL}. A person reads every message.
       </p>
     </div>
+  );
+}
+
+/** A wide, one-line product row for "more from this range": emblem, name, summary, link. */
+export function ProductRow({ product }: { product: StoreProduct }) {
+  return (
+    <article className="group relative grid items-center gap-5 rounded-2xl border border-border/70 bg-card/60 p-5 transition-[border-color,box-shadow] duration-300 focus-within:ring-2 focus-within:ring-ring hover:border-brand-500/50 hover:shadow-xl hover:shadow-brand-900/10 sm:grid-cols-[9rem_1fr_auto] sm:p-6">
+      <ProductEmblem product={product} className="aspect-[16/9] w-full sm:aspect-square" />
+      <div>
+        <div className="flex flex-wrap items-center gap-2">
+          {product.line ? (
+            <span className="text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+              {product.line}
+            </span>
+          ) : null}
+          <AvailabilityBadge product={product} />
+        </div>
+        <h3 className="mt-2 font-display text-xl font-semibold tracking-tight">
+          <Link
+            href={`/store/${product.slug}`}
+            className="outline-none after:absolute after:inset-0 after:rounded-2xl after:content-['']"
+          >
+            {displayName(product.name)}
+          </Link>
+        </h3>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          {product.summary}
+        </p>
+      </div>
+      <span className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-brand-500 dark:text-brand-400">
+        View details
+        <ArrowRight
+          aria-hidden="true"
+          className="size-4 transition-transform duration-300 group-hover:translate-x-0.5"
+        />
+      </span>
+    </article>
   );
 }

@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { PageHero, StatusBadge } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { PROJECTS, type Project, STATUS, type StatusKey } from '@/lib/business/ecosystem';
+import { pageMetadata } from '@/lib/business/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Projects — what FounderLab is building',
   description:
     'FounderLab’s projects, separated into what you can use today, what is being tested and what is planned.',
-  alternates: { canonical: '/projects' },
-};
+  path: '/projects',
+});
 
 const GROUPS: readonly { title: string; lede: string; statuses: readonly StatusKey[] }[] = [
   {

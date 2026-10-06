@@ -19,6 +19,7 @@ import {
   StatusBadge,
 } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
+import { OrganizationJsonLd } from '@/components/custom/structured-data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,18 +29,15 @@ import {
   RENOR_APP_URL,
   RENOR_AREAS,
 } from '@/lib/business/ecosystem';
-import { siteDescription, siteName } from '@/lib/site';
+import { pageMetadata } from '@/lib/business/seo';
+import { siteDescription } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: { absolute: siteName },
+export const metadata: Metadata = pageMetadata({
+  title: 'FounderLab — the company behind Renor',
   description: siteDescription,
-  alternates: { canonical: '/' },
-  openGraph: {
-    title: 'FounderLab — the company behind Renor',
-    description:
-      'Meet FounderLab, explore Renor and follow the development of practical AI-native tools.',
-  },
-};
+  path: '/',
+  absolute: true,
+});
 
 const principles = [
   {
@@ -72,6 +70,7 @@ const dateFormat = new Intl.DateTimeFormat('en-GB', {
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <OrganizationJsonLd />
       <section className="relative isolate overflow-hidden border-b border-border/60 px-5 py-20 sm:px-8 sm:py-28 lg:py-32">
         <div
           aria-hidden="true"
@@ -90,7 +89,7 @@ export default function HomePage() {
               <CircleDot aria-hidden="true" className="mr-2 size-3" />
               FOUNDERLAB<span className="hidden sm:inline">&nbsp;· MAKERS OF RENOR</span>
             </Badge>
-            <h1 className="font-display text-5xl leading-[1.03] font-semibold tracking-[-0.055em] sm:text-7xl">
+            <h1 className="font-display text-5xl leading-[1.03] font-semibold tracking-[-0.042em] sm:text-7xl">
               Technology for{' '}
               <span className="bg-gradient-to-r from-brand-500 via-sky-400 to-foreground bg-clip-text text-transparent dark:from-brand-400 dark:via-sky-300">
                 the work ahead.
@@ -133,7 +132,7 @@ export default function HomePage() {
               alt="Renor’s orb, the living centre of the Renor workspace"
               width={380}
               height={380}
-              priority
+              preload
               sizes="(min-width: 640px) 28rem, 16rem"
               className="relative h-auto w-[78%] drop-shadow-[0_0_60px_rgba(56,140,255,0.35)]"
             />

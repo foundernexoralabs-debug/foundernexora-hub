@@ -13,18 +13,15 @@ import {
 import { ExploreBand } from '@/components/custom/explore';
 import { Button } from '@/components/ui/button';
 import { RENOR_APP_URL, RENOR_AREAS } from '@/lib/business/ecosystem';
+import { pageMetadata } from '@/lib/business/seo';
 
-export const metadata: Metadata = {
-  title: 'Renor AI — chat, code, websites and projects in one workspace',
+export const metadata: Metadata = pageMetadata({
+  title: 'Renor — chat, code, websites and projects in one AI workspace',
   description:
     'Renor is FounderLab’s AI workspace: Chat AI, Code AI, a Website Builder and a Project Office, with results you can check. In preview.',
-  alternates: { canonical: '/renor' },
-  openGraph: {
-    title: 'Renor AI — from idea to verified work',
-    description:
-      'Chat, code, build websites and keep projects together. In preview, with honest status for every feature.',
-  },
-};
+  path: '/renor',
+  socialTitle: 'Renor by FounderLab — from idea to verified work',
+});
 
 const stages = [
   {
@@ -121,11 +118,7 @@ export default function RenorPage() {
                   </p>
                 </div>
                 {area.screenshot ? (
-                  <ProductShot
-                    {...area.screenshot}
-                    caption={SCREENSHOT_CAPTION}
-                    priority={index === 0}
-                  />
+                  <ProductShot {...area.screenshot} caption={SCREENSHOT_CAPTION} />
                 ) : (
                   <div className="rounded-2xl border border-dashed border-border/80 p-8 text-sm leading-relaxed text-muted-foreground">
                     <p className="font-semibold text-foreground">No screenshot yet</p>

@@ -3,15 +3,16 @@ import type { Metadata } from 'next';
 import { PageHero } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
+import { pageMetadata } from '@/lib/business/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Accessibility',
   description:
     'How the FounderLab website is built to be usable by everyone, what we have checked, its known limits and how to report a barrier.',
-  alternates: { canonical: '/accessibility' },
-};
+  path: '/accessibility',
+});
 
-const UPDATED = '5 October 2026';
+const UPDATED = '6 October 2026';
 
 export default function AccessibilityPage() {
   return (
@@ -33,8 +34,8 @@ export default function AccessibilityPage() {
         <ul>
           <li>Every page has one main heading, and sections follow it in order.</li>
           <li>
-            The menus, links and buttons work with a keyboard, and buttons show a visible focus
-            ring.
+            The menus, links and buttons work with a keyboard, and links and buttons show a visible
+            focus ring.
           </li>
           <li>
             Links that open another website say so to screen readers, and the menu button has a text
@@ -48,6 +49,10 @@ export default function AccessibilityPage() {
           </li>
           <li>
             Light and dark themes are both available, and the site follows your device setting.
+          </li>
+          <li>
+            If your device asks for reduced motion, hover effects and smooth scrolling are turned
+            off.
           </li>
         </ul>
         <p>

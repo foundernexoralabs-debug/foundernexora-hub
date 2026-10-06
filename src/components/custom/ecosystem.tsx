@@ -103,7 +103,7 @@ export function ProductShot({
   width,
   height,
   caption,
-  priority = false,
+  preload = false,
   className,
 }: {
   src: string;
@@ -111,7 +111,8 @@ export function ProductShot({
   width: number;
   height: number;
   caption: string;
-  priority?: boolean;
+  /** Preload only an above-the-fold image that is the page's largest paint. */
+  preload?: boolean;
   className?: string;
 }) {
   return (
@@ -134,7 +135,7 @@ export function ProductShot({
         alt={alt}
         width={width}
         height={height}
-        priority={priority}
+        preload={preload}
         sizes="(min-width: 1024px) 60vw, 100vw"
         className="h-auto w-full"
       />
