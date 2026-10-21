@@ -110,8 +110,8 @@ export const PROJECTS: readonly Project[] = [
 ];
 
 /**
- * Renor's areas, as they exist in the app today. `where` is what the release
- * candidate under review contains; `public` is what the public web preview runs.
+ * Renor's areas, as they exist in the main Renor app. Every `does` line is
+ * something the app does; every `limits` line is a known gap, stated plainly.
  */
 export interface RenorArea {
   id: string;
@@ -129,15 +129,15 @@ export const RENOR_AREAS: readonly RenorArea[] = [
     name: 'Chat AI',
     status: 'preview',
     summary:
-      'Ask, research and plan with the AI provider you connect. Answers can cite live sources when you ask for current facts.',
+      'Ask, research and plan with the AI provider you connect. Ask for something current and Renor answers with the sources it read.',
     does: [
       'Works with the AI providers configured for your account, or your own key',
-      'Reads attached text and PDF files, and images with providers that accept them',
-      'Voice: talk to Renor and hear it answer',
+      'Reads images, PDFs and long files, and remembers them for follow-up questions',
+      'Voice: dictate with pause and resume, hear answers read aloud, or say “Hey Renor”',
       'Hands work to Code AI or the Website Builder when you ask it to build',
     ],
     limits:
-      'Answers depend on the provider you connect and its own limits. Live sources and voice improvements are in the release candidate, not yet in the public preview.',
+      'Answers depend on the provider you connect. The free models available by default handle files and tools well, but are not yet at the level of the strongest assistants on hard reasoning.',
     screenshot: {
       src: '/assets/renor/chat-desktop.webp',
       alt: 'Renor Chat in the current development build: a glowing orb above the question “How can I help you today?”, a message box and quick actions for creating a website, writing code, planning a YouTube channel, analysing a business and researching.',
@@ -155,10 +155,11 @@ export const RENOR_AREAS: readonly RenorArea[] = [
       'Builds multi-file web apps and games with a live preview',
       'Fix Bug, Improve, Explain, Tests and Verify modes',
       'Runs Python in your browser: sandboxed, no network, 10-second limit',
-      'Keeps a receipt of what was checked and what passed',
+      'Checks multi-file builds against your brief before marking them ready',
+      'Pauses a build when a provider limit runs out, and resumes it later',
     ],
     limits:
-      'Large projects can exceed provider limits. Python runs the standard library only. Running Python is in the release candidate, not yet in the public preview.',
+      'Proven on small and medium apps, not yet on large multi-feature projects. Python runs the standard library only. Publishing goes to GitHub Pages only.',
     screenshot: {
       src: '/assets/renor/code-python-desktop.webp',
       alt: 'Renor Code AI running a Python FizzBuzz program in the browser. The output panel shows “1 2 Fizz 4 Buzz … FizzBuzz” and “Finished 9 ms”.',
@@ -170,14 +171,15 @@ export const RENOR_AREAS: readonly RenorArea[] = [
     id: 'builder',
     name: 'Website Builder',
     status: 'preview',
-    summary: 'Turn a clear brief into a responsive website you can edit, version and preview.',
+    summary:
+      'Turn a clear brief into a responsive website, written from your own facts, that you can edit, version and preview.',
     does: [
-      'Starts from your brief and a direction you choose',
-      'Editable files and an isolated live preview',
-      'Section-by-section edits without rebuilding everything',
+      'Puts your real prices, hours, address and email on the page, without inventing reviews or phone numbers',
+      'Takes its look from the tone of your brief, in your colours',
+      'Editable files, an isolated live preview and section-by-section edits',
     ],
     limits:
-      'Publishing to a public address is still being set up. Quality depends on the brief and the AI provider.',
+      'Sites have no photography or imagery yet. Export is a ZIP download; publishing to a public address is not set up. Check every detail before you publish: small invented phrases can still slip in.',
     screenshot: {
       src: '/assets/renor/builder-desktop.webp',
       alt: 'Renor Website Builder: the heading “Describe what you want to build”, page-type choices such as Landing page and Pricing page, and three starting directions.',
@@ -192,12 +194,11 @@ export const RENOR_AREAS: readonly RenorArea[] = [
     summary:
       'Notes, tasks and projects that stay connected to your chats and builds, so work does not start from zero each time. In the app: Dashboard, Notes and Tasks.',
     does: [
-      'Notes and tasks, including tasks with due dates from a plain sentence',
+      '“Remind me to call Sam tomorrow at 5” becomes a task with a real deadline',
       'Projects that keep their builds and verification together',
       'Renor remembers facts you ask it to keep, and forgets them when you ask',
     ],
-    limits:
-      'Task deadlines and memory are in the release candidate, not yet in the public preview.',
+    limits: 'Deadlines and memory are new in this release and still being proven in daily use.',
   },
 ];
 
@@ -206,36 +207,43 @@ export interface Milestone {
   date: string;
   title: string;
   detail: string;
-  where: 'release-candidate' | 'public-preview' | 'website';
+  where: 'app' | 'website';
 }
 
 export const MILESTONES: readonly Milestone[] = [
+  {
+    date: '2026-10-21',
+    title: 'Renor’s first full release, frozen and tested',
+    detail:
+      'Five weeks of work in 1,013 commits, frozen as one release. It passed 4,876 unit tests and 88 of 88 browser acceptance checks, and replaces the September web preview.',
+    where: 'app',
+  },
   {
     date: '2026-10-05',
     title: 'Python runs inside Code AI',
     detail:
       'Real Python in the browser, sandboxed with no network, a time limit and a Stop button. Two independent reviews found 22 issues; all but one stated limit are fixed.',
-    where: 'release-candidate',
+    where: 'app',
   },
   {
     date: '2026-10-05',
     title: 'Renor listens, remembers and builds',
     detail:
       'Voice that waits for you to finish a thought, memory you control, tasks with real deadlines, and research that can end in a real build.',
-    where: 'release-candidate',
+    where: 'app',
   },
   {
     date: '2026-10-05',
     title: 'Live facts with sources',
     detail:
       'Ask for something current and Renor answers with the sources it read, in chat and in voice.',
-    where: 'release-candidate',
+    where: 'app',
   },
   {
     date: '2026-10-04',
-    title: 'Release candidate QA fixes',
+    title: 'Founder QA pass',
     detail: 'Fixes from a full founder QA pass across Chat, Code AI and the Website Builder.',
-    where: 'release-candidate',
+    where: 'app',
   },
   {
     date: '2026-09-29',
@@ -246,16 +254,15 @@ export const MILESTONES: readonly Milestone[] = [
   },
   {
     date: '2026-09-19',
-    title: 'Current public web preview',
+    title: 'First web preview',
     detail:
-      'The version of Renor anyone can open today. Newer work above arrives when the release candidate is approved.',
-    where: 'public-preview',
+      'The first build people could open in the browser, still under the earlier name FounderLab AI.',
+    where: 'app',
   },
 ];
 
 export const MILESTONE_WHERE = {
-  'release-candidate': 'In the release candidate under review',
-  'public-preview': 'In the public web preview',
+  app: 'In the Renor app',
   website: 'On this website',
 } as const;
 

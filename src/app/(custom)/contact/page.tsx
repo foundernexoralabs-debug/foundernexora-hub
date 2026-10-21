@@ -67,9 +67,8 @@ export default function ContactPage() {
             <h2 className="mt-5 text-xl font-semibold">Feedback inside Renor</h2>
             <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
               Renor has a <strong className="font-semibold text-foreground">Feedback</strong> button
-              in its sidebar that sends a report with the context of what you were doing. A fix for
-              it is in the next Renor release; until that reaches the public preview, please use
-              GitHub instead.
+              in its sidebar that sends a report with the context of what you were doing, so you do
+              not have to describe it twice.
             </p>
             <a
               href={RENOR_APP_URL}

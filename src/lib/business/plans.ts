@@ -34,7 +34,7 @@ export const PLANS: readonly Plan[] = [
         availability: 'today',
       },
       { text: 'Save, reopen and keep editing your projects', availability: 'today' },
-      { text: 'Run Python in your browser, with no AI allowance used', availability: 'planned' },
+      { text: 'Run Python in your browser, sandboxed with no network', availability: 'today' },
       {
         text: 'Your projects stay open and editable when the AI allowance runs out',
         availability: 'planned',

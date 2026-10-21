@@ -102,7 +102,7 @@ export default function ZeroToProvePage() {
             id="log-title"
             eyebrow="Build log"
             title="What has been built, and where it is."
-            lede="Each entry says where the work lives: in the release candidate being reviewed, in the public preview anyone can open, or on this website."
+            lede="Each entry is dated and says where the work lives: in the Renor app or on this website."
           />
           <ol className="mt-12 grid gap-0 border-l border-border/80">
             {MILESTONES.map((milestone) => (

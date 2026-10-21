@@ -57,7 +57,7 @@ export default function RenorPage() {
             <span className="text-brand-500 dark:text-brand-400">and prove it works.</span>
           </>
         }
-        lede="Renor brings chat, coding, website building and your projects together, and shows you evidence of what it actually did. It is in preview: useful today, still being verified. The public preview still opens under its earlier name, FounderLab AI."
+        lede="Renor brings chat, coding, website building and your projects together, and shows you evidence of what it actually did. It is in preview: useful today, with every limit stated below."
       >
         <Button
           asChild
@@ -79,7 +79,7 @@ export default function RenorPage() {
             id="areas"
             eyebrow="What Renor does"
             title="Four areas, one connected workspace."
-            lede="Each area lists what it does today and where its limits are. Some of the newest work is in the release candidate under review and reaches the public preview when it is approved."
+            lede="Each area lists what it does in the app today and where its limits are, so you know what to expect before you start."
           />
           <div className="mt-14 grid gap-20">
             {RENOR_AREAS.map((area, index) => (
@@ -123,8 +123,7 @@ export default function RenorPage() {
                   <div className="rounded-2xl border border-dashed border-border/80 p-8 text-sm leading-relaxed text-muted-foreground">
                     <p className="font-semibold text-foreground">No screenshot yet</p>
                     <p className="mt-2">
-                      We will add one when this area’s newest work reaches the public preview,
-                      rather than show a mock-up.
+                      We will add one taken from the app itself, rather than show a mock-up.
                     </p>
                   </div>
                 )}
@@ -169,7 +168,7 @@ export default function RenorPage() {
               id="access"
               className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl"
             >
-              Try the web preview.
+              Open it in your browser.
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
               Renor runs in your browser. Sign in, connect an AI provider or use one available to
@@ -179,11 +178,10 @@ export default function RenorPage() {
           </div>
           <div className="grid gap-4">
             <div className="rounded-2xl border border-brand-500/30 bg-gradient-to-br from-brand-500/10 to-background p-7">
-              <p className="text-sm font-semibold">Web preview</p>
+              <p className="text-sm font-semibold">Renor in preview</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                The public preview runs the 19 September build, which still carries the earlier name{' '}
-                <span className="font-medium text-foreground">FounderLab AI</span>. Newer features
-                shown above, and the Renor name, arrive when the release candidate is approved.
+                The app runs Renor’s first full release: everything listed above, with the limits
+                shown next to each area. It is free to use while in preview.
               </p>
               <a
                 href={RENOR_APP_URL}

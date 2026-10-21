@@ -123,6 +123,20 @@ describe('claims', () => {
     }
   });
 
+  it('known gaps stay disclosed next to the features they limit', () => {
+    // Remove a line here only in the same commit that ships the missing piece.
+    const limits = (id: string) => RENOR_AREAS.find((area) => area.id === id)?.limits ?? '';
+    expect(limits('builder')).toMatch(/no photography or imagery/i);
+    expect(limits('builder')).toMatch(/ZIP/);
+    expect(limits('code')).toMatch(/GitHub Pages only/);
+    expect(limits('code')).toMatch(/not yet on large/i);
+  });
+
+  it('no feature is still labelled as waiting for a release candidate', () => {
+    const copy = JSON.stringify([RENOR_AREAS, MILESTONES, PLANS]);
+    expect(copy).not.toMatch(/release candidate|public preview/i);
+  });
+
   it('milestones are real dates, newest first', () => {
     const times = MILESTONES.map((milestone) => Date.parse(`${milestone.date}T00:00:00Z`));
     for (const time of times) expect(Number.isNaN(time)).toBe(false);
