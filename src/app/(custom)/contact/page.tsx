@@ -1,6 +1,7 @@
 // @polsia:user-owned — Contact and feedback. Only routes that reach a person today.
 import { ArrowUpRight, Bug, Mail, MessageSquare } from 'lucide-react';
 import type { Metadata } from 'next';
+import { SocialLinks } from '@/components/custom/channel-links';
 import { PageHero } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import {
@@ -79,6 +80,20 @@ export default function ContactPage() {
               Open Renor <ArrowUpRight aria-hidden="true" className="size-4" />
             </a>
           </article>
+        </div>
+        <div className="mx-auto mt-5 flex max-w-screen-xl flex-col gap-5 rounded-2xl border border-border/70 bg-card/60 p-7 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 id="follow" className="text-xl font-semibold">
+              Follow along
+            </h2>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              Watch the build on Zero to Prove, find every link in one place, or hire the founder on
+              Fiverr.
+            </p>
+          </div>
+          <nav aria-labelledby="follow">
+            <SocialLinks variant="labelled" />
+          </nav>
         </div>
       </section>
       <ExploreBand page="contact" />

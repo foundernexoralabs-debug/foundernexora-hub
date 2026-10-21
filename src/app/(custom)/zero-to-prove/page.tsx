@@ -1,18 +1,14 @@
 // @polsia:user-owned — Zero to Prove: the founder's build-in-public journey.
 // For visitors arriving from YouTube or TikTok: what this is, what has been proven, where to go next.
-import { ArrowUpRight, Github, Youtube } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
+import { ChannelIcon } from '@/components/custom/channel-links';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { Button } from '@/components/ui/button';
-import {
-  CHANNELS,
-  type Channel,
-  MILESTONE_WHERE,
-  MILESTONES,
-  RENOR_APP_URL,
-} from '@/lib/business/ecosystem';
+import { CHANNELS, MILESTONE_WHERE, MILESTONES, RENOR_APP_URL } from '@/lib/business/ecosystem';
 import { pageMetadata } from '@/lib/business/seo';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Zero to Prove — building Renor in public',
@@ -35,16 +31,6 @@ const rules = [
     text: 'Each build step is a lesson: how a problem was found, fixed and checked.',
   },
 ] as const;
-
-function ChannelIcon({ id }: { id: Channel['id'] }) {
-  if (id === 'youtube') return <Youtube aria-hidden="true" className="size-5" />;
-  if (id === 'github') return <Github aria-hidden="true" className="size-5" />;
-  return (
-    <span aria-hidden="true" className="flex size-5 items-center justify-center text-sm font-bold">
-      ♪
-    </span>
-  );
-}
 
 const dateFormat = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric',
@@ -137,14 +123,19 @@ export default function ZeroToProvePage() {
             eyebrow="Follow along"
             title="Where the journey is published."
           />
-          <ul className="mt-12 grid gap-5 md:grid-cols-3">
-            {CHANNELS.map((channel) => (
+          <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+            {CHANNELS.map((channel, index) => (
               <li
                 key={channel.id}
-                className="flex flex-col rounded-2xl border border-border/70 bg-card/60 p-7"
+                className={cn(
+                  'flex flex-col rounded-2xl border border-border/70 bg-card/60 p-7',
+                  // YouTube and TikTok lead; the remaining three share the second row.
+                  index < 2 ? 'lg:col-span-3' : 'lg:col-span-2',
+                  index === CHANNELS.length - 1 && CHANNELS.length % 2 === 1 && 'sm:col-span-2',
+                )}
               >
                 <p className="flex items-center gap-3 text-lg font-semibold">
-                  <ChannelIcon id={channel.id} />
+                  <ChannelIcon id={channel.id} className="text-brand-500 dark:text-brand-400" />
                   {channel.name}
                 </p>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
@@ -155,12 +146,13 @@ export default function ZeroToProvePage() {
                     href={channel.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+                    className="mt-6 inline-flex min-h-11 items-center gap-2 self-start text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
                   >
                     Open {channel.name} <ArrowUpRight aria-hidden="true" className="size-4" />
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 ) : (
-                  <p className="mt-6 text-sm text-muted-foreground">Channel link coming soon.</p>
+                  <p className="mt-6 text-sm text-muted-foreground">Not linked yet.</p>
                 )}
               </li>
             ))}

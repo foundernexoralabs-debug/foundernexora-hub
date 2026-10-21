@@ -11,6 +11,7 @@ import {
   PUBLIC_REPO_URL,
   RENOR_APP_URL,
   RENOR_AREAS,
+  SOCIAL_CHANNELS,
   STATUS,
 } from '../../src/lib/business/ecosystem';
 import { PLANS } from '../../src/lib/business/plans';
@@ -86,10 +87,22 @@ describe('external links', () => {
     }
   });
 
-  it('does not guess YouTube or TikTok handles: they stay unlinked until the founder confirms them', () => {
-    // Change this expectation in the same commit that adds a confirmed channel URL.
-    expect(CHANNELS.find((channel) => channel.id === 'youtube')?.url).toBeNull();
-    expect(CHANNELS.find((channel) => channel.id === 'tiktok')?.url).toBeNull();
+  it('links exactly the channels the founder confirmed on 21 October 2026', () => {
+    const urlOf = (id: string) => CHANNELS.find((channel) => channel.id === id)?.url;
+    expect(urlOf('youtube')).toBe('https://www.youtube.com/@zero2proof');
+    expect(urlOf('tiktok')).toBe('https://www.tiktok.com/@sajadi90');
+    expect(urlOf('links')).toBe('https://zero-to-proof-links.vercel.app');
+    expect(urlOf('fiverr')).toBe('https://www.fiverr.com/abi_bim');
+  });
+
+  it('lists four social links for the footer and Contact, all confirmed', () => {
+    expect(SOCIAL_CHANNELS.map((channel) => channel.id)).toEqual([
+      'youtube',
+      'tiktok',
+      'links',
+      'fiverr',
+    ]);
+    for (const channel of SOCIAL_CHANNELS) expect(channel.url.startsWith('https://')).toBe(true);
   });
 });
 

@@ -1,6 +1,6 @@
 // @polsia:user-owned — schema.org structured data (JSON-LD) for search engines.
 // A data block, not executable script, so the strict script-src CSP does not apply to it.
-import { CONTACT_EMAIL } from '@/lib/business/ecosystem';
+import { CONTACT_EMAIL, SOCIAL_CHANNELS } from '@/lib/business/ecosystem';
 import { siteDescription, siteName, siteUrl } from '@/lib/site';
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
@@ -27,6 +27,7 @@ export function OrganizationJsonLd() {
             logo: `${siteUrl}/icon.svg`,
             description: siteDescription,
             brand: { '@type': 'Brand', name: 'Renor' },
+            sameAs: SOCIAL_CHANNELS.map((channel) => channel.url),
             contactPoint: {
               '@type': 'ContactPoint',
               contactType: 'customer support',

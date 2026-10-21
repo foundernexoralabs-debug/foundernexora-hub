@@ -5,7 +5,7 @@
 // tests/unit/ecosystem-content.test.ts:
 //   - a status is one of STATUS — nothing is "live" unless people can use it today;
 //   - an external link is https and verified by a person before it is added;
-//   - a social channel without a verified URL renders as "not linked yet", never a guess.
+//   - a social channel without a confirmed URL stays null and is never guessed.
 
 import { RENOR_WEB_PREVIEW_URL } from '@/lib/business/renor-links';
 
@@ -267,37 +267,71 @@ export const MILESTONE_WHERE = {
 } as const;
 
 /**
- * Social and video channels. `url` stays null until the founder confirms the
- * exact account; the page then says "not linked yet" instead of guessing a
- * handle that might belong to someone else.
+ * Social, video and work channels. Every URL was supplied by the founder on
+ * 21 October 2026; a channel without a confirmed URL keeps `url: null` and the
+ * page says so instead of guessing a handle that might belong to someone else.
  */
 export interface Channel {
-  id: 'youtube' | 'tiktok' | 'github';
+  id: 'youtube' | 'tiktok' | 'links' | 'fiverr' | 'github';
   name: string;
+  /** Short label for icon-only links, e.g. "Zero to Prove on YouTube". */
+  label: string;
   purpose: string;
   url: string | null;
+  /** Listed with the social links in the footer and on Contact. */
+  social: boolean;
 }
 
 export const CHANNELS: readonly Channel[] = [
   {
     id: 'youtube',
     name: 'YouTube',
+    label: 'Zero to Prove on YouTube',
     purpose: 'Longer build sessions, demonstrations and lessons.',
-    url: null,
+    url: 'https://www.youtube.com/@zero2proof',
+    social: true,
   },
   {
     id: 'tiktok',
     name: 'TikTok',
+    label: 'Zero to Prove on TikTok',
     purpose: 'Short clips from the build: wins, failures and fixes.',
-    url: null,
+    url: 'https://www.tiktok.com/@sajadi90',
+    social: true,
+  },
+  {
+    id: 'links',
+    name: 'Links page',
+    label: 'Zero to Prove links page',
+    purpose: 'Every Zero to Prove channel and link, on one page.',
+    url: 'https://zero-to-proof-links.vercel.app',
+    social: true,
+  },
+  {
+    id: 'fiverr',
+    name: 'Fiverr',
+    label: 'The founder on Fiverr',
+    purpose: 'Hire the founder for freelance work through Fiverr.',
+    url: 'https://www.fiverr.com/abi_bim',
+    social: true,
   },
   {
     id: 'github',
     name: 'GitHub',
+    label: 'FounderLab website code on GitHub',
     purpose: 'The public code for this website and its reviewed changes.',
     url: 'https://github.com/foundernexoralabs-debug/foundernexora-hub',
+    social: false,
   },
 ];
+
+/** A channel whose URL is confirmed. */
+export type LinkedChannel = Channel & { url: string };
+
+/** The four social links shown in the footer and on Contact, in display order. */
+export const SOCIAL_CHANNELS: readonly LinkedChannel[] = CHANNELS.filter(
+  (channel): channel is LinkedChannel => channel.social && channel.url !== null,
+);
 
 export const RENOR_APP_URL = RENOR_WEB_PREVIEW_URL;
 export const PUBLIC_REPO_URL = 'https://github.com/foundernexoralabs-debug/foundernexora-hub';

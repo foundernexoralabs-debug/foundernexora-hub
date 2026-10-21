@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { BrandMark } from '@/components/custom/brand-mark';
+import { SocialLinks } from '@/components/custom/channel-links';
 import { ThemeToggle } from '@/components/custom/theme-toggle';
 import { Button } from '@/components/ui/button';
 import {
@@ -406,6 +407,17 @@ export function SiteFooter() {
               </a>
             </Button>
           ) : null}
+          <div className="mt-8">
+            <p
+              id="footer-follow"
+              className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase"
+            >
+              Follow along
+            </p>
+            <nav aria-labelledby="footer-follow">
+              <SocialLinks className="mt-3" />
+            </nav>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
           {[...columns].map(([heading, items]) => (
@@ -448,6 +460,7 @@ export function SiteFooter() {
             href={CONTACT_MAILTO}
             className="inline-flex min-h-11 items-center underline-offset-4 hover:text-foreground hover:underline sm:min-h-0"
           >
+            <span className="sr-only">Email </span>
             {CONTACT_EMAIL}
           </a>
         </div>

@@ -55,9 +55,9 @@ export default function PrivacyPage() {
 
         <h2>Links to other sites</h2>
         <p>
-          Links to Renor, GitHub, YouTube, TikTok or a checkout provider take you to services with
-          their own privacy policies. GitHub issues are public, so please do not include personal
-          details in them.
+          Links to Renor, GitHub, YouTube, TikTok, Fiverr, our links page or a checkout provider
+          take you to services with their own privacy policies. GitHub issues are public, so please
+          do not include personal details in them.
         </p>
 
         <h2>Renor</h2>
