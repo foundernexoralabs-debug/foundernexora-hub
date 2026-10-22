@@ -64,7 +64,7 @@ export default function RenorPage() {
           </a>
         </Button>
         <Button asChild variant="outline" size="xl">
-          <Link href="/renor/plans">Free, Pro and Max</Link>
+          <Link href="/renor/plans">Compare plans</Link>
         </Button>
       </PageHero>
 
@@ -177,8 +177,8 @@ export default function RenorPage() {
             <div className="rounded-2xl border border-border p-7">
               <p className="text-sm font-semibold">Plans</p>
               <p className="mt-3 type-copy text-muted-foreground">
-                Free is open today. Pro and Max are proposed: no price is set and nothing is on sale
-                yet.
+                Free is open today. Pro, Plus and Max have proposed prices that are not approved
+                yet, and nothing is on sale.
               </p>
               <Link
                 href="/renor/plans"

@@ -1,5 +1,5 @@
 // @polsia:user-owned — FounderLab navigation. One list drives the top bar, the footer and the sitemap.
-import { RENOR_APP_URL } from '@/lib/business/ecosystem';
+import { RENOR_APP_URL, RENOR_LABS_STORE_URL } from '@/lib/business/ecosystem';
 
 export type NavGroup = 'primary' | 'secondary' | 'footer';
 
@@ -15,10 +15,17 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: 'Home', href: '/', group: 'primary', order: 0 },
-  // Top bar: five slots — Renor ⌄, Store, Projects, Zero to Prove, Company ⌄.
+  // Top bar: five slots — Renor ⌄, Plugins ⌄, Projects, Zero to Prove, Company ⌄.
   { label: 'Renor AI', href: '/renor', group: 'primary', menu: 'Renor', order: 1 },
   { label: 'Plans', href: '/renor/plans', group: 'primary', menu: 'Renor', order: 2 },
-  { label: 'Store', href: '/store', group: 'primary', order: 3 },
+  { label: 'Plugin Store', href: '/plugins', group: 'primary', menu: 'Plugins', order: 3 },
+  {
+    label: 'Shop on Renor Labs',
+    href: RENOR_LABS_STORE_URL,
+    group: 'primary',
+    menu: 'Plugins',
+    order: 3.5,
+  },
   { label: 'Projects', href: '/projects', group: 'primary', order: 4 },
   { label: 'Zero to Prove', href: '/zero-to-prove', group: 'primary', order: 5 },
   { label: 'About', href: '/company', group: 'primary', menu: 'Company', order: 6 },
@@ -28,15 +35,28 @@ export const navItems: NavItem[] = [
   { label: 'Renor AI', href: '/renor', group: 'footer', menu: 'Renor', order: 0 },
   { label: 'Plans', href: '/renor/plans', group: 'footer', menu: 'Renor', order: 1 },
   { label: 'Open the app', href: RENOR_APP_URL, group: 'footer', menu: 'Renor', order: 2 },
-  { label: 'Renor Labs Store', href: '/store', group: 'footer', menu: 'Store', order: 3 },
+  { label: 'Plugin Store', href: '/plugins', group: 'footer', menu: 'Plugin Store', order: 3 },
   {
-    label: 'TradeLaunch kits',
-    href: '/store#business-kits',
+    label: 'Electrician Business Kit',
+    href: '/plugins/tradelaunch-electrician-business-kit',
     group: 'footer',
-    menu: 'Store',
+    menu: 'Plugin Store',
     order: 4,
   },
-  { label: 'Store policies', href: '/store#policies', group: 'footer', menu: 'Store', order: 5 },
+  {
+    label: 'How buying works',
+    href: '/plugins#buying',
+    group: 'footer',
+    menu: 'Plugin Store',
+    order: 5,
+  },
+  {
+    label: 'Renor Labs shop',
+    href: RENOR_LABS_STORE_URL,
+    group: 'footer',
+    menu: 'Plugin Store',
+    order: 5.5,
+  },
   { label: 'About', href: '/company', group: 'footer', menu: 'Company', order: 6 },
   { label: 'Projects', href: '/projects', group: 'footer', menu: 'Company', order: 7 },
   { label: 'Zero to Prove', href: '/zero-to-prove', group: 'footer', menu: 'Company', order: 8 },

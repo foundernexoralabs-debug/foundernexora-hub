@@ -15,6 +15,7 @@ import {
   STATUS,
 } from '../../src/lib/business/ecosystem';
 import { PLANS } from '../../src/lib/business/plans';
+import { findPlugin } from '../../src/lib/business/plugins';
 import { navItems } from '../../src/lib/nav';
 
 const appDir = path.resolve(__dirname, '../../src/app');
@@ -39,10 +40,11 @@ function routes(dir = appDir, prefix = ''): string[] {
 const ROUTES = new Set(routes());
 
 function servesInternal(href: string): boolean {
-  const pathname = href.split('#')[0] || '/';
+  const pathname = href.split(/[?#]/)[0] || '/';
   if (ROUTES.has(pathname)) return true;
-  // Dynamic segments such as /store/[slug] serve their own catalogue; a static link must not point into one.
-  return false;
+  // /plugins/[slug] serves only catalogued products, so a link into it must name a real one.
+  const plugin = /^\/plugins\/([^/]+)$/.exec(pathname);
+  return Boolean(plugin?.[1] && ROUTES.has('/plugins/[slug]') && findPlugin(plugin[1]));
 }
 
 describe('internal links', () => {
@@ -59,7 +61,7 @@ describe('internal links', () => {
       '/',
       '/renor',
       '/renor/plans',
-      '/store',
+      '/plugins',
       '/zero-to-prove',
       '/projects',
       '/company',
@@ -95,12 +97,13 @@ describe('external links', () => {
     expect(urlOf('fiverr')).toBe('https://www.fiverr.com/abi_bim');
   });
 
-  it('lists four social links for the footer and Contact, all confirmed', () => {
+  it('lists the social links and the Renor Labs shop for the footer and Contact, all confirmed', () => {
     expect(SOCIAL_CHANNELS.map((channel) => channel.id)).toEqual([
       'youtube',
       'tiktok',
       'links',
       'fiverr',
+      'renor-labs',
     ]);
     for (const channel of SOCIAL_CHANNELS) expect(channel.url.startsWith('https://')).toBe(true);
   });
@@ -112,19 +115,13 @@ describe('claims', () => {
       expect(Object.keys(STATUS)).toContain(item.status);
   });
 
-  it('no paid plan shows a price while billing does not exist', () => {
-    for (const plan of PLANS) {
-      expect(plan.price, plan.name).not.toMatch(/[€$£]\s?\d|\d+\s?(?:€|\$|£|EUR|USD|GBP)|\/\s?mo/i);
-    }
-    expect(PLANS.find((plan) => plan.id === 'pro')?.price).toBe('Price not set');
-    expect(PLANS.find((plan) => plan.id === 'max')?.price).toBe('Price not set');
+  it('every plan price is a proposal while billing does not exist', () => {
+    for (const plan of PLANS) expect(plan.price.status, plan.name).toBe('proposed');
   });
 
-  it('paid plans advertise nothing as available today', () => {
-    for (const plan of PLANS.filter((entry) => entry.id !== 'free')) {
-      for (const feature of plan.features)
-        expect(feature.availability, `${plan.name}: ${feature.text}`).toBe('planned');
-    }
+  it('only Free is open; every paid plan is still proposed', () => {
+    for (const plan of PLANS.filter((entry) => entry.id !== 'free'))
+      expect(plan.state, plan.name).toBe('proposed');
   });
 
   it('every screenshot referenced on the site exists in public/', () => {

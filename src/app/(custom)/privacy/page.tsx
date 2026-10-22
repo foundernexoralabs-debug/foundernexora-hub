@@ -68,13 +68,13 @@ export default function PrivacyPage() {
           browser. Renor’s full privacy terms will be published before any paid plan exists.
         </p>
 
-        <h2>The store</h2>
+        <h2>The Plugin Store</h2>
         <p>
-          The Renor Labs Store lists its first products but does not sell anything yet. Before it
-          does, its privacy and payment terms will be published, and payments will be handled by the
-          checkout provider, not stored by us. See the{' '}
-          <Link href="/store#policies" className="text-foreground underline underline-offset-4">
-            store policies
+          The Renor Plugin Store lists its first products but does not sell anything yet. Before it
+          does, its privacy and payment terms will be published, and payments will be handled by our
+          checkout partner, Plug&amp;Pay, not stored by us. See{' '}
+          <Link href="/plugins#buying" className="text-foreground underline underline-offset-4">
+            how buying works
           </Link>
           .
         </p>

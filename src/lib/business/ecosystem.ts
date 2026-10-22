@@ -58,14 +58,14 @@ export const PROJECTS: readonly Project[] = [
     action: 'Explore Renor',
   },
   {
-    slug: 'renor-labs-store',
-    name: 'Renor Labs Store',
+    slug: 'renor-plugin-store',
+    name: 'Renor Plugin Store',
     status: 'planned',
     kind: 'Digital products',
     summary:
-      'Practical digital products. The first two, TradeLaunch kits for electricians, are listed as coming soon; nothing can be bought yet.',
-    href: '/store',
-    action: 'Browse the store',
+      'Ready-to-use digital kits and, later, Renor extensions. The first two, TradeLaunch kits for electricians, are opening soon; nothing can be bought yet.',
+    href: '/plugins',
+    action: 'Browse the Plugin Store',
   },
   {
     slug: 'zero-to-prove',
@@ -272,7 +272,7 @@ export const MILESTONE_WHERE = {
  * page says so instead of guessing a handle that might belong to someone else.
  */
 export interface Channel {
-  id: 'youtube' | 'tiktok' | 'links' | 'fiverr' | 'github';
+  id: 'youtube' | 'tiktok' | 'links' | 'fiverr' | 'renor-labs' | 'github';
   name: string;
   /** Short label for icon-only links, e.g. "Zero to Prove on YouTube". */
   label: string;
@@ -281,6 +281,12 @@ export interface Channel {
   /** Listed with the social links in the footer and on Contact. */
   social: boolean;
 }
+
+/**
+ * The Renor Labs shop home on Plug&Pay: the single source for every link to it.
+ * Its /home page, because the bare domain returns 404 (checked 22 October 2026).
+ */
+export const RENOR_LABS_STORE_URL = 'https://renorlabs.plugandpay.com/home';
 
 export const CHANNELS: readonly Channel[] = [
   {
@@ -316,6 +322,14 @@ export const CHANNELS: readonly Channel[] = [
     social: true,
   },
   {
+    id: 'renor-labs',
+    name: 'Renor Labs shop',
+    label: 'The Renor Labs shop on Plug&Pay',
+    purpose: 'Our shop on Plug&Pay, where Plugin Store products are sold once sales open.',
+    url: RENOR_LABS_STORE_URL,
+    social: true,
+  },
+  {
     id: 'github',
     name: 'GitHub',
     label: 'FounderLab website code on GitHub',
@@ -328,9 +342,14 @@ export const CHANNELS: readonly Channel[] = [
 /** A channel whose URL is confirmed. */
 export type LinkedChannel = Channel & { url: string };
 
-/** The four social links shown in the footer and on Contact, in display order. */
+/** The social links shown in the footer and on Contact, in display order. */
 export const SOCIAL_CHANNELS: readonly LinkedChannel[] = CHANNELS.filter(
   (channel): channel is LinkedChannel => channel.social && channel.url !== null,
+);
+
+/** Where the build is published: every channel except the shop. */
+export const JOURNEY_CHANNELS: readonly Channel[] = CHANNELS.filter(
+  (channel) => channel.id !== 'renor-labs',
 );
 
 export const RENOR_APP_URL = RENOR_WEB_PREVIEW_URL;

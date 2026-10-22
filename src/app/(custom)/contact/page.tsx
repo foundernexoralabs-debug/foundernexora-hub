@@ -81,11 +81,11 @@ export default function ContactPage() {
         <div className="mx-auto mt-5 flex max-w-screen-xl flex-col gap-5 rounded-2xl border border-border bg-card p-7 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 id="follow" className="text-xl font-semibold">
-              Follow along
+              Follow along and shop
             </h2>
             <p className="mt-2 max-w-xl type-copy text-muted-foreground">
-              Watch the build on Zero to Prove, find every link in one place, or hire the founder on
-              Fiverr.
+              Watch the build on Zero to Prove, find every link in one place, hire the founder on
+              Fiverr, or visit the Renor Labs shop.
             </p>
           </div>
           <nav aria-labelledby="follow">

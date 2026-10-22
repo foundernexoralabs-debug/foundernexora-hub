@@ -47,12 +47,12 @@ export default function CompanyPage() {
           <div className="grid gap-6 type-lead text-muted-foreground">
             <p>
               Renor is the flagship: chat, coding, website building and project memory in one
-              workspace, with results you can check. Around it sit a store for the digital tools we
-              make, and Zero to Prove, where the building happens in public.
+              workspace, with results you can check. Around it sit the Plugin Store for the digital
+              kits we make, and Zero to Prove, where the building happens in public.
             </p>
             <p>
-              We are early. Renor is in preview, the store’s first products are not on sale yet, and
-              we say so. You can follow every public change to this website on GitHub.
+              We are early. Renor is in preview, the Plugin Store’s first products are not on sale
+              yet, and we say so. You can follow every public change to this website on GitHub.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-base">
               <Link

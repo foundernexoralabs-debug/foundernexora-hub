@@ -61,7 +61,7 @@ const principles = [
 
 const chat = RENOR_AREAS.find((area) => area.id === 'chat')?.screenshot;
 const homeProjects = PROJECTS.filter((project) =>
-  ['renor', 'renor-labs-store', 'zero-to-prove'].includes(project.slug),
+  ['renor', 'renor-plugin-store', 'zero-to-prove'].includes(project.slug),
 );
 const dateFormat = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric',
@@ -224,7 +224,7 @@ export default function HomePage() {
                 </a>
               </Button>
               <Button asChild variant="outline" size="xl">
-                <Link href="/renor/plans">Free, Pro and Max</Link>
+                <Link href="/renor/plans">Compare plans</Link>
               </Button>
             </div>
           </div>

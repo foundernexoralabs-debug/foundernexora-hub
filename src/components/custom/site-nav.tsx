@@ -99,6 +99,46 @@ function splitPrimarySlots(slots: NavSlot[]): { inline: NavSlot[]; overflow: Nav
   };
 }
 
+/**
+ * One nav item as a link: internal routes use next/link; external ones open in a new tab,
+ * show a visible ↗ and say so to screen readers. Forwards props so Radix `asChild` works.
+ */
+const NavItemLink = React.forwardRef<
+  HTMLAnchorElement,
+  {
+    item: NavItem;
+    isActive: (href: string) => boolean;
+  } & React.AnchorHTMLAttributes<HTMLAnchorElement>
+>(function NavItemLink({ item, isActive, className, ...props }, ref) {
+  if (isExternal(item.href)) {
+    return (
+      <a
+        ref={ref}
+        {...props}
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn('gap-2', className)}
+      >
+        {item.label}
+        <ArrowUpRight aria-hidden="true" className="size-3.5 opacity-70" />
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    );
+  }
+  return (
+    <Link
+      ref={ref}
+      {...props}
+      href={item.href}
+      className={className}
+      aria-current={isActive(item.href) ? 'page' : undefined}
+    >
+      {item.label}
+    </Link>
+  );
+});
+
 export function SiteNav() {
   const isAuthenticated = useIsAuthenticated();
   // The brand links home, so drop a redundant '/' item from the rendered links.
@@ -170,12 +210,7 @@ export function SiteNav() {
                 <DropdownMenuContent align="start">
                   {slot.items.map((item) => (
                     <DropdownMenuItem key={item.href} asChild>
-                      <Link
-                        href={item.href}
-                        aria-current={isActive(item.href) ? 'page' : undefined}
-                      >
-                        {item.label}
-                      </Link>
+                      <NavItemLink item={item} isActive={isActive} />
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -220,12 +255,7 @@ export function SiteNav() {
                           <DropdownMenuLabel>{slot.label}</DropdownMenuLabel>
                           {slot.items.map((item) => (
                             <DropdownMenuItem key={item.href} asChild>
-                              <Link
-                                href={item.href}
-                                aria-current={isActive(item.href) ? 'page' : undefined}
-                              >
-                                {item.label}
-                              </Link>
+                              <NavItemLink item={item} isActive={isActive} />
                             </DropdownMenuItem>
                           ))}
                         </DropdownMenuGroup>
@@ -316,13 +346,11 @@ export function SiteNav() {
                               isActive(item.href) && 'bg-accent text-accent-foreground',
                             )}
                           >
-                            <Link
-                              href={item.href}
-                              aria-current={isActive(item.href) ? 'page' : undefined}
+                            <NavItemLink
+                              item={item}
+                              isActive={isActive}
                               onClick={() => setOpen(false)}
-                            >
-                              {item.label}
-                            </Link>
+                            />
                           </Button>
                         ))}
                       </div>
@@ -400,7 +428,7 @@ export function SiteFooter() {
           <p className="mt-4 type-copy text-muted-foreground">
             {siteName} builds <span className="font-medium text-foreground">Renor</span>, the AI
             workspace for chat, code, websites and projects, alongside the{' '}
-            <span className="font-medium text-foreground">Renor Labs Store</span> and{' '}
+            <span className="font-medium text-foreground">Renor Plugin Store</span> and{' '}
             <span className="font-medium text-foreground">Zero to Prove</span>, our build in public.
             Every product shows its real status.
           </p>
@@ -418,7 +446,7 @@ export function SiteFooter() {
               id="footer-follow"
               className="text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase"
             >
-              Follow along
+              Follow and shop
             </p>
             <nav aria-labelledby="footer-follow">
               <SocialLinks className="mt-3" />

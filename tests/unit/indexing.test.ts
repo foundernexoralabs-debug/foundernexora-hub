@@ -73,7 +73,7 @@ describe('sitemap.xml', () => {
   it('lists the accessibility statement alongside the core pages', async () => {
     const { default: sitemap } = await import('../../src/app/sitemap');
     const paths = (await sitemap()).map((entry) => new URL(entry.url).pathname);
-    for (const route of ['/', '/renor', '/renor/plans', '/store', '/contact', '/accessibility'])
+    for (const route of ['/', '/renor', '/renor/plans', '/plugins', '/contact', '/accessibility'])
       expect(paths, route).toContain(route);
   });
 

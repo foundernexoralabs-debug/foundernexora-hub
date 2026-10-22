@@ -1,7 +1,16 @@
 // @polsia:user-owned — icons and link rows for the channels in src/lib/business/ecosystem.ts.
 // One component renders the social links in the footer and on Contact, so a channel
 // is added or corrected in CHANNELS and appears everywhere at once.
-import { Briefcase, Github, Link2, type LucideIcon, Music2, Youtube } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Briefcase,
+  Github,
+  Link2,
+  type LucideIcon,
+  Music2,
+  Store,
+  Youtube,
+} from 'lucide-react';
 import { type Channel, type LinkedChannel, SOCIAL_CHANNELS } from '@/lib/business/ecosystem';
 import { cn } from '@/lib/utils';
 
@@ -10,6 +19,7 @@ const ICONS: Record<Channel['id'], LucideIcon> = {
   tiktok: Music2,
   links: Link2,
   fiverr: Briefcase,
+  'renor-labs': Store,
   github: Github,
 };
 
@@ -50,7 +60,12 @@ export function SocialLinks({
               id={channel.id}
               className={variant === 'icons' ? 'size-[18px]' : 'size-4'}
             />
-            {variant === 'labelled' ? <span aria-hidden="true">{channel.name}</span> : null}
+            {variant === 'labelled' ? (
+              <>
+                <span aria-hidden="true">{channel.name}</span>
+                <ArrowUpRight aria-hidden="true" className="size-3.5 opacity-70" />
+              </>
+            ) : null}
           </a>
         </li>
       ))}

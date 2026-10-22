@@ -50,7 +50,7 @@ function ActionButton({ action }: { action: NeedAction }) {
         <ChannelIcon id={action.channel} className="size-4" />
       ) : null}
       {action.label}
-      {action.primary ? <Arrow aria-hidden="true" className="size-4" /> : null}
+      {action.primary || action.external ? <Arrow aria-hidden="true" className="size-4" /> : null}
       {action.external ? <span className="sr-only"> (opens in a new tab)</span> : null}
     </>
   );

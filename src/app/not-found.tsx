@@ -9,7 +9,8 @@ import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 
 export const metadata: Metadata = {
   title: 'Page not found',
-  description: 'This page does not exist. Find Renor, the store, projects or a way to reach us.',
+  description:
+    'This page does not exist. Find Renor, the Plugin Store, projects or a way to reach us.',
   robots: { index: false },
 };
 

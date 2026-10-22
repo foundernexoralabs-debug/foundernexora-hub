@@ -11,7 +11,13 @@ const hrefs = (id: string) => need(id)?.actions.map((action) => action.href) ?? 
 
 describe('What do you need? guide', () => {
   it('has one card per need, in the founder’s order', () => {
-    expect(NEEDS.map((entry) => entry.id)).toEqual(['hire', 'follow', 'renor', 'store', 'contact']);
+    expect(NEEDS.map((entry) => entry.id)).toEqual([
+      'hire',
+      'follow',
+      'renor',
+      'plugins',
+      'contact',
+    ]);
   });
 
   it('sends "Hire the founder" to the founder’s Fiverr', () => {
@@ -33,8 +39,8 @@ describe('What do you need? guide', () => {
     expect(need('renor')?.benefit).toMatch(/install/i);
   });
 
-  it('sends Store and Contact to their pages', () => {
-    expect(hrefs('store')).toEqual(['/store']);
+  it('sends the Plugin Store and Contact cards to their pages', () => {
+    expect(hrefs('plugins')).toEqual(['/plugins', 'https://renorlabs.plugandpay.com/home']);
     expect(hrefs('contact')).toEqual(['/contact']);
   });
 

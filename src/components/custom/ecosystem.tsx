@@ -58,20 +58,31 @@ export function PageHero({
   title,
   lede,
   children,
+  aside,
 }: {
   eyebrow: string;
   title: ReactNode;
   lede: ReactNode;
   children?: ReactNode;
+  /** Optional content beside the text on large screens (below it on small ones). */
+  aside?: ReactNode;
 }) {
   return (
     <section className="relative isolate overflow-hidden border-b border-border px-5 pt-16 pb-16 sm:px-8 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
       <HeroGrid />
-      <div className="mx-auto max-w-screen-xl">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="mt-5 max-w-4xl font-display type-title text-balance">{title}</h1>
-        <div className="mt-6 max-w-2xl type-lead text-pretty text-muted-foreground">{lede}</div>
-        {children ? <div className="mt-10 flex flex-wrap gap-3">{children}</div> : null}
+      <div
+        className={cn(
+          'mx-auto max-w-screen-xl',
+          aside && 'grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14',
+        )}
+      >
+        <div>
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h1 className="mt-5 max-w-4xl font-display type-title text-balance">{title}</h1>
+          <div className="mt-6 max-w-2xl type-lead text-pretty text-muted-foreground">{lede}</div>
+          {children ? <div className="mt-10 flex flex-wrap gap-3">{children}</div> : null}
+        </div>
+        {aside}
       </div>
     </section>
   );

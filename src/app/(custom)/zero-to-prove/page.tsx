@@ -6,7 +6,12 @@ import { ChannelIcon } from '@/components/custom/channel-links';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { Button } from '@/components/ui/button';
-import { CHANNELS, MILESTONE_WHERE, MILESTONES, RENOR_APP_URL } from '@/lib/business/ecosystem';
+import {
+  JOURNEY_CHANNELS,
+  MILESTONE_WHERE,
+  MILESTONES,
+  RENOR_APP_URL,
+} from '@/lib/business/ecosystem';
 import { pageMetadata } from '@/lib/business/seo';
 import { cn } from '@/lib/utils';
 
@@ -115,14 +120,16 @@ export default function ZeroToProvePage() {
             title="Where the journey is published."
           />
           <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
-            {CHANNELS.map((channel, index) => (
+            {JOURNEY_CHANNELS.map((channel, index) => (
               <li
                 key={channel.id}
                 className={cn(
                   'flex flex-col rounded-2xl border border-border bg-card p-7',
                   // YouTube and TikTok lead; the remaining three share the second row.
                   index < 2 ? 'lg:col-span-3' : 'lg:col-span-2',
-                  index === CHANNELS.length - 1 && CHANNELS.length % 2 === 1 && 'sm:col-span-2',
+                  index === JOURNEY_CHANNELS.length - 1 &&
+                    JOURNEY_CHANNELS.length % 2 === 1 &&
+                    'sm:col-span-2',
                 )}
               >
                 <p className="flex items-center gap-3 text-lg font-semibold">

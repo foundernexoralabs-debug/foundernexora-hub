@@ -5,7 +5,7 @@
 // checks each card's destination against those sources.
 import { CHANNELS, type Channel, RENOR_APP_URL } from '@/lib/business/ecosystem';
 
-export type NeedId = 'hire' | 'follow' | 'renor' | 'store' | 'contact';
+export type NeedId = 'hire' | 'follow' | 'renor' | 'plugins' | 'contact';
 export type NeedIcon = 'briefcase' | 'play' | 'sparkles' | 'bag' | 'mail';
 
 export interface NeedAction {
@@ -69,11 +69,14 @@ export const NEEDS: readonly Need[] = [
     actions: [{ label: 'Open Renor', href: RENOR_APP_URL, external: true, primary: true }],
   },
   {
-    id: 'store',
-    title: 'Browse the store',
-    benefit: 'Practical digital kits, starting with TradeLaunch for electricians. Coming soon.',
+    id: 'plugins',
+    title: 'Browse the Plugin Store',
+    benefit: 'Ready-to-use digital kits, starting with TradeLaunch for electricians. Opening soon.',
     icon: 'bag',
-    actions: [{ label: 'Visit the store', href: '/store', external: false, primary: true }],
+    actions: [
+      { label: 'Visit the Plugin Store', href: '/plugins', external: false, primary: true },
+      channelAction('renor-labs', 'Renor Labs shop'),
+    ],
   },
   {
     id: 'contact',
