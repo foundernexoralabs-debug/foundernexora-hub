@@ -123,10 +123,10 @@ export function SiteNav() {
     slot.type === 'link' ? isActive(slot.item.href) : slot.items.some((i) => isActive(i.href));
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-40 w-full border-b border-border bg-background">
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-14 max-w-screen-xl items-center gap-2 px-4"
+        className="mx-auto flex h-16 max-w-screen-xl items-center gap-2 px-4 sm:px-6"
       >
         <Link
           href="/"
@@ -137,15 +137,15 @@ export function SiteNav() {
           <span>{siteName}</span>
         </Link>
 
-        {/* Desktop (md+): inline slots — direct links + `menu` dropdowns */}
-        <div className="hidden items-center gap-1 md:flex">
+        {/* Desktop (lg+): inline slots — direct links + `menu` dropdowns */}
+        <div className="hidden items-center gap-1 lg:flex">
           {inline.map((slot) =>
             slot.type === 'link' ? (
               <Button
                 key={slot.item.href}
                 asChild
                 variant="ghost"
-                size="sm"
+                size="nav"
                 className={cn(isActive(slot.item.href) && 'bg-accent text-accent-foreground')}
               >
                 <Link
@@ -160,7 +160,7 @@ export function SiteNav() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    size="sm"
+                    size="nav"
                     className={cn(isSlotActive(slot) && 'bg-accent text-accent-foreground')}
                   >
                     {slot.label}
@@ -189,7 +189,7 @@ export function SiteNav() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  size="sm"
+                  size="nav"
                   className={cn(overflow.some(isSlotActive) && 'bg-accent text-accent-foreground')}
                 >
                   More
@@ -241,9 +241,15 @@ export function SiteNav() {
         {/* Right cluster: ml-auto pushes it right at every breakpoint */}
         <div className="ml-auto flex items-center gap-1">
           {/* Desktop secondary buttons */}
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {secondary.map((item) => (
-              <Button key={item.href} asChild variant="secondary" size="sm">
+              <Button
+                key={item.href}
+                asChild
+                variant="brand"
+                size="nav"
+                className="rounded-full px-4"
+              >
                 {isExternal(item.href) ? (
                   <a href={item.href} target="_blank" rel="noopener noreferrer">
                     {item.label}
@@ -259,13 +265,13 @@ export function SiteNav() {
           </div>
 
           {/* Always visible */}
-          <ThemeToggle className="size-11 md:size-9" />
+          <ThemeToggle className="size-11 lg:size-9" />
 
-          {/* Mobile (below md): burger + drawer — only when there's something to collapse */}
+          {/* Phones and tablets (below lg): burger + drawer — only when there's something to collapse */}
           {collapsedCount > 0 && (
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="size-11 md:hidden">
+                <Button variant="ghost" size="icon" className="size-11 lg:hidden">
                   <Menu />
                   <span className="sr-only">Open menu</span>
                 </Button>
@@ -283,7 +289,7 @@ export function SiteNav() {
                         asChild
                         variant="ghost"
                         className={cn(
-                          'w-full justify-start',
+                          'h-11 w-full justify-start text-base',
                           isActive(slot.item.href) && 'bg-accent text-accent-foreground',
                         )}
                       >
@@ -306,7 +312,7 @@ export function SiteNav() {
                             asChild
                             variant="ghost"
                             className={cn(
-                              'w-full justify-start pl-6',
+                              'h-11 w-full justify-start pl-6 text-base',
                               isActive(item.href) && 'bg-accent text-accent-foreground',
                             )}
                           >
@@ -329,7 +335,7 @@ export function SiteNav() {
                           key={item.href}
                           asChild
                           variant="secondary"
-                          className="w-full justify-start"
+                          className="h-11 w-full justify-start text-base"
                         >
                           {isExternal(item.href) ? (
                             <a
@@ -365,7 +371,7 @@ export function SiteNav() {
 }
 
 const FOOTER_LINK =
-  'inline-flex min-h-11 items-center gap-1 rounded-sm text-sm text-foreground/75 underline-offset-4 transition-colors hover:text-foreground hover:underline sm:min-h-9';
+  'inline-flex min-h-11 items-center gap-1 rounded-sm text-[0.9375rem] text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline sm:min-h-9';
 
 export function SiteFooter() {
   const isAuthenticated = useIsAuthenticated();
@@ -380,7 +386,7 @@ export function SiteFooter() {
   const appLink = navItems.find((item) => item.group === 'secondary' && isExternal(item.href));
 
   return (
-    <footer className="border-t border-border bg-card/30">
+    <footer className="border-t border-border bg-band">
       <div className="mx-auto grid max-w-screen-xl gap-12 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.35fr_2fr] lg:gap-16">
         <div className="max-w-sm">
           <Link
@@ -391,7 +397,7 @@ export function SiteFooter() {
             <BrandMark />
             <span>{siteName}</span>
           </Link>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-4 type-copy text-muted-foreground">
             {siteName} builds <span className="font-medium text-foreground">Renor</span>, the AI
             workspace for chat, code, websites and projects, alongside the{' '}
             <span className="font-medium text-foreground">Renor Labs Store</span> and{' '}
@@ -410,7 +416,7 @@ export function SiteFooter() {
           <div className="mt-8">
             <p
               id="footer-follow"
-              className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase"
+              className="text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase"
             >
               Follow along
             </p>
@@ -422,7 +428,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
           {[...columns].map(([heading, items]) => (
             <nav key={heading} aria-label={`${heading} links`}>
-              <p className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+              <p className="text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase">
                 {heading}
               </p>
               <ul className="mt-3 grid gap-0.5">
@@ -451,8 +457,8 @@ export function SiteFooter() {
           ))}
         </div>
       </div>
-      <div className="border-t border-border/70">
-        <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-5 py-4 text-xs text-muted-foreground sm:px-8">
+      <div className="border-t border-border">
+        <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-5 py-4 type-meta text-muted-foreground sm:px-8">
           <p className="py-2">
             © {new Date().getFullYear()} {siteName}. Renor is in preview.
           </p>

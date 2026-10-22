@@ -43,3 +43,111 @@ html {
     background: color-mix(in oklch, var(--brand-500) 35%, transparent);
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * FounderLab visual system: crisp, high-contrast, readable.
+ *
+ * The framework derives its palette in globals.css from the brand seed. These
+ * overrides sharpen the roles that carry text: `html:root` / `html.dark` outrank
+ * the derived `:root` / `.dark` blocks whatever the stylesheet order, exactly
+ * like the font tokens in head-content.tsx. Brand hue and identity are unchanged.
+ *
+ * Measured contrast targets (WCAG 2.2): body and muted text >= 7:1 (AAA) on
+ * both the page background and cards, in light and dark.
+ * ------------------------------------------------------------------------- */
+html:root {
+  --background: oklch(0.993 0.002 var(--brand-h));
+  --foreground: oklch(0.17 0.014 var(--brand-h));
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --secondary: oklch(0.955 0.006 var(--brand-h));
+  --secondary-foreground: oklch(0.2 0.016 var(--brand-h));
+  --muted: oklch(0.962 0.005 var(--brand-h));
+  --muted-foreground: oklch(0.43 0.018 var(--brand-h));
+  --accent: oklch(0.95 0.012 var(--brand-h));
+  --accent-foreground: oklch(0.2 0.016 var(--brand-h));
+  --border: oklch(0.885 0.008 var(--brand-h));
+  --input: oklch(0.85 0.01 var(--brand-h));
+  --primary: var(--brand-600);
+  --ring: var(--brand-500);
+  /* Links and accents in text: one notch deeper than the fill colour, for contrast. */
+  --link: var(--brand-600);
+  --surface-band: oklch(0.975 0.004 var(--brand-h));
+}
+
+html.dark {
+  --background: oklch(0.145 0.008 var(--brand-h));
+  --foreground: oklch(0.975 0.003 var(--brand-h));
+  --card: oklch(0.19 0.01 var(--brand-h));
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.2 0.01 var(--brand-h));
+  --secondary: oklch(0.25 0.012 var(--brand-h));
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.23 0.01 var(--brand-h));
+  --muted-foreground: oklch(0.8 0.012 var(--brand-h));
+  --accent: oklch(0.26 0.016 var(--brand-h));
+  --accent-foreground: var(--foreground);
+  --border: oklch(0.31 0.012 var(--brand-h));
+  --input: oklch(0.36 0.012 var(--brand-h));
+  --primary: var(--brand-300);
+  --primary-foreground: oklch(0.16 0.02 var(--brand-h));
+  --link: var(--brand-300);
+  --surface-band: oklch(0.17 0.009 var(--brand-h));
+}
+
+/* Readable defaults: 17px body copy, tuned Inter, no faux-bold. */
+body {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* Type scale. Fluid between a 390px phone and a 1440px desktop. */
+@utility type-display {
+  font-size: clamp(2.625rem, 1.6rem + 4.4vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.038em;
+  font-weight: 650;
+}
+@utility type-title {
+  font-size: clamp(2.25rem, 1.55rem + 3vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.034em;
+  font-weight: 650;
+}
+@utility type-heading {
+  font-size: clamp(1.875rem, 1.45rem + 1.8vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+  font-weight: 650;
+}
+@utility type-subheading {
+  font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  font-weight: 620;
+}
+@utility type-lead {
+  font-size: clamp(1.125rem, 1.04rem + 0.35vw, 1.3125rem);
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+}
+@utility type-copy {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+@utility type-meta {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+/* Colour roles the theme does not ship. */
+@utility text-link {
+  color: var(--link);
+}
+@utility bg-band {
+  background-color: var(--surface-band);
+}

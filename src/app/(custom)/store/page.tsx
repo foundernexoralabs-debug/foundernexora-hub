@@ -35,17 +35,13 @@ export default function StorePage() {
         }
       >
         {stocked[0] ? (
-          <Button
-            asChild
-            size="lg"
-            className="min-h-12 rounded-full bg-brand-500 px-7 text-white hover:bg-brand-400"
-          >
+          <Button asChild variant="brand" size="xl">
             <Link href={`#${stocked[0].id}`}>
-              See the first products <ArrowRight aria-hidden="true" className="ml-2 size-4" />
+              See the first products <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
           </Button>
         ) : null}
-        <Button asChild size="lg" variant="outline" className="min-h-12 rounded-full px-7">
+        <Button asChild variant="outline" size="xl">
           <Link href="#policies">Store policies</Link>
         </Button>
       </PageHero>
@@ -58,8 +54,8 @@ export default function StorePage() {
             id={category.id}
             aria-labelledby={`category-${category.id}`}
             className={cn(
-              'scroll-mt-24 px-5 py-20 sm:px-8 sm:py-24',
-              index > 0 && 'border-t border-border/60',
+              'scroll-mt-24 px-5 py-20 sm:px-8 sm:py-28',
+              index > 0 && 'border-t border-border',
             )}
           >
             <div className="mx-auto max-w-screen-xl">
@@ -70,7 +66,7 @@ export default function StorePage() {
                   title={category.headline}
                   lede={category.description}
                 />
-                <p className="text-sm text-muted-foreground">
+                <p className="type-meta text-muted-foreground">
                   {products.length} product{products.length === 1 ? '' : 's'} ·{' '}
                   {products.some(isPurchasable) ? 'on sale' : 'not on sale yet'}
                 </p>
@@ -93,7 +89,7 @@ export default function StorePage() {
       {laterShelves.length > 0 ? (
         <section
           aria-labelledby="shelves"
-          className="border-t border-border/60 px-5 py-20 sm:px-8 sm:py-24"
+          className="border-t border-border px-5 py-20 sm:px-8 sm:py-28"
         >
           <div className="mx-auto max-w-screen-xl">
             <SectionHeading
@@ -108,13 +104,16 @@ export default function StorePage() {
                   key={category.id}
                   id={category.id}
                   aria-labelledby={`category-${category.id}`}
-                  className="flex scroll-mt-24 flex-col rounded-2xl border border-dashed border-border/80 p-6"
+                  className="flex scroll-mt-24 flex-col rounded-2xl border border-dashed border-border p-6"
                 >
                   <PackageOpen aria-hidden="true" className="size-5 text-muted-foreground" />
-                  <h3 id={`category-${category.id}`} className="mt-5 text-lg font-semibold">
+                  <h3
+                    id={`category-${category.id}`}
+                    className="mt-5 text-xl font-semibold tracking-tight"
+                  >
                     {category.name}
                   </h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-2 flex-1 type-copy text-muted-foreground">
                     {category.description}
                   </p>
                   <p className="mt-5 text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
@@ -130,24 +129,18 @@ export default function StorePage() {
       <section
         id="policies"
         aria-labelledby="policies-title"
-        className="scroll-mt-24 border-t border-border/60 bg-card/30 px-5 py-20 sm:px-8 sm:py-24"
+        className="scroll-mt-24 border-t border-border bg-band px-5 py-20 sm:px-8 sm:py-28"
       >
         <div className="mx-auto grid max-w-screen-xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <Eyebrow>Before you buy</Eyebrow>
-            <h2
-              id="policies-title"
-              className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl"
-            >
+            <h2 id="policies-title" className="mt-4 font-display type-heading">
               Store policies.
             </h2>
           </div>
           <div className="grid gap-5 text-base leading-relaxed text-muted-foreground">
             <p className="flex gap-3">
-              <ShieldCheck
-                aria-hidden="true"
-                className="mt-1 size-5 shrink-0 text-brand-500 dark:text-brand-400"
-              />
+              <ShieldCheck aria-hidden="true" className="mt-1 size-5 shrink-0 text-link" />
               <span>
                 Before the first product goes on sale, this section will set out exactly what you
                 receive and how, the price including any tax, your cancellation and refund rights,

@@ -42,7 +42,7 @@ export function SocialLinks({
             aria-label={`${channel.label} (opens in a new tab)`}
             title={channel.label}
             className={cn(
-              'inline-flex min-h-11 items-center justify-center rounded-full border border-border/80 bg-background/60 text-foreground/80 transition-colors hover:border-brand-500/60 hover:bg-brand-500/10 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500',
+              'inline-flex min-h-11 items-center justify-center rounded-full border border-border bg-background/60 text-foreground/80 transition-colors hover:border-brand-500/60 hover:bg-brand-500/10 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500',
               variant === 'icons' ? 'size-11' : 'gap-2 px-4 text-sm font-medium',
             )}
           >

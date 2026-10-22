@@ -18,7 +18,7 @@ export default function TermsPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <PageHero eyebrow="Terms" title="Using this website." lede={`Last updated ${UPDATED}.`} />
-      <article className="mx-auto max-w-3xl px-5 py-16 text-base leading-relaxed text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
+      <article className="mx-auto max-w-3xl px-5 py-16 text-[1.0625rem] leading-[1.75] text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-[1.625rem] [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
         <h2>What this website is</h2>
         <p>
           This website describes FounderLab and its projects. We work to keep it accurate, and every

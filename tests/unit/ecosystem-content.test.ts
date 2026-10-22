@@ -117,7 +117,7 @@ describe('claims', () => {
       expect(plan.price, plan.name).not.toMatch(/[€$£]\s?\d|\d+\s?(?:€|\$|£|EUR|USD|GBP)|\/\s?mo/i);
     }
     expect(PLANS.find((plan) => plan.id === 'pro')?.price).toBe('Price not set');
-    expect(PLANS.find((plan) => plan.id === 'advanced')?.price).toBe('Price not set');
+    expect(PLANS.find((plan) => plan.id === 'max')?.price).toBe('Price not set');
   });
 
   it('paid plans advertise nothing as available today', () => {

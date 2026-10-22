@@ -60,7 +60,7 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
   },
   plans: {
     title: 'Plans',
-    text: 'Free, Pro and Advanced, as proposed. Nothing is on sale and no price is set.',
+    text: 'Sign up free today. Pro and Max open once their prices are approved.',
     href: '/renor/plans',
     icon: 'layers',
   },

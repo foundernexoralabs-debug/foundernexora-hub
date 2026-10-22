@@ -1,10 +1,10 @@
 // @polsia:user-owned — FounderLab public company front door.
 // Truthful copy: every project, feature and milestone comes from src/lib/business/ecosystem.ts.
 import {
+  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
-  CircleDot,
   Layers3,
   ShieldCheck,
   Sparkles,
@@ -12,15 +12,17 @@ import {
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BrandMark } from '@/components/custom/brand-mark';
 import {
   Eyebrow,
+  HeroGrid,
   ProductShot,
   SCREENSHOT_CAPTION,
   StatusBadge,
 } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
+import { NeedGuide } from '@/components/custom/need-guide';
 import { OrganizationJsonLd } from '@/components/custom/structured-data';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   MILESTONE_WHERE,
@@ -71,61 +73,47 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <OrganizationJsonLd />
-      <section className="relative isolate overflow-hidden border-b border-border/60 px-5 py-20 sm:px-8 sm:py-28 lg:py-32">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_75%_25%,rgba(75,80,205,0.22),transparent_48%),radial-gradient(ellipse_at_10%_80%,rgba(34,172,210,0.10),transparent_55%)]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.055] [background-image:linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] [background-size:80px_80px]"
-        />
-        <div className="mx-auto grid max-w-screen-xl items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
+      <section className="relative isolate overflow-hidden border-b border-border px-5 pt-16 pb-20 sm:px-8 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-32">
+        <HeroGrid />
+        <div className="mx-auto grid max-w-screen-xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <div className="max-w-3xl">
-            <Badge
-              variant="outline"
-              className="mb-7 border-brand-500/40 bg-brand-500/10 px-4 py-2 text-xs font-medium tracking-[0.13em] text-brand-500 dark:text-brand-400"
-            >
-              <CircleDot aria-hidden="true" className="mr-2 size-3" />
-              FOUNDERLAB<span className="hidden sm:inline">&nbsp;· MAKERS OF RENOR</span>
-            </Badge>
-            <h1 className="font-display text-5xl leading-[1.03] font-semibold tracking-[-0.042em] sm:text-7xl">
-              Technology for{' '}
-              <span className="bg-gradient-to-r from-brand-500 via-sky-400 to-foreground bg-clip-text text-transparent dark:from-brand-400 dark:via-sky-300">
-                the work ahead.
-              </span>
+            <p className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase shadow-xs">
+              <BrandMark className="size-4" />
+              FounderLab
+              <span className="hidden text-muted-foreground sm:inline">· Makers of Renor</span>
+            </p>
+            <h1 className="font-display type-display text-balance">
+              Technology for <span className="text-link">the work ahead.</span>
             </h1>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            <p className="mt-7 max-w-xl type-lead text-pretty text-muted-foreground">
               FounderLab builds Renor, an AI workspace for people who make things, and a small
               family of related projects. Explore what works today, see what is being built, and
               judge us by the evidence.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button
-                asChild
-                size="lg"
-                className="min-h-12 rounded-full bg-brand-500 px-7 text-white hover:bg-brand-400"
-              >
+              <Button asChild variant="brand" size="xl">
                 <Link href="/renor">
-                  Meet Renor AI <ArrowRight aria-hidden="true" className="ml-2 size-4" />
+                  Meet Renor AI <ArrowRight aria-hidden="true" className="size-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="min-h-12 rounded-full px-7">
-                <Link href="/projects">All projects</Link>
+              <Button asChild variant="outline" size="xl">
+                <a href="#guide">
+                  What do you need? <ArrowDown aria-hidden="true" className="size-4" />
+                </a>
               </Button>
             </div>
-            <p className="mt-6 text-sm text-muted-foreground">
+            <p className="mt-6 type-meta text-muted-foreground">
               Renor is in preview: usable today, with every feature’s status shown.
             </p>
           </div>
           <div className="relative mx-auto flex aspect-square w-full max-w-[16rem] items-center justify-center sm:max-w-md">
             <div
               aria-hidden="true"
-              className="absolute size-[96%] rounded-full border border-brand-400/15"
+              className="absolute size-[96%] rounded-full border border-border"
             />
             <div
               aria-hidden="true"
-              className="absolute size-[80%] rounded-full border border-sky-400/15"
+              className="absolute size-[78%] rounded-full border border-dashed border-border"
             />
             <Image
               src="/assets/renor/orb.webp"
@@ -134,17 +122,13 @@ export default function HomePage() {
               height={380}
               preload
               sizes="(min-width: 640px) 28rem, 16rem"
-              className="relative h-auto w-[78%] drop-shadow-[0_0_60px_rgba(56,140,255,0.35)]"
+              className="relative h-auto w-[72%]"
             />
-            <div className="absolute right-[1%] bottom-[8%] rounded-2xl border border-border/60 bg-background/90 px-4 py-3 shadow-xl backdrop-blur">
-              <p className="flex items-center gap-2 text-xs font-semibold">
-                <Sparkles
-                  aria-hidden="true"
-                  className="size-4 text-brand-500 dark:text-brand-400"
-                />{' '}
-                Renor AI
+            <div className="absolute right-0 bottom-[6%] rounded-2xl border border-border bg-card px-4 py-3 shadow-lg">
+              <p className="flex items-center gap-2 text-[0.9375rem] font-semibold">
+                <Sparkles aria-hidden="true" className="size-4 text-link" /> Renor AI
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-0.5 text-sm text-muted-foreground">
                 Chat · Code · Websites · Projects
               </p>
             </div>
@@ -152,25 +136,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      <NeedGuide className="border-b border-border bg-band" />
+
       <section
         id="projects"
         aria-labelledby="projects-title"
-        className="scroll-mt-20 px-5 py-20 sm:px-8 sm:py-24"
+        className="scroll-mt-20 px-5 py-20 sm:px-8 sm:py-28"
       >
         <div className="mx-auto max-w-screen-xl">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <Eyebrow>Our work</Eyebrow>
-              <h2
-                id="projects-title"
-                className="mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight sm:text-5xl"
-              >
+              <h2 id="projects-title" className="mt-4 max-w-2xl font-display type-heading">
                 One company. Focused projects.
               </h2>
             </div>
             <Link
               href="/projects"
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+              className="inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
             >
               Every project and its status <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
@@ -179,23 +162,23 @@ export default function HomePage() {
             {homeProjects.map((project) => (
               <article
                 key={project.slug}
-                className="flex min-h-72 flex-col justify-between rounded-3xl border border-border/65 bg-card/65 p-7 transition-colors hover:border-brand-500/50"
+                className="flex min-h-72 flex-col justify-between rounded-3xl border border-border bg-card p-7 transition-colors hover:border-brand-500/50"
               >
                 <div>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-[11px] font-semibold tracking-wide text-muted-foreground uppercase">
+                    <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                       {project.kind}
                     </span>
                     <StatusBadge status={project.status} />
                   </div>
-                  <h3 className="mt-8 font-display text-3xl font-semibold">{project.name}</h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                    {project.summary}
-                  </p>
+                  <h3 className="mt-8 font-display text-[1.875rem] font-semibold tracking-tight">
+                    {project.name}
+                  </h3>
+                  <p className="mt-4 type-copy text-muted-foreground">{project.summary}</p>
                 </div>
                 <Link
                   href={project.href}
-                  className="mt-8 inline-flex min-h-11 items-center gap-2 self-start text-sm font-semibold text-brand-500 underline-offset-4 hover:underline focus-visible:underline dark:text-brand-400"
+                  className="mt-8 inline-flex min-h-11 items-center gap-2 self-start text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline focus-visible:underline"
                 >
                   {project.action}
                   <ArrowUpRight aria-hidden="true" className="size-4" />
@@ -209,49 +192,39 @@ export default function HomePage() {
       <section
         id="renor"
         aria-labelledby="renor-title"
-        className="border-y border-border/60 bg-card/30 px-5 py-20 sm:px-8 sm:py-24"
+        className="border-y border-border bg-band px-5 py-20 sm:px-8 sm:py-28"
       >
         <div className="mx-auto grid max-w-screen-xl items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="max-w-xl">
             <StatusBadge status="preview" />
-            <h2
-              id="renor-title"
-              className="mt-6 font-display text-4xl font-semibold tracking-tight sm:text-5xl"
-            >
+            <h2 id="renor-title" className="mt-6 font-display type-heading">
               Meet Renor AI.
             </h2>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 type-lead text-muted-foreground">
               Chat, Code AI, a Website Builder and a Project Office in one workspace, built to show
               evidence of what it did rather than just an answer. Free to start in the web preview.
             </p>
-            <ul className="mt-6 grid gap-2 text-sm">
+            <ul className="mt-6 grid gap-1 text-base">
               {RENOR_AREAS.map((area) => (
                 <li key={area.id}>
                   <Link
                     href={`/renor#${area.id}`}
                     className="inline-flex min-h-11 items-center gap-2 font-medium underline-offset-4 hover:underline sm:min-h-9"
                   >
-                    <ArrowRight
-                      aria-hidden="true"
-                      className="size-3.5 text-brand-500 dark:text-brand-400"
-                    />
+                    <ArrowRight aria-hidden="true" className="size-3.5 text-link" />
                     {area.name}
                   </Link>
                 </li>
               ))}
             </ul>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Button
-                asChild
-                size="lg"
-                className="min-h-12 rounded-full bg-brand-500 px-6 text-white hover:bg-brand-400"
-              >
+              <Button asChild variant="brand" size="xl">
                 <a href={RENOR_APP_URL} target="_blank" rel="noopener noreferrer">
-                  Open Renor <ArrowUpRight aria-hidden="true" className="ml-2 size-4" />
+                  Open Renor <ArrowUpRight aria-hidden="true" className="size-4" />
                 </a>
               </Button>
-              <Button asChild variant="outline" size="lg" className="min-h-12 rounded-full px-6">
-                <Link href="/renor/plans">Free, Pro and Advanced</Link>
+              <Button asChild variant="outline" size="xl">
+                <Link href="/renor/plans">Free, Pro and Max</Link>
               </Button>
             </div>
           </div>
@@ -262,22 +235,19 @@ export default function HomePage() {
       <section
         id="approach"
         aria-labelledby="approach-title"
-        className="scroll-mt-20 px-5 py-20 sm:px-8 sm:py-24"
+        className="scroll-mt-20 px-5 py-20 sm:px-8 sm:py-28"
       >
         <div className="mx-auto max-w-screen-xl">
           <Eyebrow>How we build</Eyebrow>
-          <h2
-            id="approach-title"
-            className="mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight sm:text-5xl"
-          >
+          <h2 id="approach-title" className="mt-4 max-w-2xl font-display type-heading">
             Useful work comes first.
           </h2>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {principles.map(({ icon: Icon, title, text }) => (
-              <article key={title} className="rounded-2xl border border-border/60 p-7">
-                <Icon aria-hidden="true" className="size-7 text-brand-500 dark:text-brand-400" />
+              <article key={title} className="rounded-2xl border border-border p-7">
+                <Icon aria-hidden="true" className="size-7 text-link" />
                 <h3 className="mt-7 text-xl font-semibold">{title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{text}</p>
+                <p className="mt-3 type-copy text-muted-foreground">{text}</p>
               </article>
             ))}
           </div>
@@ -287,23 +257,20 @@ export default function HomePage() {
       <section
         id="updates"
         aria-labelledby="updates-title"
-        className="scroll-mt-20 border-t border-border/60 px-5 py-20 sm:px-8 sm:py-24"
+        className="scroll-mt-20 border-t border-border px-5 py-20 sm:px-8 sm:py-28"
       >
         <div className="mx-auto grid max-w-screen-xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <Eyebrow>Follow the work</Eyebrow>
-            <h2
-              id="updates-title"
-              className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl"
-            >
+            <h2 id="updates-title" className="mt-4 font-display type-heading">
               Progress you can inspect.
             </h2>
-            <p className="mt-5 text-lg text-muted-foreground">
+            <p className="mt-5 type-lead text-muted-foreground">
               Each entry says where the work lives, so nothing unfinished is presented as shipped.
             </p>
             <Link
               href="/zero-to-prove#log"
-              className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+              className="mt-8 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
             >
               Full build log on Zero to Prove <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
@@ -312,18 +279,16 @@ export default function HomePage() {
             {MILESTONES.slice(0, 3).map((milestone) => (
               <li
                 key={`${milestone.date}-${milestone.title}`}
-                className="rounded-2xl border border-border/70 bg-card/60 p-6"
+                className="rounded-2xl border border-border bg-card p-6"
               >
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 type-meta text-muted-foreground">
                   <time dateTime={milestone.date} className="font-semibold text-foreground">
                     {dateFormat.format(new Date(`${milestone.date}T00:00:00Z`))}
                   </time>
                   <span>{MILESTONE_WHERE[milestone.where]}</span>
                 </div>
-                <h3 className="mt-2 font-semibold">{milestone.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {milestone.detail}
-                </p>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight">{milestone.title}</h3>
+                <p className="mt-2 type-copy text-muted-foreground">{milestone.detail}</p>
               </li>
             ))}
           </ol>
