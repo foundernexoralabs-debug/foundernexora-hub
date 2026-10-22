@@ -36,3 +36,17 @@ describe('pageMetadata', () => {
     expect(meta.openGraph?.title).toBe('FounderLab');
   });
 });
+
+describe('pageMetadata with its own image', () => {
+  it('leaves images unset so the route’s opengraph-image and twitter-image files apply', () => {
+    const meta = pageMetadata({
+      title: 'Kit',
+      description: 'A kit.',
+      path: '/plugins/kit',
+      ownImage: true,
+    });
+    expect(meta.openGraph).not.toHaveProperty('images');
+    expect(meta.twitter).not.toHaveProperty('images');
+    expect(meta.twitter).toMatchObject({ card: 'summary_large_image' });
+  });
+});

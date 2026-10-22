@@ -41,18 +41,18 @@ export default function CompanyPage() {
         title="A small technology company that would rather prove than promise."
         lede="FounderLab builds Renor, an AI workspace for people who make things, and a small family of related projects. Everything we publish says plainly what works today and what does not yet."
       />
-      <section className="px-5 py-20 sm:px-8 sm:py-24">
+      <section className="px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto grid max-w-screen-xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <SectionHeading eyebrow="What we do" title="One company, a few focused projects." />
-          <div className="grid gap-6 text-lg leading-relaxed text-muted-foreground">
+          <div className="grid gap-6 type-lead text-muted-foreground">
             <p>
               Renor is the flagship: chat, coding, website building and project memory in one
-              workspace, with results you can check. Around it sit a store for the digital tools we
-              make, and Zero to Prove, where the building happens in public.
+              workspace, with results you can check. Around it sit the Plugin Store for the digital
+              kits we make, and Zero to Prove, where the building happens in public.
             </p>
             <p>
-              We are early. Renor is in preview, the store’s first products are not on sale yet, and
-              we say so. You can follow every public change to this website on GitHub.
+              We are early. Renor is in preview, the Plugin Store’s first products are not on sale
+              yet, and we say so. You can follow every public change to this website on GitHub.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-base">
               <Link
@@ -76,7 +76,7 @@ export default function CompanyPage() {
       <section
         id="how-we-work"
         aria-labelledby="how-we-work-title"
-        className="scroll-mt-24 border-t border-border/60 bg-card/30 px-5 py-20 sm:px-8 sm:py-24"
+        className="scroll-mt-24 border-t border-border bg-band px-5 py-20 sm:px-8 sm:py-28"
       >
         <div className="mx-auto max-w-screen-xl">
           <SectionHeading
@@ -89,12 +89,10 @@ export default function CompanyPage() {
             {principles.map((principle) => (
               <article
                 key={principle.title}
-                className="rounded-2xl border border-border/70 bg-background/70 p-6"
+                className="rounded-2xl border border-border bg-card p-6"
               >
-                <h3 className="text-lg font-semibold">{principle.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {principle.text}
-                </p>
+                <h3 className="text-xl font-semibold tracking-tight">{principle.title}</h3>
+                <p className="mt-3 type-copy text-muted-foreground">{principle.text}</p>
               </article>
             ))}
           </div>

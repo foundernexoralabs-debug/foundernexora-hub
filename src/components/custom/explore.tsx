@@ -42,7 +42,7 @@ const ICONS: Record<DestinationIcon, typeof Sparkles> = {
 };
 
 const CARD =
-  'group relative flex h-full flex-col rounded-2xl border border-border/70 bg-background/70 p-5 transition-[border-color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-500/50 hover:bg-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none sm:p-6';
+  'group relative flex h-full flex-col rounded-2xl border border-border bg-card p-5 transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-brand-500/60 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none sm:p-6';
 
 function DestinationCard({ destination }: { destination: Destination }) {
   const Icon = ICONS[destination.icon];
@@ -51,18 +51,18 @@ function DestinationCard({ destination }: { destination: Destination }) {
     <>
       <span
         aria-hidden="true"
-        className="flex size-10 items-center justify-center rounded-xl border border-brand-500/25 bg-brand-500/10 text-brand-500 dark:text-brand-300"
+        className="flex size-10 items-center justify-center rounded-xl border border-brand-500/25 bg-brand-500/10 text-link"
       >
         <Icon className="size-5" strokeWidth={1.75} />
       </span>
-      <span className="mt-5 flex items-center gap-1.5 text-base font-semibold">
+      <span className="mt-5 flex items-center gap-1.5 text-lg font-semibold tracking-tight">
         {destination.title}
         <Arrow
           aria-hidden="true"
-          className="size-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-brand-500 dark:group-hover:text-brand-400"
+          className="size-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-link"
         />
       </span>
-      <span className="mt-2 text-sm leading-relaxed text-muted-foreground">{destination.text}</span>
+      <span className="mt-2 type-copy text-muted-foreground">{destination.text}</span>
       {destination.external ? <span className="sr-only"> (opens in a new tab)</span> : null}
     </>
   );
@@ -82,14 +82,11 @@ export function ExploreBand({ page }: { page: ExplorePage }) {
   return (
     <section
       aria-labelledby="explore-title"
-      className="border-t border-border/60 bg-card/30 px-5 py-16 sm:px-8 sm:py-20"
+      className="border-t border-border bg-band px-5 py-16 sm:px-8 sm:py-20"
     >
       <div className="mx-auto max-w-screen-xl">
         <Eyebrow>Explore FounderLab</Eyebrow>
-        <h2
-          id="explore-title"
-          className="mt-4 max-w-2xl font-display text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
-        >
+        <h2 id="explore-title" className="mt-4 max-w-2xl font-display type-heading text-balance">
           {title}
         </h2>
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

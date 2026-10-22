@@ -1,4 +1,4 @@
-// @polsia:user-owned — terms for using this website. Product and store terms are published separately before they apply.
+// @polsia:user-owned — terms for using this website. Product and Plugin Store terms are published separately before they apply.
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
@@ -8,17 +8,18 @@ import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Terms',
-  description: 'Terms for using the FounderLab website, and where Renor and store terms will live.',
+  description:
+    'Terms for using the FounderLab website, and where Renor and Plugin Store terms will live.',
   path: '/terms',
 });
 
-const UPDATED = '5 October 2026';
+const UPDATED = '22 October 2026';
 
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <PageHero eyebrow="Terms" title="Using this website." lede={`Last updated ${UPDATED}.`} />
-      <article className="mx-auto max-w-3xl px-5 py-16 text-base leading-relaxed text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
+      <article className="mx-auto max-w-3xl px-5 py-16 text-[1.0625rem] leading-[1.75] text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-[1.625rem] [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
         <h2>What this website is</h2>
         <p>
           This website describes FounderLab and its projects. We work to keep it accurate, and every
@@ -40,14 +41,16 @@ export default function TermsPage() {
           FounderLab.
         </p>
 
-        <h2>Product and store terms</h2>
+        <h2 id="product-terms" className="scroll-mt-24">
+          Product and Plugin Store terms
+        </h2>
         <p>
           Terms for Renor accounts and for anything sold in the{' '}
-          <Link href="/store" className="text-foreground underline underline-offset-4">
-            Renor Labs Store
+          <Link href="/plugins" className="text-foreground underline underline-offset-4">
+            Renor Plugin Store
           </Link>{' '}
           will be published before they apply: before any paid plan is offered and before the first
-          product is sold.
+          product is sold. That includes the refund terms for digital downloads.
         </p>
 
         <h2>Changes and contact</h2>

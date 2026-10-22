@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         title="Privacy, in plain words."
         lede={`Last updated ${UPDATED}.`}
       />
-      <article className="prose-legal mx-auto max-w-3xl px-5 py-16 text-base leading-relaxed text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
+      <article className="prose-legal mx-auto max-w-3xl px-5 py-16 text-[1.0625rem] leading-[1.75] text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-[1.625rem] [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
         <h2>This website</h2>
         <p>
           The FounderLab website is for reading. It has no accounts, no sign-up forms and no
@@ -68,13 +68,13 @@ export default function PrivacyPage() {
           browser. Renor’s full privacy terms will be published before any paid plan exists.
         </p>
 
-        <h2>The store</h2>
+        <h2>The Plugin Store</h2>
         <p>
-          The Renor Labs Store lists its first products but does not sell anything yet. Before it
-          does, its privacy and payment terms will be published, and payments will be handled by the
-          checkout provider, not stored by us. See the{' '}
-          <Link href="/store#policies" className="text-foreground underline underline-offset-4">
-            store policies
+          The Renor Plugin Store lists its first products but does not sell anything yet. Before it
+          does, its privacy and payment terms will be published, and payments will be handled by our
+          checkout partner, Plug&amp;Pay, not stored by us. See{' '}
+          <Link href="/plugins#buying" className="text-foreground underline underline-offset-4">
+            how buying works
           </Link>
           .
         </p>

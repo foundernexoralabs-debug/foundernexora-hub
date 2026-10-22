@@ -5,7 +5,7 @@
 
 export const siteName = 'FounderLab';
 export const siteDescription =
-  'FounderLab builds Renor, an AI workspace for chatting, coding, building websites and keeping projects together, alongside the Renor Labs Store and Zero to Prove, its build-in-public journey.';
+  'FounderLab builds Renor, an AI workspace for chatting, coding, building websites and keeping projects together, alongside the Renor Plugin Store and Zero to Prove, its build-in-public journey.';
 
 export const brandVisual = {
   themeColor: '#6366f1',

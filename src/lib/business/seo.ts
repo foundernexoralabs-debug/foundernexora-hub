@@ -25,6 +25,11 @@ export interface PageMetadataInput {
   socialTitle?: string;
   /** Use the title exactly as given (the home page). */
   absolute?: boolean;
+  /**
+   * The route has its own opengraph-image/twitter-image files (e.g. each product page):
+   * leave `images` unset so those files are used instead of the site-wide image.
+   */
+  ownImage?: boolean;
 }
 
 export function pageMetadata({
@@ -33,6 +38,7 @@ export function pageMetadata({
   path,
   socialTitle,
   absolute = false,
+  ownImage = false,
 }: PageMetadataInput): Metadata {
   const social = socialTitle ?? (absolute ? title : `${title} · ${siteName}`);
   return {
@@ -46,13 +52,13 @@ export function pageMetadata({
       url: path,
       title: social,
       description,
-      images: [SOCIAL_IMAGE],
+      ...(ownImage ? {} : { images: [SOCIAL_IMAGE] }),
     },
     twitter: {
       card: 'summary_large_image',
       title: social,
       description,
-      images: [{ url: SOCIAL_IMAGE.url, alt: SOCIAL_IMAGE.alt }],
+      ...(ownImage ? {} : { images: [{ url: SOCIAL_IMAGE.url, alt: SOCIAL_IMAGE.alt }] }),
     },
   };
 }

@@ -37,31 +37,29 @@ function ProjectRow({ project }: { project: Project }) {
   return (
     <article
       id={project.slug}
-      className="grid scroll-mt-24 gap-4 rounded-2xl border border-border/70 bg-card/60 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-7"
+      className="grid scroll-mt-24 gap-4 rounded-2xl border border-border bg-card p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-7"
     >
       <div>
         <div className="flex flex-wrap items-center gap-3">
-          <h3 className="font-display text-2xl font-semibold">{project.name}</h3>
+          <h3 className="font-display text-2xl font-semibold tracking-tight">{project.name}</h3>
           <StatusBadge status={project.status} />
-          <span className="text-xs text-muted-foreground">{project.kind}</span>
+          <span className="type-meta text-muted-foreground">{project.kind}</span>
         </div>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-          {project.summary}
-        </p>
+        <p className="mt-3 max-w-3xl type-copy text-muted-foreground">{project.summary}</p>
       </div>
       {project.href.startsWith('/projects') ? null : external ? (
         <a
           href={project.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+          className="inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
         >
           {project.action} <ArrowUpRight aria-hidden="true" className="size-4" />
         </a>
       ) : (
         <Link
           href={project.href}
-          className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+          className="inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
         >
           {project.action} <ArrowUpRight aria-hidden="true" className="size-4" />
         </Link>
@@ -85,9 +83,11 @@ export default function ProjectsPage() {
             if (projects.length === 0) return null;
             return (
               <section key={group.title} aria-label={group.title}>
-                <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-border/70 pb-4">
-                  <h2 className="font-display text-2xl font-semibold sm:text-3xl">{group.title}</h2>
-                  <p className="text-sm text-muted-foreground">{group.lede}</p>
+                <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-border pb-4">
+                  <h2 className="font-display text-[1.75rem] font-semibold tracking-tight sm:text-4xl">
+                    {group.title}
+                  </h2>
+                  <p className="type-meta text-muted-foreground">{group.lede}</p>
                 </div>
                 <div className="mt-6 grid gap-4">
                   {projects.map((project) => (
@@ -97,7 +97,7 @@ export default function ProjectsPage() {
               </section>
             );
           })}
-          <dl className="grid gap-4 rounded-2xl border border-border/70 p-6 text-sm sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="grid gap-4 rounded-2xl border border-border p-6 text-sm sm:grid-cols-2 lg:grid-cols-4">
             {(Object.keys(STATUS) as StatusKey[])
               .filter((key) => key !== 'research')
               .map((key) => (

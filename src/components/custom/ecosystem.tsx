@@ -7,10 +7,12 @@ import { STATUS, type StatusKey } from '@/lib/business/ecosystem';
 import { cn } from '@/lib/utils';
 
 const TONE: Record<(typeof STATUS)[StatusKey]['tone'], string> = {
-  live: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300',
-  preview: 'border-sky-500/40 bg-sky-500/10 text-sky-700 dark:text-sky-300',
-  experimental: 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-  planned: 'border-border bg-muted/60 text-muted-foreground',
+  live: 'border-emerald-600/35 bg-emerald-50 text-emerald-800 dark:border-emerald-400/35 dark:bg-emerald-400/10 dark:text-emerald-200',
+  preview:
+    'border-sky-600/35 bg-sky-50 text-sky-800 dark:border-sky-400/35 dark:bg-sky-400/10 dark:text-sky-200',
+  experimental:
+    'border-amber-600/35 bg-amber-50 text-amber-800 dark:border-amber-400/35 dark:bg-amber-400/10 dark:text-amber-200',
+  planned: 'border-border bg-muted text-muted-foreground',
 };
 
 export function StatusBadge({ status, className }: { status: StatusKey; className?: string }) {
@@ -18,7 +20,7 @@ export function StatusBadge({ status, className }: { status: StatusKey; classNam
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold tracking-wide uppercase',
+        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold tracking-[0.06em] uppercase',
         TONE[entry.tone],
         className,
       )}
@@ -32,9 +34,22 @@ export function StatusBadge({ status, className }: { status: StatusKey; classNam
 
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <p className="text-xs font-semibold tracking-[0.19em] text-brand-500 uppercase dark:text-brand-400">
+    <p className="text-[0.8125rem] font-semibold tracking-[0.12em] text-link uppercase">
       {children}
     </p>
+  );
+}
+
+/**
+ * A quiet dot grid behind page heroes: drawn in the border colour and faded out
+ * towards the text, so it adds texture without dimming or tinting anything you read.
+ */
+export function HeroGrid() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 -z-10 [background-image:radial-gradient(var(--border)_1.2px,transparent_1.2px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_90%_at_100%_0%,black,transparent_70%)]"
+    />
   );
 }
 
@@ -43,27 +58,31 @@ export function PageHero({
   title,
   lede,
   children,
+  aside,
 }: {
   eyebrow: string;
   title: ReactNode;
   lede: ReactNode;
   children?: ReactNode;
+  /** Optional content beside the text on large screens (below it on small ones). */
+  aside?: ReactNode;
 }) {
   return (
-    <section className="relative isolate overflow-hidden border-b border-border/60 px-5 pt-20 pb-16 sm:px-8 sm:pt-28 sm:pb-20">
+    <section className="relative isolate overflow-hidden border-b border-border px-5 pt-16 pb-16 sm:px-8 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
+      <HeroGrid />
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_55%_at_80%_10%,rgba(99,102,241,0.20),transparent_65%),radial-gradient(ellipse_50%_40%_at_10%_90%,rgba(56,189,248,0.08),transparent_70%)]"
-      />
-      <div className="mx-auto max-w-screen-xl">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="mt-5 max-w-4xl font-display text-4xl leading-[1.05] font-semibold tracking-[-0.04em] text-balance sm:text-6xl">
-          {title}
-        </h1>
-        <div className="mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground sm:text-xl">
-          {lede}
+        className={cn(
+          'mx-auto max-w-screen-xl',
+          aside && 'grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14',
+        )}
+      >
+        <div>
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h1 className="mt-5 max-w-4xl font-display type-title text-balance">{title}</h1>
+          <div className="mt-6 max-w-2xl type-lead text-pretty text-muted-foreground">{lede}</div>
+          {children ? <div className="mt-10 flex flex-wrap gap-3">{children}</div> : null}
         </div>
-        {children ? <div className="mt-9 flex flex-wrap gap-3">{children}</div> : null}
+        {aside}
       </div>
     </section>
   );
@@ -83,15 +102,10 @@ export function SectionHeading({
   return (
     <div className="max-w-3xl">
       <Eyebrow>{eyebrow}</Eyebrow>
-      <h2
-        id={id}
-        className="mt-4 font-display text-3xl font-semibold tracking-tight text-balance sm:text-5xl"
-      >
+      <h2 id={id} className="mt-4 font-display type-heading text-balance">
         {title}
       </h2>
-      {lede ? (
-        <p className="mt-5 text-lg leading-relaxed text-pretty text-muted-foreground">{lede}</p>
-      ) : null}
+      {lede ? <p className="mt-5 type-lead text-pretty text-muted-foreground">{lede}</p> : null}
     </div>
   );
 }
@@ -118,13 +132,13 @@ export function ProductShot({
   return (
     <figure
       className={cn(
-        'overflow-hidden rounded-2xl border border-border/70 bg-card shadow-2xl shadow-brand-900/20',
+        'overflow-hidden rounded-2xl border border-border bg-card shadow-xl',
         className,
       )}
     >
       <div
         aria-hidden="true"
-        className="flex items-center gap-1.5 border-b border-border/70 bg-muted/40 px-4 py-2.5"
+        className="flex items-center gap-1.5 border-b border-border bg-muted/40 px-4 py-2.5"
       >
         <span className="size-2.5 rounded-full bg-muted-foreground/30" />
         <span className="size-2.5 rounded-full bg-muted-foreground/30" />
@@ -139,7 +153,7 @@ export function ProductShot({
         sizes="(min-width: 1024px) 60vw, 100vw"
         className="h-auto w-full"
       />
-      <figcaption className="border-t border-border/70 px-4 py-2.5 text-xs text-muted-foreground">
+      <figcaption className="border-t border-border px-4 py-2.5 type-meta text-muted-foreground">
         {caption}
       </figcaption>
     </figure>

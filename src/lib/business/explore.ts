@@ -10,8 +10,8 @@ export type DestinationId =
   | 'renor'
   | 'renor-app'
   | 'plans'
-  | 'store'
-  | 'store-policies'
+  | 'plugins'
+  | 'plugin-buying'
   | 'projects'
   | 'zero-to-prove'
   | 'company'
@@ -60,20 +60,20 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
   },
   plans: {
     title: 'Plans',
-    text: 'Free, Pro and Advanced, as proposed. Nothing is on sale and no price is set.',
+    text: 'Free, Pro, Plus and Max, with weekly AI credits. Paid prices are proposed, not final.',
     href: '/renor/plans',
     icon: 'layers',
   },
-  store: {
-    title: 'Renor Labs Store',
-    text: 'Practical digital products, starting with TradeLaunch kits for electricians.',
-    href: '/store',
+  plugins: {
+    title: 'Plugin Store',
+    text: 'Ready-to-use digital kits, starting with TradeLaunch for electricians. Opening soon.',
+    href: '/plugins',
     icon: 'bag',
   },
-  'store-policies': {
-    title: 'Store policies',
-    text: 'What you receive, refunds and payments: set out before anything goes on sale.',
-    href: '/store#policies',
+  'plugin-buying': {
+    title: 'How buying works',
+    text: 'Checkout, delivery and refunds: confirmed and published before anything goes on sale.',
+    href: '/plugins#buying',
     icon: 'receipt',
   },
   projects: {
@@ -124,7 +124,7 @@ export type ExplorePage =
   | 'home'
   | 'renor'
   | 'plans'
-  | 'store'
+  | 'plugins'
   | 'product'
   | 'projects'
   | 'zero-to-prove'
@@ -144,7 +144,7 @@ export interface ExploreSet {
 export const EXPLORE: Record<ExplorePage, ExploreSet> = {
   home: {
     title: 'Everything FounderLab makes, one step away.',
-    destinations: ['renor-app', 'plans', 'store', 'company'],
+    destinations: ['renor-app', 'plans', 'plugins', 'company'],
   },
   renor: {
     title: 'Try it, then see where it is going.',
@@ -154,17 +154,17 @@ export const EXPLORE: Record<ExplorePage, ExploreSet> = {
     title: 'Start free today, and follow what comes next.',
     destinations: ['renor-app', 'renor', 'zero-to-prove', 'contact'],
   },
-  store: {
+  plugins: {
     title: 'More from FounderLab.',
-    destinations: ['renor', 'projects', 'zero-to-prove', 'contact'],
+    destinations: ['plans', 'renor', 'projects', 'contact'],
   },
   product: {
     title: 'Before you go.',
-    destinations: ['store', 'store-policies', 'contact', 'company'],
+    destinations: ['plugins', 'plugin-buying', 'contact', 'company'],
   },
   projects: {
     title: 'Go deeper into the work.',
-    destinations: ['renor', 'store', 'zero-to-prove', 'company'],
+    destinations: ['renor', 'plugins', 'zero-to-prove', 'company'],
   },
   'zero-to-prove': {
     title: 'See what the journey has built.',
@@ -184,14 +184,14 @@ export const EXPLORE: Record<ExplorePage, ExploreSet> = {
   },
   privacy: {
     title: 'Related policies.',
-    destinations: ['terms', 'store-policies', 'accessibility', 'contact'],
+    destinations: ['terms', 'plugin-buying', 'accessibility', 'contact'],
   },
   terms: {
     title: 'Related policies.',
-    destinations: ['privacy', 'store-policies', 'accessibility', 'contact'],
+    destinations: ['privacy', 'plugin-buying', 'accessibility', 'contact'],
   },
   'not-found': {
     title: 'Try one of these instead.',
-    destinations: ['renor', 'store', 'projects', 'contact'],
+    destinations: ['renor', 'plugins', 'projects', 'contact'],
   },
 };

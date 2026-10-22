@@ -53,27 +53,22 @@ export default function RenorPage() {
         eyebrow="Renor by FounderLab · Preview"
         title={
           <>
-            One workspace to think, build{' '}
-            <span className="text-brand-500 dark:text-brand-400">and prove it works.</span>
+            One workspace to think, build <span className="text-link">and prove it works.</span>
           </>
         }
         lede="Renor brings chat, coding, website building and your projects together, and shows you evidence of what it actually did. It is in preview: useful today, with every limit stated below."
       >
-        <Button
-          asChild
-          size="lg"
-          className="min-h-12 rounded-full bg-brand-500 px-7 text-white hover:bg-brand-400"
-        >
+        <Button asChild variant="brand" size="xl">
           <a href={RENOR_APP_URL} target="_blank" rel="noopener noreferrer">
-            Open Renor <ArrowUpRight aria-hidden="true" className="ml-2 size-4" />
+            Open Renor <ArrowUpRight aria-hidden="true" className="size-4" />
           </a>
         </Button>
-        <Button asChild size="lg" variant="outline" className="min-h-12 rounded-full px-7">
-          <Link href="/renor/plans">Free, Pro and Advanced</Link>
+        <Button asChild variant="outline" size="xl">
+          <Link href="/renor/plans">Compare plans</Link>
         </Button>
       </PageHero>
 
-      <section aria-labelledby="areas" className="px-5 py-20 sm:px-8 sm:py-24">
+      <section aria-labelledby="areas" className="px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto max-w-screen-xl">
           <SectionHeading
             id="areas"
@@ -90,26 +85,21 @@ export default function RenorPage() {
               >
                 <div className={index % 2 === 1 && area.screenshot ? 'lg:order-2' : undefined}>
                   <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="font-display text-3xl font-semibold tracking-tight">
+                    <h3 className="font-display text-[1.875rem] font-semibold tracking-tight">
                       {area.name}
                     </h3>
                     <StatusBadge status={area.status} />
                   </div>
-                  <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-                    {area.summary}
-                  </p>
+                  <p className="mt-4 type-lead text-muted-foreground">{area.summary}</p>
                   <ul className="mt-6 grid gap-3">
                     {area.does.map((item) => (
                       <li key={item} className="flex gap-3 text-sm leading-relaxed">
-                        <Check
-                          aria-hidden="true"
-                          className="mt-0.5 size-4 shrink-0 text-brand-500 dark:text-brand-400"
-                        />
+                        <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-link" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-6 flex gap-3 rounded-xl border border-border/70 bg-muted/30 p-4 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-6 flex gap-3 rounded-xl border border-border bg-muted/30 p-4 type-copy text-muted-foreground">
                     <Info aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
                     <span>
                       <span className="font-semibold text-foreground">Limits: </span>
@@ -120,7 +110,7 @@ export default function RenorPage() {
                 {area.screenshot ? (
                   <ProductShot {...area.screenshot} caption={SCREENSHOT_CAPTION} />
                 ) : (
-                  <div className="rounded-2xl border border-dashed border-border/80 p-8 text-sm leading-relaxed text-muted-foreground">
+                  <div className="rounded-2xl border border-dashed border-border p-8 type-copy text-muted-foreground">
                     <p className="font-semibold text-foreground">No screenshot yet</p>
                     <p className="mt-2">
                       We will add one taken from the app itself, rather than show a mock-up.
@@ -135,7 +125,7 @@ export default function RenorPage() {
 
       <section
         aria-labelledby="how"
-        className="border-y border-border/60 bg-card/30 px-5 py-20 sm:px-8 sm:py-24"
+        className="border-y border-border bg-band px-5 py-20 sm:px-8 sm:py-28"
       >
         <div className="mx-auto max-w-screen-xl">
           <SectionHeading
@@ -145,41 +135,33 @@ export default function RenorPage() {
           />
           <ol className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {stages.map((stage) => (
-              <li
-                key={stage.index}
-                className="rounded-2xl border border-border/70 bg-background/70 p-6"
-              >
-                <span className="text-sm font-semibold text-brand-500 dark:text-brand-400">
-                  {stage.index}
-                </span>
+              <li key={stage.index} className="rounded-2xl border border-border bg-card p-6">
+                <span className="text-[0.9375rem] font-semibold text-link">{stage.index}</span>
                 <h3 className="mt-6 text-xl font-semibold">{stage.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{stage.detail}</p>
+                <p className="mt-3 type-copy text-muted-foreground">{stage.detail}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      <section aria-labelledby="access" className="px-5 py-20 sm:px-8 sm:py-24">
+      <section aria-labelledby="access" className="px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto grid max-w-screen-xl gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <Eyebrow>Getting access</Eyebrow>
-            <h2
-              id="access"
-              className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl"
-            >
+            <h2 id="access" className="mt-4 font-display type-heading">
               Open it in your browser.
             </h2>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-xl type-lead text-muted-foreground">
               Renor runs in your browser. Sign in, connect an AI provider or use one available to
               your account, and start with a chat, a small app or a website. There is no payment and
               no paid plan yet.
             </p>
           </div>
           <div className="grid gap-4">
-            <div className="rounded-2xl border border-brand-500/30 bg-gradient-to-br from-brand-500/10 to-background p-7">
+            <div className="rounded-2xl border border-brand-500/30 bg-brand-50/70 p-7 dark:bg-brand-500/10">
               <p className="text-sm font-semibold">Renor in preview</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-3 type-copy text-muted-foreground">
                 The app runs Renor’s first full release: everything listed above, with the limits
                 shown next to each area. It is free to use while in preview.
               </p>
@@ -187,19 +169,20 @@ export default function RenorPage() {
                 href={RENOR_APP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+                className="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
               >
                 Open Renor <ArrowUpRight aria-hidden="true" className="size-4" />
               </a>
             </div>
-            <div className="rounded-2xl border border-border/70 p-7">
+            <div className="rounded-2xl border border-border p-7">
               <p className="text-sm font-semibold">Plans</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Free, Pro and Advanced are proposed. Nothing is on sale, and no price has been set.
+              <p className="mt-3 type-copy text-muted-foreground">
+                Free is open today. Pro, Plus and Max have proposed prices that are not approved
+                yet, and nothing is on sale.
               </p>
               <Link
                 href="/renor/plans"
-                className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+                className="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
               >
                 See the proposed plans <ArrowRight aria-hidden="true" className="size-4" />
               </Link>

@@ -6,7 +6,12 @@ import { ChannelIcon } from '@/components/custom/channel-links';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { Button } from '@/components/ui/button';
-import { CHANNELS, MILESTONE_WHERE, MILESTONES, RENOR_APP_URL } from '@/lib/business/ecosystem';
+import {
+  JOURNEY_CHANNELS,
+  MILESTONE_WHERE,
+  MILESTONES,
+  RENOR_APP_URL,
+} from '@/lib/business/ecosystem';
 import { pageMetadata } from '@/lib/business/seo';
 import { cn } from '@/lib/utils';
 
@@ -47,31 +52,24 @@ export default function ZeroToProvePage() {
         title="Building a real AI product in public, from zero to proven."
         lede="Zero to Prove follows the founder of FounderLab building Renor: what was built, what broke, and what was actually proven. If you came from a video, this is where the work lives."
       >
-        <Button
-          asChild
-          size="lg"
-          className="min-h-12 rounded-full bg-brand-500 px-7 text-white hover:bg-brand-400"
-        >
+        <Button asChild variant="brand" size="xl">
           <a href={RENOR_APP_URL} target="_blank" rel="noopener noreferrer">
-            Try what is being built <ArrowUpRight aria-hidden="true" className="ml-2 size-4" />
+            Try what is being built <ArrowUpRight aria-hidden="true" className="size-4" />
           </a>
         </Button>
-        <Button asChild size="lg" variant="outline" className="min-h-12 rounded-full px-7">
+        <Button asChild variant="outline" size="xl">
           <a href="#log">Read the build log</a>
         </Button>
       </PageHero>
 
-      <section aria-labelledby="rules" className="px-5 py-20 sm:px-8 sm:py-24">
+      <section aria-labelledby="rules" className="px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto max-w-screen-xl">
           <SectionHeading id="rules" eyebrow="The rules" title="Proof over promises." />
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {rules.map((rule) => (
-              <article
-                key={rule.title}
-                className="rounded-2xl border border-border/70 bg-card/60 p-7"
-              >
-                <h3 className="text-lg font-semibold">{rule.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{rule.text}</p>
+              <article key={rule.title} className="rounded-2xl border border-border bg-card p-7">
+                <h3 className="text-xl font-semibold tracking-tight">{rule.title}</h3>
+                <p className="mt-3 type-copy text-muted-foreground">{rule.text}</p>
               </article>
             ))}
           </div>
@@ -81,7 +79,7 @@ export default function ZeroToProvePage() {
       <section
         id="log"
         aria-labelledby="log-title"
-        className="scroll-mt-20 border-y border-border/60 bg-card/30 px-5 py-20 sm:px-8 sm:py-24"
+        className="scroll-mt-20 border-y border-border bg-band px-5 py-20 sm:px-8 sm:py-28"
       >
         <div className="mx-auto max-w-screen-xl">
           <SectionHeading
@@ -90,7 +88,7 @@ export default function ZeroToProvePage() {
             title="What has been built, and where it is."
             lede="Each entry is dated and says where the work lives: in the Renor app or on this website."
           />
-          <ol className="mt-12 grid gap-0 border-l border-border/80">
+          <ol className="mt-12 grid gap-0 border-l border-border">
             {MILESTONES.map((milestone) => (
               <li
                 key={`${milestone.date}-${milestone.title}`}
@@ -100,23 +98,21 @@ export default function ZeroToProvePage() {
                   aria-hidden="true"
                   className="absolute top-1.5 -left-[5px] size-2.5 rounded-full bg-brand-500 ring-4 ring-background"
                 />
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 type-meta text-muted-foreground">
                   <time dateTime={milestone.date} className="font-semibold text-foreground">
                     {dateFormat.format(new Date(`${milestone.date}T00:00:00Z`))}
                   </time>
                   <span>{MILESTONE_WHERE[milestone.where]}</span>
                 </div>
-                <h3 className="mt-2 text-lg font-semibold">{milestone.title}</h3>
-                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-                  {milestone.detail}
-                </p>
+                <h3 className="mt-2 text-xl font-semibold tracking-tight">{milestone.title}</h3>
+                <p className="mt-2 max-w-3xl type-copy text-muted-foreground">{milestone.detail}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      <section aria-labelledby="follow" className="px-5 py-20 sm:px-8 sm:py-24">
+      <section aria-labelledby="follow" className="px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto max-w-screen-xl">
           <SectionHeading
             id="follow"
@@ -124,35 +120,35 @@ export default function ZeroToProvePage() {
             title="Where the journey is published."
           />
           <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
-            {CHANNELS.map((channel, index) => (
+            {JOURNEY_CHANNELS.map((channel, index) => (
               <li
                 key={channel.id}
                 className={cn(
-                  'flex flex-col rounded-2xl border border-border/70 bg-card/60 p-7',
+                  'flex flex-col rounded-2xl border border-border bg-card p-7',
                   // YouTube and TikTok lead; the remaining three share the second row.
                   index < 2 ? 'lg:col-span-3' : 'lg:col-span-2',
-                  index === CHANNELS.length - 1 && CHANNELS.length % 2 === 1 && 'sm:col-span-2',
+                  index === JOURNEY_CHANNELS.length - 1 &&
+                    JOURNEY_CHANNELS.length % 2 === 1 &&
+                    'sm:col-span-2',
                 )}
               >
                 <p className="flex items-center gap-3 text-lg font-semibold">
-                  <ChannelIcon id={channel.id} className="text-brand-500 dark:text-brand-400" />
+                  <ChannelIcon id={channel.id} className="text-link" />
                   {channel.name}
                 </p>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-                  {channel.purpose}
-                </p>
+                <p className="mt-3 flex-1 type-copy text-muted-foreground">{channel.purpose}</p>
                 {channel.url ? (
                   <a
                     href={channel.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 inline-flex min-h-11 items-center gap-2 self-start text-sm font-semibold text-brand-500 underline-offset-4 hover:underline dark:text-brand-400"
+                    className="mt-6 inline-flex min-h-11 items-center gap-2 self-start text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
                   >
                     Open {channel.name} <ArrowUpRight aria-hidden="true" className="size-4" />
                     <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 ) : (
-                  <p className="mt-6 text-sm text-muted-foreground">Not linked yet.</p>
+                  <p className="mt-6 type-meta text-muted-foreground">Not linked yet.</p>
                 )}
               </li>
             ))}
