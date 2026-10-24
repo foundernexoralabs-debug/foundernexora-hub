@@ -99,6 +99,9 @@ export default function StoryboardPage() {
                 className={`flex min-w-0 basis-0 items-center justify-center border-r border-border px-1 text-xs font-semibold last:border-r-0 ${index % 2 ? 'bg-muted/60' : 'bg-brand-500/12 text-link'}`}
               >
                 <span className="truncate tabular-nums">{formatTimecode(shot.start)}</span>
+                <span className="ml-1.5 hidden truncate font-medium opacity-80 lg:inline">
+                  {shot.title}
+                </span>
               </div>
             ))}
           </div>

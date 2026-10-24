@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BetaInvite } from '@/components/custom/beta-invite';
-import { Eyebrow, HeroGrid, SectionHeading, StatusBadge } from '@/components/custom/ecosystem';
+import { Eyebrow, HeroGrid, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { FeatureGrid, HowItWorks, ThemedShot } from '@/components/custom/launch';
 import { ProductTour } from '@/components/custom/product-tour';
@@ -72,7 +72,9 @@ export default function RenorPage() {
             Renor by FounderLab · Private beta
           </p>
           <h1 className="mt-6 font-display type-display text-balance">
-            Think it. Build it. <span className="text-link">Keep it.</span>
+            <span className="whitespace-nowrap">Think it.</span>{' '}
+            <span className="whitespace-nowrap">Build it.</span>{' '}
+            <span className="whitespace-nowrap text-link">Keep it.</span>
           </h1>
           <p className="mt-6 max-w-2xl type-lead text-pretty text-muted-foreground">
             Renor is one AI workspace for conversations, coding, websites and the projects that grow
@@ -219,10 +221,7 @@ export default function RenorPage() {
             <ul className="mt-10 grid gap-4">
               {RENOR_AREAS.map((area) => (
                 <li key={area.id} className="rounded-2xl border border-border p-5">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="font-semibold">{area.name}</h3>
-                    <StatusBadge status={area.status} />
-                  </div>
+                  <h3 className="font-semibold">{area.name}</h3>
                   <p className="mt-2 flex gap-3 type-copy text-muted-foreground">
                     <Info aria-hidden="true" className="mt-1 size-4 shrink-0" />
                     <span>{area.limits}</span>

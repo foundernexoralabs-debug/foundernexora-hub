@@ -33,18 +33,18 @@ export function ProductTour() {
           value={shot.id}
           className="mt-8 rounded-3xl focus-visible:ring-offset-4 data-[state=active]:animate-in data-[state=active]:fade-in-0 data-[state=active]:duration-300"
         >
-          <div className="grid items-start gap-8 lg:grid-cols-[0.32fr_0.68fr] lg:gap-12">
-            <div className="lg:sticky lg:top-28">
+          <div className="grid gap-3 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-end md:gap-10">
+            <div>
               <p className="text-sm font-semibold text-link">
                 Screen {index + 1} of {TOUR.length}
               </p>
-              <h3 className="mt-3 font-display text-[1.75rem] leading-tight font-semibold tracking-tight text-balance">
+              <h3 className="mt-2 font-display text-[1.75rem] leading-tight font-semibold tracking-tight text-balance">
                 {shot.title}
               </h3>
-              <p className="mt-4 type-copy text-muted-foreground">{shot.text}</p>
             </div>
-            <ThemedShot shot={shot} caption={TOUR_CAPTION} preload={index === 0} />
+            <p className="type-copy text-muted-foreground md:pb-1">{shot.text}</p>
           </div>
+          <ThemedShot shot={shot} caption={TOUR_CAPTION} preload={index === 0} className="mt-8" />
         </TabsContent>
       ))}
     </Tabs>
