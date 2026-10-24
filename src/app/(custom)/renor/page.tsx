@@ -44,6 +44,8 @@ const control = [
 ] as const;
 
 const heroShot = TOUR.find((shot) => shot.id === 'code');
+/** Plan & usage: the one real screen not covered by the four-area tour. */
+const planShot = TOUR.find((shot) => shot.id === 'plan');
 
 export default function RenorPage() {
   return (
@@ -147,7 +149,7 @@ export default function RenorPage() {
           <SectionHeading
             id="tour-title"
             eyebrow="Product tour"
-            title="One small business, five real screens."
+            title="Four rooms, one workspace. Real screens from the app."
             lede={
               <>
                 Every screen is the real Renor app. To keep the story in one place, we invented an
@@ -305,6 +307,13 @@ export default function RenorPage() {
                 Free is open today. Pro, Plus and Max have proposed prices of £12, £29 and £79 a
                 month. They are not approved, and nothing is on sale.
               </p>
+              {planShot ? (
+                <ThemedShot
+                  shot={planShot}
+                  sizes="(min-width: 768px) 24rem, 100vw"
+                  className="mt-5 rounded-tile shadow-none"
+                />
+              ) : null}
               <Link
                 href="/renor/plans"
                 className="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
