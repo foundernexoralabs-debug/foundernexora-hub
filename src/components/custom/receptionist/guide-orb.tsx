@@ -1,5 +1,7 @@
-// @polsia:user-owned — the Renor Guide's orb: Renor's living orb, drawn in CSS so it is crisp at
-// every size, themes cleanly, and stops moving when reduced motion is requested.
+// @polsia:user-owned — the Renor Guide's orb inside the panel: the same orb as the /renor hero
+// and the launcher (RenorOrb), without a halo so small avatars never stack glows. It breathes
+// faster while the Guide is working on an answer, and stays still under reduced motion.
+import { RenorOrb } from '@/components/custom/renor-orb';
 import { cn } from '@/lib/utils';
 import './receptionist.css';
 
@@ -11,10 +13,11 @@ export function GuideOrb({
   thinking?: boolean;
 }) {
   return (
-    <span
-      aria-hidden="true"
-      data-state={thinking ? 'thinking' : 'idle'}
-      className={cn('rg-orb block size-8', className)}
+    <RenorOrb
+      variant="plain"
+      sizes="64px"
+      state={thinking ? 'thinking' : 'idle'}
+      className={cn('size-8', className)}
     />
   );
 }

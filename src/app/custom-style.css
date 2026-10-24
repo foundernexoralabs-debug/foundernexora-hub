@@ -295,6 +295,18 @@ body {
     animation: renor-orb-glow 6s ease-in-out infinite;
   }
 }
+/* Small inline orbs (chat avatars): no halo, and still unless the Guide is thinking. */
+.renor-orb--plain::before {
+  content: none;
+}
+.renor-orb--plain img {
+  animation: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .renor-orb--plain[data-state="thinking"] img {
+    animation: renor-orb-breathe 1.4s ease-in-out infinite;
+  }
+}
 @keyframes renor-orb-breathe {
   0%,
   100% {

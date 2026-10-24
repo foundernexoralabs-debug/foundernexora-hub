@@ -270,7 +270,7 @@ export function AskPanel({
             type="submit"
             disabled={!draft.trim() || pending}
             aria-label="Send question"
-            className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white shadow-sm transition-colors hover:bg-brand-700 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none dark:bg-brand-500 dark:hover:bg-brand-600"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white shadow-sm transition-colors hover:bg-brand-700 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none dark:bg-brand-500 dark:hover:bg-brand-600 dark:disabled:bg-muted"
           >
             <ArrowUp aria-hidden="true" className="size-5" />
           </button>
