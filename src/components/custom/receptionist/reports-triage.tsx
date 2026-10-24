@@ -75,8 +75,7 @@ const severityTone = {
 
 function errorMessage(error: unknown): string {
   const status = /\((\d{3})\)/.exec(error instanceof Error ? error.message : '')?.[1];
-  if (status === '404')
-    return 'Triage is switched off: no REPORTS_ADMIN_TOKEN is set on the server.';
+  if (status === '404') return 'Triage is switched off on this server.';
   if (status === '401') return 'That access key is not right.';
   if (status === '503')
     return 'No private report store is configured yet (REPORTS_KV_REST_URL and REPORTS_KV_REST_TOKEN).';
@@ -182,8 +181,8 @@ export function ReportsTriage() {
           <ShieldCheck aria-hidden="true" className="size-6 text-link" />
           <h1 className="mt-4 text-2xl font-semibold tracking-tight">Report triage</h1>
           <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted-foreground">
-            Private to the FounderLab team. Enter the access key set as REPORTS_ADMIN_TOKEN on the
-            server. It is kept only in this browser tab.
+            Private to the FounderLab team. Enter the team access key. It is kept only in this
+            browser tab.
           </p>
           {error ? (
             <p
