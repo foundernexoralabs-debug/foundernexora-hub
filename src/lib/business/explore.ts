@@ -9,6 +9,8 @@ import { RENOR_APP_URL } from '@/lib/business/ecosystem';
 export type DestinationId =
   | 'renor'
   | 'renor-app'
+  | 'renor-beta'
+  | 'launch-kit'
   | 'plans'
   | 'plugins'
   | 'plugin-buying'
@@ -32,7 +34,8 @@ export type DestinationIcon =
   | 'mail'
   | 'accessibility'
   | 'lock'
-  | 'file';
+  | 'file'
+  | 'megaphone';
 
 export interface Destination {
   title: string;
@@ -57,6 +60,18 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
     href: RENOR_APP_URL,
     external: true,
     icon: 'external',
+  },
+  'renor-beta': {
+    title: 'Join the private beta',
+    text: 'Tell us what you want to build. The founder reads every request and replies.',
+    href: '/renor#beta',
+    icon: 'mail',
+  },
+  'launch-kit': {
+    title: 'Launch kit',
+    text: 'Graphics, real screenshots, short descriptions and the 60-second film storyboard.',
+    href: '/launch-kit',
+    icon: 'megaphone',
   },
   plans: {
     title: 'Plans',
@@ -123,6 +138,8 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
 export type ExplorePage =
   | 'home'
   | 'renor'
+  | 'launch-kit'
+  | 'storyboard'
   | 'plans'
   | 'plugins'
   | 'product'
@@ -148,7 +165,15 @@ export const EXPLORE: Record<ExplorePage, ExploreSet> = {
   },
   renor: {
     title: 'Try it, then see where it is going.',
-    destinations: ['renor-app', 'plans', 'zero-to-prove', 'contact'],
+    destinations: ['renor-app', 'plans', 'launch-kit', 'zero-to-prove'],
+  },
+  'launch-kit': {
+    title: 'See Renor for yourself.',
+    destinations: ['renor', 'renor-beta', 'renor-app', 'plugins'],
+  },
+  storyboard: {
+    title: 'Everything else for the launch.',
+    destinations: ['launch-kit', 'renor', 'renor-beta', 'zero-to-prove'],
   },
   plans: {
     title: 'Start free today, and follow what comes next.',

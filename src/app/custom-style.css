@@ -151,3 +151,43 @@ body {
 @utility bg-band {
   background-color: var(--surface-band);
 }
+
+/* Renor's living orb on the launch pages: a slow breath of light. Static when motion is reduced. */
+.renor-orb::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--brand-400) 45%, transparent),
+    transparent 62%
+  );
+  z-index: -1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .renor-orb img {
+    animation: renor-orb-breathe 6s ease-in-out infinite;
+  }
+  .renor-orb::before {
+    animation: renor-orb-glow 6s ease-in-out infinite;
+  }
+}
+@keyframes renor-orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+}
+@keyframes renor-orb-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}

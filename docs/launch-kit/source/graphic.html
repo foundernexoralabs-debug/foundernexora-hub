@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Renor launch graphic</title>
+<style>
+@font-face { font-family: "Inter"; src: url("fonts/inter-var.woff2") format("woff2"); font-weight: 100 900; }
+:root {
+  --bg: #07080f; --ink: #f2f3fb; --muted: #a9adc6; --line: rgba(255,255,255,.12);
+  --brand: #5b6cff; --brand-2: #22b8ff; --glow: rgba(91,108,255,.55);
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { width: var(--w); height: var(--h); }
+body {
+  font-family: "Inter", system-ui, sans-serif; color: var(--ink); background: var(--bg);
+  overflow: hidden; position: relative; -webkit-font-smoothing: antialiased; font-feature-settings: "cv11", "ss01";
+}
+.bg { position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(60% 50% at var(--gx, 20%) var(--gy, 18%), rgba(91,108,255,.42), transparent 70%),
+    radial-gradient(45% 40% at 95% 100%, rgba(34,184,255,.22), transparent 70%),
+    radial-gradient(1px 1px at 1px 1px, rgba(255,255,255,.08) 1px, transparent 0) 0 0 / 28px 28px,
+    var(--bg);
+}
+.content { position: relative; z-index: 1; height: 100%; display: flex; }
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand img { width: var(--logo, 56px); height: var(--logo, 56px); filter: drop-shadow(0 0 18px var(--glow)); }
+.brand b { font-size: var(--brand-size, 30px); font-weight: 700; letter-spacing: -.02em; display: block; line-height: 1; }
+.brand small { font-size: calc(var(--brand-size, 30px) * .52); color: var(--muted); font-weight: 500; letter-spacing: .01em; display: block; margin-top: 6px; }
+.brand small em { font-style: normal; color: #8fb2ff; font-weight: 600; }
+h1 { font-size: var(--h1, 72px); line-height: .98; letter-spacing: -.045em; font-weight: 750; }
+h1 span { background: linear-gradient(92deg, #9fb0ff, #6ad3ff 60%, #b7f0ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { font-size: var(--lede, 24px); line-height: 1.4; color: var(--muted); font-weight: 450; letter-spacing: -.01em; }
+.pill { display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(143,178,255,.35); background: rgba(91,108,255,.14);
+  color: #dfe5ff; border-radius: 999px; padding: .55em 1.05em; font-size: var(--pill, 20px); font-weight: 600; letter-spacing: .01em; white-space: nowrap; }
+.pill i { width: .5em; height: .5em; border-radius: 50%; background: #6ad3ff; box-shadow: 0 0 12px #6ad3ff; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chips span { font-size: var(--chip, 18px); color: #d5d9ee; border: 1px solid var(--line); background: rgba(255,255,255,.04); padding: .4em .85em; border-radius: 999px; font-weight: 500; }
+.window { border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,.16); background: #0b0d18;
+  box-shadow: 0 40px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(91,108,255,.18), 0 0 80px rgba(91,108,255,.25); }
+.window .bar { height: 34px; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-bottom: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03); }
+.window .bar i { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.18); }
+.window .bar span { margin-left: 10px; font-size: 13px; color: #8e93ad; font-weight: 500; }
+.window img { display: block; width: 100%; }
+.foot { font-size: var(--foot, 17px); color: #7f84a0; font-weight: 500; letter-spacing: .01em; }
+
+/* OG 1200x630 */
+body.og .content { padding: 64px 0 56px 72px; gap: 40px; }
+body.og .left { width: 560px; display: flex; flex-direction: column; justify-content: space-between; flex: none; }
+body.og .right { flex: 1; position: relative; }
+body.og .right .window { position: absolute; left: 0; top: 70px; width: 980px; transform: perspective(1600px) rotateY(-9deg) rotateX(3deg); transform-origin: left center; }
+
+/* Square 1080 */
+body.square .content { flex-direction: column; padding: 72px 72px 0; gap: 34px; }
+body.square .shot { flex: 1; position: relative; }
+body.square .shot .window { position: absolute; left: 0; right: -220px; top: 6px; }
+body.square .row { display: flex; justify-content: space-between; align-items: center; }
+
+/* Story 1080x1920 */
+body.story .content { flex-direction: column; padding: 150px 80px 170px; gap: 38px; align-items: flex-start; }
+body.story .orb { width: 168px; height: 168px; filter: drop-shadow(0 0 54px var(--glow)); margin-left: -14px; }
+body.story .hero-brand { display: flex; align-items: center; gap: 22px; }
+body.story .hero-brand b { display: block; font-size: 64px; font-weight: 750; letter-spacing: -.035em; line-height: 1; }
+body.story .hero-brand small { display: block; font-size: 30px; color: var(--muted); margin-top: 8px; font-weight: 500; }
+body.story .hero-brand em { font-style: normal; color: #8fb2ff; font-weight: 600; }
+body.story .shot { width: calc(100% + 80px); margin-right: -80px; flex: 1; min-height: 0; position: relative; overflow: hidden; border-radius: 18px 0 0 18px; -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent); mask-image: linear-gradient(180deg, #000 78%, transparent); }
+body.story .shot .window { position: absolute; left: 0; right: 0; top: 0; }
+body.story .cta { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+body.story .cta .button { align-self: flex-start; font-size: 34px; font-weight: 700; padding: .7em 1.3em; border-radius: 999px;
+  background: linear-gradient(92deg, #5b6cff, #2f9bff); color: #fff; box-shadow: 0 18px 50px rgba(91,108,255,.45); letter-spacing: -.01em; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="content" id="root"></div>
+<script>
+const params = new URLSearchParams(location.search)
+const kind = params.get('kind') || 'og'
+const sizes = { og: [1200, 630], square: [1080, 1080], story: [1080, 1920] }
+const [w, h] = sizes[kind]
+document.documentElement.style.setProperty('--w', `${w}px`)
+document.documentElement.style.setProperty('--h', `${h}px`)
+document.body.className = kind
+const brand = `<div class="brand"><img src="orb.webp" alt=""><div><b>Renor</b><small>by <em>FounderLab</em></small></div></div>`
+const headline = `<h1>Think it.<br>Build it.<br><span>Keep it.</span></h1>`
+const lede = `<p class="lede">One AI workspace for conversations, code, websites and the projects that grow from them.</p>`
+const pill = `<span class="pill"><i></i>Private beta now open</span>`
+const chips = `<div class="chips"><span>Chat</span><span>Code AI</span><span>Website Builder</span><span>Projects</span></div>`
+const windowHtml = (shot) => `<div class="window"><div class="bar"><i></i><i></i><i></i><span>Renor · ${shot === 'code' ? 'Code AI' : 'Website Builder'}</span></div><img src="${shot}.png" alt=""></div>`
+const root = document.getElementById('root')
+if (kind === 'og') {
+  document.documentElement.style.cssText += ';--h1:76px;--lede:23px;--pill:18px;--logo:52px;--brand-size:30px'
+  root.innerHTML = `<div class="left"><div style="display:flex;flex-direction:column;gap:26px">${brand}${headline}${lede}</div><div style="display:flex;gap:14px;align-items:center">${pill}</div></div><div class="right">${windowHtml('code')}</div>`
+} else if (kind === 'square') {
+  document.documentElement.style.cssText += ';--h1:96px;--lede:28px;--pill:22px;--logo:60px;--brand-size:34px;--chip:20px;--gx:15%;--gy:10%'
+  root.innerHTML = `<div class="row">${brand}${pill}</div>${headline.replace(/<br>/g, ' ').replace('Build it. ', 'Build it.<br>')}${lede}<div class="shot">${windowHtml('code')}</div>`
+} else {
+  document.documentElement.style.cssText += ';--h1:116px;--lede:33px;--pill:26px;--logo:64px;--brand-size:38px;--chip:24px;--gx:30%;--gy:20%;--foot:24px'
+  root.innerHTML = `<div class="hero-brand"><img class="orb" src="orb.webp" alt=""><div><b>Renor</b><small>by <em>FounderLab</em></small></div></div>${headline}${lede}${chips}<div class="shot">${windowHtml('builder')}</div><div class="cta"><span class="button">Join the private beta</span><span class="foot">Renor by FounderLab · free to start while in preview</span></div>`
+}
+</script>
+</body>
+</html>
