@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/privacy',
 });
 
-const UPDATED = '5 October 2026';
+const UPDATED = '24 October 2026';
 
 export default function PrivacyPage() {
   return (
@@ -28,7 +28,8 @@ export default function PrivacyPage() {
         <h2>This website</h2>
         <p>
           The FounderLab website is for reading. It has no accounts, no sign-up forms and no
-          advertising.
+          advertising. The only things you can send us from it are questions and reports through the
+          Renor Guide, described below.
         </p>
         <ul>
           <li>
@@ -52,6 +53,38 @@ export default function PrivacyPage() {
           We do not sell personal information, and this website does not use advertising or
           cross-site tracking cookies.
         </p>
+
+        <h2 id="guide" className="scroll-mt-24">
+          The Renor Guide on this website
+        </h2>
+        <p>
+          The Renor Guide (the “Ask Renor” button) answers questions from this website’s pages and
+          lets you report a problem.
+        </p>
+        <ul>
+          <li>
+            <strong className="text-foreground">Questions.</strong> Your question is used to answer
+            you and is not saved as a conversation on our servers. Server logs keep only a shortened
+            copy of questions the Guide could not answer, with emails, phone numbers and similar
+            details removed. If AI answers are switched on, your question is also sent, with those
+            details removed, to the AI provider that powers them. Your conversation is kept in your
+            own browser until you close the tab.
+          </li>
+          <li>
+            <strong className="text-foreground">Reports.</strong> A report is stored privately for
+            the FounderLab team and is never posted publicly. Before it is stored, emails, phone
+            numbers, card numbers, postcodes, passwords and keys are removed from what you wrote. It
+            keeps the page you were on, your screen size, theme and browser name, and your email
+            only if you tick “Email me about this”, to reply to you. Engineers see a summary (type,
+            page, severity); they read your words only if you tick “Engineers may read my words”.
+            Reports are deleted automatically after 90 days. If our private report inbox is not
+            switched on, the report is sent from your own email app instead.
+          </li>
+          <li>
+            Requests are rate-limited using a one-way hash of your IP address; the address itself is
+            not stored.
+          </li>
+        </ul>
 
         <h2>Links to other sites</h2>
         <p>
