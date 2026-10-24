@@ -220,7 +220,7 @@ export interface StoredReport {
   type: ReportType;
   state: ReportState;
   page: string;
-  /** The visitor's description with personal details and secrets removed. */
+  /** The visitor's description with personal details removed; empty unless they agreed to share it. */
   description: string;
   severity: Severity;
   severityReason: string;
@@ -233,8 +233,8 @@ export interface StoredReport {
   context: { viewport?: string; theme?: 'light' | 'dark'; browser?: string };
   /** Present only when the visitor asked to be emailed about this report. */
   contactEmail?: string;
-  /** The visitor agreed that engineers may read the (redacted) description. */
-  shareWithEngineers: boolean;
+  /** The visitor agreed that the Renor team may read their (redacted) description. Without it, no wording is kept. */
+  shareDescription: boolean;
   /** Reports about the same problem share a group: the reference of the first one. */
   groupId: string;
 }
@@ -247,24 +247,39 @@ export function buildRecord(
 ): StoredReport {
   const description = redactPII(report.description);
   const t = triage({ ...report, description });
-  return {
+  const base = {
     reference,
     receivedAt: receivedAt.toISOString(),
     type: report.type,
-    state: 'new',
+    state: 'new' as const,
     page: report.page,
-    description,
     severity: t.severity,
     severityReason: t.severityReason,
     area: t.area,
+    ...(report.contactMe && report.email ? { contactEmail: report.email } : {}),
+    shareDescription: report.shareDescription,
+    groupId: reference,
+  };
+  // Not shared: keep only what kind of problem it is and where. No wording of any kind (the
+  // description, extracted steps, expected/actual and the summary are all the visitor's words),
+  // and no environment details. Severity and area were guessed in memory and the text dropped.
+  if (!report.shareDescription) {
+    return {
+      ...base,
+      description: '',
+      summary: `${TYPE_LABEL[report.type]} on ${report.page}`,
+      steps: [],
+      context: {},
+    };
+  }
+  return {
+    ...base,
+    description,
     summary: t.summary,
     steps: t.steps,
     ...(t.expected ? { expected: t.expected } : {}),
     ...(t.actual ? { actual: t.actual } : {}),
     context: report.context,
-    ...(report.contactMe && report.email ? { contactEmail: report.email } : {}),
-    shareWithEngineers: report.shareWithEngineers,
-    groupId: reference,
   };
 }
 
@@ -276,6 +291,8 @@ export function findDuplicate(
   let best: { match: StoredReport; score: number } | null = null;
   for (const other of existing) {
     if (other.type !== record.type || other.state === 'closed') continue;
+    // Unshared reports keep no wording, so there is nothing to compare.
+    if (!record.description || !other.description) continue;
     let score = similarity(record.description, other.description);
     // Same words on the same page is stronger evidence than the same words anywhere.
     if (other.page === record.page) score = Math.min(1, score + 0.05);
@@ -321,7 +338,7 @@ export function handoffSummary(record: StoredReport, groupSize: number): Handoff
     page: record.page,
     stepCount: record.steps.length,
     environment: environment || 'not provided',
-    ...(record.shareWithEngineers ? { description: record.description, steps: record.steps } : {}),
+    ...(record.shareDescription ? { description: record.description, steps: record.steps } : {}),
   };
 }
 

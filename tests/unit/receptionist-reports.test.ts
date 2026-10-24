@@ -36,6 +36,9 @@ const report = (overrides: Partial<ParsedReport> = {}): ParsedReport =>
   });
 
 const NOW = new Date('2026-10-24T12:00:00.000Z');
+/** A report whose visitor ticked “The Renor team may read my description”. */
+const shared = (overrides: Partial<ParsedReport> = {}) =>
+  report({ shareDescription: true, ...overrides });
 
 describe('reference numbers', () => {
   it('are RNR- plus 8 unambiguous characters, and unique', () => {
@@ -87,7 +90,7 @@ const PRIVATE =
 
 describe('privacy-safe records', () => {
   it('removes personal details and secrets before anything is kept', () => {
-    const record = buildRecord(report({ description: PRIVATE }), 'RNR-ABCDEFGH', NOW);
+    const record = buildRecord(shared({ description: PRIVATE }), 'RNR-ABCDEFGH', NOW);
     const text = JSON.stringify(record);
     for (const secret of ['jane@example.com', '07700 900123', '4242 4242', 'hunter22'])
       expect(text).not.toContain(secret);
@@ -123,14 +126,43 @@ describe('privacy-safe records', () => {
       severity: 'medium',
       area: 'Website · Plans',
       page: '/renor/plans',
-      stepCount: 3,
+      stepCount: 0,
     });
-    const shared = handoffSummary(
-      buildRecord({ ...base, shareWithEngineers: true }, 'RNR-A0000000', NOW),
+    const withWords = handoffSummary(
+      buildRecord({ ...base, shareDescription: true }, 'RNR-A0000000', NOW),
       1,
     );
-    expect(shared.description).toContain('early list');
-    expect(JSON.stringify(shared)).not.toContain('reply@example.com');
+    expect(withWords.description).toContain('early list');
+    expect(JSON.stringify(withWords)).not.toContain('reply@example.com');
+  });
+});
+
+describe('unshared reports keep no wording', () => {
+  it('stores only reference, type, page, area, severity guess and time', () => {
+    const record = buildRecord(report({ description: PRIVATE }), 'RNR-ABCDEFGH', NOW);
+    expect(record).toEqual({
+      reference: 'RNR-ABCDEFGH',
+      receivedAt: '2026-10-24T12:00:00.000Z',
+      type: 'bug',
+      state: 'new',
+      page: '/renor/plans',
+      severity: record.severity,
+      severityReason: record.severityReason,
+      area: 'Renor app · Account and sign-in',
+      shareDescription: false,
+      groupId: 'RNR-ABCDEFGH',
+      description: '',
+      summary: 'Bug on /renor/plans',
+      steps: [],
+      context: {},
+    });
+    expect(JSON.stringify(record)).not.toMatch(/Checkout|hunter|fails/);
+  });
+
+  it('are never grouped by wording they do not have', () => {
+    const a = buildRecord(report(), 'RNR-00000001', NOW);
+    const b = buildRecord(report(), 'RNR-00000002', NOW);
+    expect(findDuplicate(b, [a])).toBeNull();
   });
 });
 
@@ -148,9 +180,9 @@ describe('de-duplication', () => {
   });
 
   it('matches an open report of the same type, never a closed one or another type', () => {
-    const first = buildRecord(report(), 'RNR-00000001', NOW);
+    const first = buildRecord(shared(), 'RNR-00000001', NOW);
     const again = buildRecord(
-      report({
+      shared({
         description:
           'Join the early list button on the plans page does nothing. Click Join the early list on Pro and nothing happens.',
       }),
@@ -158,7 +190,7 @@ describe('de-duplication', () => {
       NOW,
     );
     const other = buildRecord(
-      report({ description: 'Website builder export zip fails on large sites' }),
+      shared({ description: 'Website builder export zip fails on large sites' }),
       'RNR-00000003',
       NOW,
     );
@@ -185,10 +217,10 @@ describe('filing a report', () => {
 
   it('stores privately, then groups a matching report with the first', async () => {
     const store = createMemoryStore(90, () => NOW.getTime());
-    const first = await fileReport(report(), 'RNR-00000001', { store, handoff: null, now: NOW });
+    const first = await fileReport(shared(), 'RNR-00000001', { store, handoff: null, now: NOW });
     expect(first).toMatchObject({ status: 'stored', groupId: 'RNR-00000001', handedOff: false });
     const second = await fileReport(
-      report({
+      shared({
         description:
           'On the plans page the Join the early list button does nothing when I click it on Pro.',
       }),

@@ -86,7 +86,7 @@ describe('1. redaction happens before any persistence, logging or model call', (
       handoff: () => null,
       limiter: reportLimiter(),
     });
-    const res = await handler(post('/api/reports', reportBody({ shareWithEngineers: true })));
+    const res = await handler(post('/api/reports', reportBody({ shareDescription: true })));
     expect((await res.json()).status).toBe('stored');
     expect(writes).toHaveLength(1);
     expectNoSecrets(JSON.stringify(writes));
@@ -154,25 +154,36 @@ describe('2. email and wording are opt-in', () => {
     return { record: writes[0] as StoredReport, handoff: JSON.parse(handoffCalls[0] ?? '{}') };
   };
 
-  it('both off: no email kept; engineers get no wording', async () => {
-    const { record, handoff } = await file({ contactMe: false, shareWithEngineers: false });
+  it('both off: no email and no wording kept (record and hand-off)', async () => {
+    const { record, handoff } = await file({ contactMe: false, shareDescription: false });
     expect(record.contactEmail).toBeUndefined();
     expect(JSON.stringify(record)).not.toContain('reply@example.org');
-    expect(record.shareWithEngineers).toBe(false);
+    expect(record.shareDescription).toBe(false);
+    // Unticked: only reference, type, page, area, severity guess and time; no wording at all.
+    expect(record.description).toBe('');
+    expect(record.steps).toEqual([]);
+    expect(record.summary).toBe('Bug on /renor/plans');
+    expect(record.expected).toBeUndefined();
+    expect(record.actual).toBeUndefined();
+    expect(record.context).toEqual({});
+    expect(JSON.stringify(record)).not.toContain('Join button');
     expect(handoff.report.description).toBeUndefined();
     expect(handoff.report.steps).toBeUndefined();
     expect(JSON.stringify(handoff)).not.toContain('Join button');
   });
 
   it('"Email me" on: the email is kept, and still never handed to engineers', async () => {
-    const { record, handoff } = await file({ contactMe: true, shareWithEngineers: false });
+    const { record, handoff } = await file({ contactMe: true, shareDescription: false });
     expect(record.contactEmail).toBe('reply@example.org');
     expect(JSON.stringify(handoff)).not.toContain('reply@example.org');
   });
 
-  it('"Engineers may read my words" on: engineers get the redacted wording only', async () => {
-    const { record, handoff } = await file({ contactMe: false, shareWithEngineers: true });
-    expect(record.shareWithEngineers).toBe(true);
+  it('"The Renor team may read my description" on: redacted wording kept and handed off', async () => {
+    const { record, handoff } = await file({ contactMe: false, shareDescription: true });
+    expect(record.shareDescription).toBe(true);
+    expect(record.description).toContain('Join button');
+    expect(record.description).toContain('[email]');
+    expectNoSecrets(JSON.stringify(record));
     expect(handoff.report.description).toContain('Join button');
     expectNoSecrets(JSON.stringify(handoff));
   });

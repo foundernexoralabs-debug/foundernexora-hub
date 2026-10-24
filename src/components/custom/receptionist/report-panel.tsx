@@ -27,7 +27,7 @@ export interface ReportDraft {
   description: string;
   page: string;
   contactMe: boolean;
-  shareWithEngineers: boolean;
+  shareDescription: boolean;
   email: string;
 }
 
@@ -319,14 +319,14 @@ export function ReportPanel({
           <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-lg px-2.5 py-2.5 hover:bg-accent/60">
             <input
               type="checkbox"
-              checked={draft.shareWithEngineers}
-              onChange={(event) => set({ shareWithEngineers: event.target.checked })}
+              checked={draft.shareDescription}
+              onChange={(event) => set({ shareDescription: event.target.checked })}
               className="mt-0.5 size-4 shrink-0 accent-[var(--brand-600)]"
             />
             <span className="text-sm leading-snug">
-              <span className="font-semibold">Engineers may read my words</span>
+              <span className="font-semibold">The Renor team may read my description</span>
               <span className="block text-xs text-muted-foreground">
-                Otherwise they see only the summary: type, page and severity.
+                Leave unticked and we only keep the type of problem and the page.
               </span>
             </span>
           </label>
@@ -376,7 +376,7 @@ export function validateDraft(draft: ReportDraft): Record<string, string> {
     page: draft.page || '/',
     email: draft.contactMe ? draft.email : '',
     contactMe: draft.contactMe,
-    shareWithEngineers: draft.shareWithEngineers,
+    shareDescription: draft.shareDescription,
   });
   if (parsed.success) return {};
   const errors: Record<string, string> = {};

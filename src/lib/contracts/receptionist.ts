@@ -76,8 +76,8 @@ export const ReportRequest = z
       .email('Check the email address')
       .optional()
       .or(z.literal('').transform(() => undefined)),
-    /** Opt-in: engineers may read the description (with personal details removed). */
-    shareWithEngineers: z.boolean().default(false),
+    /** Opt-in: the Renor team may read the description (personal details removed). Unticked, no wording is kept. */
+    shareDescription: z.boolean().default(false),
     context: z
       .object({
         viewport: z
@@ -156,7 +156,7 @@ export const AdminReport = z.object({
     browser: z.string().optional(),
   }),
   contactEmail: z.string().optional(),
-  shareWithEngineers: z.boolean(),
+  shareDescription: z.boolean(),
   groupId: z.string(),
 });
 export type AdminReport = z.infer<typeof AdminReport>;

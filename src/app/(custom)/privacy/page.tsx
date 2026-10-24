@@ -72,11 +72,12 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong className="text-foreground">Reports.</strong> A report is stored privately for
-            the FounderLab team and is never posted publicly. Before it is stored, emails, phone
-            numbers, card numbers, postcodes, passwords and keys are removed from what you wrote. It
-            keeps the page you were on, your screen size, theme and browser name, and your email
-            only if you tick “Email me about this”, to reply to you. Engineers see a summary (type,
-            page, severity); they read your words only if you tick “Engineers may read my words”.
+            the FounderLab team and is never posted publicly. By default we keep only the type of
+            problem, the page it happened on, an automatic guess at its area and severity, and the
+            time. Your description is kept only if you tick “The Renor team may read my
+            description”, and even then emails, phone numbers, card numbers, postcodes, passwords
+            and keys are removed from it first, and we also keep your screen size, theme and browser
+            name. Your email is kept only if you tick “Email me about this”, to reply to you.
             Reports are deleted automatically after 90 days. If our private report inbox is not
             switched on, the report is sent from your own email app instead.
           </li>

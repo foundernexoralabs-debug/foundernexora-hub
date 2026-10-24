@@ -247,7 +247,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     title: 'What happens to what I type into this assistant or a report?',
     keywords: ['assistant', 'guide', 'messages', 'report', 'stored', 'log', 'chat history'],
     answer:
-      'Your question is used to answer you and is not saved as a conversation on our servers. Server logs keep only a shortened copy of questions I could not answer, with emails, phone numbers and similar details removed. If AI answers are switched on, the question is also sent, with those details removed, to the AI provider that powers them. A report is stored privately for the FounderLab team, never posted publicly, with personal details removed from your text first. It keeps the page, screen size and browser, your email only if you tick “Email me about this”, and is deleted automatically after 90 days.',
+      'Your question is used to answer you and is not saved as a conversation on our servers. Server logs keep only a shortened copy of questions I could not answer, with emails, phone numbers and similar details removed. If AI answers are switched on, the question is also sent, with those details removed, to the AI provider that powers them. A report is stored privately for the FounderLab team, never posted publicly. By default only the type of problem and the page are kept; your description only if you tick “The Renor team may read my description”, with personal details removed first. Your email is kept only if you tick “Email me about this”. Reports are deleted automatically after 90 days.',
     source: { label: 'Privacy · This assistant', href: '/privacy#guide' },
   },
   {
@@ -288,7 +288,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     title: 'How do I report a bug or request a feature?',
     keywords: ['bug', 'report', 'broken', 'issue', 'feature request', 'feedback', 'idea'],
     answer:
-      'Use “Report a problem” in this panel: describe what happened, and you get a reference number straight away. It is stored privately for the team, never posted publicly, with personal details removed from your text. Inside Renor, the Feedback button in the sidebar sends a report with the context of what you were doing.',
+      'Use “Report a problem” in this panel: describe what happened, and you get a reference number straight away. It is stored privately for the team and never posted publicly. Tick “The Renor team may read my description” if you want them to see your words; otherwise only the type of problem and the page are kept. Inside Renor, the Feedback button in the sidebar sends a report with the context of what you were doing.',
     source: { label: 'Contact', href: '/contact' },
   },
   {

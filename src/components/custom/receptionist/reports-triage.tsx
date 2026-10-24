@@ -363,9 +363,14 @@ export function ReportsTriage() {
                           {[report.context.viewport, report.context.theme, report.context.browser]
                             .filter(Boolean)
                             .join(' · ') || 'no environment'}
-                          {report.shareWithEngineers ? ' · shareable with engineers' : ''}
                         </p>
-                        <p className="mt-1.5 whitespace-pre-line">{report.description}</p>
+                        {report.shareDescription && report.description ? (
+                          <p className="mt-1.5 whitespace-pre-line">{report.description}</p>
+                        ) : (
+                          <p className="mt-1.5 text-muted-foreground italic">
+                            Description not shared
+                          </p>
+                        )}
                       </li>
                     ))}
                   </ul>

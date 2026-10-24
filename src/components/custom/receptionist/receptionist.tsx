@@ -108,7 +108,7 @@ export function Receptionist() {
       page: pathname,
       email: '',
       contactMe: false,
-      shareWithEngineers: false,
+      shareDescription: false,
     }),
     [pathname],
   );
@@ -339,7 +339,7 @@ export function Receptionist() {
           page: checked.page,
           contactMe: checked.contactMe,
           email: checked.contactMe ? checked.email : '',
-          shareWithEngineers: checked.shareWithEngineers,
+          shareDescription: checked.shareDescription,
           website: honeypot || undefined,
           context: {
             viewport: `${window.innerWidth}x${window.innerHeight}`,
