@@ -2,8 +2,9 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
+import { Eyebrow, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
+import { FounderHero } from '@/components/custom/founder';
 import { PUBLIC_REPO_URL } from '@/lib/business/ecosystem';
 import { pageMetadata } from '@/lib/business/seo';
 
@@ -36,12 +37,21 @@ const principles = [
 export default function CompanyPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <PageHero
-        eyebrow="About"
-        title="A small technology company that would rather prove than promise."
-        lede="FounderLab builds Renor, an AI workspace for people who make things, and a small family of related projects. Everything we publish says plainly what works today and what does not yet."
-      />
-      <section className="px-5 py-20 sm:px-8 sm:py-28">
+      <FounderHero />
+      <section aria-labelledby="about-title" className="px-5 pt-20 pb-4 sm:px-8 sm:pt-28">
+        <div className="mx-auto max-w-screen-xl">
+          <Eyebrow>About</Eyebrow>
+          <h2 id="about-title" className="mt-5 max-w-4xl font-display type-heading text-balance">
+            A small technology company that would rather prove than promise.
+          </h2>
+          <p className="mt-6 max-w-2xl type-lead text-pretty text-muted-foreground">
+            FounderLab builds Renor, an AI workspace for people who make things, and a small family
+            of related projects. Everything we publish says plainly what works today and what does
+            not yet.
+          </p>
+        </div>
+      </section>
+      <section className="px-5 py-16 sm:px-8 sm:py-20">
         <div className="mx-auto grid max-w-screen-xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <SectionHeading eyebrow="What we do" title="One company, a few focused projects." />
           <div className="grid gap-6 type-lead text-muted-foreground">

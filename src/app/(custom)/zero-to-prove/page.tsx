@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { ChannelIcon } from '@/components/custom/channel-links';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
+import { FounderByline } from '@/components/custom/founder';
 import { Button } from '@/components/ui/button';
 import {
   JOURNEY_CHANNELS,
@@ -51,6 +52,7 @@ export default function ZeroToProvePage() {
         eyebrow="Zero to Prove"
         title="Building a real AI product in public, from zero to proven."
         lede="Zero to Prove follows the founder of FounderLab building Renor: what was built, what broke, and what was actually proven. If you came from a video, this is where the work lives."
+        byline={<FounderByline />}
       >
         <Button asChild variant="brand" size="xl">
           <a href={RENOR_APP_URL} target="_blank" rel="noopener noreferrer">

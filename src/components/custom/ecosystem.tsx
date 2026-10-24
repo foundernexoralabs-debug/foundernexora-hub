@@ -55,6 +55,7 @@ export function PageHero({
   lede,
   children,
   aside,
+  byline,
 }: {
   eyebrow: string;
   title: ReactNode;
@@ -62,6 +63,8 @@ export function PageHero({
   children?: ReactNode;
   /** Optional content beside the text on large screens (below it on small ones). */
   aside?: ReactNode;
+  /** Optional byline under the lede, e.g. the founder's. */
+  byline?: ReactNode;
 }) {
   return (
     <section className="relative isolate overflow-hidden border-b border-border px-5 pt-16 pb-16 sm:px-8 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
@@ -76,6 +79,7 @@ export function PageHero({
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1 className="mt-5 max-w-4xl font-display type-title text-balance">{title}</h1>
           <div className="mt-6 max-w-2xl type-lead text-pretty text-muted-foreground">{lede}</div>
+          {byline ? <div className="mt-7">{byline}</div> : null}
           {children ? <div className="mt-10 flex flex-wrap gap-3">{children}</div> : null}
         </div>
         {aside}
