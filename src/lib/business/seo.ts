@@ -30,6 +30,8 @@ export interface PageMetadataInput {
    * leave `images` unset so those files are used instead of the site-wide image.
    */
   ownImage?: boolean;
+  /** A page-specific social image (a static file in public/), e.g. the Renor launch card. */
+  image?: { url: string; width: number; height: number; alt: string; type?: string };
 }
 
 export function pageMetadata({
@@ -39,7 +41,9 @@ export function pageMetadata({
   socialTitle,
   absolute = false,
   ownImage = false,
+  image,
 }: PageMetadataInput): Metadata {
+  const socialImage = image ?? SOCIAL_IMAGE;
   const social = socialTitle ?? (absolute ? title : `${title} · ${siteName}`);
   return {
     title: absolute ? { absolute: title } : title,
@@ -52,13 +56,13 @@ export function pageMetadata({
       url: path,
       title: social,
       description,
-      ...(ownImage ? {} : { images: [SOCIAL_IMAGE] }),
+      ...(ownImage ? {} : { images: [socialImage] }),
     },
     twitter: {
       card: 'summary_large_image',
       title: social,
       description,
-      ...(ownImage ? {} : { images: [{ url: SOCIAL_IMAGE.url, alt: SOCIAL_IMAGE.alt }] }),
+      ...(ownImage ? {} : { images: [{ url: socialImage.url, alt: socialImage.alt }] }),
     },
   };
 }
