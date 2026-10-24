@@ -333,7 +333,7 @@ export function SiteNav() {
                       </Button>
                     ) : (
                       <div key={`menu:${slot.label}`} className="flex flex-col gap-1">
-                        <p className="px-3 pt-2 text-xs font-medium text-muted-foreground">
+                        <p className="px-3 pt-2 text-sm font-medium text-muted-foreground">
                           {slot.label}
                         </p>
                         {slot.items.map((item) => (
@@ -444,7 +444,7 @@ export function SiteFooter() {
           <div className="mt-8">
             <p
               id="footer-follow"
-              className="text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase"
+              className="text-sm font-semibold tracking-[0.1em] text-foreground uppercase"
             >
               Follow and shop
             </p>
@@ -456,7 +456,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
           {[...columns].map(([heading, items]) => (
             <nav key={heading} aria-label={`${heading} links`}>
-              <p className="text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase">
+              <p className="text-sm font-semibold tracking-[0.1em] text-foreground uppercase">
                 {heading}
               </p>
               <ul className="mt-3 grid gap-0.5">

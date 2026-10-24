@@ -1,96 +1,6 @@
-/* @polsia:user-owned — the Renor Guide's living orb and motion. Imported by receptionist.tsx.
- * The orb echoes Renor's in-app orb: a deep blue core with cyan filaments that slowly turn and
- * breathe. Every animation stops when the device asks for reduced motion. */
-
-.rg-orb {
-  position: relative;
-  isolation: isolate;
-  flex-shrink: 0;
-  border-radius: 9999px;
-  background:
-    radial-gradient(circle at 34% 28%, #f0f9ff 0%, #a5e3ff 9%, transparent 26%),
-    radial-gradient(circle at 50% 50%, #3b82f6 0%, #1d4ed8 42%, #172554 78%, #0b1235 100%);
-  box-shadow:
-    inset 0 0 0 1px rgb(165 227 255 / 0.35),
-    inset 0 -6px 14px rgb(8 16 48 / 0.55),
-    0 0 18px -2px rgb(59 130 246 / 0.6);
-  overflow: hidden;
-}
-
-/* Filaments: a slowly turning conic web, screened over the core. */
-.rg-orb::before {
-  content: "";
-  position: absolute;
-  inset: -20%;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0 8%,
-    rgb(125 211 252 / 0.85) 10%,
-    transparent 13% 30%,
-    rgb(186 230 253 / 0.7) 32%,
-    transparent 35% 55%,
-    rgb(96 165 250 / 0.85) 57%,
-    transparent 60% 78%,
-    rgb(165 243 252 / 0.75) 80%,
-    transparent 83% 100%
-  );
-  mix-blend-mode: screen;
-  filter: blur(1.5px);
-  opacity: 0.75;
-  animation: rg-orb-turn 14s linear infinite;
-}
-
-/* Breath: a soft inner light that swells and settles. */
-.rg-orb::after {
-  content: "";
-  position: absolute;
-  inset: 18%;
-  border-radius: inherit;
-  background: radial-gradient(
-    circle,
-    rgb(224 242 254 / 0.8),
-    rgb(56 189 248 / 0.25) 45%,
-    transparent 70%
-  );
-  mix-blend-mode: screen;
-  animation: rg-orb-breathe 4.8s ease-in-out infinite;
-}
-
-.rg-orb[data-state="thinking"]::before {
-  animation-duration: 2.6s;
-}
-.rg-orb[data-state="thinking"]::after {
-  animation-duration: 1.4s;
-}
-
-@keyframes rg-orb-turn {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes rg-orb-breathe {
-  0%,
-  100% {
-    transform: scale(0.82);
-    opacity: 0.55;
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 1;
-  }
-}
-
-/* Halo behind the launcher orb. */
-.rg-halo {
-  position: absolute;
-  inset: -6px;
-  border-radius: 9999px;
-  background: radial-gradient(circle, rgb(59 130 246 / 0.35), transparent 70%);
-  animation: rg-orb-breathe 4.8s ease-in-out infinite;
-  pointer-events: none;
-}
+/* @polsia:user-owned — the Renor Guide's small motion pieces (typing dots, scroll area).
+ * The orb itself is RenorOrb (src/components/custom/renor-orb.tsx). Every animation stops
+ * when the device asks for reduced motion. */
 
 /* Typing indicator. */
 .rg-dot {
@@ -128,9 +38,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rg-orb::before,
-  .rg-orb::after,
-  .rg-halo,
   .rg-dot {
     animation: none;
   }

@@ -106,7 +106,7 @@ export function PluginCatalogue({
                 {tab.label}
                 <span
                   className={cn(
-                    'rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums',
+                    'rounded-full px-2 py-0.5 text-sm font-semibold tabular-nums',
                     selected ? 'bg-background/15' : 'bg-muted text-muted-foreground',
                   )}
                 >

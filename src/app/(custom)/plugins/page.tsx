@@ -63,7 +63,7 @@ function EmptyShelf({ category }: { category: PluginCategory }) {
         <PackageOpen className="size-6" strokeWidth={1.6} />
       </span>
       <div className="flex-1">
-        <p className="text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">
+        <p className="text-sm font-semibold tracking-[0.12em] text-muted-foreground uppercase">
           Coming next
         </p>
         <h3 className="mt-2 font-display type-subheading">{category.emptyTitle}</h3>
@@ -91,7 +91,7 @@ function FeaturedPlugin({ plugin }: { plugin: Plugin }) {
       <PluginCover plugin={plugin} size="hero" />
       <div className="flex flex-wrap items-end justify-between gap-4 px-1 pt-5 pb-1">
         <div className="min-w-0">
-          <p className="text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">
+          <p className="text-sm font-semibold tracking-[0.12em] text-muted-foreground uppercase">
             Featured · {plugin.audience}
           </p>
           <p className="mt-1.5 flex items-baseline gap-2">
@@ -210,7 +210,7 @@ export default function PluginStorePage() {
                   key={fact.term}
                   className={index > 0 ? 'border-l border-border px-4 py-3' : 'px-4 py-3'}
                 >
-                  <dt className="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted-foreground uppercase">
+                  <dt className="text-sm font-semibold tracking-[0.12em] text-muted-foreground uppercase">
                     {fact.term}
                   </dt>
                   <dd className="mt-1 text-[0.9375rem] font-semibold leading-snug">{fact.value}</dd>

@@ -38,6 +38,13 @@ html {
     outline-offset: 3px;
     border-radius: 6px;
   }
+  /* Headings speak in the display face; body copy stays in Inter. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
   /* Selection in the brand colour. */
   ::selection {
     background: color-mix(in oklch, var(--brand-500) 35%, transparent);
@@ -45,54 +52,160 @@ html {
 }
 
 /* ---------------------------------------------------------------------------
- * FounderLab visual system: crisp, high-contrast, readable.
+ * FounderLab / Renor design tokens (website v2).
  *
- * The framework derives its palette in globals.css from the brand seed. These
- * overrides sharpen the roles that carry text: `html:root` / `html.dark` outrank
- * the derived `:root` / `.dark` blocks whatever the stylesheet order, exactly
- * like the font tokens in head-content.tsx. Brand hue and identity are unchanged.
+ * One palette built around Renor's orb. Surfaces, text and lines change with the theme;
+ * the orb, status and accent colours are the same in both. src/lib/design-tokens.ts
+ * mirrors these values for next/og images and the manifest, and
+ * tests/unit/design-tokens.test.ts keeps both in step and checks WCAG contrast.
  *
- * Measured contrast targets (WCAG 2.2): body and muted text >= 7:1 (AAA) on
- * both the page background and cards, in light and dark.
+ * The shadcn roles (background, card, muted-foreground, border...) are mapped onto these
+ * tokens below, so every existing component picks up the new palette. `html:root` and
+ * `html.dark` outrank the framework-derived `:root` / `.dark` blocks in globals.css.
+ *
+ * Naming note: shadcn already uses `--accent` as a hover-surface role, so the brief's blue
+ * accent lives at `--brand-accent` / `--brand-accent-hover`.
  * ------------------------------------------------------------------------- */
-html:root {
-  --background: oklch(0.993 0.002 var(--brand-h));
-  --foreground: oklch(0.17 0.014 var(--brand-h));
-  --card: oklch(1 0 0);
-  --card-foreground: var(--foreground);
-  --secondary: oklch(0.955 0.006 var(--brand-h));
-  --secondary-foreground: oklch(0.2 0.016 var(--brand-h));
-  --muted: oklch(0.962 0.005 var(--brand-h));
-  --muted-foreground: oklch(0.43 0.018 var(--brand-h));
-  --accent: oklch(0.95 0.012 var(--brand-h));
-  --accent-foreground: oklch(0.2 0.016 var(--brand-h));
-  --border: oklch(0.885 0.008 var(--brand-h));
-  --input: oklch(0.85 0.01 var(--brand-h));
-  --primary: var(--brand-600);
-  --ring: var(--brand-500);
-  /* Links and accents in text: one notch deeper than the fill colour, for contrast. */
-  --link: var(--brand-600);
-  --surface-band: oklch(0.975 0.004 var(--brand-h));
+:root {
+  /* Orb: bright core to deep edge, plus the violet rim light. */
+  --orb-core: #e8f1ff;
+  --orb-1: #7fb2ff;
+  --orb-2: #3d7bff;
+  --orb-3: #1f4fe0;
+  --orb-violet: #7a5cff;
+
+  /* The dark stage behind product graphics: dark in both themes, like the graphics. */
+  --frame: #05070f;
+
+  --brand-accent: #3d7bff;
+  --brand-accent-hover: #5c93ff;
+
+  /* Status: tints only, the label always says the status in words. */
+  --live: #2fd98b;
+  --preview: #ffc24a;
+  --planned: #8e9bc4;
+  --danger: #ff5c7a;
+
+  /* Glows: one focal glow per viewport. */
+  --glow-sm: 0 0 14px -2px color-mix(in oklch, var(--orb-2) 55%, transparent);
+  --glow-md:
+    0 0 0 1px color-mix(in oklch, var(--orb-1) 30%, transparent), 0 0 28px -4px
+    color-mix(in oklch, var(--orb-2) 60%, transparent);
+  --glow-lg:
+    0 0 80px -10px color-mix(in oklch, var(--orb-2) 55%, transparent), 0 0 32px -8px
+    color-mix(in oklch, var(--orb-violet) 45%, transparent);
+
+  /* Radii and motion. */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 9999px;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Light theme: the same roles, tuned for light surfaces (all text >= 7:1). */
+html:root {
+  --bg-0: #f6f8fd;
+  --bg-1: #ffffff;
+  --bg-2: #edf1fa;
+  --bg-3: #e2e8f6;
+  --line: #d3dbee;
+  --line-strong: #aebbdd;
+  --text-1: #0a1024;
+  --text-2: #2b3658;
+  --text-3: #4a5577;
+  --link: #1f4fe0;
+
+  --background: var(--bg-0);
+  --foreground: var(--text-1);
+  --card: var(--bg-1);
+  --card-foreground: var(--text-1);
+  --popover: var(--bg-1);
+  --popover-foreground: var(--text-1);
+  --secondary: var(--bg-2);
+  --secondary-foreground: var(--text-1);
+  --muted: var(--bg-2);
+  --muted-foreground: var(--text-2);
+  --accent: var(--bg-3);
+  --accent-foreground: var(--text-1);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --primary: var(--orb-3);
+  --primary-foreground: #ffffff;
+  --ring: var(--orb-3);
+  --destructive: oklch(0.55 0.21 18);
+  --surface-band: var(--bg-2);
+  color-scheme: light;
+}
+
+/* Dark theme: the brief's surfaces and text, exactly. */
 html.dark {
-  --background: oklch(0.145 0.008 var(--brand-h));
-  --foreground: oklch(0.975 0.003 var(--brand-h));
-  --card: oklch(0.19 0.01 var(--brand-h));
-  --card-foreground: var(--foreground);
-  --popover: oklch(0.2 0.01 var(--brand-h));
-  --secondary: oklch(0.25 0.012 var(--brand-h));
-  --secondary-foreground: var(--foreground);
-  --muted: oklch(0.23 0.01 var(--brand-h));
-  --muted-foreground: oklch(0.8 0.012 var(--brand-h));
-  --accent: oklch(0.26 0.016 var(--brand-h));
-  --accent-foreground: var(--foreground);
-  --border: oklch(0.31 0.012 var(--brand-h));
-  --input: oklch(0.36 0.012 var(--brand-h));
-  --primary: var(--brand-300);
-  --primary-foreground: oklch(0.16 0.02 var(--brand-h));
-  --link: var(--brand-300);
-  --surface-band: oklch(0.17 0.009 var(--brand-h));
+  --bg-0: #05070f;
+  --bg-1: #0a1024;
+  --bg-2: #101935;
+  --bg-3: #18244a;
+  --line: #22305c;
+  --line-strong: #33468a;
+  --text-1: #f2f5ff;
+  --text-2: #c3cce8;
+  --text-3: #93a0c8;
+  --link: var(--orb-1);
+
+  --background: var(--bg-0);
+  --foreground: var(--text-1);
+  --card: var(--bg-1);
+  --card-foreground: var(--text-1);
+  --popover: var(--bg-2);
+  --popover-foreground: var(--text-1);
+  --secondary: var(--bg-2);
+  --secondary-foreground: var(--text-1);
+  --muted: var(--bg-2);
+  --muted-foreground: var(--text-2);
+  --accent: var(--bg-3);
+  --accent-foreground: var(--text-1);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --primary: var(--orb-1);
+  --primary-foreground: var(--bg-0);
+  --ring: var(--orb-1);
+  --destructive: var(--danger);
+  --surface-band: color-mix(in oklch, var(--bg-0) 45%, var(--bg-1));
+  color-scheme: dark;
+}
+
+/* Tailwind theme: `bg-surface-1`, `text-ink-2`, `border-line`, `bg-orb-2`, `text-live`,
+   `shadow-glow-md`, `rounded-tile`, `ease-out`... */
+@theme inline {
+  --color-surface-0: var(--bg-0);
+  --color-surface-1: var(--bg-1);
+  --color-surface-2: var(--bg-2);
+  --color-surface-3: var(--bg-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink-1: var(--text-1);
+  --color-ink-2: var(--text-2);
+  --color-ink-3: var(--text-3);
+  --color-orb-core: var(--orb-core);
+  --color-orb-1: var(--orb-1);
+  --color-orb-2: var(--orb-2);
+  --color-orb-3: var(--orb-3);
+  --color-orb-violet: var(--orb-violet);
+  --color-frame: var(--frame);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-hover: var(--brand-accent-hover);
+  --color-live: var(--live);
+  --color-preview: var(--preview);
+  --color-planned: var(--planned);
+  --color-danger: var(--danger);
+  --shadow-glow-sm: var(--glow-sm);
+  --shadow-glow-md: var(--glow-md);
+  --shadow-glow-lg: var(--glow-lg);
+  --radius-chip: var(--r-sm);
+  --radius-tile: var(--r-md);
+  --radius-panel: var(--r-lg);
+}
+@theme {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Readable defaults: 17px body copy, tuned Inter, no faux-bold. */
@@ -105,18 +218,21 @@ body {
   font-feature-settings: "cv11", "ss01";
 }
 
-/* Type scale. Fluid between a 390px phone and a 1440px desktop. */
+/* Type scale. Fluid between a 390px phone and a 1440px desktop. Headings use the display
+   face (Space Grotesk); the H1 follows the v2 brief: clamp(2.75rem, 6vw + 1rem, 5.5rem). */
 @utility type-display {
-  font-size: clamp(2.625rem, 1.6rem + 4.4vw, 5rem);
-  line-height: 1.02;
-  letter-spacing: -0.038em;
-  font-weight: 650;
+  font-size: clamp(2.75rem, 6vw + 1rem, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 600;
 }
+/* Long, sentence-length page titles: same floor as the H1, a lower ceiling so a two-line
+   sentence stays two lines on a laptop. */
 @utility type-title {
-  font-size: clamp(2.25rem, 1.55rem + 3vw, 4rem);
-  line-height: 1.05;
-  letter-spacing: -0.034em;
-  font-weight: 650;
+  font-size: clamp(2.75rem, 3.6vw + 1rem, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.032em;
+  font-weight: 600;
 }
 @utility type-heading {
   font-size: clamp(1.875rem, 1.45rem + 1.8vw, 3rem);
@@ -139,6 +255,12 @@ body {
   font-size: 1.0625rem;
   line-height: 1.65;
 }
+/* Numbers, dates and build-log lines: the mono face with aligned digits. */
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
 @utility type-meta {
   font-size: 0.9375rem;
   line-height: 1.5;
@@ -150,4 +272,56 @@ body {
 }
 @utility bg-band {
   background-color: var(--surface-band);
+}
+
+/* Renor's living orb on the launch pages: a slow breath of light. Static when motion is reduced. */
+.renor-orb::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--brand-400) 45%, transparent),
+    transparent 62%
+  );
+  z-index: -1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .renor-orb img {
+    animation: renor-orb-breathe 6s ease-in-out infinite;
+  }
+  .renor-orb::before {
+    animation: renor-orb-glow 6s ease-in-out infinite;
+  }
+}
+/* Small inline orbs (chat avatars): no halo, and still unless the Guide is thinking. */
+.renor-orb--plain::before {
+  content: none;
+}
+.renor-orb--plain img {
+  animation: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .renor-orb--plain[data-state="thinking"] img {
+    animation: renor-orb-breathe 1.4s ease-in-out infinite;
+  }
+}
+@keyframes renor-orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.045);
+  }
+}
+@keyframes renor-orb-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
 }

@@ -36,7 +36,7 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
 
 function SourceChip({ source, onNavigate }: { source: Source; onNavigate: () => void }) {
   const className =
-    'inline-flex min-h-8 items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1 text-[0.8125rem] font-medium text-foreground transition-colors hover:border-brand-400 hover:text-link';
+    'inline-flex min-h-8 items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1 text-sm font-medium text-foreground transition-colors hover:border-brand-400 hover:text-link';
   if (isExternal(source.href)) {
     return (
       <a href={source.href} target="_blank" rel="noopener noreferrer" className={className}>
@@ -79,7 +79,7 @@ function AssistantBubble({
           {message.text}
         </div>
         {message.degraded ? (
-          <p className="mt-2 text-[0.8125rem] text-muted-foreground">
+          <p className="mt-2 text-sm text-muted-foreground">
             AI answers are unavailable right now, so this is the instant answer from the site.
           </p>
         ) : null}
@@ -270,14 +270,14 @@ export function AskPanel({
             type="submit"
             disabled={!draft.trim() || pending}
             aria-label="Send question"
-            className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white shadow-sm transition-colors hover:bg-brand-700 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none dark:bg-brand-500 dark:hover:bg-brand-600"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white shadow-sm transition-colors hover:bg-brand-700 disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none dark:bg-brand-500 dark:hover:bg-brand-600 dark:disabled:bg-muted"
           >
             <ArrowUp aria-hidden="true" className="size-5" />
           </button>
         </div>
         <div
           id="renor-guide-hint"
-          className="mt-2 flex items-center justify-between gap-3 px-1 text-xs text-muted-foreground"
+          className="mt-2 flex items-center justify-between gap-3 px-1 text-sm text-muted-foreground"
         >
           <span>
             {live

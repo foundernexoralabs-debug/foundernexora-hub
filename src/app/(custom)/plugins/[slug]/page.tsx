@@ -158,7 +158,7 @@ export default async function PluginPage({ params }: { params: Promise<{ slug: s
               <dl className="mt-10 grid max-w-2xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">
                 {facts.map((fact) => (
                   <div key={fact.term} className="bg-card p-4 sm:p-5">
-                    <dt className="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted-foreground uppercase">
+                    <dt className="text-sm font-semibold tracking-[0.12em] text-muted-foreground uppercase">
                       {fact.term}
                     </dt>
                     <dd className="mt-1.5 text-[0.9375rem] font-semibold leading-snug">

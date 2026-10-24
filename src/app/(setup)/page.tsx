@@ -13,14 +13,9 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BrandMark } from '@/components/custom/brand-mark';
-import {
-  Eyebrow,
-  HeroGrid,
-  ProductShot,
-  SCREENSHOT_CAPTION,
-  StatusBadge,
-} from '@/components/custom/ecosystem';
+import { Eyebrow, HeroGrid, StatusBadge } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
+import { ThemedShot } from '@/components/custom/launch';
 import { NeedGuide } from '@/components/custom/need-guide';
 import { OrganizationJsonLd } from '@/components/custom/structured-data';
 import { Button } from '@/components/ui/button';
@@ -31,6 +26,7 @@ import {
   RENOR_APP_URL,
   RENOR_AREAS,
 } from '@/lib/business/ecosystem';
+import { TOUR, TOUR_CAPTION } from '@/lib/business/launch';
 import { pageMetadata } from '@/lib/business/seo';
 import { siteDescription } from '@/lib/site';
 
@@ -59,7 +55,7 @@ const principles = [
   },
 ] as const;
 
-const chat = RENOR_AREAS.find((area) => area.id === 'chat')?.screenshot;
+const tourChat = TOUR.find((shot) => shot.id === 'chat');
 const homeProjects = PROJECTS.filter((project) =>
   ['renor', 'renor-plugin-store', 'zero-to-prove'].includes(project.slug),
 );
@@ -77,11 +73,24 @@ export default function HomePage() {
         <HeroGrid />
         <div className="mx-auto grid max-w-screen-xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <div className="max-w-3xl">
-            <p className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase shadow-xs">
-              <BrandMark className="size-4" />
-              FounderLab
-              <span className="hidden text-muted-foreground sm:inline">· Makers of Renor</span>
-            </p>
+            <div className="mb-7 flex flex-wrap items-center gap-3">
+              <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-semibold tracking-[0.1em] text-foreground uppercase shadow-xs">
+                <BrandMark className="size-4" />
+                FounderLab
+                <span className="hidden text-muted-foreground sm:inline">· Makers of Renor</span>
+              </p>
+              <Link
+                href="/renor#beta"
+                className="group inline-flex min-h-9 items-center gap-2 rounded-full border border-brand-500/35 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-link transition-colors hover:border-brand-500/60 dark:bg-brand-500/10"
+              >
+                <span aria-hidden="true" className="size-1.5 rounded-full bg-emerald-500" />
+                Renor private beta is open
+                <ArrowRight
+                  aria-hidden="true"
+                  className="size-3.5 transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
             <h1 className="font-display type-display text-balance">
               Technology for <span className="text-link">the work ahead.</span>
             </h1>
@@ -166,7 +175,7 @@ export default function HomePage() {
               >
                 <div>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    <span className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
                       {project.kind}
                     </span>
                     <StatusBadge status={project.status} />
@@ -228,7 +237,7 @@ export default function HomePage() {
               </Button>
             </div>
           </div>
-          {chat ? <ProductShot {...chat} caption={SCREENSHOT_CAPTION} /> : null}
+          {tourChat ? <ThemedShot shot={tourChat} caption={TOUR_CAPTION} /> : null}
         </div>
       </section>
 
