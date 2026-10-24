@@ -125,7 +125,7 @@
    border role + dark mode from these (see the derived block below), so editing
    --brand-h ALONE recolors the entire site. Keep values in range. */
 :root {
-  --brand-h: 255; /* deep indigo — knowledge, depth, intelligence */
+  --brand-h: 263; /* Renor orb blue (#3D7BFF sits at oklch hue ~263) */
   --brand-c: 0.18; /* restrained — professional, not playful */
   --brand-l: 0.48; /* darker base — works with both light and dark modes */
   --radius: 0.5rem; /* moderately rounded — sophisticated, not sharp */
