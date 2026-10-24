@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { BETA_EMAIL, BETA_ROLES, betaMailto } from '@/lib/business/launch';
 
 const fieldClass =
-  'mt-2 block w-full rounded-xl border border-input bg-background px-4 py-3 text-base text-foreground shadow-xs transition-colors placeholder:text-muted-foreground/80 hover:border-foreground/30 focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+  'mt-2 block w-full rounded-xl border border-input bg-background px-4 py-3 text-base text-foreground shadow-xs transition-colors placeholder:text-ink-3 hover:border-foreground/30 focus-visible:border-ring focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 
 export function BetaInvite() {
   const id = useId();

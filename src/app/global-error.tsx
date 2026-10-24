@@ -3,6 +3,8 @@
 
 'use client';
 
+import { INK, SURFACE } from '@/lib/design-tokens';
+
 export default function GlobalError({
   reset,
 }: {
@@ -22,17 +24,22 @@ export default function GlobalError({
           padding: '2rem',
           textAlign: 'center',
           fontFamily: 'system-ui, sans-serif',
+          background: SURFACE.bg0,
+          color: INK.text1,
         }}
       >
         <h1 style={{ fontSize: '1.5rem', fontWeight: 600 }}>Something went wrong</h1>
-        <p style={{ color: '#666' }}>A critical error occurred. Please try again.</p>
+        <p style={{ color: INK.text2 }}>A critical error occurred. Please try again.</p>
         <button
           type="button"
           onClick={() => reset()}
           style={{
             padding: '0.5rem 1rem',
-            borderRadius: '2px',
-            border: '1px solid #ccc',
+            borderRadius: '9999px',
+            border: `1px solid ${SURFACE.lineStrong}`,
+            background: SURFACE.bg2,
+            color: INK.text1,
+            minHeight: '44px',
             cursor: 'pointer',
           }}
         >

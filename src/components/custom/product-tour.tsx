@@ -19,7 +19,7 @@ export function ProductTour() {
               value={shot.id}
               className="min-h-10 rounded-full px-4 text-[0.9375rem] font-semibold text-muted-foreground data-[state=active]:bg-brand-600 data-[state=active]:text-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-brand-500"
             >
-              <span aria-hidden="true" className="mr-2 text-xs tabular-nums opacity-70">
+              <span aria-hidden="true" className="mr-2 text-sm tabular-nums">
                 {String(index + 1).padStart(2, '0')}
               </span>
               {shot.tab}

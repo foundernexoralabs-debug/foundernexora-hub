@@ -65,7 +65,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       )}
     >
       {plan.highlight ? (
-        <span className="absolute -top-3 left-6 rounded-full bg-brand-600 px-3 py-1 text-xs font-semibold tracking-[0.06em] text-white uppercase dark:bg-brand-400 dark:text-brand-900">
+        <span className="absolute -top-3 left-6 rounded-full bg-brand-600 px-3 py-1 text-sm font-semibold tracking-[0.06em] text-white uppercase dark:bg-brand-400 dark:text-brand-900">
           Recommended
         </span>
       ) : null}
@@ -75,7 +75,7 @@ function PlanCard({ plan }: { plan: Plan }) {
         </h3>
         <span
           className={cn(
-            'rounded-full border px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.08em] uppercase',
+            'rounded-full border px-2.5 py-1 text-sm font-semibold tracking-[0.08em] uppercase',
             open
               ? 'border-emerald-600/35 bg-emerald-50 text-emerald-800 dark:border-emerald-400/35 dark:bg-emerald-400/10 dark:text-emerald-200'
               : 'border-border bg-muted text-muted-foreground',
@@ -93,7 +93,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           </span>
           <span className="type-meta text-muted-foreground">{plan.price.period}</span>
         </p>
-        <p className="mt-3 inline-flex items-center gap-1.5 rounded-md border border-amber-600/30 bg-amber-50 px-2 py-0.5 text-xs font-semibold text-amber-900 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-200">
+        <p className="mt-3 inline-flex items-center gap-1.5 rounded-md border border-amber-600/30 bg-amber-50 px-2 py-0.5 text-sm font-semibold text-amber-900 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-200">
           <Info aria-hidden="true" className="size-3.5" />
           {PROPOSED_LABEL}
           <span className="sr-only">: not approved yet</span>
@@ -108,7 +108,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       </div>
 
       <div className="mt-7 border-t border-border pt-6">
-        <p className="text-[0.6875rem] font-semibold tracking-[0.12em] text-muted-foreground uppercase">
+        <p className="text-sm font-semibold tracking-[0.12em] text-muted-foreground uppercase">
           Proposed allowances
         </p>
         <dl className="mt-4 grid gap-4">

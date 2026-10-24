@@ -95,7 +95,7 @@ export default function LaunchKitPage() {
                 key={graphic.id}
                 className="overflow-hidden rounded-2xl border border-border bg-card"
               >
-                <div className="bg-[#07080f] p-3">
+                <div className="bg-frame p-3">
                   <Image
                     src={graphic.preview}
                     alt={graphic.alt}

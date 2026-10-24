@@ -74,6 +74,9 @@ html {
   --orb-3: #1f4fe0;
   --orb-violet: #7a5cff;
 
+  /* The dark stage behind product graphics: dark in both themes, like the graphics. */
+  --frame: #05070f;
+
   --brand-accent: #3d7bff;
   --brand-accent-hover: #5c93ff;
 
@@ -187,6 +190,7 @@ html.dark {
   --color-orb-2: var(--orb-2);
   --color-orb-3: var(--orb-3);
   --color-orb-violet: var(--orb-violet);
+  --color-frame: var(--frame);
   --color-brand-accent: var(--brand-accent);
   --color-brand-accent-hover: var(--brand-accent-hover);
   --color-live: var(--live);

@@ -20,7 +20,7 @@ export function StatusBadge({ status, className }: { status: StatusKey; classNam
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold tracking-[0.06em] uppercase',
+        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-semibold tracking-[0.06em] uppercase',
         TONE[entry.tone],
         className,
       )}
@@ -33,11 +33,7 @@ export function StatusBadge({ status, className }: { status: StatusKey; classNam
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <p className="text-[0.8125rem] font-semibold tracking-[0.12em] text-link uppercase">
-      {children}
-    </p>
-  );
+  return <p className="text-sm font-semibold tracking-[0.12em] text-link uppercase">{children}</p>;
 }
 
 /**

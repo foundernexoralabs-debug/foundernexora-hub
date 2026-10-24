@@ -31,7 +31,7 @@ function Still({ still, title }: { still: StoryboardShot['still']; title: string
   if (!still) return null;
   if (still === 'orb') {
     return (
-      <div className="flex aspect-[16/10] items-center justify-center rounded-xl bg-[#07080f]">
+      <div className="flex aspect-[16/10] items-center justify-center rounded-xl bg-frame">
         <Image
           src="/assets/renor/orb.webp"
           alt={`Reference for “${title}”: Renor’s orb on black`}
@@ -96,12 +96,10 @@ export default function StoryboardPage() {
               <div
                 key={shot.start}
                 style={{ flexGrow: shot.end - shot.start }}
-                className={`flex min-w-0 basis-0 items-center justify-center border-r border-border px-1 text-xs font-semibold last:border-r-0 ${index % 2 ? 'bg-muted/60' : 'bg-brand-500/12 text-link'}`}
+                className={`flex min-w-0 basis-0 items-center justify-center border-r border-border px-1 text-sm font-semibold last:border-r-0 ${index % 2 ? 'bg-muted/60' : 'bg-brand-500/12 text-link'}`}
               >
                 <span className="truncate tabular-nums">{formatTimecode(shot.start)}</span>
-                <span className="ml-1.5 hidden truncate font-medium opacity-80 lg:inline">
-                  {shot.title}
-                </span>
+                <span className="ml-1.5 hidden truncate font-medium lg:inline">{shot.title}</span>
               </div>
             ))}
           </div>

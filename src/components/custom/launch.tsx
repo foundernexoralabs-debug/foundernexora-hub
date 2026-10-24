@@ -66,7 +66,7 @@ export function FeatureStatusBadge({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold tracking-[0.06em] uppercase',
+        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-semibold tracking-[0.06em] uppercase',
         STATUS_TONE[status],
         className,
       )}
@@ -176,7 +176,7 @@ export function ThemedShot({
         <span className="size-2.5 rounded-full bg-muted-foreground/30" />
         <span className="size-2.5 rounded-full bg-muted-foreground/30" />
         <span className="size-2.5 rounded-full bg-muted-foreground/30" />
-        <span className="ml-3 truncate text-xs font-medium text-muted-foreground">
+        <span className="ml-3 truncate text-sm font-medium text-muted-foreground">
           Renor · {shot.tab}
         </span>
       </div>

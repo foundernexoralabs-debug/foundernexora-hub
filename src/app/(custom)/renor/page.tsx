@@ -67,7 +67,7 @@ export default function RenorPage() {
               className="h-auto w-full"
             />
           </div>
-          <p className="mt-7 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-[0.8125rem] font-semibold tracking-[0.08em] uppercase shadow-xs">
+          <p className="mt-7 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-semibold tracking-[0.08em] uppercase shadow-xs">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-emerald-500" />
             Renor by FounderLab · Private beta
           </p>

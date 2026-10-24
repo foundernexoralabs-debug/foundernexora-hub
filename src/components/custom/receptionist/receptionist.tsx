@@ -418,7 +418,7 @@ export function Receptionist() {
           </span>
           <span className="hidden text-left sm:block">
             <span className="block text-[0.9375rem] leading-tight font-semibold">Ask Renor</span>
-            <span className="block text-xs leading-tight text-muted-foreground">
+            <span className="block text-sm leading-tight text-muted-foreground">
               Questions or a problem?
             </span>
           </span>
@@ -445,7 +445,7 @@ export function Receptionist() {
                 <h2 id={titleId} className="text-base leading-tight font-semibold tracking-tight">
                   Renor Guide
                 </h2>
-                <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+                <p className="mt-0.5 flex items-center gap-1.5 text-sm text-muted-foreground">
                   <span aria-hidden="true" className="size-1.5 rounded-full bg-brand-400" />
                   {statusLine} · 24/7
                 </p>

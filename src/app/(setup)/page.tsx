@@ -74,7 +74,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-screen-xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
           <div className="max-w-3xl">
             <div className="mb-7 flex flex-wrap items-center gap-3">
-              <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase shadow-xs">
+              <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-semibold tracking-[0.1em] text-foreground uppercase shadow-xs">
                 <BrandMark className="size-4" />
                 FounderLab
                 <span className="hidden text-muted-foreground sm:inline">· Makers of Renor</span>
@@ -175,7 +175,7 @@ export default function HomePage() {
               >
                 <div>
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                    <span className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
                       {project.kind}
                     </span>
                     <StatusBadge status={project.status} />
