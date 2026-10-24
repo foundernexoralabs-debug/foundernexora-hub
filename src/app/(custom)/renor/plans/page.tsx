@@ -115,12 +115,16 @@ function PlanCard({ plan }: { plan: Plan }) {
           {allowanceLines(plan).map((line) => {
             const Icon = ALLOWANCE_ICONS[line.id as keyof typeof ALLOWANCE_ICONS];
             return (
-              <div key={line.id} className="flex gap-3">
-                <Icon aria-hidden="true" className="mt-0.5 size-[1.125rem] shrink-0 text-link" />
-                <div className="min-w-0">
-                  <dt className="text-sm text-muted-foreground">{line.label}</dt>
-                  <dd className="text-[0.9375rem] font-semibold leading-snug">{line.value}</dd>
-                </div>
+              // dl > div > dt + dd only (valid definition list); the icon sits inside the dt.
+              <div key={line.id} className="relative min-w-0 pl-[1.875rem]">
+                <dt className="text-sm text-muted-foreground">
+                  <Icon
+                    aria-hidden="true"
+                    className="absolute top-0.5 left-0 size-[1.125rem] shrink-0 text-link"
+                  />
+                  {line.label}
+                </dt>
+                <dd className="text-[0.9375rem] font-semibold leading-snug">{line.value}</dd>
               </div>
             );
           })}
