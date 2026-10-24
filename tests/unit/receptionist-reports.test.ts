@@ -310,8 +310,8 @@ describe('Redis REST store', () => {
     );
     await store.save(record);
     expect(calls[0]).toEqual([
-      ['SET', 'renor:report:RNR-00000001', JSON.stringify(record), 'EX', 30 * 86_400],
-      ['ZADD', 'renor:reports', NOW.getTime(), 'RNR-00000001'],
+      ['SET', 'guide-reports:v1:item:RNR-00000001', JSON.stringify(record), 'EX', 30 * 86_400],
+      ['ZADD', 'guide-reports:v1:index', NOW.getTime(), 'RNR-00000001'],
     ]);
     expect((await store.list())[0]?.reference).toBe('RNR-00000001');
   });

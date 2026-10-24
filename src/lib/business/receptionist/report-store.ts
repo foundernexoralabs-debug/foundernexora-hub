@@ -74,8 +74,14 @@ export class StoreError extends Error {
   }
 }
 
-const INDEX = 'renor:reports';
-const keyOf = (reference: string) => `renor:report:${reference}`;
+/**
+ * Every key this store writes starts with this prefix, so reports can never collide with, or be
+ * read as, any other data (company memory, founder notes, Renor customer memory) even if a
+ * database were ever shared by mistake. The credentials are separate too: REPORTS_KV_* only.
+ */
+export const REPORT_KEY_PREFIX = 'guide-reports:v1:';
+const INDEX = `${REPORT_KEY_PREFIX}index`;
+const keyOf = (reference: string) => `${REPORT_KEY_PREFIX}item:${reference}`;
 
 export function createKvStore(
   config: { url: string; token: string; retentionDays: number },

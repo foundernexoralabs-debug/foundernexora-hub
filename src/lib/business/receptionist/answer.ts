@@ -155,7 +155,13 @@ export async function answerQuestion(
     return done({ reply: greeting, kind: 'smalltalk', sources: [], mode, degraded: false });
   }
 
-  const hits = search(message, request.history);
+  // Search the redacted question with the placeholders removed, so a pasted email or phone
+  // number neither leaks into retrieval nor dilutes the match.
+  const searchable = redactPII(message).replace(
+    /\[(email|phone|card|ip|postcode|key|redacted)\]/g,
+    ' ',
+  );
+  const hits = search(searchable, request.history);
   const grounded = hits.filter((hit) => hit.score >= ANSWER_THRESHOLD);
   const entries = grounded.map((hit) => hit.entry.id);
 
