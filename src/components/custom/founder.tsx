@@ -101,11 +101,15 @@ export function FounderHero() {
               width={FOUNDER_PHOTOS.heroWide.width}
               height={FOUNDER_PHOTOS.heroWide.height}
             />
-            {/* Art direction: next/image's getImageProps feeds a <picture>. */}
+            {/* Art direction: next/image's getImageProps feeds a <picture>.
+                The wide photo's cut-out stops at 82% of its height; on desktop the
+                image is pinned to its top and, up to 1599px where that edge is still in
+                view, faded out before it (CSS only,
+                the file itself is unedited). */}
             <img
               {...portraitProps}
               alt={FOUNDER.alt}
-              className="block aspect-[4/5] h-auto w-full object-cover min-[769px]:absolute min-[769px]:inset-0 min-[769px]:aspect-auto min-[769px]:h-full min-[769px]:object-[72%_center] min-[769px]:[background-image:var(--founder-blur-wide)]!"
+              className="block aspect-[4/5] h-auto w-full object-cover min-[769px]:absolute min-[769px]:inset-0 min-[769px]:aspect-auto min-[769px]:h-full min-[769px]:object-[72%_top] min-[769px]:max-[1599px]:[mask-image:linear-gradient(to_bottom,black_66%,transparent_82%)] min-[769px]:[background-image:var(--founder-blur-wide)]!"
             />
           </picture>
         ) : (
