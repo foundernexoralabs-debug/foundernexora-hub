@@ -126,7 +126,7 @@ export function FounderHero() {
           <div className="mx-auto w-full max-w-screen-xl">
             <div className="max-w-xl">
               <p className="text-sm font-semibold tracking-[0.12em] text-orb-1 uppercase">
-                {FOUNDER.role}
+                {FOUNDER.byline}
               </p>
               <h1
                 id="founder-title"
@@ -134,6 +134,9 @@ export function FounderHero() {
               >
                 {FOUNDER.line}
               </h1>
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-[color-mix(in_oklch,var(--orb-core)_84%,var(--frame))]">
+                {FOUNDER.intro}
+              </p>
               {/* TODO(owner): the story paragraphs (src/lib/business/founder.ts) go here once written. */}
               <div className="mt-9 flex flex-wrap gap-3">
                 <Link

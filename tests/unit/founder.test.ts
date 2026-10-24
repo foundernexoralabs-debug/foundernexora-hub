@@ -42,8 +42,9 @@ describe('founder', () => {
     expect(FOUNDER.name).toBe('Ahmed');
     expect(FOUNDER.alt).toBe('Ahmed, founder of FounderLab, in front of the Renor blue orb glow');
     expect(FOUNDER.byline).toBe('Ahmed · Founder');
-    expect(FOUNDER.line).toContain('I’m Ahmed');
-    expect(FOUNDER.line).toContain('AI technology company for the long term');
+    expect(FOUNDER.line).toBe('Building the next generation of intelligent systems.');
+    expect(FOUNDER.intro).toContain('turn intelligence into useful action');
+    expect(FOUNDER.intro).toContain('AI-native technology company');
   });
 
   it('makes no retired or invented claims', () => {

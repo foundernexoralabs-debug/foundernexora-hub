@@ -9,8 +9,10 @@ export const FOUNDER_PHOTO_READY = true;
 export const FOUNDER = {
   name: 'Ahmed',
   role: 'Founder',
-  /** The display line on /company, as approved by the founder on 24 October 2026. */
-  line: 'I’m Ahmed, and I’m building Renor — an AI technology company for the long term.',
+  /** The /company headline and intro, in the founder's own words (24 October 2026). */
+  line: 'Building the next generation of intelligent systems.',
+  intro:
+    'Renor began with a simple ambition: turn intelligence into useful action. We’re building an AI-native technology company designed to create, operate and continuously improve powerful digital systems.',
   /** Alt text for every founder photo (they are crops of the same picture). */
   alt: 'Ahmed, founder of FounderLab, in front of the Renor blue orb glow',
   /** The byline under bylined pages, e.g. Zero to Prove. */
