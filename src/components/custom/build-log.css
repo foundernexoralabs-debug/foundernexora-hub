@@ -1,0 +1,189 @@
+/* @polsia:user-owned — the build-log timeline: orb nodes on a hairline, mono dates.
+ * Text stays in the theme's ink colours (AA in both themes); a kind's colour is only a tint
+ * and a dot, and the tag always says the kind in words. */
+
+.build-log {
+  --log-date: 7.5rem;
+  --log-node: 1.125rem;
+  position: relative;
+  display: grid;
+}
+
+.build-log-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--log-node) minmax(0, 1fr);
+  grid-template-areas:
+    "node date"
+    "node body";
+  column-gap: 1.25rem;
+  padding-bottom: 2.75rem;
+}
+.build-log-entry:last-child {
+  padding-bottom: 0;
+}
+/* The hairline that joins the nodes; it stops at the last one. */
+.build-log-entry::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: -0.5rem;
+  left: calc(var(--log-node) / 2 - 0.5px);
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--orb-2) 55%, var(--line)),
+    var(--line) 40%
+  );
+}
+.build-log-entry:last-child::before {
+  content: none;
+}
+
+.build-log-date {
+  grid-area: date;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.build-log-body {
+  grid-area: body;
+  margin-top: 0.5rem;
+}
+
+/* A small Renor orb: bright core to deep edge, ringed by the page so the line breaks around it. */
+.build-log-node {
+  grid-area: node;
+  position: relative;
+  z-index: 1;
+  margin-top: 0.1rem;
+  width: var(--log-node);
+  height: var(--log-node);
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--orb-core) 0 12%,
+    var(--orb-1) 30%,
+    var(--orb-2) 62%,
+    var(--orb-3) 100%
+  );
+  box-shadow:
+    0 0 0 4px var(--background),
+    0 0 0 5px color-mix(in oklch, var(--orb-2) 35%, transparent);
+}
+.bg-band .build-log-node {
+  box-shadow:
+    0 0 0 4px var(--surface-band),
+    0 0 0 5px color-mix(in oklch, var(--orb-2) 35%, transparent);
+}
+/* The newest entry breathes: one slow ring, never a flash. Still under reduced motion. */
+.build-log-node[data-newest]::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  border: 1px solid color-mix(in oklch, var(--orb-1) 70%, transparent);
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .build-log-node[data-newest]::after {
+    animation: build-log-pulse 2.8s var(--ease-out) infinite;
+  }
+}
+@keyframes build-log-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  70%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+/* Desktop: the date gets its own column to the left of the line. */
+@media (min-width: 768px) {
+  .build-log-entry {
+    grid-template-columns: var(--log-date) var(--log-node) minmax(0, 1fr);
+    grid-template-areas: "date node body";
+    column-gap: 1.5rem;
+  }
+  .build-log-entry::before {
+    left: calc(var(--log-date) + 1.5rem + var(--log-node) / 2 - 0.5px);
+  }
+  .build-log-date {
+    text-align: right;
+    padding-top: 0.05rem;
+  }
+  .build-log-body {
+    margin-top: -0.15rem;
+  }
+}
+
+/* Kind tags: ink text, tinted border and dot. */
+.build-log-tag {
+  --kind: var(--orb-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid color-mix(in oklch, var(--kind) 45%, var(--line));
+  background: color-mix(in oklch, var(--kind) 10%, transparent);
+  border-radius: 9999px;
+  padding: 0.15rem 0.65rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+.build-log-tag::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background: var(--kind);
+}
+[data-kind="shipped"] {
+  --kind: var(--live);
+}
+[data-kind="fix"] {
+  --kind: var(--preview);
+}
+[data-kind="test"] {
+  --kind: var(--orb-2);
+}
+[data-kind="all"] {
+  --kind: var(--orb-1);
+}
+
+/* Filter chips: quiet at rest, filled with the kind's tint when pressed. 44px targets. */
+.build-log-chip {
+  --kind: var(--orb-2);
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 9999px;
+  padding: 0 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-2);
+  transition:
+    border-color 160ms var(--ease-out),
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out);
+}
+.build-log-chip:hover {
+  border-color: color-mix(in oklch, var(--kind) 55%, var(--line));
+  color: var(--foreground);
+}
+.build-log-chip[aria-pressed="true"] {
+  border-color: color-mix(in oklch, var(--kind) 70%, var(--line));
+  background: color-mix(in oklch, var(--kind) 16%, var(--card));
+  color: var(--foreground);
+}
