@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
+import { LegalDocument, type LegalSection } from '@/components/custom/legal-document';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { pageMetadata } from '@/lib/business/seo';
 
@@ -14,23 +15,30 @@ export const metadata: Metadata = pageMetadata({
 
 const UPDATED = '6 October 2026';
 
+const SECTIONS: readonly LegalSection[] = [
+  { id: 'what-we-aim-for', title: 'What we aim for' },
+  { id: 'what-we-have-checked', title: 'What we have checked' },
+  { id: 'known-limits', title: 'Known limits' },
+  { id: 'report-a-barrier', title: 'Report a barrier' },
+];
+
 export default function AccessibilityPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Accessibility"
         title="A website everyone can use."
         lede={`Last reviewed ${UPDATED}.`}
       />
-      <article className="mx-auto max-w-3xl px-5 py-16 text-[1.0625rem] leading-[1.75] text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-[1.625rem] [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
-        <h2>What we aim for</h2>
+      <LegalDocument sections={SECTIONS} dateLabel="Last reviewed" date={UPDATED}>
+        <h2 id="what-we-aim-for">What we aim for</h2>
         <p>
           We aim for the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA. This website
           has not yet had a formal, independent audit against them, so we do not claim full
           conformance.
         </p>
 
-        <h2>What we have checked</h2>
+        <h2 id="what-we-have-checked">What we have checked</h2>
         <ul>
           <li>Every page has one main heading, and sections follow it in order.</li>
           <li>
@@ -60,7 +68,7 @@ export default function AccessibilityPage() {
           Other browsers and assistive technologies have not yet been tested one by one.
         </p>
 
-        <h2>Known limits</h2>
+        <h2 id="known-limits">Known limits</h2>
         <ul>
           <li>Contrast has not been measured on every combination of colours in both themes.</li>
           <li>
@@ -69,7 +77,7 @@ export default function AccessibilityPage() {
           </li>
         </ul>
 
-        <h2>Report a barrier</h2>
+        <h2 id="report-a-barrier">Report a barrier</h2>
         <p>
           If something on this website is hard or impossible for you to use, email{' '}
           <a href={CONTACT_MAILTO} className="text-foreground underline underline-offset-4">
@@ -77,7 +85,7 @@ export default function AccessibilityPage() {
           </a>
           . Tell us the page and what happened, and we will reply and fix what we can.
         </p>
-      </article>
+      </LegalDocument>
       <ExploreBand page="accessibility" />
     </main>
   );

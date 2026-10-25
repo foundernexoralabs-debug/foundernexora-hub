@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
+import { LegalDocument, type LegalSection } from '@/components/custom/legal-document';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { pageMetadata } from '@/lib/business/seo';
 
@@ -16,16 +17,25 @@ export const metadata: Metadata = pageMetadata({
 
 const UPDATED = '24 October 2026';
 
+const SECTIONS: readonly LegalSection[] = [
+  { id: 'this-website', title: 'This website' },
+  { id: 'guide', title: 'The Renor Guide on this website' },
+  { id: 'links-to-other-sites', title: 'Links to other sites' },
+  { id: 'renor', title: 'Renor' },
+  { id: 'the-plugin-store', title: 'The Plugin Store' },
+  { id: 'questions-and-requests', title: 'Questions and requests' },
+];
+
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Privacy"
         title="Privacy, in plain words."
         lede={`Last updated ${UPDATED}.`}
       />
-      <article className="prose-legal mx-auto max-w-3xl px-5 py-16 text-[1.0625rem] leading-[1.75] text-muted-foreground sm:px-8 [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:font-display [&_h2]:text-[1.625rem] [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6">
-        <h2>This website</h2>
+      <LegalDocument sections={SECTIONS} dateLabel="Last updated" date={UPDATED}>
+        <h2 id="this-website">This website</h2>
         <p>
           The FounderLab website is for reading. It has no accounts, no sign-up forms and no
           advertising. The only things you can send us from it are questions and reports through the
@@ -54,9 +64,7 @@ export default function PrivacyPage() {
           cross-site tracking cookies.
         </p>
 
-        <h2 id="guide" className="scroll-mt-24">
-          The Renor Guide on this website
-        </h2>
+        <h2 id="guide">The Renor Guide on this website</h2>
         <p>
           The Renor Guide (the “Ask Renor” button) answers questions from this website’s pages and
           lets you report a problem.
@@ -87,14 +95,14 @@ export default function PrivacyPage() {
           </li>
         </ul>
 
-        <h2>Links to other sites</h2>
+        <h2 id="links-to-other-sites">Links to other sites</h2>
         <p>
           Links to Renor, GitHub, YouTube, TikTok, Fiverr, our links page or a checkout provider
           take you to services with their own privacy policies. GitHub issues are public, so please
           do not include personal details in them.
         </p>
 
-        <h2>Renor</h2>
+        <h2 id="renor">Renor</h2>
         <p>
           Renor is a separate app that you sign in to. It stores your account, projects, notes and
           settings so you can come back to them, and it sends your requests to the AI provider you
@@ -102,7 +110,7 @@ export default function PrivacyPage() {
           browser. Renor’s full privacy terms will be published before any paid plan exists.
         </p>
 
-        <h2>The Plugin Store</h2>
+        <h2 id="the-plugin-store">The Plugin Store</h2>
         <p>
           The Renor Plugin Store lists its first products but does not sell anything yet. Before it
           does, its privacy and payment terms will be published, and payments will be handled by our
@@ -113,7 +121,7 @@ export default function PrivacyPage() {
           .
         </p>
 
-        <h2>Questions and requests</h2>
+        <h2 id="questions-and-requests">Questions and requests</h2>
         <p>
           To ask about your data, or to have it corrected or deleted, email{' '}
           <a href={CONTACT_MAILTO} className="text-foreground underline underline-offset-4">
@@ -125,7 +133,7 @@ export default function PrivacyPage() {
           </Link>
           . We will update this notice when what we collect changes, and change the date at the top.
         </p>
-      </article>
+      </LegalDocument>
       <ExploreBand page="privacy" />
     </main>
   );
