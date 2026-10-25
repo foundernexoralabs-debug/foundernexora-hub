@@ -396,11 +396,17 @@ body {
   font-size: 0.9375rem;
   font-weight: 600;
   box-shadow: var(--glow-md);
+  /* Hidden until focused: off-screen and clipped, so no ancestor's containing block can
+     bring it into view (the frosted header makes itself the box for fixed children). */
   transform: translateY(-200%);
+  clip-path: inset(50%);
+  pointer-events: none;
 }
 .skip-link:focus,
 .skip-link:focus-visible {
   transform: none;
+  clip-path: none;
+  pointer-events: auto;
 }
 @layer base {
   input:focus-visible,
