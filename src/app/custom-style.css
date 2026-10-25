@@ -436,3 +436,55 @@ body {
     background-color: var(--background);
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * 404: Renor's orb, drifted off its orbit. Decorative; it floats only when motion is welcome.
+ * ------------------------------------------------------------------------- */
+.lost-orb-scene {
+  position: relative;
+  margin-inline: auto;
+  width: min(100%, 26rem);
+  aspect-ratio: 1;
+}
+.lost-orb-orbit {
+  position: absolute;
+  inset: 6%;
+  border-radius: 9999px;
+  border: 1px dashed var(--line-strong);
+  transform: rotate(-18deg) scaleY(0.62);
+}
+.lost-orb-orbit--inner {
+  inset: 24%;
+  border-style: solid;
+  border-color: var(--line);
+}
+.lost-orb-code {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(4.5rem, 12vw, 7.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: var(--text-3);
+}
+.lost-orb-drift {
+  position: absolute;
+  top: 2%;
+  right: 4%;
+  width: 34%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lost-orb-drift {
+    animation: lost-orb-drift 14s ease-in-out infinite;
+  }
+}
+@keyframes lost-orb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-10%, 8%) rotate(-6deg);
+  }
+}
