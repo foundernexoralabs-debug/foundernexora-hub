@@ -1,18 +1,27 @@
 // @polsia:user-owned — Zero to Prove: the founder's build-in-public journey.
 // For visitors arriving from YouTube or TikTok: what this is, what has been proven, where to go next.
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
+import { BuildLog } from '@/components/custom/build-log';
 import { ChannelIcon } from '@/components/custom/channel-links';
 import { PageHero, SectionHeading } from '@/components/custom/ecosystem';
+import {
+  Chapter,
+  chapterNumber,
+  type Fact,
+  FactsRail,
+  PullQuote,
+} from '@/components/custom/editorial';
 import { ExploreBand } from '@/components/custom/explore';
 import { FounderByline } from '@/components/custom/founder';
 import { Button } from '@/components/ui/button';
 import {
   JOURNEY_CHANNELS,
-  MILESTONE_WHERE,
   MILESTONES,
+  type MilestoneKind,
   RENOR_APP_URL,
 } from '@/lib/business/ecosystem';
+import { FOUNDER } from '@/lib/business/founder';
 import { pageMetadata } from '@/lib/business/seo';
 import { cn } from '@/lib/utils';
 
@@ -44,10 +53,37 @@ const dateFormat = new Intl.DateTimeFormat('en-GB', {
   year: 'numeric',
   timeZone: 'UTC',
 });
+const formatDate = (iso: string) => dateFormat.format(new Date(`${iso}T00:00:00Z`));
+
+const first = MILESTONES.at(-1);
+const latest = MILESTONES.at(0);
+const entryFact = (label: string, entry: (typeof MILESTONES)[number] | undefined): Fact[] =>
+  entry ? [{ label, value: `${formatDate(entry.date)} · ${entry.title}` }] : [];
+const countOf = (kind: MilestoneKind) => MILESTONES.filter((entry) => entry.kind === kind).length;
+const publishedOn = JOURNEY_CHANNELS.filter((channel) => channel.url).map(
+  (channel) => channel.name,
+);
+
+/** Facts derived from the build log and the channel list: nothing typed in by hand. */
+const journeyFacts: readonly Fact[] = [
+  ...entryFact('First entry', first),
+  ...entryFact('Latest entry', latest),
+  {
+    label: 'Entries',
+    value: (
+      <span className="type-mono">
+        {MILESTONES.length} · {countOf('shipped')} shipped, {countOf('fix')} fixes,{' '}
+        {countOf('test')} {countOf('test') === 1 ? 'test' : 'tests'}
+      </span>
+    ),
+  },
+  { label: 'Published on', value: publishedOn.join(' · ') },
+  { label: 'Written by', value: FOUNDER.byline },
+];
 
 export default function ZeroToProvePage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Zero to Prove"
         title="Building a real AI product in public, from zero to proven."
@@ -64,17 +100,49 @@ export default function ZeroToProvePage() {
         </Button>
       </PageHero>
 
-      <section aria-labelledby="rules" className="px-5 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto max-w-screen-xl">
-          <SectionHeading id="rules" eyebrow="The rules" title="Proof over promises." />
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {rules.map((rule) => (
-              <article key={rule.title} className="rounded-2xl border border-border bg-card p-7">
-                <h3 className="text-xl font-semibold tracking-tight">{rule.title}</h3>
-                <p className="mt-3 type-copy text-muted-foreground">{rule.text}</p>
-              </article>
-            ))}
+      <section aria-label="How Zero to Prove works" className="px-5 py-20 sm:px-8 sm:py-28">
+        <div className="mx-auto grid max-w-screen-xl gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
+          <div className="grid gap-14 sm:gap-16">
+            <Chapter number={1} kicker="The rules" id="rules" title="Proof over promises.">
+              <p className="max-w-[60ch] type-lead text-pretty text-muted-foreground">
+                Three rules decide what is published here, and what is not.
+              </p>
+              <ol className="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
+                {rules.map((rule, index) => (
+                  <li key={rule.title} className="border-t border-border pt-5">
+                    <p className="type-mono text-[0.9375rem] font-semibold text-link">
+                      {chapterNumber(1)}.{index + 1}
+                    </p>
+                    <h3 className="mt-2 font-display type-subheading">{rule.title}</h3>
+                    <p className="mt-2 type-copy text-pretty text-muted-foreground">{rule.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </Chapter>
+            <PullQuote cite="Rule two of Zero to Prove">{rules[1].text}</PullQuote>
+            <Chapter
+              number={2}
+              kicker="The log"
+              id="log-intro"
+              title="Every entry is dated and says where the work lives."
+            >
+              <p className="max-w-[60ch] type-lead text-pretty text-muted-foreground">
+                In the Renor app or on this website. Each one is tagged as something shipped, a fix,
+                or work frozen and tested, so nothing unfinished reads as done.
+              </p>
+              <a
+                href="#log"
+                className="mt-6 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
+              >
+                Jump to the build log <ArrowDown aria-hidden="true" className="size-4" />
+              </a>
+            </Chapter>
           </div>
+          <FactsRail
+            title="The journey so far"
+            facts={journeyFacts}
+            footnote="Counted from the build log below; it updates when an entry is added."
+          />
         </div>
       </section>
 
@@ -88,29 +156,11 @@ export default function ZeroToProvePage() {
             id="log-title"
             eyebrow="Build log"
             title="What has been built, and where it is."
-            lede="Each entry is dated and says where the work lives: in the Renor app or on this website."
+            lede="Newest first. Filter by what kind of step it was."
           />
-          <ol className="mt-12 grid gap-0 border-l border-border">
-            {MILESTONES.map((milestone) => (
-              <li
-                key={`${milestone.date}-${milestone.title}`}
-                className="relative pb-10 pl-8 last:pb-0"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute top-1.5 -left-[5px] size-2.5 rounded-full bg-brand-500 ring-4 ring-background"
-                />
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 type-meta text-muted-foreground">
-                  <time dateTime={milestone.date} className="font-semibold text-foreground">
-                    {dateFormat.format(new Date(`${milestone.date}T00:00:00Z`))}
-                  </time>
-                  <span>{MILESTONE_WHERE[milestone.where]}</span>
-                </div>
-                <h3 className="mt-2 text-xl font-semibold tracking-tight">{milestone.title}</h3>
-                <p className="mt-2 max-w-3xl type-copy text-muted-foreground">{milestone.detail}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="mt-10 max-w-4xl">
+            <BuildLog entries={MILESTONES} />
+          </div>
         </div>
       </section>
 
