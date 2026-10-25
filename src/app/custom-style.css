@@ -325,3 +325,55 @@ body {
     opacity: 1;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Status badges: LIVE / PREVIEW / EXPERIMENTAL / PLANNED.
+ * Ink text in both themes (AA at any tint); the tone is a tinted border, wash and dot.
+ * ------------------------------------------------------------------------- */
+.status-badge {
+  --tone: var(--planned);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid color-mix(in oklch, var(--tone) 55%, var(--line));
+  background: color-mix(in oklch, var(--tone) 12%, transparent);
+  border-radius: var(--r-pill);
+  padding: 0.2rem 0.7rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--foreground);
+}
+.status-badge-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  flex: none;
+  border-radius: 9999px;
+  background: var(--tone);
+}
+.status-badge[data-tone="live"] {
+  --tone: var(--live);
+}
+/* LIVE: a solid dot with a soft halo. Still, so a page of live features never flickers. */
+.status-badge[data-tone="live"] .status-badge-dot {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--live) 28%, transparent);
+}
+.status-badge[data-tone="preview"] {
+  --tone: var(--preview);
+}
+.status-badge[data-tone="experimental"] {
+  --tone: var(--orb-violet);
+}
+/* PLANNED: an outline with a hollow dot; nothing is filled in until it exists. */
+.status-badge[data-tone="planned"] {
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--text-2);
+}
+.status-badge[data-tone="planned"] .status-badge-dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--text-3);
+}

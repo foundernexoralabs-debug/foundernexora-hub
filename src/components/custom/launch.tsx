@@ -49,11 +49,11 @@ const FEATURE_ICONS: Record<FeatureIcon, LucideIcon> = {
   puzzle: Puzzle,
 };
 
-const STATUS_TONE: Record<FeatureStatus, string> = {
-  available:
-    'border-emerald-600/35 bg-emerald-50 text-emerald-800 dark:border-emerald-400/35 dark:bg-emerald-400/10 dark:text-emerald-200',
-  beta: 'border-sky-600/35 bg-sky-50 text-sky-800 dark:border-sky-400/35 dark:bg-sky-400/10 dark:text-sky-200',
-  planned: 'border-border bg-muted text-muted-foreground',
+/** Feature statuses share the site's badge tones: available reads as live, beta as preview. */
+const STATUS_TONE: Record<FeatureStatus, 'live' | 'preview' | 'planned'> = {
+  available: 'live',
+  beta: 'preview',
+  planned: 'planned',
 };
 
 export function FeatureStatusBadge({
@@ -65,14 +65,11 @@ export function FeatureStatusBadge({
 }) {
   return (
     <span
-      className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-semibold tracking-[0.06em] uppercase',
-        STATUS_TONE[status],
-        className,
-      )}
+      className={cn('status-badge', className)}
+      data-tone={STATUS_TONE[status]}
       title={FEATURE_STATUS[status].description}
     >
-      <span aria-hidden="true" className="size-1.5 rounded-full bg-current" />
+      <span aria-hidden="true" className="status-badge-dot" />
       {FEATURE_STATUS[status].label}
     </span>
   );
