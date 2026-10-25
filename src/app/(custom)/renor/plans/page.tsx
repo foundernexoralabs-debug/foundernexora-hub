@@ -136,7 +136,7 @@ function PlanCard({ plan }: { plan: Plan }) {
 
 export default function PlansPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Renor plans"
         title="Free to start. Fair as you grow."

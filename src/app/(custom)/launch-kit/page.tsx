@@ -54,7 +54,7 @@ const wordCount = (text: string) => text.trim().split(/\s+/).length;
 
 export default function LaunchKitPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Press and events"
         title={

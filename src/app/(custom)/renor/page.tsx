@@ -49,7 +49,7 @@ const planShot = TOUR.find((shot) => shot.id === 'plan');
 
 export default function RenorPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="relative isolate overflow-hidden border-b border-border px-5 pt-14 sm:px-8 sm:pt-20 lg:pt-24">
         <HeroGrid />

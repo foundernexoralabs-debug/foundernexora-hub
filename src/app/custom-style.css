@@ -377,3 +377,62 @@ body {
   background: transparent;
   box-shadow: inset 0 0 0 1.5px var(--text-3);
 }
+
+/* ---------------------------------------------------------------------------
+ * Keyboard access: the skip link, focus rings on form fields, and a quiet landing on <main>.
+ * ------------------------------------------------------------------------- */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 60;
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  border-radius: var(--r-pill);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0 1.1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  box-shadow: var(--glow-md);
+  transform: translateY(-200%);
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: none;
+}
+@layer base {
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  /* The skip link moves focus to <main>; the content itself needs no ring. */
+  main[tabindex="-1"]:focus,
+  main[tabindex="-1"]:focus-visible {
+    outline: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Header: solid at the top of the page, frosted once the page has scrolled 24px.
+ * ------------------------------------------------------------------------- */
+.site-header {
+  transition:
+    background-color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
+}
+.site-header[data-scrolled="true"] {
+  background-color: color-mix(in oklch, var(--background) 78%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  backdrop-filter: saturate(1.4) blur(14px);
+  box-shadow: 0 10px 30px -22px color-mix(in oklch, var(--orb-3) 60%, transparent);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header[data-scrolled="true"] {
+    background-color: var(--background);
+  }
+}

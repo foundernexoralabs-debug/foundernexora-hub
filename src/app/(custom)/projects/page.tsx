@@ -70,7 +70,7 @@ function ProjectRow({ project }: { project: Project }) {
 
 export default function ProjectsPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Projects"
         title="What we are building, and how far along it is."

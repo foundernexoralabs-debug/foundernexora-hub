@@ -139,7 +139,42 @@ const NavItemLink = React.forwardRef<
   );
 });
 
+/** True once the page has scrolled past `threshold` px; the header frosts over the content. */
+function useScrolledPast(threshold: number): boolean {
+  const [scrolled, setScrolled] = React.useState(false);
+  React.useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setScrolled(window.scrollY > threshold);
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [threshold]);
+  return scrolled;
+}
+
+/**
+ * The first stop for keyboard users: jumps past the header to the page's content. Every
+ * page's <main> carries id="main" and tabIndex={-1}, so following the link moves focus there.
+ */
+function SkipLink() {
+  return (
+    <a href="#main" className="skip-link">
+      Skip to content
+    </a>
+  );
+}
+
 export function SiteNav() {
+  const scrolled = useScrolledPast(24);
   const isAuthenticated = useIsAuthenticated();
   // The brand links home, so drop a redundant '/' item from the rendered links.
   const primary = visibleItems('primary', isAuthenticated).filter((item) => item.href !== '/');
@@ -163,7 +198,11 @@ export function SiteNav() {
     slot.type === 'link' ? isActive(slot.item.href) : slot.items.some((i) => isActive(i.href));
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background">
+    <header
+      className="site-header sticky top-0 z-40 w-full border-b border-border bg-background"
+      data-scrolled={scrolled ? 'true' : undefined}
+    >
+      <SkipLink />
       <nav
         aria-label="Primary"
         className="mx-auto flex h-16 max-w-screen-xl items-center gap-2 px-4 sm:px-6"

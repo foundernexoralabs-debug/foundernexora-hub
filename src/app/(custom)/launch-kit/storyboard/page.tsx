@@ -59,7 +59,7 @@ const total = STORYBOARD[STORYBOARD.length - 1]?.end ?? 0;
 
 export default function StoryboardPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Launch kit · Film"
         title={

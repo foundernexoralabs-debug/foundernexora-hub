@@ -117,7 +117,7 @@ export default async function PluginPage({ params }: { params: Promise<{ slug: s
   ];
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PluginJsonLd plugin={plugin} />
       <section className="relative isolate overflow-hidden border-b border-border px-5 pt-6 pb-16 sm:px-8 sm:pt-8 sm:pb-20">
         <HeroGrid />

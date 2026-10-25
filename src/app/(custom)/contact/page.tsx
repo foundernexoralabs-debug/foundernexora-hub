@@ -21,7 +21,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Contact"
         title="Tell us what works, and what does not."
