@@ -167,7 +167,7 @@ export function AskPanel({
       <div className="rg-scroll min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-5">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center px-2 pt-4 pb-2 text-center">
-            <GuideOrb className="size-16" />
+            <GuideOrb className="size-16" detail="launcher" />
             <p className="mt-5 text-lg font-semibold tracking-tight">Hi, I’m the Renor Guide.</p>
             <p className="mt-2 max-w-[19rem] text-[0.9375rem] leading-relaxed text-muted-foreground">
               Ask about Renor, plans, the Plugin Store, getting started or privacy. I answer from

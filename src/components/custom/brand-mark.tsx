@@ -1,28 +1,17 @@
-// @polsia:user-owned — the FounderLab mark: an "F" with Renor's orb as the dot.
-// Mirrors src/app/icon.svg so the favicon, header and footer show one identity.
-// Colours come from the orb tokens in custom-style.css, so the mark follows the palette.
-import { useId } from 'react';
+// @polsia:user-owned — the FounderLab mark: Renor's living orb, beside the site name in the
+// header and footer. The favicon and apple-touch icon are its still pose (src/app/icon.svg and
+// src/app/apple-icon.tsx), drawn from the same geometry in src/lib/business/living-orb.ts.
+// Decorative: the visible site name next to it carries the meaning.
+import { LivingOrb } from '@/components/custom/living-orb';
 import { cn } from '@/lib/utils';
 
-export function BrandMark({ className }: { className?: string }) {
-  const gradient = `fl-mark-${useId().replace(/:/g, '')}`;
-  return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden="true"
-      focusable="false"
-      className={cn('size-7 shrink-0', className)}
-    >
-      <defs>
-        <linearGradient id={gradient} x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-          <stop style={{ stopColor: 'var(--orb-2)' }} />
-          <stop offset="1" style={{ stopColor: 'var(--orb-3)' }} />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="8" fill={`url(#${gradient})`} />
-      <path d="M10 8.5h12v3.2h-8.6v3.4h7.2v3.2h-7.2v5.2H10z" style={{ fill: 'var(--orb-core)' }} />
-      <circle cx="22.2" cy="21.4" r="2.6" style={{ fill: 'var(--orb-1)' }} />
-    </svg>
-  );
+export function BrandMark({
+  className,
+  animate = true,
+}: {
+  className?: string;
+  /** `false` holds the still pose, for small repeats of the mark inside content. */
+  animate?: boolean;
+}) {
+  return <LivingOrb detail="mark" animate={animate} className={cn('size-[30px]', className)} />;
 }

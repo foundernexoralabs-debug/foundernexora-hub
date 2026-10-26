@@ -274,6 +274,41 @@ body {
   background-color: var(--surface-band);
 }
 
+/* Renor's living orb (src/components/custom/living-orb.tsx): header mark, launcher, Guide.
+ * Light theme: a bright blue gem; outside the sphere everything stays saturated, because white
+ * light disappears on a white page. Dark theme: a deep sphere with cyan-white lightning, as in
+ * the Renor app. Mirrors ORB_PALETTE_HSL in src/lib/business/living-orb.ts (unit-tested). */
+.lorb {
+  --lorb-body-hi: #66b3ff;
+  --lorb-body-mid: #0567fa;
+  --lorb-body-lo: #002e99;
+  --lorb-vein: #a3daff;
+  --lorb-vein-hot: #f0fbff;
+  --lorb-rim: #7acaff;
+  --lorb-rim-hot: #e5f8ff;
+  --lorb-violet: #7452ff;
+  --lorb-corona: #1f71ff;
+  --lorb-spark: #0a64ff;
+  --lorb-corona-strength: 0.42;
+  --lorb-glow-opacity: 0.6;
+  --lorb-spec: 0.42;
+}
+html.dark .lorb {
+  --lorb-body-hi: #004ead;
+  --lorb-body-mid: #001a4d;
+  --lorb-body-lo: #00051a;
+  --lorb-vein: #1fb8ff;
+  --lorb-vein-hot: #adefff;
+  --lorb-rim: #29bbff;
+  --lorb-rim-hot: #c2f3ff;
+  --lorb-violet: #8566ff;
+  --lorb-corona: #297eff;
+  --lorb-spark: #99ddff;
+  --lorb-corona-strength: 0.6;
+  --lorb-glow-opacity: 0.75;
+  --lorb-spec: 0.18;
+}
+
 /* Renor's living orb on the launch pages: a slow breath of light. Static when motion is reduced. */
 .renor-orb::before {
   content: "";

@@ -45,7 +45,7 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <div className="mb-7 flex flex-wrap items-center gap-3">
               <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-semibold tracking-[0.1em] text-foreground uppercase shadow-xs">
-                <BrandMark className="size-4" />
+                <BrandMark className="size-4" animate={false} />
                 FounderLab
                 <span className="hidden text-muted-foreground sm:inline">· Makers of Renor</span>
               </p>

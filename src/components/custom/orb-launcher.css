@@ -27,14 +27,10 @@
   }
 }
 
-/* The orb image itself, and its one glow. */
-.ol-launcher .renor-orb {
+/* The orb (LivingOrb, vector) and its one glow: the orb's own corona. */
+.ol-launcher .ol-orb {
   width: 100%;
   height: 100%;
-}
-.ol-launcher .renor-orb::before {
-  inset: -22%;
-  opacity: 0.55;
 }
 .ol-launcher:focus-visible {
   outline: 2px solid var(--ring);
@@ -46,9 +42,10 @@
 .ol-launcher:focus-visible {
   transform: scale(1.08);
 }
-.ol-launcher[data-state="hover"] .renor-orb::before,
-.ol-launcher:focus-visible .renor-orb::before {
-  opacity: 0.9;
+.ol-launcher[data-state="hover"] .ol-orb,
+.ol-launcher:focus-visible .ol-orb,
+.ol-launcher[data-state="typing"] .ol-orb {
+  --lorb-corona-strength: 0.9;
 }
 
 /* Error: a 300ms tint toward --danger, then back. */
@@ -107,34 +104,33 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Idle: a slow 3.2s breath. */
-  .ol-launcher .renor-orb img {
+  /* Idle: a slow 3.2s breath of the orb's corona (the vector orb itself is never scaled, so
+     it stays pixel-sharp). */
+  .ol-launcher .lorb.ol-orb .lorb-corona::before {
     animation: ol-breathe 3.2s ease-in-out infinite;
+    animation-play-state: var(--lorb-play);
   }
-  /* Typing: brighter, faster pulse. */
-  .ol-launcher[data-state="typing"] .renor-orb img {
+  /* Typing: brighter (the corona, above), faster pulse. */
+  .ol-launcher[data-state="typing"] .lorb.ol-orb .lorb-corona::before {
     animation-duration: 1.4s;
-  }
-  .ol-launcher[data-state="typing"] .renor-orb::before {
-    opacity: 1;
-  }
-  .ol-launcher[data-state="typing"] .renor-orb img {
-    filter: brightness(1.15) saturate(1.1);
   }
   .ol-launcher[data-state="answering"] .ol-ripple {
     animation: ol-ripple 900ms var(--ease-out) infinite;
+    animation-play-state: var(--ol-play, running);
   }
   /* Paused while the tab is hidden. */
-  html[data-tab-hidden] .ol-launcher * {
-    animation-play-state: paused;
+  html[data-tab-hidden] .ol-launcher {
+    --ol-play: paused;
   }
 }
 @keyframes ol-breathe {
   0%,
   100% {
-    transform: scale(1);
+    opacity: 0.78;
+    transform: scale(0.97);
   }
   50% {
+    opacity: 1;
     transform: scale(1.05);
   }
 }
@@ -159,9 +155,6 @@
   }
   .ol-launcher[data-state="answering"] .ol-ripple {
     opacity: 0.7;
-  }
-  .ol-launcher[data-state="typing"] .renor-orb::before {
-    opacity: 1;
   }
 }
 
