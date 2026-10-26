@@ -49,6 +49,12 @@ import {
   subscribeOrbTexture,
   tintOrbPixels,
 } from '../../src/lib/orb/texture';
+import { getOrbWorkerClient } from '../../src/lib/orb/worker-client';
+import {
+  createOrbWorkerHost,
+  type OrbDrawConfig,
+  type OrbWorkerReply,
+} from '../../src/lib/orb/worker-host';
 
 const root = path.resolve(__dirname, '../..');
 const read = (file: string) => readFileSync(path.join(root, file));
@@ -359,5 +365,65 @@ describe('engine', () => {
     expect(readOrbStillFrame(canvas, 'k', cache)).toBe('data:image/png;base64,AAAA');
     expect(toDataURL).toHaveBeenCalledTimes(1);
     expect(readOrbStillFrame(null, 'k', cache)).toBe('');
+  });
+});
+
+describe('the orb worker', () => {
+  const drawConfig = (state: FounderOrbState = 'active'): OrbDrawConfig => ({
+    size: 56,
+    tier: 'status',
+    palette: createOrbPalette({ tone: founderOrbEnergy(state).tone }),
+    profile: founderOrbEnergy(state),
+    state,
+    signal: null,
+    energy: 1,
+    dpr: 2,
+  });
+
+  it('answers the handshake with whether it can draw', () => {
+    for (const ok of [true, false]) {
+      const replies: OrbWorkerReply[] = [];
+      createOrbWorkerHost((r) => replies.push(r), {
+        loadBitmap: () => Promise.reject(new Error('unused')),
+        canDraw: () => ok,
+      })({ type: 'hello' });
+      expect(replies).toEqual([{ type: 'ready', ok }]);
+    }
+  });
+
+  it('loads the picture once, draws a still frame when stopped and runs the shared loop when live', async () => {
+    vi.spyOn(document, 'createElement').mockImplementation(() => fakeCanvas([]));
+    const scheduled: FrameRequestCallback[] = [];
+    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => scheduled.push(cb));
+    vi.stubGlobal('cancelAnimationFrame', () => {});
+    const replies: OrbWorkerReply[] = [];
+    const loadBitmap = vi.fn(() =>
+      Promise.resolve({ width: 440, height: 440 } as unknown as CanvasImageSource),
+    );
+    const handle = createOrbWorkerHost((r) => replies.push(r), { loadBitmap, canDraw: () => true });
+    const log: string[] = [];
+    const canvas = fakeCanvas(log) as unknown as OffscreenCanvas;
+    handle({ type: 'attach', id: 1, canvas, seed: 7 });
+    handle({ type: 'texture', url: '/a.png' });
+    handle({ type: 'texture', url: '/a.png' });
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(loadBitmap).toHaveBeenCalledTimes(1);
+    expect(replies).toContainEqual({ type: 'texture', status: 'ready' });
+    // The fake bitmap cannot be read back, so the engine falls back to its painted sphere.
+    handle({ type: 'draw', id: 1, config: drawConfig(), running: false });
+    expect(log).toContain('clearRect');
+    expect(scheduled).toHaveLength(0);
+    handle({ type: 'draw', id: 1, config: drawConfig(), running: true });
+    expect(scheduled).toHaveLength(1);
+    handle({ type: 'draw', id: 1, config: drawConfig('thinking'), running: true });
+    expect(scheduled).toHaveLength(1);
+    handle({ type: 'detach', id: 1 });
+    handle({ type: 'draw', id: 1, config: drawConfig(), running: true });
+    expect(scheduled).toHaveLength(1);
+  });
+
+  it('is skipped where workers or worker canvases are unavailable (jsdom): orbs draw on the main thread', async () => {
+    expect(await getOrbWorkerClient()).toBeNull();
   });
 });

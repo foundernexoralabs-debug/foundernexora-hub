@@ -113,10 +113,20 @@ type Points = ArrayLike<number>;
 const clamp01 = (value: number) => (value < 0 ? 0 : value > 1 ? 1 : value);
 const at = (points: Points, index: number) => points[index] ?? 0;
 
+/**
+ * A scratch canvas for sprites. In the orb worker (orb.worker.ts) there is no document, so it is
+ * an OffscreenCanvas: the same 2D API and the same pixels, typed as the DOM canvas the engine
+ * is written against.
+ */
 function makeCanvas(width: number, height: number): Canvas {
+  const w = Math.max(1, Math.ceil(width));
+  const h = Math.max(1, Math.ceil(height));
+  if (typeof document === 'undefined' && typeof OffscreenCanvas === 'function') {
+    return new OffscreenCanvas(w, h) as unknown as Canvas;
+  }
   const canvas = document.createElement('canvas');
-  canvas.width = Math.max(1, Math.ceil(width));
-  canvas.height = Math.max(1, Math.ceil(height));
+  canvas.width = w;
+  canvas.height = h;
   return canvas;
 }
 

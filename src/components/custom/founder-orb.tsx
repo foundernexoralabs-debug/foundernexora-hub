@@ -8,8 +8,10 @@
 //
 // Cost is bounded the way the app bounds it: one shared animation frame for every orb on the
 // page, nothing runs while the orb is off-screen or the tab is hidden, detail follows the size
-// the orb is drawn at (a ~30px mark draws at 30fps with no orbiting motes), and reduced motion
-// draws one still frame with no loop at all. Before the canvas paints (server render, first
+// the orb is drawn at (a ~30px mark has no orbiting motes), and reduced motion draws one still
+// frame with no loop at all. On the website every orb draws at 30 fps, and where the browser
+// allows it the engine runs in a worker on an OffscreenCanvas (src/lib/orb/worker-host.ts), so
+// orb frames go straight to the compositor and cost the page's main thread nothing. Before the canvas paints (server render, first
 // frame) the same picture stands in as a CSS background, so the orb never pops in.
 //
 // Used by the header and footer mark (brand-mark.tsx), the Ask Renor launcher, the Renor Guide,
@@ -51,6 +53,13 @@ import {
   type OrbTextureSnapshot,
   subscribeOrbTexture,
 } from '@/lib/orb/texture';
+import {
+  getOrbWorkerClient,
+  getWorkerOrbTexture,
+  type OrbWorkerClient,
+  subscribeWorkerOrbTexture,
+} from '@/lib/orb/worker-client';
+import type { OrbDrawConfig } from '@/lib/orb/worker-host';
 import { cn } from '@/lib/utils';
 import './founder-orb.css';
 
@@ -130,12 +139,88 @@ function useRenderedSize(
   return rendered;
 }
 
+type OrbBackend = 'pending' | 'worker' | 'main';
+
+/** What draws one orb's canvas: the shared orb worker, or the engine on the main thread. */
+interface OrbDriver {
+  /** Configure, then draw a still frame (not running) or join the shared 30 fps loop. */
+  draw(config: OrbDrawConfig, running: boolean, image: CanvasImageSource | null): boolean;
+  /** The still frame as a picture ('' when it cannot be read, as from a worker canvas). */
+  readStill(key: string): string;
+  destroy(): void;
+}
+
+function createMainDriver(canvas: HTMLCanvasElement): OrbDriver | null {
+  let engine: OrbEngine;
+  try {
+    engine = createOrbEngine(canvas, { seed: 7 });
+  } catch {
+    return null;
+  }
+  let stop: (() => void) | null = null;
+  return {
+    draw(config, running, image) {
+      if (!engine.configure({ ...config, texture: image })) return false;
+      if (!running) {
+        stop?.();
+        stop = null;
+        engine.still();
+      } else if (!stop) {
+        engine.frame();
+        stop = subscribeOrbFrame((now) => {
+          engine.frame(now);
+        });
+      }
+      return true;
+    },
+    readStill: (key) => readOrbStillFrame(canvas, key),
+    destroy() {
+      stop?.();
+      engine.destroy();
+    },
+  };
+}
+
+function createWorkerDriver(client: OrbWorkerClient, canvas: HTMLCanvasElement): OrbDriver | null {
+  const id = client.attach(canvas, 7);
+  if (id === null) return null;
+  return {
+    draw(config, running) {
+      client.draw(id, config, running);
+      return true;
+    },
+    // The worker's canvas paints on the compositor already; a still one costs no frames.
+    readStill: () => '',
+    destroy: () => client.release(canvas),
+  };
+}
+
+/** Which backend draws the orbs on this page (decided once, shared by every orb). */
+function useOrbBackend() {
+  const [backend, setBackend] = useState<OrbBackend>('pending');
+  const clientRef = useRef<OrbWorkerClient | null>(null);
+  useEffect(() => {
+    let alive = true;
+    getOrbWorkerClient().then((client) => {
+      if (!alive) return;
+      clientRef.current = client;
+      setBackend(client ? 'worker' : 'main');
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return { backend, clientRef };
+}
+
 /**
- * Drives the canvas: configures the engine when anything that changes the drawing changes,
- * and joins the shared frame loop only while it should run.
+ * Drives the canvas: picks who draws it (the orb worker, else the main thread), configures it
+ * when anything that changes the drawing changes, and runs it only while it should run.
  */
 function useLivingOrbCanvas({
   canvasRef,
+  backend,
+  clientRef,
   renderedSize,
   state,
   energy,
@@ -144,6 +229,8 @@ function useLivingOrbCanvas({
   texture,
 }: {
   canvasRef: RefObject<HTMLCanvasElement | null>;
+  backend: OrbBackend;
+  clientRef: RefObject<OrbWorkerClient | null>;
   renderedSize: number;
   state: FounderOrbState;
   energy: number;
@@ -151,7 +238,7 @@ function useLivingOrbCanvas({
   environment: OrbEnvironment;
   texture: OrbTextureSnapshot;
 }) {
-  const engineRef = useRef<OrbEngine | null>(null);
+  const driverRef = useRef<OrbDriver | null>(null);
   const [ready, setReady] = useState(false);
   const [stillFrame, setStillFrame] = useState('');
   const tier = founderOrbTier(renderedSize);
@@ -163,28 +250,25 @@ function useLivingOrbCanvas({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || typeof canvas.getContext !== 'function') return undefined;
-    let engine: OrbEngine | null = null;
-    try {
-      engine = createOrbEngine(canvas, { seed: 7 });
-    } catch {
-      engine = null;
-    }
-    engineRef.current = engine;
+    if (!canvas || backend === 'pending') return undefined;
+    const client = clientRef.current;
+    let driver = backend === 'worker' && client ? createWorkerDriver(client, canvas) : null;
+    if (!driver && typeof canvas.getContext === 'function') driver = createMainDriver(canvas);
+    driverRef.current = driver;
     return () => {
-      engine?.destroy();
-      engineRef.current = null;
+      driver?.destroy();
+      driverRef.current = null;
     };
-  }, [canvasRef]);
+  }, [canvasRef, clientRef, backend]);
 
   useEffect(() => {
-    const engine = engineRef.current;
-    if (!engine || !renderedSize) return;
+    const driver = driverRef.current;
+    if (backend === 'pending' || !driver || !renderedSize) return;
     // Wait for the picture: painting the fallback sphere first would flash a different orb.
     // Until then the CSS stand-in (the same picture) shows.
     if (texture.status === 'idle' || texture.status === 'loading') return;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const configured = engine.configure({
+    const config: OrbDrawConfig = {
       size: renderedSize,
       tier,
       palette,
@@ -193,34 +277,19 @@ function useLivingOrbCanvas({
       signal: null,
       energy,
       dpr,
-      texture: texture.image,
-    });
-    if (!configured) return;
-    // Always leave a current picture on the canvas, even when no loop runs.
-    if (!running) {
-      engine.still();
-      // A small still orb hands its frame to a picture: painted with the page, no canvas layer.
-      setStillFrame(
-        tier === 'mark'
-          ? readOrbStillFrame(
-              canvasRef.current,
-              `${palette.key}|${state}|${energy}|${dpr}|${renderedSize}|${texture.status}`,
-            )
-          : '',
-      );
-    } else {
-      setStillFrame('');
-      if (!ready) engine.frame();
-    }
+    };
+    if (!driver.draw(config, running, texture.image)) return;
+    // A small still orb on the main thread hands its frame to a picture: painted with the page,
+    // no canvas layer.
+    setStillFrame(
+      !running && tier === 'mark'
+        ? driver.readStill(
+            `${palette.key}|${state}|${energy}|${dpr}|${renderedSize}|${texture.status}`,
+          )
+        : '',
+    );
     if (!ready) setReady(true);
-  }, [canvasRef, renderedSize, tier, palette, profile, state, energy, running, ready, texture]);
-
-  useEffect(() => {
-    if (!running || !ready) return undefined;
-    return subscribeOrbFrame((now) => {
-      engineRef.current?.frame(now);
-    });
-  }, [running, ready]);
+  }, [backend, renderedSize, tier, palette, profile, state, energy, running, ready, texture]);
 
   return { tier, ready, profile, palette, stillFrame: running ? '' : stillFrame };
 }
@@ -259,10 +328,18 @@ export function FounderOrb({
     getServerOrbEnvironment,
   );
   const renderedSize = useRenderedSize(rootRef, size);
-  const texture = useSyncExternalStore(subscribeOrbTexture, getOrbTexture, getOrbTexture);
+  const { backend, clientRef } = useOrbBackend();
+  // The picture is loaded by whoever draws: the worker, or this page for the main-thread engine.
+  const mainTexture = useSyncExternalStore(subscribeOrbTexture, getOrbTexture, getOrbTexture);
+  const workerTexture = useSyncExternalStore(
+    subscribeWorkerOrbTexture,
+    getWorkerOrbTexture,
+    getWorkerOrbTexture,
+  );
+  const texture = backend === 'worker' ? workerTexture : mainTexture;
   useEffect(() => {
-    loadOrbTexture(ORB_TEXTURE_URL);
-  }, []);
+    if (backend === 'main') loadOrbTexture(ORB_TEXTURE_URL);
+  }, [backend]);
   const running = shouldRunFounderOrbLoop({
     enabled: animate,
     intersecting,
@@ -271,6 +348,8 @@ export function FounderOrb({
   });
   const { tier, ready, profile, palette, stillFrame } = useLivingOrbCanvas({
     canvasRef,
+    backend,
+    clientRef,
     renderedSize,
     state: resolvedState,
     energy,
@@ -309,6 +388,7 @@ export function FounderOrb({
       data-orb-tier={tier}
       data-orb-canvas={ready ? 'ready' : 'pending'}
       data-orb-still={stillFrame ? 'true' : undefined}
+      data-orb-backend={backend}
     >
       <span className="fl-orb-corona" aria-hidden="true" />
       <span className="fl-orb-body" aria-hidden="true" />

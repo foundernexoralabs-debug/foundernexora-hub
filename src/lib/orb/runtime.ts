@@ -24,9 +24,23 @@ let frameHandle = 0;
 let timerHandle: ReturnType<typeof setTimeout> | 0 = 0;
 let lastTick = Number.NEGATIVE_INFINITY;
 
+/**
+ * The next display frame. A worker without requestAnimationFrame (the orb worker in an older
+ * engine) falls back to a ~60 Hz timer; the 30 fps gate below still applies.
+ */
+function nextFrame(callback: (now: number) => void): number {
+  if (typeof requestAnimationFrame === 'function') return requestAnimationFrame(callback);
+  return setTimeout(() => callback(performance.now()), 16) as unknown as number;
+}
+
+function cancelFrame(handle: number) {
+  if (typeof cancelAnimationFrame === 'function') cancelAnimationFrame(handle);
+  else clearTimeout(handle);
+}
+
 function requestTick() {
-  if (frameHandle || timerHandle || typeof requestAnimationFrame !== 'function') return;
-  frameHandle = requestAnimationFrame(tick);
+  if (frameHandle || timerHandle) return;
+  frameHandle = nextFrame(tick);
 }
 
 function tick(now: number) {
@@ -35,7 +49,7 @@ function tick(now: number) {
   // Between orb frames the loop sleeps on a timer instead of waking every display frame, and
   // wakes on the display frame after it, so every orb's draw lands on one shared frame.
   if (now - lastTick < FRAME_MS - 1) {
-    frameHandle = requestAnimationFrame(tick);
+    frameHandle = nextFrame(tick);
     return;
   }
   lastTick = now;
@@ -60,8 +74,7 @@ export function subscribeOrbFrame(listener: FrameListener): () => void {
   return () => {
     frameListeners.delete(listener);
     if (frameListeners.size) return;
-    if (frameHandle && typeof cancelAnimationFrame === 'function')
-      cancelAnimationFrame(frameHandle);
+    if (frameHandle) cancelFrame(frameHandle);
     if (timerHandle) clearTimeout(timerHandle);
     frameHandle = 0;
     timerHandle = 0;
