@@ -1,9 +1,10 @@
 // @polsia:user-owned — the Ask Renor launcher: Renor's living orb, bottom-right on every page.
 //
-// The orb is the vector LivingOrb at its `launcher` detail (the header mark is the same orb at
-// `mark` detail), so it is sharp at every pixel density. It shows five states (idle,
-// hover/focus, typing, answering, error; see src/lib/business/orb-launcher.ts) and the Guide
-// panel grows out of it. The panel's code (the Renor Guide) is loaded only when the visitor
+// The orb is the Renor app's own living orb (FounderOrb: the approved picture drawn by the app's
+// canvas engine, so it turns, crackles and sparkles, sharp at every pixel density); the header
+// mark is the same orb at mark size. It shows five states (idle, hover/focus, typing, answering,
+// error; see src/lib/business/orb-launcher.ts): the launcher's state picks the orb's energy
+// (LAUNCHER_ORB_STATE) and the Guide panel grows out of it. The panel's code (the Renor Guide) is loaded only when the visitor
 // first opens it, or starts to (hover/focus), so it never weighs on the first page load.
 //
 // Deep links: /any-page#ask-renor opens Ask; #report-a-problem opens the report form. Other
@@ -12,10 +13,11 @@
 
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
-import { LivingOrb } from '@/components/custom/living-orb';
+import { FounderOrb } from '@/components/custom/founder-orb';
 import {
   guideTabFromHash,
   IDLE_SIGNALS,
+  LAUNCHER_ORB_STATE,
   launcherTiming,
   type OrbSignals,
   orbVisual,
@@ -93,7 +95,8 @@ export function OrbLauncher() {
     };
   }, [open]);
 
-  // Pause the orb's motion while the tab is in the background.
+  // Pause the launcher's own CSS motion (the answering ripple) while the tab is in the
+  // background. The orb pauses itself (FounderOrb watches page visibility).
   useEffect(() => {
     const root = document.documentElement;
     const update = () => root.toggleAttribute('data-tab-hidden', document.hidden);
@@ -134,7 +137,7 @@ export function OrbLauncher() {
         onBlur={() => setHovered(false)}
         className="ol-launcher"
       >
-        <LivingOrb detail="launcher" className="ol-orb" />
+        <FounderOrb state={LAUNCHER_ORB_STATE[state]} detail="status" className="ol-orb" />
         <span className="ol-ripple" aria-hidden="true" />
         <span className="ol-tint" aria-hidden="true" />
         <span className="ol-tip" aria-hidden="true">

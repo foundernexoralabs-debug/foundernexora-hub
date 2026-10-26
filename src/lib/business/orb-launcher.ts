@@ -5,6 +5,8 @@
 //   2. the panel's lifecycle (`panelReducer`): closed → opening → open → closing → closed.
 // They are pure so the unit tests can prove every transition without a browser.
 
+import type { FounderOrbState } from '@/lib/orb/state';
+
 /** The five visual states of the launcher orb, in the brief's words. */
 export type OrbVisual = 'idle' | 'hover' | 'typing' | 'answering' | 'error';
 
@@ -37,6 +39,19 @@ export function orbVisual(signals: OrbSignals): OrbVisual {
   if (signals.hovered) return 'hover';
   return 'idle';
 }
+
+/**
+ * The living orb's energy for each launcher state (profiles in src/lib/orb/state.ts). At rest it
+ * is the app's "on" orb: bright, crackling, sparkles lit. Typing, Renor listens; answering, it
+ * crackles fast. The error flash is the launcher's red tint over the orb, not a red orb.
+ */
+export const LAUNCHER_ORB_STATE = {
+  idle: 'active',
+  hover: 'active',
+  typing: 'listening',
+  answering: 'generating',
+  error: 'active',
+} as const satisfies Record<OrbVisual, FounderOrbState>;
 
 /** Motion timings in milliseconds. */
 export const LAUNCHER_TIMING = {

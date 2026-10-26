@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Eyebrow, HeroGrid } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
-import { RenorOrb } from '@/components/custom/renor-orb';
+import { FounderOrb } from '@/components/custom/founder-orb';
 import { Button } from '@/components/ui/button';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 
@@ -52,7 +52,7 @@ export default function NotFound() {
             <span className="lost-orb-orbit lost-orb-orbit--inner" />
             <span className="lost-orb-code type-mono">404</span>
             <span className="lost-orb-drift">
-              <RenorOrb sizes="(min-width: 1024px) 12rem, 8rem" className="w-full" />
+              <FounderOrb state="active" detail="hero" className="aspect-square w-full" />
             </span>
           </div>
         </div>

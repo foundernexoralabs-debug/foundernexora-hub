@@ -7,9 +7,9 @@ import Link from 'next/link';
 import { BetaInvite } from '@/components/custom/beta-invite';
 import { Eyebrow, HeroGrid, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
+import { FounderOrb } from '@/components/custom/founder-orb';
 import { FeatureGrid, HowItWorks, ThemedShot } from '@/components/custom/launch';
 import { ProductTour } from '@/components/custom/product-tour';
-import { RenorOrb } from '@/components/custom/renor-orb';
 import { Button } from '@/components/ui/button';
 import { RENOR_APP_URL, RENOR_AREAS, RENOR_LABS_STORE_URL } from '@/lib/business/ecosystem';
 import {
@@ -58,7 +58,7 @@ export default function RenorPage() {
           className="pointer-events-none absolute top-[-12rem] left-1/2 -z-10 size-[44rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--brand-500)_26%,transparent),transparent_65%)] blur-2xl"
         />
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <RenorOrb className="size-24 sm:size-28" sizes="7rem" preload />
+          <FounderOrb state="active" className="size-24 sm:size-28" />
           <p className="mt-7 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-semibold tracking-[0.08em] uppercase shadow-xs">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-emerald-500" />
             Renor by FounderLab · Private beta

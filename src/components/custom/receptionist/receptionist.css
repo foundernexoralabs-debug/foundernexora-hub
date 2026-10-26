@@ -1,5 +1,5 @@
 /* @polsia:user-owned — the Renor Guide's small motion pieces (typing dots, scroll area).
- * The orb itself is LivingOrb (src/components/custom/living-orb.tsx). Every animation stops
+ * The orb itself is FounderOrb (src/components/custom/founder-orb.tsx). Every animation stops
  * when the device asks for reduced motion. */
 
 /* Typing indicator. */

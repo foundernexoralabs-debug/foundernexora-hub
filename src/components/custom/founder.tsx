@@ -6,7 +6,7 @@ import { ArrowRight, Mail } from 'lucide-react';
 import Image, { getImageProps } from 'next/image';
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
-import { RenorOrb } from '@/components/custom/renor-orb';
+import { FounderOrb } from '@/components/custom/founder-orb';
 import { FOUNDER, FOUNDER_PHOTO_READY, FOUNDER_PHOTOS } from '@/lib/business/founder';
 import { cn } from '@/lib/utils';
 import heroWide from '../../../public/founder/founder_hero_wide_1600x900.png';
@@ -21,7 +21,7 @@ function FounderInitial({ className }: { className?: string }) {
       aria-label={`${FOUNDER.name}, ${FOUNDER.role.toLowerCase()}`}
       className={cn('relative grid place-items-center', className)}
     >
-      <RenorOrb variant="plain" sizes="96px" className="absolute inset-0 size-full" />
+      <FounderOrb animate={false} className="absolute inset-0 size-full" />
       <span
         aria-hidden="true"
         className="relative font-display text-[1.25em] font-semibold text-white [text-shadow:0_1px_6px_rgb(0_0_0/0.6)]"

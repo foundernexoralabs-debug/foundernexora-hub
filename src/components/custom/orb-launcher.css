@@ -27,7 +27,8 @@
   }
 }
 
-/* The orb (LivingOrb, vector) and its one glow: the orb's own corona. */
+/* The orb (FounderOrb, the Renor app's living orb) and its one glow: the orb's own corona,
+   which breathes at the orb state's tempo and pauses with the orb (off-screen, hidden tab). */
 .ol-launcher .ol-orb {
   width: 100%;
   height: 100%;
@@ -37,15 +38,17 @@
   outline-offset: 4px;
 }
 
-/* Hover / keyboard focus: a touch larger, a little more light, and the tooltip. */
+/* Hover / keyboard focus: a touch larger, a little more light, and the tooltip. (`scale`
+   composes with the corona's own breathing transform.) */
 .ol-launcher[data-state="hover"],
 .ol-launcher:focus-visible {
   transform: scale(1.08);
 }
-.ol-launcher[data-state="hover"] .ol-orb,
-.ol-launcher:focus-visible .ol-orb,
-.ol-launcher[data-state="typing"] .ol-orb {
-  --lorb-corona-strength: 0.9;
+.ol-launcher[data-state="hover"] .fl-orb-corona,
+.ol-launcher:focus-visible .fl-orb-corona,
+.ol-launcher[data-state="typing"] .fl-orb-corona {
+  scale: 1.14;
+  transition: scale 220ms var(--ease-out);
 }
 
 /* Error: a 300ms tint toward --danger, then back. */
@@ -104,15 +107,20 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Idle: a slow 3.2s breath of the orb's corona (the vector orb itself is never scaled, so
-     it stays pixel-sharp). */
-  .ol-launcher .lorb.ol-orb .lorb-corona::before {
+  /* Idle: a slow 3.2s breath of the whole orb, as before. The orb's own life (turning,
+     lightning, sparkles, corona) is FounderOrb's; typing and answering also quicken that
+     through the orb state (LAUNCHER_ORB_STATE). */
+  .ol-launcher .ol-orb {
     animation: ol-breathe 3.2s ease-in-out infinite;
-    animation-play-state: var(--lorb-play);
+    animation-play-state: var(--ol-play, running);
   }
-  /* Typing: brighter (the corona, above), faster pulse. */
-  .ol-launcher[data-state="typing"] .lorb.ol-orb .lorb-corona::before {
+  /* Typing: a faster pulse. */
+  .ol-launcher[data-state="typing"] .ol-orb {
     animation-duration: 1.4s;
+  }
+  /* The breath stops with the orb: off-screen or in a hidden tab. */
+  .ol-launcher .ol-orb[data-orb-running="false"] {
+    animation-play-state: paused;
   }
   .ol-launcher[data-state="answering"] .ol-ripple {
     animation: ol-ripple 900ms var(--ease-out) infinite;
@@ -126,11 +134,9 @@
 @keyframes ol-breathe {
   0%,
   100% {
-    opacity: 0.78;
-    transform: scale(0.97);
+    transform: scale(1);
   }
   50% {
-    opacity: 1;
     transform: scale(1.05);
   }
 }
