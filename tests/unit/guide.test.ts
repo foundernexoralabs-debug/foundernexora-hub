@@ -36,6 +36,8 @@ describe('What do you need? guide', () => {
   it('opens the Renor app from the single app-link constant', () => {
     expect(hrefs('renor')).toEqual([RENOR_APP_URL]);
     expect(RENOR_APP_URL).toBe(RENOR_WEB_PREVIEW_URL);
+    // The app lives on its own Renor address (live since 31 Oct 2026), not the vercel.app one.
+    expect(RENOR_APP_URL).toBe('https://app.renor.app');
     expect(need('renor')?.benefit).toMatch(/install/i);
   });
 

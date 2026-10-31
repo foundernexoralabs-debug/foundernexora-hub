@@ -1,4 +1,6 @@
-// @polsia:user-owned — reviewed public entry points for the Renor development preview.
-// Verified against Vercel's production deployment alias on 2026-09-29.
-// Change only after verifying the real production alias. This URL does not imply product V1 is launched.
-export const RENOR_WEB_PREVIEW_URL = 'https://founderlab-ai01.vercel.app';
+// @polsia:user-owned — reviewed public entry points for the Renor app.
+// Verified on 2026-10-31: app.renor.app is a production alias of the app's Vercel project
+// (live smoke 12/12 clean; Google sign-in returns there). The old address,
+// founderlab-ai01.vercel.app, still serves the same app.
+// Change only after verifying the real production alias.
+export const RENOR_WEB_PREVIEW_URL = 'https://app.renor.app';
