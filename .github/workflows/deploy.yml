@@ -8,21 +8,35 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Production normally deploys through Vercel's Git integration. This CLI
+    # path only runs when a VERCEL_TOKEN secret is configured; without one it
+    # skips cleanly instead of failing every push to main.
+    env:
+      HAS_VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN != '' }}
     steps:
+      - name: Skip without a Vercel token
+        if: env.HAS_VERCEL_TOKEN != 'true'
+        run: echo "::notice::No VERCEL_TOKEN secret is set; production deploys through Vercel's Git integration, so the CLI deploy is skipped."
+
       - uses: actions/checkout@v5
+        if: env.HAS_VERCEL_TOKEN == 'true'
 
       - uses: actions/setup-node@v5
+        if: env.HAS_VERCEL_TOKEN == 'true'
         with:
           node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
+        if: env.HAS_VERCEL_TOKEN == 'true'
         run: npm install --legacy-peer-deps
 
       - name: Install Vercel CLI
+        if: env.HAS_VERCEL_TOKEN == 'true'
         run: npm install -g vercel@latest
 
       - name: Build locally
+        if: env.HAS_VERCEL_TOKEN == 'true'
         run: vercel build --prod --yes --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -32,6 +46,7 @@ jobs:
           SKIP_ENV_VALIDATION: '1'
 
       - name: Deploy prebuilt to Vercel
+        if: env.HAS_VERCEL_TOKEN == 'true'
         run: vercel deploy --prebuilt --prod --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
