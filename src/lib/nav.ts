@@ -1,4 +1,4 @@
-// @polsia:user-owned — FounderLab navigation. One list drives the top bar, the footer and the sitemap.
+// @polsia:user-owned — Renor website navigation. One list drives the top bar, the footer and the sitemap.
 import { RENOR_APP_URL, RENOR_LABS_STORE_URL } from '@/lib/business/ecosystem';
 
 export type NavGroup = 'primary' | 'secondary' | 'footer';
@@ -15,7 +15,7 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: 'Home', href: '/', group: 'primary', order: 0 },
-  // Top bar: five slots — Renor ⌄, Plugins ⌄, Projects, Zero to Prove, Company ⌄.
+  // Top bar: five slots — Renor ⌄, Plugins ⌄, Projects, Zero to Proof, Company ⌄.
   { label: 'Renor AI', href: '/renor', group: 'primary', menu: 'Renor', order: 1 },
   { label: 'Plans', href: '/renor/plans', group: 'primary', menu: 'Renor', order: 2 },
   { label: 'Launch kit', href: '/launch-kit', group: 'primary', menu: 'Renor', order: 2.5 },
@@ -28,7 +28,7 @@ export const navItems: NavItem[] = [
     order: 3.5,
   },
   { label: 'Projects', href: '/projects', group: 'primary', order: 4 },
-  { label: 'Zero to Prove', href: '/zero-to-prove', group: 'primary', order: 5 },
+  { label: 'Zero to Proof', href: '/zero-to-proof', group: 'primary', order: 5 },
   { label: 'About', href: '/company', group: 'primary', menu: 'Company', order: 6 },
   { label: 'Contact', href: '/contact', group: 'primary', menu: 'Company', order: 7 },
   { label: 'Open Renor', href: RENOR_APP_URL, group: 'secondary', order: 0 },
@@ -69,7 +69,7 @@ export const navItems: NavItem[] = [
   },
   { label: 'About', href: '/company', group: 'footer', menu: 'Company', order: 6 },
   { label: 'Projects', href: '/projects', group: 'footer', menu: 'Company', order: 7 },
-  { label: 'Zero to Prove', href: '/zero-to-prove', group: 'footer', menu: 'Company', order: 8 },
+  { label: 'Zero to Proof', href: '/zero-to-proof', group: 'footer', menu: 'Company', order: 8 },
   { label: 'Contact', href: '/contact', group: 'footer', menu: 'Company', order: 9 },
   { label: 'Privacy', href: '/privacy', group: 'footer', menu: 'Legal', order: 10 },
   { label: 'Terms', href: '/terms', group: 'footer', menu: 'Legal', order: 11 },

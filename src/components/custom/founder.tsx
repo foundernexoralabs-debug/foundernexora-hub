@@ -1,5 +1,5 @@
 // @polsia:user-owned — the founder's presence on the site: the /company founder hero and the
-// small round byline (Zero to Prove). Uses only the three approved, unedited photos of the same
+// small round byline (Zero to Proof). Uses only the three approved, unedited photos of the same
 // front-facing portrait (public/founder/), through next/image with explicit sizes and a blur
 // placeholder. If FOUNDER_PHOTO_READY is false, an "A" in Renor's orb stands in; never a stock face.
 import { ArrowRight, Mail } from 'lucide-react';
@@ -146,7 +146,7 @@ export function FounderHero() {
                   <Mail aria-hidden="true" className="size-4" /> Contact {FOUNDER.name}
                 </Link>
                 <Link
-                  href="/zero-to-prove"
+                  href="/zero-to-proof"
                   className="inline-flex min-h-12 items-center gap-2 rounded-full border border-[color-mix(in_oklch,var(--orb-core)_35%,transparent)] px-6 text-[0.9375rem] font-semibold text-orb-core transition-colors hover:bg-[color-mix(in_oklch,var(--orb-core)_10%,transparent)]"
                 >
                   Follow the build <ArrowRight aria-hidden="true" className="size-4" />

@@ -1,4 +1,4 @@
-// @polsia:user-owned — Zero to Prove: the founder's build-in-public journey.
+// @polsia:user-owned — Zero to Proof: the founder's build-in-public journey.
 // For visitors arriving from YouTube or TikTok: what this is, what has been proven, where to go next.
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -26,10 +26,10 @@ import { pageMetadata } from '@/lib/business/seo';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Zero to Prove — building Renor in public',
+  title: 'Zero to Proof — building Renor in public',
   description:
-    'Zero to Prove follows FounderLab’s founder building Renor in public: what was built, what broke, and what was actually proven.',
-  path: '/zero-to-prove',
+    'Zero to Proof follows FounderLab’s founder building Renor in public: what was built, what broke, and what was actually proven.',
+  path: '/zero-to-proof',
 });
 
 const rules = [
@@ -81,13 +81,13 @@ const journeyFacts: readonly Fact[] = [
   { label: 'Written by', value: FOUNDER.byline },
 ];
 
-export default function ZeroToProvePage() {
+export default function ZeroToProofPage() {
   return (
     <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
-        eyebrow="Zero to Prove"
-        title="Building a real AI product in public, from zero to proven."
-        lede="Zero to Prove follows the founder of FounderLab building Renor: what was built, what broke, and what was actually proven. If you came from a video, this is where the work lives."
+        eyebrow="Zero to Proof"
+        title="Building a real AI product in public, from zero to proof."
+        lede="Zero to Proof follows the founder of FounderLab building Renor: what was built, what broke, and what was actually proven. If you came from a video, this is where the work lives."
         byline={<FounderByline />}
       >
         <Button asChild variant="brand" size="xl">
@@ -100,7 +100,7 @@ export default function ZeroToProvePage() {
         </Button>
       </PageHero>
 
-      <section aria-label="How Zero to Prove works" className="px-5 py-20 sm:px-8 sm:py-28">
+      <section aria-label="How Zero to Proof works" className="px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto grid max-w-screen-xl gap-14 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
           <div className="grid gap-14 sm:gap-16">
             <Chapter number={1} kicker="The rules" id="rules" title="Proof over promises.">
@@ -119,7 +119,7 @@ export default function ZeroToProvePage() {
                 ))}
               </ol>
             </Chapter>
-            <PullQuote cite="Rule two of Zero to Prove">{rules[1].text}</PullQuote>
+            <PullQuote cite="Rule two of Zero to Proof">{rules[1].text}</PullQuote>
             <Chapter
               number={2}
               kicker="The log"
@@ -207,7 +207,7 @@ export default function ZeroToProvePage() {
           </ul>
         </div>
       </section>
-      <ExploreBand page="zero-to-prove" />
+      <ExploreBand page="zero-to-proof" />
     </main>
   );
 }

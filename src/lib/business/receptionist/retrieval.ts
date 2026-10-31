@@ -71,7 +71,9 @@ const SYNONYMS: Record<string, readonly string[]> = {
   company: ['founderlab'],
   founder: ['founderlab'],
   freelance: ['hire'],
-  youtube: ['zero', 'prove', 'follow'],
+  youtube: ['zero', 'proof', 'follow'],
+  // The series name was once misspelt with "prove"; visitors who still type it find it.
+  prove: ['proof'],
   tiktok: ['follow'],
   mobile: ['desktop', 'app'],
   windows: ['desktop'],

@@ -1,5 +1,6 @@
 // @polsia:user-owned — schema.org structured data (JSON-LD) for search engines.
 // A data block, not executable script, so the strict script-src CSP does not apply to it.
+import { companyName } from '@/lib/brand';
 import { CONTACT_EMAIL, SOCIAL_CHANNELS } from '@/lib/business/ecosystem';
 import { buyHref, categoryOf, type Plugin } from '@/lib/business/plugins';
 import { siteDescription, siteName, siteUrl } from '@/lib/site';
@@ -11,7 +12,7 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />;
 }
 
-/** FounderLab as an Organization (maker of the Renor brand), plus the WebSite it publishes. */
+/** FounderLab as an Organization (maker of the Renor brand), plus the Renor WebSite it publishes. */
 export function OrganizationJsonLd() {
   const organizationId = `${siteUrl}/#organization`;
   return (
@@ -22,7 +23,7 @@ export function OrganizationJsonLd() {
           {
             '@type': 'Organization',
             '@id': organizationId,
-            name: siteName,
+            name: companyName,
             url: siteUrl,
             email: CONTACT_EMAIL,
             logo: `${siteUrl}/icon.svg`,

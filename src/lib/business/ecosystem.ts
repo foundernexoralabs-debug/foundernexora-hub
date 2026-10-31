@@ -68,13 +68,13 @@ export const PROJECTS: readonly Project[] = [
     action: 'Browse the Plugin Store',
   },
   {
-    slug: 'zero-to-prove',
-    name: 'Zero to Prove',
+    slug: 'zero-to-proof',
+    name: 'Zero to Proof',
     status: 'preview',
     kind: 'Build in public',
     summary:
       'The founder’s building journey: what was built, what broke, and what was proven along the way.',
-    href: '/zero-to-prove',
+    href: '/zero-to-proof',
     action: 'Follow the journey',
   },
   {
@@ -295,7 +295,7 @@ export const MILESTONE_WHERE = {
 export interface Channel {
   id: 'youtube' | 'tiktok' | 'links' | 'fiverr' | 'renor-labs' | 'github';
   name: string;
-  /** Short label for icon-only links, e.g. "Zero to Prove on YouTube". */
+  /** Short label for icon-only links, e.g. "Zero to Proof on YouTube". */
   label: string;
   purpose: string;
   url: string | null;
@@ -313,7 +313,7 @@ export const CHANNELS: readonly Channel[] = [
   {
     id: 'youtube',
     name: 'YouTube',
-    label: 'Zero to Prove on YouTube',
+    label: 'Zero to Proof on YouTube',
     purpose: 'Longer build sessions, demonstrations and lessons.',
     url: 'https://www.youtube.com/@zero2proof',
     social: true,
@@ -321,7 +321,7 @@ export const CHANNELS: readonly Channel[] = [
   {
     id: 'tiktok',
     name: 'TikTok',
-    label: 'Zero to Prove on TikTok',
+    label: 'Zero to Proof on TikTok',
     purpose: 'Short clips from the build: wins, failures and fixes.',
     url: 'https://www.tiktok.com/@sajadi90',
     social: true,
@@ -329,8 +329,8 @@ export const CHANNELS: readonly Channel[] = [
   {
     id: 'links',
     name: 'Links page',
-    label: 'Zero to Prove links page',
-    purpose: 'Every Zero to Prove channel and link, on one page.',
+    label: 'Zero to Proof links page',
+    purpose: 'Every Zero to Proof channel and link, on one page.',
     url: 'https://zero-to-proof-links.vercel.app',
     social: true,
   },

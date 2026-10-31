@@ -4,19 +4,22 @@
 // silently drops og:image, og:type, og:site_name and og:url, and leaves Twitter on
 // the site defaults. pageMetadata() always sets the complete set for the page.
 import type { Metadata } from 'next';
-import { siteName } from '@/lib/brand';
+import { companyName, siteName } from '@/lib/brand';
 
 /** The framework's file-based social image (src/app/opengraph-image.tsx). */
 const SOCIAL_IMAGE = {
   url: '/opengraph-image',
   width: 1200,
   height: 630,
-  alt: `${siteName}, the company behind Renor`,
+  alt: `${siteName} by ${companyName}`,
   type: 'image/png',
 } as const;
 
 export interface PageMetadataInput {
-  /** Page title; the layout appends " · FounderLab" unless `absolute` is set. */
+  /**
+   * Page title. The layout appends " · Renor" unless `absolute` is set or the title already
+   * names Renor ("Renor plans — …"), so no tab ever reads "Renor … · Renor".
+   */
   title: string;
   description: string;
   /** App-absolute path, used for the canonical URL and og:url. */
@@ -34,6 +37,13 @@ export interface PageMetadataInput {
   image?: { url: string; width: number; height: number; alt: string; type?: string };
 }
 
+const SITE_WORD = new RegExp(`\\b${siteName}\\b`);
+
+/** True when the title already carries the site name as a word, e.g. "Renor Plugin Store". */
+function namesSite(title: string): boolean {
+  return SITE_WORD.test(title);
+}
+
 export function pageMetadata({
   title,
   description,
@@ -44,9 +54,10 @@ export function pageMetadata({
   image,
 }: PageMetadataInput): Metadata {
   const socialImage = image ?? SOCIAL_IMAGE;
-  const social = socialTitle ?? (absolute ? title : `${title} · ${siteName}`);
+  const exact = absolute || namesSite(title);
+  const social = socialTitle ?? (exact ? title : `${title} · ${siteName}`);
   return {
-    title: absolute ? { absolute: title } : title,
+    title: exact ? { absolute: title } : title,
     description,
     alternates: { canonical: path },
     openGraph: {

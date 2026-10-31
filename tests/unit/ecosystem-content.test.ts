@@ -62,7 +62,7 @@ describe('internal links', () => {
       '/renor',
       '/renor/plans',
       '/plugins',
-      '/zero-to-prove',
+      '/zero-to-proof',
       '/projects',
       '/company',
       '/contact',

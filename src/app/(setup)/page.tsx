@@ -14,7 +14,7 @@ import { pageMetadata } from '@/lib/business/seo';
 import { siteDescription } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'FounderLab — the company behind Renor',
+  title: 'Renor by FounderLab — an AI workspace for people who make things',
   description: siteDescription,
   path: '/',
   absolute: true,

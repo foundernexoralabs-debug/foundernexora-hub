@@ -228,10 +228,10 @@ export function BuildLogTeaser({ count = 3 }: { count?: number }) {
             className="mt-12"
           />
           <Link
-            href="/zero-to-prove#log"
+            href="/zero-to-proof#log"
             className="mt-10 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline md:ml-[calc(7.5rem+1.5rem+1.125rem+1.5rem)]"
           >
-            Full build log on Zero to Prove · {MILESTONES.length} entries
+            Full build log on Zero to Proof · {MILESTONES.length} entries
             <ArrowRight aria-hidden="true" className="size-4" />
           </Link>
         </div>

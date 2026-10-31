@@ -121,7 +121,7 @@ export default function CompanyPage() {
                 <p>
                   Renor is the flagship: chat, coding, website building and project memory in one
                   workspace, with results you can check. Around it sit the Plugin Store for the
-                  digital kits we make, and Zero to Prove, where the building happens in public.
+                  digital kits we make, and Zero to Proof, where the building happens in public.
                 </p>
                 <p>
                   We are early. Renor is in preview, the Plugin Store’s first products are not on

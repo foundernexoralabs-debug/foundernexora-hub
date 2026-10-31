@@ -1,4 +1,4 @@
-// @polsia:user-owned — editorial layout pieces for long-form pages (Company, Zero to Prove):
+// @polsia:user-owned — editorial layout pieces for long-form pages (Company, Zero to Proof):
 // numbered chapters, a pull quote and a facts rail. Server components; they only arrange
 // copy and facts that pages pass in, so every word still comes from its single source.
 import type { ReactNode } from 'react';

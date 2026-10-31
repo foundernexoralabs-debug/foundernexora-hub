@@ -34,7 +34,9 @@ describe('retrieval grounding', () => {
     ['are you VAT registered', 'company-legal'],
     ['company registration number', 'company-legal'],
     ['can I hire the founder', 'hire-founder'],
-    ['what is zero to prove', 'zero-to-prove'],
+    ['what is zero to proof', 'zero-to-proof'],
+    // The old misspelling still finds the series.
+    ['what is zero to prove', 'zero-to-proof'],
     ['does it do python', 'renor-code'],
     ['can it build a website for my business', 'renor-builder'],
     ['can I use my own api key', 'own-key-models'],

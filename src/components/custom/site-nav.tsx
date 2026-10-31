@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { companyName } from '@/lib/brand';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { type NavGroup, type NavItem, navItems } from '@/lib/nav';
 import { siteName } from '@/lib/site';
@@ -456,19 +457,26 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-band">
       <div className="mx-auto grid max-w-screen-xl gap-12 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.35fr_2fr] lg:gap-16">
         <div className="max-w-sm">
-          <Link
-            href="/"
-            aria-label={`${siteName} home`}
-            className="inline-flex min-h-11 items-center gap-2.5 rounded-lg text-base font-semibold tracking-tight"
-          >
-            <BrandMark />
-            <span>{siteName}</span>
-          </Link>
+          {/* The brand, then the company that makes it: "Renor · by FounderLab". */}
+          <div className="flex flex-wrap items-center gap-x-2 text-base">
+            <Link
+              href="/"
+              aria-label={`${siteName} home`}
+              className="inline-flex min-h-11 items-center gap-2.5 rounded-lg font-semibold tracking-tight"
+            >
+              <BrandMark />
+              <span>{siteName}</span>
+            </Link>
+            <span aria-hidden="true" className="text-muted-foreground">
+              ·
+            </span>
+            <span className="text-muted-foreground">by {companyName}</span>
+          </div>
           <p className="mt-4 type-copy text-muted-foreground">
-            {siteName} builds <span className="font-medium text-foreground">Renor</span>, the AI
+            {companyName} builds <span className="font-medium text-foreground">Renor</span>, the AI
             workspace for chat, code, websites and projects, alongside the{' '}
             <span className="font-medium text-foreground">Renor Plugin Store</span> and{' '}
-            <span className="font-medium text-foreground">Zero to Prove</span>, our build in public.
+            <span className="font-medium text-foreground">Zero to Proof</span>, our build in public.
             Every product shows its real status.
           </p>
           {appLink ? (
@@ -527,7 +535,7 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-5 py-4 type-meta text-muted-foreground sm:px-8">
           <p className="py-2">
-            © {new Date().getFullYear()} {siteName}. Renor is in preview.
+            © {new Date().getFullYear()} {companyName}. Renor is in preview.
           </p>
           <a
             href={CONTACT_MAILTO}

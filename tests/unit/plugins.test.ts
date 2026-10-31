@@ -257,7 +257,7 @@ describe('checkout hosts', () => {
 
 describe('the move from /store to /plugins', () => {
   it('redirects /store and /store/:slug permanently', () => {
-    expect(userRedirects).toEqual([
+    expect(userRedirects.filter((redirect) => redirect.source.startsWith('/store'))).toEqual([
       { source: '/store', destination: '/plugins', permanent: true },
       { source: '/store/:slug', destination: '/plugins/:slug', permanent: true },
     ]);
