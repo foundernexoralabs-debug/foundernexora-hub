@@ -69,13 +69,13 @@ const AT_A_GLANCE: readonly { icon: LucideIcon; term: string; detail: string; hr
   {
     icon: XCircle,
     term: 'Cancelling',
-    detail: 'Any time, kept to the end of the paid month',
+    detail: 'Any time; paid features run to the month’s end',
     href: '#cancel-any-time',
   },
   {
     icon: Undo2,
     term: 'Refunds',
-    detail: 'Unused days back within 14 days of first paying',
+    detail: 'Unused days refunded in your first 14 days',
     href: '#refunds',
   },
   {
@@ -119,7 +119,7 @@ function AtAGlance() {
               />
               {item.term}
             </dt>
-            <dd className="mt-0.5 text-[0.9375rem] leading-snug font-semibold text-foreground">
+            <dd className="mt-0.5 text-[0.9375rem] leading-snug font-semibold text-pretty text-foreground">
               <a href={item.href} className="underline-offset-4 hover:underline">
                 {item.detail}
               </a>
@@ -210,8 +210,8 @@ export default function BillingPage() {
           </li>
           <li>
             <strong className="text-foreground">After 14 days.</strong> We do not refund
-            part-months, except where the law requires a refund or where Renor fails to provide the
-            service. If Renor fails to provide the service, we fix it or refund you.
+            part-months, except where the law requires a refund. If Renor fails to provide the
+            service, we fix it or refund you.
           </li>
           <li>
             <strong className="text-foreground">If we end your plan.</strong> If Renor ends your

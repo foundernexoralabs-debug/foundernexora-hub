@@ -84,7 +84,7 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
   },
   billing: {
     title: 'Billing and refunds',
-    text: 'Pay monthly, cancel any time, and a 14-day refund on your first paid plan. No overage charges.',
+    text: 'Monthly billing, cancel any time, a 14-day refund window and no overage charges.',
     href: BILLING_PATH,
     icon: 'card',
   },

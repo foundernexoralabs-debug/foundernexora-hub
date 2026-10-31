@@ -75,9 +75,9 @@ describe('/renor/billing states every rule of the policy', () => {
     ],
     [
       '5. no part-month refunds after 14 days, except law or failure',
-      /After 14 days\. We do not refund part-months, except where the law requires a refund or where Renor fails to provide the service/,
+      /After 14 days\. We do not refund part-months, except where the law requires a refund\./,
     ],
-    ['5. fix it or refund', /we fix it or refund you/],
+    ['5. fix it or refund', /If Renor fails to provide the service, we fix it or refund you/],
     [
       '6. upgrades at once, pro rata',
       /Upgrades take effect at once.*difference in price, pro rata/,

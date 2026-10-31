@@ -40,7 +40,7 @@ const FAQ_ITEMS = PLAN_FAQ.map((item) => ({
   q: item.q,
   a: item.link ? (
     <>
-      {item.a}{' '}
+      {item.a} See{' '}
       <Link href={item.link.href} className={INLINE_LINK}>
         {item.link.label}
       </Link>
@@ -121,7 +121,7 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <div className="mt-6">
         <PlanButton plan={plan} />
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground xl:min-h-[4.0625rem]">
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground xl:min-h-[4.3125rem]">
           {plan.action.note}
         </p>
       </div>
