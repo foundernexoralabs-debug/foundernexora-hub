@@ -10,21 +10,23 @@ import { ExploreBand } from '@/components/custom/explore';
 import { FounderOrb } from '@/components/custom/founder-orb';
 import { FeatureGrid, HowItWorks, ThemedShot } from '@/components/custom/launch';
 import { ProductTour } from '@/components/custom/product-tour';
+import { RenorIdentityJsonLd } from '@/components/custom/structured-data';
 import { Button } from '@/components/ui/button';
+import { CAPABILITIES, CAPABILITIES_PATH } from '@/lib/business/capabilities';
 import { RENOR_APP_URL, RENOR_AREAS, RENOR_LABS_STORE_URL } from '@/lib/business/ecosystem';
 import {
   AUDIENCES,
   BETA_EMAIL,
-  DESCRIPTIONS,
   LAUNCH_SOCIAL_IMAGE,
   TOUR,
   TOUR_EXAMPLE,
 } from '@/lib/business/launch';
+import { SEARCH_DESCRIPTIONS } from '@/lib/business/search-identity';
 import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Renor — one AI workspace for conversations, code, websites and projects',
-  description: DESCRIPTIONS[25],
+  title: 'Renor AI — one workspace for chat, code, websites and projects',
+  description: SEARCH_DESCRIPTIONS.renor,
   path: '/renor',
   socialTitle: 'Meet Renor by FounderLab: think it, build it, keep it',
   image: LAUNCH_SOCIAL_IMAGE,
@@ -50,6 +52,14 @@ const planShot = TOUR.find((shot) => shot.id === 'plan');
 export default function RenorPage() {
   return (
     <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
+      <RenorIdentityJsonLd
+        page={{
+          path: '/renor',
+          name: 'Renor AI',
+          description: SEARCH_DESCRIPTIONS.renor,
+          trail: [],
+        }}
+      />
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="relative isolate overflow-hidden border-b border-border px-5 pt-14 sm:px-8 sm:pt-20 lg:pt-24">
         <HeroGrid />
@@ -69,9 +79,9 @@ export default function RenorPage() {
             <span className="whitespace-nowrap text-link">Keep it.</span>
           </h1>
           <p className="mt-6 max-w-2xl type-lead text-pretty text-muted-foreground">
-            Renor is one AI workspace for conversations, coding, websites and the projects that grow
-            from them. It builds apps and sites that actually run, checks them against what you
-            asked for, and keeps everything ready to pick up again.
+            Renor AI is one workspace for conversations, code, websites, notes and tasks, and the
+            projects that grow from them. It builds apps and sites that actually run, checks them
+            against what you asked for, and keeps everything ready to pick up again.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <Button asChild variant="brand" size="xl">
@@ -178,6 +188,13 @@ export default function RenorPage() {
           <div className="mt-14">
             <FeatureGrid />
           </div>
+          <Link
+            href={CAPABILITIES_PATH}
+            className="mt-10 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
+          >
+            See all {CAPABILITIES.length} capabilities, room by room{' '}
+            <ArrowRight aria-hidden="true" className="size-4" />
+          </Link>
         </div>
       </section>
 

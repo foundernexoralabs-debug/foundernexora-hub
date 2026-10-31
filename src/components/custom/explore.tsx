@@ -9,6 +9,7 @@ import {
   FileText,
   FolderKanban,
   Layers3,
+  ListChecks,
   Lock,
   Mail,
   Megaphone,
@@ -41,6 +42,7 @@ const ICONS: Record<DestinationIcon, typeof Sparkles> = {
   accessibility: Accessibility,
   lock: Lock,
   file: FileText,
+  checklist: ListChecks,
 };
 
 const CARD =

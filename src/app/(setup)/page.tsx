@@ -8,14 +8,15 @@ import { BrandMark } from '@/components/custom/brand-mark';
 import { HeroGrid } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { BuildLogTeaser, HomeCta, HowWeWork, ProductBento } from '@/components/custom/home';
-import { OrganizationJsonLd } from '@/components/custom/structured-data';
+import { RenorIdentityJsonLd } from '@/components/custom/structured-data';
 import { Button } from '@/components/ui/button';
+import { CAPABILITIES_PATH } from '@/lib/business/capabilities';
+import { SEARCH_DESCRIPTIONS } from '@/lib/business/search-identity';
 import { pageMetadata } from '@/lib/business/seo';
-import { siteDescription } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Renor by FounderLab — an AI workspace for people who make things',
-  description: siteDescription,
+  description: SEARCH_DESCRIPTIONS.home,
   path: '/',
   absolute: true,
 });
@@ -38,7 +39,7 @@ const principles = [
 export default function HomePage() {
   return (
     <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
-      <OrganizationJsonLd />
+      <RenorIdentityJsonLd />
       <section className="relative isolate overflow-hidden border-b border-border px-5 pt-16 pb-20 sm:px-8 sm:pt-24 sm:pb-28 lg:pt-28 lg:pb-32">
         <HeroGrid />
         <div className="mx-auto grid max-w-screen-xl items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
@@ -62,11 +63,11 @@ export default function HomePage() {
               </Link>
             </div>
             <h1 className="font-display type-display text-balance">
-              Technology for <span className="text-link">the work ahead.</span>
+              Renor AI, built for <span className="text-link">the work ahead.</span>
             </h1>
             <p className="mt-7 max-w-xl type-lead text-pretty text-muted-foreground">
-              FounderLab builds Renor, an AI workspace for people who make things, and a small
-              family of related projects. Explore what works today, see what is being built, and
+              Renor is one AI workspace for chat, code, websites, notes and tasks, made by
+              FounderLab for people who make things. See what works today, what is being built, and
               judge us by the evidence.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
@@ -82,7 +83,14 @@ export default function HomePage() {
               </Button>
             </div>
             <p className="mt-6 type-meta text-muted-foreground">
-              Renor is in preview: usable today, with every feature’s status shown.
+              Renor is in preview: usable today, with{' '}
+              <Link
+                href={CAPABILITIES_PATH}
+                className="font-semibold text-link underline-offset-4 hover:underline"
+              >
+                every feature’s status shown
+              </Link>
+              .
             </p>
           </div>
           <div className="relative mx-auto flex aspect-square w-full max-w-[16rem] items-center justify-center sm:max-w-md">

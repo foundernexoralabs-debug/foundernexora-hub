@@ -8,6 +8,7 @@ import { RENOR_APP_URL } from '@/lib/business/ecosystem';
 
 export type DestinationId =
   | 'renor'
+  | 'capabilities'
   | 'renor-app'
   | 'renor-beta'
   | 'launch-kit'
@@ -35,7 +36,8 @@ export type DestinationIcon =
   | 'accessibility'
   | 'lock'
   | 'file'
-  | 'megaphone';
+  | 'megaphone'
+  | 'checklist';
 
 export interface Destination {
   title: string;
@@ -53,6 +55,12 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
     text: 'The AI workspace for chat, code, websites and projects, with every feature’s status.',
     href: '/renor',
     icon: 'sparkles',
+  },
+  capabilities: {
+    title: 'What Renor can do',
+    text: 'Every capability, room by room, marked live, preview or planned. Checked against the app.',
+    href: '/renor/capabilities',
+    icon: 'checklist',
   },
   'renor-app': {
     title: 'Open Renor',
@@ -138,6 +146,7 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
 export type ExplorePage =
   | 'home'
   | 'renor'
+  | 'capabilities'
   | 'launch-kit'
   | 'storyboard'
   | 'plans'
@@ -165,7 +174,11 @@ export const EXPLORE: Record<ExplorePage, ExploreSet> = {
   },
   renor: {
     title: 'Try it, then see where it is going.',
-    destinations: ['renor-app', 'plans', 'launch-kit', 'zero-to-proof'],
+    destinations: ['renor-app', 'capabilities', 'plans', 'zero-to-proof'],
+  },
+  capabilities: {
+    title: 'Seen enough? Try it, or help shape it.',
+    destinations: ['renor-app', 'renor', 'plans', 'renor-beta'],
   },
   'launch-kit': {
     title: 'See Renor for yourself.',
