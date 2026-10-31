@@ -1,9 +1,9 @@
-// @polsia:user-owned — the company is FounderLab and its product is Renor.
+// @polsia:user-owned — the website's brand is Renor, made by the company FounderLab.
 // Guards against the retired company name creeping back into anything a visitor reads.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { siteDescription, siteName } from '../../src/lib/brand';
+import { brandVisual, companyName, siteDescription, siteName } from '../../src/lib/brand';
 
 const srcDir = path.resolve(__dirname, '../../src');
 
@@ -22,9 +22,11 @@ function sourceFiles(dir: string): string[] {
 }
 
 describe('brand', () => {
-  it('names the company FounderLab and introduces Renor as its product', () => {
-    expect(siteName).toBe('FounderLab');
+  it('names the brand Renor and credits FounderLab as the company that makes it', () => {
+    expect(siteName).toBe('Renor');
+    expect(companyName).toBe('FounderLab');
     expect(siteDescription).toMatch(/^FounderLab builds Renor/);
+    expect(brandVisual.og.tagline).toBe('by FounderLab');
   });
 
   it('never shows the retired company name outside the kept email and repository addresses', () => {

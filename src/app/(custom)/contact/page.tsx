@@ -21,7 +21,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero
         eyebrow="Contact"
         title="Tell us what works, and what does not."
@@ -84,7 +84,7 @@ export default function ContactPage() {
               Follow along and shop
             </h2>
             <p className="mt-2 max-w-xl type-copy text-muted-foreground">
-              Watch the build on Zero to Prove, find every link in one place, hire the founder on
+              Watch the build on Zero to Proof, find every link in one place, hire the founder on
               Fiverr, or visit the Renor Labs shop.
             </p>
           </div>

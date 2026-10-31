@@ -17,7 +17,7 @@ export const dynamic = 'force-dynamic';
 export default function ReportsTriagePage() {
   if (!readAdminToken()) notFound();
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <ReportsTriage />
     </main>
   );

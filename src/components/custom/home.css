@@ -1,0 +1,87 @@
+/* @polsia:user-owned — home page bento tiles and the closing call to action's glow. */
+
+.bento-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--card);
+  transition:
+    border-color 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
+}
+.bento-tile:hover,
+.bento-tile:focus-within {
+  border-color: color-mix(in oklch, var(--orb-2) 45%, var(--line));
+  box-shadow: 0 18px 48px -28px color-mix(in oklch, var(--orb-3) 55%, transparent);
+}
+
+/* The capture sits inset from the tile's left edge, like an app window peeking in. */
+.bento-capture {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 13rem;
+  margin-left: 1.5rem;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  border-top-left-radius: var(--r-md);
+  background: var(--frame);
+}
+.bento-capture img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+  transition: transform 600ms var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bento-tile:hover .bento-capture img {
+    transform: scale(1.015);
+  }
+}
+
+.bento-tile[data-size="feature"] .bento-capture {
+  min-height: 16rem;
+}
+@media (min-width: 640px) {
+  .bento-capture {
+    margin-left: 1.75rem;
+    min-height: 16rem;
+  }
+  .bento-tile[data-size="feature"] .bento-capture {
+    min-height: 22rem;
+  }
+}
+@media (min-width: 1024px) {
+  .bento-tile[data-size="stack"] .bento-capture {
+    min-height: 12.5rem;
+  }
+  .bento-tile[data-size="wide"] .bento-capture {
+    min-height: 19rem;
+    margin-top: 1.75rem;
+    margin-left: 0;
+  }
+}
+
+/* One soft orb glow behind the closing call: the only glow in its viewport. */
+.home-cta-glow {
+  position: absolute;
+  z-index: -1;
+  left: -12rem;
+  bottom: -18rem;
+  width: 44rem;
+  height: 44rem;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--orb-2) 22%, transparent),
+    color-mix(in oklch, var(--orb-violet) 8%, transparent) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+}

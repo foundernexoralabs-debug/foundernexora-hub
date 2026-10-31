@@ -1,13 +1,13 @@
 // @polsia:user-owned — extra <head> rendered by the framework layout.
 // Add <meta>/<link> here (verification, preconnect) — React hoists them. For scripts use
 // next/script with the passed `nonce` (CSP-safe). Edit freely.
-import { fontStack } from '@/lib/fonts';
+import { displayFontStack, fontStack, monoFontStack } from '@/lib/fonts';
 
 /**
- * Points the theme's font tokens at the self-hosted Inter from src/lib/fonts.ts.
+ * Points the theme's font tokens at the self-hosted fonts from src/lib/fonts.ts.
  * `html:root` outranks the `:root` defaults in globals.css whatever the stylesheet order.
  */
-const fontTokens = `html:root{--font-display:${fontStack};--font-body:${fontStack};}`;
+const fontTokens = `html:root{--font-display:${displayFontStack};--font-body:${fontStack};--font-mono:${monoFontStack};}`;
 
 export function HeadContent({ nonce }: { nonce?: string }) {
   return (

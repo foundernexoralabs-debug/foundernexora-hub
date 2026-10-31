@@ -296,7 +296,7 @@ export function ReportsTriage() {
             const contacts = group.reports.filter((r) => r.contactEmail);
             return (
               <li key={group.id} className="rounded-2xl border border-border bg-card p-5 sm:p-6">
-                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+                <div className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                   <span
                     className={cn(
                       'rounded-full border px-2.5 py-0.5 capitalize',
@@ -358,7 +358,7 @@ export function ReportsTriage() {
                         key={report.reference}
                         className="border-t border-border pt-3 first:border-0 first:pt-0"
                       >
-                        <p className="font-mono text-xs text-muted-foreground">
+                        <p className="font-mono text-sm text-muted-foreground">
                           {report.reference} · {dateFormat.format(new Date(report.receivedAt))} ·{' '}
                           {[report.context.viewport, report.context.theme, report.context.browser]
                             .filter(Boolean)

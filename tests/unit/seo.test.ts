@@ -13,27 +13,27 @@ describe('pageMetadata', () => {
     expect(meta.alternates?.canonical).toBe('/renor/plans');
     expect(meta.openGraph).toMatchObject({
       type: 'website',
-      siteName: 'FounderLab',
+      siteName: 'Renor',
       url: '/renor/plans',
-      title: 'Plans · FounderLab',
+      title: 'Plans · Renor',
       description: 'Proposed plans.',
     });
     expect(JSON.stringify(meta.openGraph)).toContain('/opengraph-image');
     expect(meta.twitter).toMatchObject({
       card: 'summary_large_image',
-      title: 'Plans · FounderLab',
+      title: 'Plans · Renor',
     });
   });
 
   it('keeps an absolute title exactly as given', () => {
     const meta = pageMetadata({
-      title: 'FounderLab',
+      title: 'Renor by FounderLab',
       description: 'Home.',
       path: '/',
       absolute: true,
     });
-    expect(meta.title).toEqual({ absolute: 'FounderLab' });
-    expect(meta.openGraph?.title).toBe('FounderLab');
+    expect(meta.title).toEqual({ absolute: 'Renor by FounderLab' });
+    expect(meta.openGraph?.title).toBe('Renor by FounderLab');
   });
 });
 

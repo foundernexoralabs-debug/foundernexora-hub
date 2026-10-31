@@ -113,7 +113,7 @@ export function ReportPanel({
         </div>
 
         <div className="mt-6 rounded-2xl border border-border bg-background p-4">
-          <p className="text-xs font-semibold tracking-[0.08em] text-muted-foreground uppercase">
+          <p className="text-sm font-semibold tracking-[0.08em] text-muted-foreground uppercase">
             Your reference
           </p>
           <div className="mt-1.5 flex items-center justify-between gap-3">
@@ -212,7 +212,7 @@ export function ReportPanel({
                     aria-hidden="true"
                     className={cn('size-4', checked ? 'text-link' : 'text-muted-foreground')}
                   />
-                  <span className="text-[0.8125rem] leading-tight font-semibold">{type.label}</span>
+                  <span className="text-sm leading-tight font-semibold">{type.label}</span>
                 </label>
               );
             })}
@@ -238,7 +238,7 @@ export function ReportPanel({
           <p
             id={`${id}-description-note`}
             className={cn(
-              'mt-1.5 flex justify-between gap-3 text-xs',
+              'mt-1.5 flex justify-between gap-3 text-sm',
               errors.description ? 'text-destructive' : 'text-muted-foreground',
             )}
           >
@@ -268,7 +268,7 @@ export function ReportPanel({
           <p
             id={`${id}-page-note`}
             className={cn(
-              'mt-1.5 text-xs',
+              'mt-1.5 text-sm',
               errors.page ? 'text-destructive' : 'text-muted-foreground',
             )}
           >
@@ -286,7 +286,7 @@ export function ReportPanel({
             />
             <span className="text-sm leading-snug">
               <span className="font-semibold">Email me about this</span>
-              <span className="block text-xs text-muted-foreground">
+              <span className="block text-sm text-muted-foreground">
                 We keep your email only if you tick this, and only to reply.
               </span>
             </span>
@@ -310,7 +310,7 @@ export function ReportPanel({
                 className={fieldClass}
               />
               {errors.email ? (
-                <p id={`${id}-email-note`} className="mt-1.5 text-xs text-destructive">
+                <p id={`${id}-email-note`} className="mt-1.5 text-sm text-destructive">
                   {errors.email}
                 </p>
               ) : null}
@@ -325,7 +325,7 @@ export function ReportPanel({
             />
             <span className="text-sm leading-snug">
               <span className="font-semibold">The Renor team may read my description</span>
-              <span className="block text-xs text-muted-foreground">
+              <span className="block text-sm text-muted-foreground">
                 Leave unticked and we only keep the type of problem and the page.
               </span>
             </span>
@@ -357,7 +357,7 @@ export function ReportPanel({
           {submitting ? <Loader2 aria-hidden="true" className="size-4 animate-spin" /> : null}
           {submitting ? 'Sending…' : 'Send report'}
         </button>
-        <p className="mt-2 text-center text-xs leading-relaxed text-muted-foreground">
+        <p className="mt-2 text-center text-sm leading-relaxed text-muted-foreground">
           {inboxConnected === false
             ? 'Our private report inbox isn’t switched on yet: sending opens your email app with it filled in.'
             : 'Stored privately for the FounderLab team, never posted publicly. Emails, phone numbers and card numbers are removed from your text first.'}

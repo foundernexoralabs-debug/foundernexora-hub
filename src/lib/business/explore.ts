@@ -9,11 +9,13 @@ import { RENOR_APP_URL } from '@/lib/business/ecosystem';
 export type DestinationId =
   | 'renor'
   | 'renor-app'
+  | 'renor-beta'
+  | 'launch-kit'
   | 'plans'
   | 'plugins'
   | 'plugin-buying'
   | 'projects'
-  | 'zero-to-prove'
+  | 'zero-to-proof'
   | 'company'
   | 'contact'
   | 'accessibility'
@@ -32,7 +34,8 @@ export type DestinationIcon =
   | 'mail'
   | 'accessibility'
   | 'lock'
-  | 'file';
+  | 'file'
+  | 'megaphone';
 
 export interface Destination {
   title: string;
@@ -58,6 +61,18 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
     external: true,
     icon: 'external',
   },
+  'renor-beta': {
+    title: 'Join the private beta',
+    text: 'Tell us what you want to build. The founder reads every request and replies.',
+    href: '/renor#beta',
+    icon: 'mail',
+  },
+  'launch-kit': {
+    title: 'Launch kit',
+    text: 'Graphics, real screenshots, short descriptions and the 60-second film storyboard.',
+    href: '/launch-kit',
+    icon: 'megaphone',
+  },
   plans: {
     title: 'Plans',
     text: 'Free, Pro, Plus and Max, with weekly AI credits. Paid prices are proposed, not final.',
@@ -82,10 +97,10 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
     href: '/projects',
     icon: 'folder',
   },
-  'zero-to-prove': {
-    title: 'Zero to Prove',
+  'zero-to-proof': {
+    title: 'Zero to Proof',
     text: 'The build log: what was built, what broke and what was actually proven.',
-    href: '/zero-to-prove',
+    href: '/zero-to-proof',
     icon: 'route',
   },
   company: {
@@ -123,11 +138,13 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
 export type ExplorePage =
   | 'home'
   | 'renor'
+  | 'launch-kit'
+  | 'storyboard'
   | 'plans'
   | 'plugins'
   | 'product'
   | 'projects'
-  | 'zero-to-prove'
+  | 'zero-to-proof'
   | 'company'
   | 'contact'
   | 'accessibility'
@@ -148,11 +165,19 @@ export const EXPLORE: Record<ExplorePage, ExploreSet> = {
   },
   renor: {
     title: 'Try it, then see where it is going.',
-    destinations: ['renor-app', 'plans', 'zero-to-prove', 'contact'],
+    destinations: ['renor-app', 'plans', 'launch-kit', 'zero-to-proof'],
+  },
+  'launch-kit': {
+    title: 'See Renor for yourself.',
+    destinations: ['renor', 'renor-beta', 'renor-app', 'plugins'],
+  },
+  storyboard: {
+    title: 'Everything else for the launch.',
+    destinations: ['launch-kit', 'renor', 'renor-beta', 'zero-to-proof'],
   },
   plans: {
     title: 'Start free today, and follow what comes next.',
-    destinations: ['renor-app', 'renor', 'zero-to-prove', 'contact'],
+    destinations: ['renor-app', 'renor', 'zero-to-proof', 'contact'],
   },
   plugins: {
     title: 'More from FounderLab.',
@@ -164,15 +189,15 @@ export const EXPLORE: Record<ExplorePage, ExploreSet> = {
   },
   projects: {
     title: 'Go deeper into the work.',
-    destinations: ['renor', 'plugins', 'zero-to-prove', 'company'],
+    destinations: ['renor', 'plugins', 'zero-to-proof', 'company'],
   },
-  'zero-to-prove': {
+  'zero-to-proof': {
     title: 'See what the journey has built.',
     destinations: ['renor-app', 'renor', 'projects', 'contact'],
   },
   company: {
     title: 'See the work behind the words.',
-    destinations: ['renor', 'projects', 'zero-to-prove', 'contact'],
+    destinations: ['renor', 'projects', 'zero-to-proof', 'contact'],
   },
   contact: {
     title: 'Find what you need without waiting.',

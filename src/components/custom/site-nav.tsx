@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { companyName } from '@/lib/brand';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { type NavGroup, type NavItem, navItems } from '@/lib/nav';
 import { siteName } from '@/lib/site';
@@ -139,7 +140,42 @@ const NavItemLink = React.forwardRef<
   );
 });
 
+/** True once the page has scrolled past `threshold` px; the header frosts over the content. */
+function useScrolledPast(threshold: number): boolean {
+  const [scrolled, setScrolled] = React.useState(false);
+  React.useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setScrolled(window.scrollY > threshold);
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [threshold]);
+  return scrolled;
+}
+
+/**
+ * The first stop for keyboard users: jumps past the header to the page's content. Every
+ * page's <main> carries id="main" and tabIndex={-1}, so following the link moves focus there.
+ */
+function SkipLink() {
+  return (
+    <a href="#main" className="skip-link">
+      Skip to content
+    </a>
+  );
+}
+
 export function SiteNav() {
+  const scrolled = useScrolledPast(24);
   const isAuthenticated = useIsAuthenticated();
   // The brand links home, so drop a redundant '/' item from the rendered links.
   const primary = visibleItems('primary', isAuthenticated).filter((item) => item.href !== '/');
@@ -163,7 +199,11 @@ export function SiteNav() {
     slot.type === 'link' ? isActive(slot.item.href) : slot.items.some((i) => isActive(i.href));
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background">
+    <header
+      className="site-header sticky top-0 z-40 w-full border-b border-border bg-background"
+      data-scrolled={scrolled ? 'true' : undefined}
+    >
+      <SkipLink />
       <nav
         aria-label="Primary"
         className="mx-auto flex h-16 max-w-screen-xl items-center gap-2 px-4 sm:px-6"
@@ -333,7 +373,7 @@ export function SiteNav() {
                       </Button>
                     ) : (
                       <div key={`menu:${slot.label}`} className="flex flex-col gap-1">
-                        <p className="px-3 pt-2 text-xs font-medium text-muted-foreground">
+                        <p className="px-3 pt-2 text-sm font-medium text-muted-foreground">
                           {slot.label}
                         </p>
                         {slot.items.map((item) => (
@@ -417,19 +457,26 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-band">
       <div className="mx-auto grid max-w-screen-xl gap-12 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[1.35fr_2fr] lg:gap-16">
         <div className="max-w-sm">
-          <Link
-            href="/"
-            aria-label={`${siteName} home`}
-            className="inline-flex min-h-11 items-center gap-2.5 rounded-lg text-base font-semibold tracking-tight"
-          >
-            <BrandMark />
-            <span>{siteName}</span>
-          </Link>
+          {/* The brand, then the company that makes it: "Renor · by FounderLab". */}
+          <div className="flex flex-wrap items-center gap-x-2 text-base">
+            <Link
+              href="/"
+              aria-label={`${siteName} home`}
+              className="inline-flex min-h-11 items-center gap-2.5 rounded-lg font-semibold tracking-tight"
+            >
+              <BrandMark />
+              <span>{siteName}</span>
+            </Link>
+            <span aria-hidden="true" className="text-muted-foreground">
+              ·
+            </span>
+            <span className="text-muted-foreground">by {companyName}</span>
+          </div>
           <p className="mt-4 type-copy text-muted-foreground">
-            {siteName} builds <span className="font-medium text-foreground">Renor</span>, the AI
+            {companyName} builds <span className="font-medium text-foreground">Renor</span>, the AI
             workspace for chat, code, websites and projects, alongside the{' '}
             <span className="font-medium text-foreground">Renor Plugin Store</span> and{' '}
-            <span className="font-medium text-foreground">Zero to Prove</span>, our build in public.
+            <span className="font-medium text-foreground">Zero to Proof</span>, our build in public.
             Every product shows its real status.
           </p>
           {appLink ? (
@@ -444,7 +491,7 @@ export function SiteFooter() {
           <div className="mt-8">
             <p
               id="footer-follow"
-              className="text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase"
+              className="text-sm font-semibold tracking-[0.1em] text-foreground uppercase"
             >
               Follow and shop
             </p>
@@ -456,7 +503,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4">
           {[...columns].map(([heading, items]) => (
             <nav key={heading} aria-label={`${heading} links`}>
-              <p className="text-[0.8125rem] font-semibold tracking-[0.1em] text-foreground uppercase">
+              <p className="text-sm font-semibold tracking-[0.1em] text-foreground uppercase">
                 {heading}
               </p>
               <ul className="mt-3 grid gap-0.5">
@@ -488,7 +535,7 @@ export function SiteFooter() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-5 py-4 type-meta text-muted-foreground sm:px-8">
           <p className="py-2">
-            © {new Date().getFullYear()} {siteName}. Renor is in preview.
+            © {new Date().getFullYear()} {companyName}. Renor is in preview.
           </p>
           <a
             href={CONTACT_MAILTO}

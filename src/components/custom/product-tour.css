@@ -1,0 +1,213 @@
+/* @polsia:user-owned — the /renor product tour tabs.
+ * Resting: --bg-2 with a 1px --line. Hover: a gradient border (--orb-2 → --orb-violet), a small
+ * glow and an icon micro-motion per area. Selected: filled orb gradient. Pressed: scale .97.
+ * Restraint: the selected tab is the only filled element; the glow is small and hover-only. */
+
+.rt-list {
+  scrollbar-width: none;
+}
+.rt-list::-webkit-scrollbar {
+  display: none;
+}
+
+.rt-tab {
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--text-1);
+  transition:
+    transform 160ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    background 200ms var(--ease-out);
+}
+.rt-tab .rt-sub {
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+.rt-tab .rt-icon-wrap {
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  color: var(--link);
+}
+.rt-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  overflow: visible;
+}
+
+@media (hover: hover) {
+  .rt-tab:not([data-selected]):hover {
+    border-color: transparent;
+    background:
+      linear-gradient(var(--bg-2), var(--bg-2)) padding-box,
+      linear-gradient(135deg, var(--orb-2), var(--orb-violet)) border-box;
+    box-shadow: var(--glow-sm);
+  }
+}
+.rt-tab:active {
+  transform: scale(0.97);
+}
+.rt-tab:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+/* Selected: the filled orb gradient. The light end stays dark enough for white text (>= 4.5:1). */
+.rt-tab[data-selected] {
+  border-color: transparent;
+  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--orb-3),
+    color-mix(in oklch, var(--orb-3) 45%, var(--orb-2))
+  );
+}
+.rt-tab[data-selected] .rt-sub {
+  color: color-mix(in oklch, white 88%, transparent);
+}
+.rt-tab[data-selected] .rt-icon-wrap {
+  background: color-mix(in oklch, white 14%, transparent);
+  border-color: color-mix(in oklch, white 24%, transparent);
+  color: white;
+}
+
+/* Autoplay progress: a thin bar along the bottom of the selected tab. */
+.rt-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  transform-origin: left center;
+  background: color-mix(in oklch, white 85%, transparent);
+  animation-name: rt-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+.rt-progress[data-running] {
+  animation-play-state: running;
+}
+@keyframes rt-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Icon micro-motions, on hover and keyboard focus. */
+.rt-icon * {
+  transition:
+    transform 260ms var(--ease-spring),
+    opacity 200ms ease-out,
+    stroke-dashoffset 420ms var(--ease-out);
+}
+.rt-tick {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Code: the brackets slide apart. */
+  .rt-tab:hover .rt-bracket-l,
+  .rt-tab:focus-visible .rt-bracket-l {
+    transform: translateX(-2px);
+  }
+  .rt-tab:hover .rt-bracket-r,
+  .rt-tab:focus-visible .rt-bracket-r {
+    transform: translateX(2px);
+  }
+  /* Chat: the dots type. */
+  .rt-tab:hover .rt-dot,
+  .rt-tab:focus-visible .rt-dot {
+    animation: rt-type 900ms ease-in-out 1;
+  }
+  .rt-tab:hover .rt-dot:nth-of-type(2),
+  .rt-tab:focus-visible .rt-dot:nth-of-type(2) {
+    animation-delay: 120ms;
+  }
+  .rt-tab:hover .rt-dot:nth-of-type(3),
+  .rt-tab:focus-visible .rt-dot:nth-of-type(3) {
+    animation-delay: 240ms;
+  }
+  /* Builder: the blocks stack. */
+  .rt-tab:hover .rt-block-2,
+  .rt-tab:focus-visible .rt-block-2 {
+    transform: translateX(3px);
+  }
+  .rt-tab:hover .rt-block-3,
+  .rt-tab:focus-visible .rt-block-3 {
+    transform: translateX(5px);
+  }
+  /* Project Office: the tick draws. */
+  .rt-tab:hover .rt-tick,
+  .rt-tab:focus-visible .rt-tick {
+    animation: rt-draw 520ms var(--ease-out) 1;
+  }
+
+  /* The capture drifts slowly (Ken Burns) while its tab is showing. */
+  .rt-stage[data-active] img {
+    animation: rt-kenburns 16s ease-in-out infinite alternate;
+    transform-origin: 60% 40%;
+  }
+  html[data-tab-hidden] .rt-stage img {
+    animation-play-state: paused;
+  }
+}
+@keyframes rt-type {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 0.35;
+    transform: translateY(-1.5px);
+  }
+}
+@keyframes rt-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes rt-kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06) translate(-1%, -1%);
+  }
+}
+
+.rt-panel:not([hidden]) {
+  animation: rt-panel-in 280ms var(--ease-out) both;
+}
+@keyframes rt-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rt-tab,
+  .rt-tab:active {
+    transform: none;
+  }
+  .rt-panel:not([hidden]) {
+    animation: none;
+  }
+  .rt-progress {
+    display: none;
+  }
+}

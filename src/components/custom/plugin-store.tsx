@@ -82,15 +82,13 @@ export function PluginCover({
         >
           <Icon className={hero ? 'size-7' : 'size-5'} strokeWidth={1.75} />
         </span>
-        <span className="rounded-full border border-current/20 bg-white/60 px-2.5 py-1 text-[0.6875rem] font-semibold tracking-[0.1em] uppercase dark:bg-white/5">
+        <span className="rounded-full border border-current/20 bg-white/60 px-2.5 py-1 text-sm font-semibold tracking-[0.1em] uppercase dark:bg-white/5">
           {plugin.format}
         </span>
       </div>
       <div>
         {plugin.line ? (
-          <p className="text-[0.75rem] font-semibold tracking-[0.16em] uppercase opacity-80">
-            {plugin.line}
-          </p>
+          <p className="text-sm font-semibold tracking-[0.16em] uppercase">{plugin.line}</p>
         ) : null}
         <p
           className={cn(
@@ -100,9 +98,7 @@ export function PluginCover({
         >
           {shortName(plugin)}
         </p>
-        <p className="mt-1.5 text-[0.8125rem] font-medium opacity-80">
-          {plugin.inside.length} parts inside
-        </p>
+        <p className="mt-1.5 text-sm font-medium">{plugin.inside.length} parts inside</p>
       </div>
     </div>
   );
@@ -130,7 +126,7 @@ export function AvailabilityBadge({ plugin, className }: { plugin: Plugin; class
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold tracking-[0.06em] uppercase',
+        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-semibold tracking-[0.06em] uppercase',
         onSale
           ? 'border-emerald-600/35 bg-emerald-50 text-emerald-800 dark:border-emerald-400/35 dark:bg-emerald-400/10 dark:text-emerald-200'
           : 'border-amber-600/35 bg-amber-50 text-amber-900 dark:border-amber-400/35 dark:bg-amber-400/10 dark:text-amber-200',

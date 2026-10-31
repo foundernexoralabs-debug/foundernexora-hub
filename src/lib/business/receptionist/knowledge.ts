@@ -346,11 +346,11 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     source: { label: 'Projects · Renor for desktop', href: '/projects#renor-desktop' },
   },
   {
-    id: 'zero-to-prove',
-    title: 'What is Zero to Prove?',
-    keywords: ['zero to prove', 'build in public', 'journey', 'videos', 'youtube', 'tiktok'],
-    answer: `Zero to Prove follows the founder of FounderLab building Renor in public: what was built, what broke, and what was actually proven. It is published on YouTube and TikTok, with every link on one page.`,
-    source: { label: 'Zero to Prove', href: '/zero-to-prove' },
+    id: 'zero-to-proof',
+    title: 'What is Zero to Proof?',
+    keywords: ['zero to proof', 'build in public', 'journey', 'videos', 'youtube', 'tiktok'],
+    answer: `Zero to Proof follows the founder of FounderLab building Renor in public: what was built, what broke, and what was actually proven. It is published on YouTube and TikTok, with every link on one page.`,
+    source: { label: 'Zero to Proof', href: '/zero-to-proof' },
   },
   {
     id: 'latest-release',
@@ -358,8 +358,8 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     keywords: ['new', 'latest', 'release', 'update', 'changelog', 'milestone', 'version'],
     answer: latest
       ? `Latest milestone (${new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(latest.date))}): ${latest.title}. ${latest.detail}`
-      : 'See the dated build log on Zero to Prove.',
-    source: { label: 'Zero to Prove · Build log', href: '/zero-to-prove' },
+      : 'See the dated build log on Zero to Proof.',
+    source: { label: 'Zero to Proof · Build log', href: '/zero-to-proof' },
   },
   {
     id: 'hire-founder',

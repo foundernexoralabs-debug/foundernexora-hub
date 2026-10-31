@@ -42,7 +42,17 @@ function spanFor(index: number, count: number): string {
   return 'lg:col-span-2';
 }
 
-function ActionButton({ action }: { action: NeedAction }) {
+/**
+ * One guide action as a button: filled when primary, outlined otherwise. `quiet` outlines
+ * every action, for places where another button is already the page's main call.
+ */
+export function NeedActionButton({
+  action,
+  quiet = false,
+}: {
+  action: NeedAction;
+  quiet?: boolean;
+}) {
   const Arrow = action.external ? ArrowUpRight : ArrowRight;
   const content = (
     <>
@@ -57,7 +67,7 @@ function ActionButton({ action }: { action: NeedAction }) {
   return (
     <Button
       asChild
-      variant={action.primary ? 'brand' : 'outline'}
+      variant={action.primary && !quiet ? 'brand' : 'outline'}
       className="h-11 rounded-full px-5 text-[0.9375rem] font-semibold"
     >
       {action.external ? (
@@ -90,7 +100,7 @@ function NeedCard({ need, className }: { need: Need; className?: string }) {
       <p className="mt-2 flex-1 type-copy text-muted-foreground">{need.benefit}</p>
       <div className="mt-6 flex flex-wrap gap-2.5">
         {need.actions.map((action) => (
-          <ActionButton key={action.href} action={action} />
+          <NeedActionButton key={action.href} action={action} />
         ))}
       </div>
     </li>

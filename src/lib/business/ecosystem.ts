@@ -68,13 +68,13 @@ export const PROJECTS: readonly Project[] = [
     action: 'Browse the Plugin Store',
   },
   {
-    slug: 'zero-to-prove',
-    name: 'Zero to Prove',
+    slug: 'zero-to-proof',
+    name: 'Zero to Proof',
     status: 'preview',
     kind: 'Build in public',
     summary:
       'The founder’s building journey: what was built, what broke, and what was proven along the way.',
-    href: '/zero-to-prove',
+    href: '/zero-to-proof',
     action: 'Follow the journey',
   },
   {
@@ -202,12 +202,26 @@ export const RENOR_AREAS: readonly RenorArea[] = [
   },
 ];
 
+/**
+ * What kind of step a build-log entry records, read from its own detail line:
+ * `shipped` put something new in people's hands, `fix` corrected what was there,
+ * `test` froze or proved work rather than adding to it.
+ */
+export const MILESTONE_KIND = {
+  shipped: { label: 'Shipped', description: 'Something new people can use.' },
+  fix: { label: 'Fix', description: 'A correction to what was already there.' },
+  test: { label: 'Test', description: 'Work frozen and proven, not added to.' },
+} as const;
+
+export type MilestoneKind = keyof typeof MILESTONE_KIND;
+
 /** Dated, checkable progress. Newest first. */
 export interface Milestone {
   date: string;
   title: string;
   detail: string;
   where: 'app' | 'website';
+  kind: MilestoneKind;
 }
 
 export const MILESTONES: readonly Milestone[] = [
@@ -217,6 +231,7 @@ export const MILESTONES: readonly Milestone[] = [
     detail:
       'Five weeks of work in 1,013 commits, frozen as one release. It passed 4,876 unit tests and 88 of 88 browser acceptance checks, and replaces the September web preview.',
     where: 'app',
+    kind: 'test',
   },
   {
     date: '2026-10-05',
@@ -224,6 +239,7 @@ export const MILESTONES: readonly Milestone[] = [
     detail:
       'Real Python in the browser, sandboxed with no network, a time limit and a Stop button. Two independent reviews found 22 issues; all but one stated limit are fixed.',
     where: 'app',
+    kind: 'shipped',
   },
   {
     date: '2026-10-05',
@@ -231,6 +247,7 @@ export const MILESTONES: readonly Milestone[] = [
     detail:
       'Voice that waits for you to finish a thought, memory you control, tasks with real deadlines, and research that can end in a real build.',
     where: 'app',
+    kind: 'shipped',
   },
   {
     date: '2026-10-05',
@@ -238,12 +255,14 @@ export const MILESTONES: readonly Milestone[] = [
     detail:
       'Ask for something current and Renor answers with the sources it read, in chat and in voice.',
     where: 'app',
+    kind: 'shipped',
   },
   {
     date: '2026-10-04',
     title: 'Founder QA pass',
     detail: 'Fixes from a full founder QA pass across Chat, Code AI and the Website Builder.',
     where: 'app',
+    kind: 'fix',
   },
   {
     date: '2026-09-29',
@@ -251,6 +270,7 @@ export const MILESTONES: readonly Milestone[] = [
     detail:
       'The website was rewritten to separate what exists from what is planned, and unsupported claims were removed.',
     where: 'website',
+    kind: 'fix',
   },
   {
     date: '2026-09-19',
@@ -258,6 +278,7 @@ export const MILESTONES: readonly Milestone[] = [
     detail:
       'The first build people could open in the browser, still under the earlier name FounderLab AI.',
     where: 'app',
+    kind: 'shipped',
   },
 ];
 
@@ -274,7 +295,7 @@ export const MILESTONE_WHERE = {
 export interface Channel {
   id: 'youtube' | 'tiktok' | 'links' | 'fiverr' | 'renor-labs' | 'github';
   name: string;
-  /** Short label for icon-only links, e.g. "Zero to Prove on YouTube". */
+  /** Short label for icon-only links, e.g. "Zero to Proof on YouTube". */
   label: string;
   purpose: string;
   url: string | null;
@@ -292,7 +313,7 @@ export const CHANNELS: readonly Channel[] = [
   {
     id: 'youtube',
     name: 'YouTube',
-    label: 'Zero to Prove on YouTube',
+    label: 'Zero to Proof on YouTube',
     purpose: 'Longer build sessions, demonstrations and lessons.',
     url: 'https://www.youtube.com/@zero2proof',
     social: true,
@@ -300,7 +321,7 @@ export const CHANNELS: readonly Channel[] = [
   {
     id: 'tiktok',
     name: 'TikTok',
-    label: 'Zero to Prove on TikTok',
+    label: 'Zero to Proof on TikTok',
     purpose: 'Short clips from the build: wins, failures and fixes.',
     url: 'https://www.tiktok.com/@sajadi90',
     social: true,
@@ -308,8 +329,8 @@ export const CHANNELS: readonly Channel[] = [
   {
     id: 'links',
     name: 'Links page',
-    label: 'Zero to Prove links page',
-    purpose: 'Every Zero to Prove channel and link, on one page.',
+    label: 'Zero to Proof links page',
+    purpose: 'Every Zero to Proof channel and link, on one page.',
     url: 'https://zero-to-proof-links.vercel.app',
     social: true,
   },

@@ -1,0 +1,214 @@
+/* @polsia:user-owned — Renor's living orb (founder-orb.tsx), ported from the Renor app's
+ * globals.css (.fl-orb). The canvas (src/lib/orb/engine.ts) draws the orb; it reaches past the
+ * orb's box (--orb-overscan, set per detail tier) so the flares, arcs and sparkles are never cut
+ * off, without taking layout space. Until the canvas has painted, the same picture stands in.
+ * Theme: the canvas reads the website's html.dark class itself; the CSS here only frames it. */
+
+.fl-orb {
+  position: relative;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  isolation: isolate;
+  border-radius: 50%;
+  contain: layout style;
+}
+
+.fl-orb-corona,
+.fl-orb-body,
+.fl-orb-canvas,
+.fl-orb-still,
+.fl-orb-state-mark {
+  pointer-events: none;
+}
+
+/* The corona: soft light around the sphere in the state's colour (--orb-corona), breathing at
+   the state's tempo (--orb-breath). The state's strength (--orb-glow) is the element's own
+   opacity; the breath (its ::before, 70% → 100% of that, as in the app) uses plain numbers only,
+   so the compositor runs it with no style work per frame. */
+.fl-orb-corona {
+  position: absolute;
+  z-index: 0;
+  inset: -36%;
+  opacity: var(--orb-glow, 0.8);
+}
+.fl-orb-corona::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    hsl(var(--orb-corona, 212 100% 58%) / 0.8) 36%,
+    hsl(var(--orb-corona, 212 100% 58%) / 0.52) 42%,
+    hsl(var(--orb-corona, 212 100% 58%) / 0.26) 49%,
+    hsl(var(--orb-corona, 212 100% 58%) / 0.1) 60%,
+    hsl(var(--orb-corona, 212 100% 58%) / 0.03) 72%,
+    transparent 84%
+  );
+  animation: fl-orb-corona var(--orb-breath, 6s) ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes fl-orb-corona {
+  0%,
+  100% {
+    transform: scale(0.965);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.035);
+    opacity: 1;
+  }
+}
+
+/* A still orb (animate={false}, off-screen, hidden tab, reduced motion) holds the corona in its
+   first pose with no animation and no will-change: a paused animation still costs a layer. */
+.fl-orb[data-orb-running="false"] .fl-orb-corona::before {
+  animation: none;
+  will-change: auto;
+  transform: scale(0.965);
+  opacity: 0.7;
+}
+
+/* The stand-in sphere: the founder's orb picture itself, until the canvas paints (and if it
+   never can). Sized so the picture's globe is as wide as the canvas sphere. */
+.fl-orb-body {
+  position: absolute;
+  z-index: 1;
+  inset: -2%;
+  background: var(--orb-texture) 50% 50% / 100% 100% no-repeat;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+.fl-orb[data-orb-canvas="ready"] .fl-orb-body {
+  opacity: 0;
+}
+
+.fl-orb-canvas,
+.fl-orb-still {
+  position: absolute;
+  z-index: 2;
+  inset: var(--orb-overscan);
+  width: calc(100% - var(--orb-overscan) * 2);
+  height: calc(100% - var(--orb-overscan) * 2);
+}
+
+.fl-orb-canvas {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.fl-orb[data-orb-canvas="ready"] .fl-orb-canvas {
+  opacity: 1;
+}
+
+/* A small orb that will not move shows the canvas's own still frame as a picture, painted with
+   the page instead of kept as a canvas layer. */
+.fl-orb-still {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.fl-orb[data-orb-still="true"] .fl-orb-canvas {
+  display: none;
+}
+
+.fl-orb-state-mark {
+  --orb-marker-color: 104 198 255;
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  width: 25%;
+  height: 25%;
+  place-items: center;
+  border: 1px solid rgb(var(--orb-marker-color) / 0.65);
+  border-radius: 50%;
+  background: rgb(3 8 18 / 0.8);
+  color: rgb(var(--orb-marker-color));
+  opacity: 0.88;
+}
+.fl-orb--success .fl-orb-state-mark {
+  --orb-marker-color: 49 226 174;
+}
+.fl-orb--waiting-approval .fl-orb-state-mark {
+  --orb-marker-color: 245 183 74;
+}
+.fl-orb-state-mark svg {
+  width: 58%;
+  height: 58%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+html:not(.dark) .fl-orb-state-mark {
+  background: rgb(255 255 255 / 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The orb draws one still frame and runs no loop (founder-orb.tsx); the corona rests. */
+  .fl-orb-corona::before {
+    animation: none;
+    transform: scale(0.965);
+    opacity: 0.7;
+  }
+}
+
+/* ── The FounderLab mark (brand-mark.tsx): the orb at ~30px beside the name. ──────────────
+   Ported from the app's RenorMark (renorMark.css, "on" state): a soft light behind the orb
+   that breathes, and on the light theme a soft shadow for edge with a tight corona, so the
+   sphere stays the thing you see on a white page. */
+.fl-orb-mark {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  isolation: isolate;
+}
+.fl-orb-mark::before {
+  content: "";
+  position: absolute;
+  inset: -22%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(212 100% 74%) 0%, transparent 68%);
+  opacity: 0.38;
+}
+.fl-orb-mark .fl-orb {
+  width: 100%;
+  height: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fl-orb-mark[data-live="true"]::before {
+    animation: fl-orb-mark-breath 4.8s ease-in-out infinite;
+  }
+  /* Paused with the orb: off-screen or in a hidden tab. */
+  .fl-orb-mark:has(.fl-orb[data-orb-running="false"])::before {
+    animation-play-state: paused;
+  }
+}
+@keyframes fl-orb-mark-breath {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.28;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.46;
+  }
+}
+html:not(.dark) .fl-orb-mark .fl-orb {
+  filter: drop-shadow(0 1px 2px rgb(15 23 42 / 0.28)) drop-shadow(0 3px 8px rgb(18 76 160 / 0.22));
+}
+html:not(.dark) .fl-orb-mark .fl-orb-corona {
+  inset: -16%;
+  filter: opacity(0.55);
+}
+html:not(.dark) .fl-orb-mark::before {
+  opacity: 0.22;
+}

@@ -1,0 +1,260 @@
+/* @polsia:user-owned — the Ask Renor orb launcher and the Guide panel's open/close motion.
+ * States (data-state on .ol-launcher): idle, hover, typing, answering, error.
+ * Timings mirror LAUNCHER_TIMING in src/lib/business/orb-launcher.ts.
+ * Restraint: one soft glow only; nothing flashes more than three times a second. */
+
+.ol-launcher {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 50;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-pill);
+  display: grid;
+  place-items: center;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
+}
+@media (min-width: 640px) {
+  .ol-launcher {
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* The orb (FounderOrb, the Renor app's living orb) and its one glow: the orb's own corona,
+   which breathes at the orb state's tempo and pauses with the orb (off-screen, hidden tab). */
+.ol-launcher .ol-orb {
+  width: 100%;
+  height: 100%;
+}
+.ol-launcher:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+
+/* Hover / keyboard focus: a touch larger, a little more light, and the tooltip. (`scale`
+   composes with the corona's own breathing transform.) */
+.ol-launcher[data-state="hover"],
+.ol-launcher:focus-visible {
+  transform: scale(1.08);
+}
+.ol-launcher[data-state="hover"] .fl-orb-corona,
+.ol-launcher:focus-visible .fl-orb-corona,
+.ol-launcher[data-state="typing"] .fl-orb-corona {
+  scale: 1.14;
+  transition: scale 220ms var(--ease-out);
+}
+
+/* Error: a 300ms tint toward --danger, then back. */
+.ol-tint {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--danger) 70%, transparent),
+    transparent 72%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease-out;
+}
+.ol-launcher[data-state="error"] .ol-tint {
+  opacity: 0.85;
+}
+
+/* Answering: a ring that ripples out every 900ms while the reply streams in. */
+.ol-ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.5px solid color-mix(in oklch, var(--orb-1) 80%, transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Tooltip "Ask Renor": shown on hover and keyboard focus (the button's label says the same). */
+.ol-tip {
+  position: absolute;
+  right: calc(100% + 0.75rem);
+  top: 50%;
+  translate: 0 -50%;
+  white-space: nowrap;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--text-1);
+  padding: 0.375rem 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-out;
+}
+.ol-launcher[data-state="hover"] .ol-tip,
+.ol-launcher:focus-visible .ol-tip {
+  opacity: 1;
+}
+.ol-launcher[aria-expanded="true"] .ol-tip {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Idle: a slow 3.2s breath of the whole orb, as before. The orb's own life (turning,
+     lightning, sparkles, corona) is FounderOrb's; typing and answering also quicken that
+     through the orb state (LAUNCHER_ORB_STATE). */
+  .ol-launcher .ol-orb {
+    animation: ol-breathe 3.2s ease-in-out infinite;
+    animation-play-state: var(--ol-play, running);
+  }
+  /* Typing: a faster pulse. */
+  .ol-launcher[data-state="typing"] .ol-orb {
+    animation-duration: 1.4s;
+  }
+  /* The breath stops with the orb: off-screen or in a hidden tab. */
+  .ol-launcher .ol-orb[data-orb-running="false"] {
+    animation-play-state: paused;
+  }
+  .ol-launcher[data-state="answering"] .ol-ripple {
+    animation: ol-ripple 900ms var(--ease-out) infinite;
+    animation-play-state: var(--ol-play, running);
+  }
+  /* Paused while the tab is hidden. */
+  html[data-tab-hidden] .ol-launcher {
+    --ol-play: paused;
+  }
+}
+@keyframes ol-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+@keyframes ol-ripple {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
+}
+
+/* Reduced motion: a static glow; state changes are opacity fades of 150ms or less. */
+@media (prefers-reduced-motion: reduce) {
+  .ol-launcher,
+  .ol-launcher[data-state="hover"],
+  .ol-launcher:focus-visible {
+    transform: none;
+    transition: opacity 150ms linear;
+  }
+  .ol-launcher[data-state="answering"] .ol-ripple {
+    opacity: 0.7;
+  }
+}
+
+/* ── The Guide panel: grows out of the orb, folds back into it. ───────────────────── */
+.ol-panel {
+  transform-origin: calc(100% - 28px) calc(100% + 40px);
+}
+.ol-panel[data-phase="opening"],
+.ol-panel[data-phase="open"] {
+  animation: ol-grow 320ms var(--ease-out) both;
+}
+.ol-panel[data-phase="closing"] {
+  animation: ol-fold 240ms cubic-bezier(0.4, 0, 1, 1) both;
+  pointer-events: none;
+}
+@keyframes ol-grow {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ol-fold {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.86);
+  }
+}
+
+/* Bottom sheet at 480px and below. */
+@media (max-width: 480px) {
+  .ol-panel {
+    transform-origin: 50% 100%;
+  }
+  .ol-panel[data-phase="opening"],
+  .ol-panel[data-phase="open"] {
+    animation-name: ol-sheet-up;
+  }
+  .ol-panel[data-phase="closing"] {
+    animation-name: ol-sheet-down;
+  }
+  /* Keep the last links on a page clear of the launcher. */
+  body > footer,
+  footer:last-of-type {
+    padding-bottom: 5rem;
+  }
+}
+@keyframes ol-sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes ol-sheet-down {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+.ol-scrim {
+  animation: ol-fade 240ms ease-out both;
+}
+.ol-scrim[data-phase="closing"] {
+  animation-direction: reverse;
+}
+@keyframes ol-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ol-panel[data-phase="opening"],
+  .ol-panel[data-phase="open"],
+  .ol-panel[data-phase="closing"] {
+    animation-name: ol-fade;
+    animation-duration: 150ms;
+    animation-timing-function: linear;
+  }
+  .ol-panel[data-phase="closing"] {
+    animation-direction: reverse;
+  }
+}

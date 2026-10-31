@@ -6,38 +6,28 @@ import type { ReactNode } from 'react';
 import { STATUS, type StatusKey } from '@/lib/business/ecosystem';
 import { cn } from '@/lib/utils';
 
-const TONE: Record<(typeof STATUS)[StatusKey]['tone'], string> = {
-  live: 'border-emerald-600/35 bg-emerald-50 text-emerald-800 dark:border-emerald-400/35 dark:bg-emerald-400/10 dark:text-emerald-200',
-  preview:
-    'border-sky-600/35 bg-sky-50 text-sky-800 dark:border-sky-400/35 dark:bg-sky-400/10 dark:text-sky-200',
-  experimental:
-    'border-amber-600/35 bg-amber-50 text-amber-800 dark:border-amber-400/35 dark:bg-amber-400/10 dark:text-amber-200',
-  planned: 'border-border bg-muted text-muted-foreground',
-};
-
+/**
+ * The one status badge. Its look lives in `.status-badge` (custom-style.css): ink text in both
+ * themes (AA), a tinted border and dot per tone. LIVE has a solid dot with a halo, PREVIEW is
+ * amber, EXPERIMENTAL violet, PLANNED an outline with a hollow dot. The label always says the
+ * status in words; colour is never the only signal.
+ */
 export function StatusBadge({ status, className }: { status: StatusKey; className?: string }) {
   const entry = STATUS[status];
   return (
     <span
-      className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold tracking-[0.06em] uppercase',
-        TONE[entry.tone],
-        className,
-      )}
+      className={cn('status-badge', className)}
+      data-tone={entry.tone}
       title={entry.description}
     >
-      <span aria-hidden="true" className="size-1.5 rounded-full bg-current" />
+      <span aria-hidden="true" className="status-badge-dot" />
       {entry.label}
     </span>
   );
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <p className="text-[0.8125rem] font-semibold tracking-[0.12em] text-link uppercase">
-      {children}
-    </p>
-  );
+  return <p className="text-sm font-semibold tracking-[0.12em] text-link uppercase">{children}</p>;
 }
 
 /**
@@ -59,6 +49,7 @@ export function PageHero({
   lede,
   children,
   aside,
+  byline,
 }: {
   eyebrow: string;
   title: ReactNode;
@@ -66,6 +57,8 @@ export function PageHero({
   children?: ReactNode;
   /** Optional content beside the text on large screens (below it on small ones). */
   aside?: ReactNode;
+  /** Optional byline under the lede, e.g. the founder's. */
+  byline?: ReactNode;
 }) {
   return (
     <section className="relative isolate overflow-hidden border-b border-border px-5 pt-16 pb-16 sm:px-8 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
@@ -80,6 +73,7 @@ export function PageHero({
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1 className="mt-5 max-w-4xl font-display type-title text-balance">{title}</h1>
           <div className="mt-6 max-w-2xl type-lead text-pretty text-muted-foreground">{lede}</div>
+          {byline ? <div className="mt-7">{byline}</div> : null}
           {children ? <div className="mt-10 flex flex-wrap gap-3">{children}</div> : null}
         </div>
         {aside}
