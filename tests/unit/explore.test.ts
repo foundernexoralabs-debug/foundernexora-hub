@@ -29,6 +29,7 @@ const PAGE_ROUTE: Partial<Record<ExplorePage, string>> = {
   home: '/',
   renor: '/renor',
   plans: '/renor/plans',
+  billing: '/renor/billing',
   plugins: '/plugins',
   projects: '/projects',
   'zero-to-proof': '/zero-to-proof',
@@ -76,8 +77,24 @@ describe('Explore FounderLab destinations', () => {
   });
 });
 
+describe('related policies', () => {
+  it('Privacy, Terms and Billing each point to the other policies', () => {
+    expect(EXPLORE.privacy.destinations).toEqual(expect.arrayContaining(['terms', 'billing']));
+    expect(EXPLORE.terms.destinations).toEqual(expect.arrayContaining(['privacy', 'billing']));
+    expect(EXPLORE.billing.destinations).toEqual(
+      expect.arrayContaining(['plans', 'terms', 'privacy']),
+    );
+    expect(EXPLORE.plans.destinations).toContain('billing');
+  });
+
+  it('describes the Plugin Store buying page as the Plugin Store’s, not Renor plans’', () => {
+    expect(DESTINATIONS['plugin-buying'].text).toMatch(/^Plugin Store/);
+    expect(DESTINATIONS.plans.text).not.toMatch(/proposed/i);
+  });
+});
+
 describe('footer', () => {
-  it('links every part of the company, including Accessibility and the Renor app', () => {
+  it('links every part of the company, including Accessibility, Billing and the Renor app', () => {
     const footer = navItems.filter((item) => item.group === 'footer').map((item) => item.href);
     for (const href of [
       '/renor',
@@ -92,6 +109,7 @@ describe('footer', () => {
       '/accessibility',
       '/privacy',
       '/terms',
+      '/renor/billing',
     ]) {
       expect(footer, href).toContain(href);
     }

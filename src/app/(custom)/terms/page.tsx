@@ -1,26 +1,29 @@
-// @polsia:user-owned — terms for using this website. Product and Plugin Store terms are published separately before they apply.
+// @polsia:user-owned — terms for using this website, who sells Renor's paid plans, and where product
+// terms live: billing for paid plans on /renor/billing; Plugin Store terms before the first sale.
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { LegalDocument, type LegalSection } from '@/components/custom/legal-document';
+import { BILLING_PATH, BILLING_TITLE, SELLER_IDENTITY } from '@/lib/business/billing';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Terms',
   description:
-    'Terms for using the FounderLab website, and where Renor and Plugin Store terms will live.',
+    'Terms for using the FounderLab website, who sells Renor’s paid plans, and where billing, refund and Plugin Store terms live.',
   path: '/terms',
 });
 
-const UPDATED = '22 October 2026';
+const UPDATED = '31 October 2026';
 
 const SECTIONS: readonly LegalSection[] = [
   { id: 'what-this-website-is', title: 'What this website is' },
   { id: 'previews', title: 'Previews' },
   { id: 'content-and-code', title: 'Content and code' },
   { id: 'product-terms', title: 'Product and Plugin Store terms' },
+  { id: 'who-we-are', title: 'Who we are' },
   { id: 'changes-and-contact', title: 'Changes and contact' },
 ];
 
@@ -52,13 +55,25 @@ export default function TermsPage() {
 
         <h2 id="product-terms">Product and Plugin Store terms</h2>
         <p>
-          Terms for Renor accounts and for anything sold in the{' '}
+          How Renor’s paid plans (Pro, Plus and Max) are billed, how to cancel, the 14-day refund on
+          your first subscription and how price changes are announced are set out in{' '}
+          <Link href={BILLING_PATH} className="text-foreground underline underline-offset-4">
+            {BILLING_TITLE}
+          </Link>
+          . Paid plans are not on sale yet; those rules apply from the day checkout goes live. Full
+          terms for Renor accounts will be published before then.
+        </p>
+        <p>
+          Terms for anything sold in the{' '}
           <Link href="/plugins" className="text-foreground underline underline-offset-4">
             Renor Plugin Store
           </Link>{' '}
-          will be published before they apply: before any paid plan is offered and before the first
-          product is sold. That includes the refund terms for digital downloads.
+          are separate, and will be published before the first product is sold. That includes the
+          refund terms for digital downloads.
         </p>
+
+        <h2 id="who-we-are">Who we are</h2>
+        <p>{SELLER_IDENTITY}</p>
 
         <h2 id="changes-and-contact">Changes and contact</h2>
         <p>

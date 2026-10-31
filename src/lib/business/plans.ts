@@ -1,14 +1,18 @@
 // @polsia:user-owned — Renor's Free, Pro, Plus and Max plans: the single source for the plans page.
 //
 // Free is real: its button opens Renor, where you create an account.
-// Every price and allowance below is a PROPOSAL from the founder (22 October 2026). None is
-// approved, no checkout exists, and no payment can be taken, so paid plans only offer an
-// early list by email. tests/unit/plans.test.ts fails the build if a plan links to a
-// checkout, drops its "Proposed" label, or promises unlimited use.
+// Prices were APPROVED by the founder on 31 October 2026 (£0 / £12 / £29 / £79 a month). The
+// allowances are still PLANNED: the credit unit is being set, so they are labelled as planned.
+// Paid plans are NOT on sale: no checkout exists until it is verified end to end and the founder
+// says go live, so Pro, Plus and Max only offer an early list by email. How billing, cancelling
+// and refunds work is on /renor/billing (src/lib/business/billing.ts).
+// tests/unit/plans.test.ts fails the build if a plan links to a checkout, a paid plan is offered
+// for sale, or any plan promises unlimited use.
 // The allowances themselves will be enforced by the Renor server, not by this page.
+import { BILLING_PATH, BILLING_TITLE } from '@/lib/business/billing';
 import { CONTACT_MAILTO, RENOR_APP_URL } from '@/lib/business/ecosystem';
 
-/** What a plan's button does. There is deliberately no `checkout` kind until one is approved. */
+/** What a plan's button does. There is deliberately no `checkout` kind until checkout goes live. */
 export interface PlanAction {
   kind: 'signup' | 'early-list';
   label: string;
@@ -23,11 +27,11 @@ export interface PlanPrice {
   /** How it reads, e.g. "£12". */
   label: string;
   period: 'per month';
-  /** Every price is a proposal until the founder approves it. */
-  status: 'proposed';
+  /** Approved by the founder on 31 October 2026. */
+  status: 'approved';
 }
 
-/** Proposed allowances. Numbers, never "unlimited". */
+/** Planned allowances: numbers, never "unlimited". Not final until credit rates are published. */
 export interface PlanAllowances {
   creditsPerWeek: number;
   activeProjects: number;
@@ -41,8 +45,8 @@ export interface Plan {
   name: string;
   forWho: string;
   price: PlanPrice;
-  /** Free can be used today; paid plans open once their prices are approved. */
-  state: 'open' | 'proposed';
+  /** Free can be used today; paid plans are not on sale until checkout goes live. */
+  state: 'open' | 'not-on-sale';
   /** Shown as the recommended plan for most paying users. */
   highlight?: boolean;
   action: PlanAction;
@@ -63,21 +67,26 @@ function earlyList(planName: string): PlanAction {
   };
 }
 
-const PROPOSED = 'proposed' as const;
+const APPROVED = 'approved' as const;
+
+/** The day the founder approved the prices, as the site writes it. */
+export const PRICES_APPROVED_ON = '31 October 2026';
 
 /** Said plainly on the page: why Pro, Plus and Max cannot be bought yet. */
 export const PAID_PLANS_NOTICE =
-  'Pro, Plus and Max open once their prices are approved. Until then there is no checkout and nothing to pay.';
+  'Pro, Plus and Max open when checkout goes live. Until then nothing can be bought and nothing is charged.';
 
-/** The label every price and allowance carries until it is approved. */
-export const PROPOSED_LABEL = 'Proposed price';
+/** The heading over every plan's allowances, and the one honest line about why. */
+export const ALLOWANCES_LABEL = 'Planned allowances';
+export const ALLOWANCES_NOTE =
+  'Allowances are planned, not final: credit rates are published before billing opens.';
 
 export const PLANS: readonly Plan[] = [
   {
     id: 'free',
     name: 'Free',
     forWho: 'Try Renor properly, at no cost.',
-    price: { amount: 0, label: '£0', period: 'per month', status: PROPOSED },
+    price: { amount: 0, label: '£0', period: 'per month', status: APPROVED },
     state: 'open',
     action: {
       kind: 'signup',
@@ -96,8 +105,8 @@ export const PLANS: readonly Plan[] = [
     id: 'pro',
     name: 'Pro',
     forWho: 'For regular creators and developers.',
-    price: { amount: 12, label: '£12', period: 'per month', status: PROPOSED },
-    state: 'proposed',
+    price: { amount: 12, label: '£12', period: 'per month', status: APPROVED },
+    state: 'not-on-sale',
     action: earlyList('Pro'),
     allowances: {
       creditsPerWeek: 600,
@@ -110,8 +119,8 @@ export const PLANS: readonly Plan[] = [
     id: 'plus',
     name: 'Plus',
     forWho: 'For daily building and harder problems.',
-    price: { amount: 29, label: '£29', period: 'per month', status: PROPOSED },
-    state: 'proposed',
+    price: { amount: 29, label: '£29', period: 'per month', status: APPROVED },
+    state: 'not-on-sale',
     highlight: true,
     action: earlyList('Plus'),
     allowances: {
@@ -125,8 +134,8 @@ export const PLANS: readonly Plan[] = [
     id: 'max',
     name: 'Max',
     forWho: 'For heavy, multi-project work.',
-    price: { amount: 79, label: '£79', period: 'per month', status: PROPOSED },
-    state: 'proposed',
+    price: { amount: 79, label: '£79', period: 'per month', status: APPROVED },
+    state: 'not-on-sale',
     action: earlyList('Max'),
     allowances: {
       creditsPerWeek: 6000,
@@ -162,8 +171,20 @@ export function allowanceLines(plan: Plan): { id: string; label: string; value: 
   ];
 }
 
+/** "Free £0, Pro £12, Plus £29 and Max £79", read from the plans above. */
+export function priceList(): string {
+  const items = PLANS.map((plan) => `${plan.name} ${plan.price.label}`);
+  return `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
+}
+
+/** A page an FAQ answer points to for the full rules. */
+export interface FaqLink {
+  href: string;
+  label: string;
+}
+
 /** Short answers to the questions people ask before choosing a plan. */
-export const PLAN_FAQ = [
+export const PLAN_FAQ: readonly { q: string; a: string; link?: FaqLink }[] = [
   {
     q: 'What is an AI credit?',
     a: 'Credits measure the cloud AI work Renor does for you. Harder tasks and stronger models use more of them. Exact rates are published before billing opens.',
@@ -174,11 +195,12 @@ export const PLAN_FAQ = [
   },
   {
     q: 'What happens when my credits run out?',
-    a: 'AI work pauses until your credits reset, and nothing is lost. Your projects stay open: you can still view, edit and preview them.',
+    a: 'AI work pauses until your credits reset or you upgrade, and nothing is lost. There are no overage charges. Your projects stay open: you can still view, edit and preview them.',
   },
   {
     q: 'Can I upgrade, downgrade or cancel?',
-    a: 'How upgrades, downgrades and cancellation work will be explained in full before billing opens. Today no paid plan can be bought, so there is nothing to cancel.',
+    a: 'Yes. Cancel any time: paid features stay until the end of the month you paid for, then your account moves to Free with your work kept. Cancel within 14 days of first paying for a paid plan and we refund the unused days. Upgrades start straight away, with the difference charged pro rata for the rest of the month; downgrades start at your next renewal.',
+    link: { href: BILLING_PATH, label: BILLING_TITLE },
   },
   {
     q: 'Is any plan unlimited?',
@@ -186,9 +208,9 @@ export const PLAN_FAQ = [
   },
   {
     q: 'Are these prices final?',
-    a: 'No. They are proposed and not yet approved. Final prices are published here before anything can be bought.',
+    a: `Yes. The prices were approved on ${PRICES_APPROVED_ON}: ${priceList()} a month, in pounds sterling. Pro, Plus and Max are not on sale yet: they open when checkout goes live. If a price ever changes, you are emailed at least 30 days before it applies. The allowances are still planned until credit rates are published.`,
   },
-] as const;
+];
 
 /** Commitments every plan is being designed around, including when credits run out. */
 export const PLAN_PRINCIPLES = [

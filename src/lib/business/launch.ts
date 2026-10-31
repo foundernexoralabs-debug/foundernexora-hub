@@ -135,7 +135,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: 'billing',
     title: 'Paid plans',
-    text: 'Pro, Plus and Max at proposed prices of £12, £29 and £79 a month. Billing is not live: nothing can be bought yet.',
+    text: 'Pro, Plus and Max at £12, £29 and £79 a month. Billing is not live: nothing can be bought yet.',
     status: 'planned',
     icon: 'card',
   },
@@ -268,7 +268,7 @@ export const TOUR: readonly TourShot[] = [
     id: 'plan',
     tab: 'Plan & usage',
     title: 'Know where you stand',
-    text: 'Weekly credits, when they reset and where they went. Paid plans show proposed prices and say plainly that billing opens later.',
+    text: 'Weekly credits, when they reset and where they went. Paid plans say plainly that billing opens later.',
     file: 'plan',
     alt: 'Renor Settings, Plan and usage: Free plan with 49 of 50 weekly credits left and the reset time, a breakdown of where credits went, and Free, Pro, Plus and Max plans with paid prices marked Proposed and buttons reading Billing opens soon.',
     ...SHOT_SIZE,

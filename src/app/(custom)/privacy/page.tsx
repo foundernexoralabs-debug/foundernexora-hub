@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { PageHero } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { LegalDocument, type LegalSection } from '@/components/custom/legal-document';
+import { BILLING_PATH, BILLING_TITLE } from '@/lib/business/billing';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { pageMetadata } from '@/lib/business/seo';
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/privacy',
 });
 
-const UPDATED = '24 October 2026';
+const UPDATED = '31 October 2026';
 
 const SECTIONS: readonly LegalSection[] = [
   { id: 'this-website', title: 'This website' },
@@ -107,7 +108,15 @@ export default function PrivacyPage() {
           Renor is a separate app that you sign in to. It stores your account, projects, notes and
           settings so you can come back to them, and it sends your requests to the AI provider you
           use. In the next Renor release, code you run with Python in Code AI runs in your own
-          browser. Renor’s full privacy terms will be published before any paid plan exists.
+          browser. Renor’s full privacy terms will be published before any paid plan goes on sale.
+        </p>
+        <p>
+          When paid plans open, payments are handled by Stripe, our payment provider. Renor never
+          sees or stores your card number. See{' '}
+          <Link href={BILLING_PATH} className="text-foreground underline underline-offset-4">
+            {BILLING_TITLE}
+          </Link>
+          .
         </p>
 
         <h2 id="the-plugin-store">The Plugin Store</h2>

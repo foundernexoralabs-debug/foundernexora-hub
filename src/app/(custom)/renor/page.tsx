@@ -304,8 +304,8 @@ export default function RenorPage() {
             <article className="flex flex-col rounded-2xl border border-border bg-card p-7">
               <p className="text-sm font-semibold">Plans</p>
               <p className="mt-3 flex-1 type-copy text-muted-foreground">
-                Free is open today. Pro, Plus and Max have proposed prices of £12, £29 and £79 a
-                month. They are not approved, and nothing is on sale.
+                Free is open today. Pro, Plus and Max are £12, £29 and £79 a month, and open when
+                checkout goes live. Nothing is on sale yet.
               </p>
               {planShot ? (
                 <ThemedShot
@@ -318,7 +318,7 @@ export default function RenorPage() {
                 href="/renor/plans"
                 className="mt-5 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
               >
-                See the proposed plans <ArrowRight aria-hidden="true" className="size-4" />
+                Compare the plans <ArrowRight aria-hidden="true" className="size-4" />
               </Link>
             </article>
             <article className="flex flex-col rounded-2xl border border-border bg-card p-7">

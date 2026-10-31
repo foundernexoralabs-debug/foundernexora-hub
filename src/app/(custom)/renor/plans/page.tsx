@@ -1,22 +1,25 @@
-// @polsia:user-owned — Renor's Free, Pro, Plus and Max plans. Free is open; every price and
-// allowance is a proposal, labelled as one. No plan can be bought: there is no approved checkout,
-// so paid buttons join an early list by email. Rules enforced by tests/unit/plans.test.ts.
-import { ArrowUpRight, Boxes, Cpu, Gauge, Info, Layers, Mail } from 'lucide-react';
+// @polsia:user-owned — Renor's Free, Pro, Plus and Max plans. Free is open; prices are approved
+// (31 October 2026) and allowances are planned, labelled as such. No paid plan can be bought until
+// checkout goes live, so paid buttons join an early list by email. How billing, cancelling and
+// refunds work links to /renor/billing. Rules enforced by tests/unit/plans.test.ts.
+import { ArrowRight, ArrowUpRight, Boxes, Cpu, Gauge, Info, Layers, Mail } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Eyebrow, PageHero, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { FaqList } from '@/components/custom/faq-list';
 import { Button } from '@/components/ui/button';
+import { BILLING_PATH, BILLING_TITLE } from '@/lib/business/billing';
 import { RENOR_APP_URL } from '@/lib/business/ecosystem';
 import {
+  ALLOWANCES_LABEL,
+  ALLOWANCES_NOTE,
   allowanceLines,
   PAID_PLANS_NOTICE,
   PLAN_FAQ,
   PLAN_PRINCIPLES,
   PLANS,
   type Plan,
-  PROPOSED_LABEL,
 } from '@/lib/business/plans';
 import { pageMetadata } from '@/lib/business/seo';
 import { cn } from '@/lib/utils';
@@ -24,11 +27,29 @@ import { cn } from '@/lib/utils';
 export const metadata: Metadata = pageMetadata({
   title: 'Renor plans — Free, Pro, Plus and Max',
   description:
-    'Start Renor free today. Pro, Plus and Max have proposed prices of £12, £29 and £79 a month with weekly AI credits. Nothing is on sale yet: join the early list by email.',
+    'Start Renor free today. Pro, Plus and Max are £12, £29 and £79 a month with weekly AI credits, and open when checkout goes live. Join the early list by email.',
   path: '/renor/plans',
 });
 
 const ALLOWANCE_ICONS = { credits: Gauge, projects: Boxes, jobs: Layers, models: Cpu } as const;
+
+const INLINE_LINK = 'font-medium text-foreground underline underline-offset-4';
+
+/** The FAQ as the list renders it: an answer that points to the full rules ends with that link. */
+const FAQ_ITEMS = PLAN_FAQ.map((item) => ({
+  q: item.q,
+  a: item.link ? (
+    <>
+      {item.a}{' '}
+      <Link href={item.link.href} className={INLINE_LINK}>
+        {item.link.label}
+      </Link>
+      .
+    </>
+  ) : (
+    item.a
+  ),
+}));
 
 function PlanButton({ plan }: { plan: Plan }) {
   const { action } = plan;
@@ -93,10 +114,8 @@ function PlanCard({ plan }: { plan: Plan }) {
           </span>
           <span className="type-meta text-muted-foreground">{plan.price.period}</span>
         </p>
-        <p className="mt-3 inline-flex items-center gap-1.5 rounded-md border border-amber-600/30 bg-amber-50 px-2 py-0.5 text-sm font-semibold text-amber-900 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-200">
-          <Info aria-hidden="true" className="size-3.5" />
-          {PROPOSED_LABEL}
-          <span className="sr-only">: not approved yet</span>
+        <p className="mt-3 type-meta text-muted-foreground">
+          {plan.price.amount === 0 ? 'Nothing to pay.' : 'Billed monthly. Cancel any time.'}
         </p>
       </div>
 
@@ -109,7 +128,7 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <div className="mt-7 border-t border-border pt-6">
         <p className="text-sm font-semibold tracking-[0.12em] text-muted-foreground uppercase">
-          Proposed allowances
+          {ALLOWANCES_LABEL}
         </p>
         <dl className="mt-4 grid gap-4">
           {allowanceLines(plan).map((line) => {
@@ -145,7 +164,7 @@ export default function PlansPage() {
             Sign up for Free today and use Renor in your browser. Every plan runs on weekly AI
             credits with clear limits.{' '}
             <strong className="font-semibold text-foreground">
-              Prices are proposed, not approved, and paid plans cannot be bought yet.
+              Pro, Plus and Max open when checkout goes live.
             </strong>
           </>
         }
@@ -170,14 +189,21 @@ export default function PlansPage() {
           <h2 id="plans-title" className="sr-only">
             Plans
           </h2>
-          <p className="flex max-w-3xl gap-3 rounded-2xl border border-border bg-band p-4 type-copy sm:p-5">
+          <div className="flex max-w-3xl gap-3 rounded-2xl border border-border bg-band p-4 type-copy sm:p-5">
             <Info aria-hidden="true" className="mt-1 size-5 shrink-0 text-link" />
-            <span>
-              <span className="font-semibold">Paid plans are not on sale yet. </span>
-              {PAID_PLANS_NOTICE} Prices are in pounds per month; credit, project and job numbers
-              are proposed too.
-            </span>
-          </p>
+            <div>
+              <p>
+                <span className="font-semibold">Paid plans are not on sale yet. </span>
+                {PAID_PLANS_NOTICE} Prices are in pounds sterling per month. {ALLOWANCES_NOTE}
+              </p>
+              <Link
+                href={BILLING_PATH}
+                className="mt-2 inline-flex min-h-11 items-center gap-1.5 font-semibold text-link underline-offset-4 hover:underline"
+              >
+                {BILLING_TITLE} <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+            </div>
+          </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-5">
             {PLANS.map((plan) => (
               <PlanCard key={plan.id} plan={plan} />
@@ -219,17 +245,18 @@ export default function PlansPage() {
               Credits, limits and billing.
             </h2>
             <p className="mt-5 max-w-md type-copy text-muted-foreground">
-              Something not covered here? Ask on the{' '}
-              <Link
-                href="/contact"
-                className="font-medium text-foreground underline underline-offset-4"
-              >
+              The full rules for paying, cancelling and refunds are on{' '}
+              <Link href={BILLING_PATH} className={INLINE_LINK}>
+                {BILLING_TITLE}
+              </Link>
+              . Something not covered? Ask on the{' '}
+              <Link href="/contact" className={INLINE_LINK}>
                 contact page
               </Link>
               . A person reads every message.
             </p>
           </div>
-          <FaqList items={PLAN_FAQ} />
+          <FaqList items={FAQ_ITEMS} />
         </div>
       </section>
       <ExploreBand page="plans" />

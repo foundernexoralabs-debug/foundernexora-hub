@@ -3,6 +3,7 @@
 import { readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { BILLING_PATH, SELLER_IDENTITY } from '../../src/lib/business/billing';
 import { CHANNELS, RENOR_APP_URL } from '../../src/lib/business/ecosystem';
 import { PLANS } from '../../src/lib/business/plans';
 import { findPlugin } from '../../src/lib/business/plugins';
@@ -50,13 +51,34 @@ describe('Renor Guide knowledge base', () => {
     }
   });
 
-  it('labels every paid-plan price as proposed', () => {
+  it('says a paid plan is not on sale wherever it gives its price', () => {
     for (const plan of PLANS.filter((p) => p.price.amount > 0)) {
       const mentions = KNOWLEDGE.filter((entry) => entry.answer.includes(plan.price.label));
       expect(mentions.length, plan.name).toBeGreaterThan(0);
+      // "plan…" ids only: a Plugin Store product can share a price label (£29) with a plan.
       for (const entry of mentions.filter((e) => e.id.startsWith('plan')))
-        expect(entry.answer, entry.id).toMatch(/proposed/i);
+        expect(entry.answer, entry.id).toMatch(/not on sale yet/i);
     }
+    const overview = KNOWLEDGE.find((entry) => entry.id === 'plans-overview');
+    expect(overview?.answer).toMatch(/open when checkout goes live/);
+  });
+
+  it('no longer calls the approved prices proposed or unapproved', () => {
+    for (const entry of KNOWLEDGE)
+      expect(`${entry.title} ${entry.answer}`, entry.id).not.toMatch(/proposed|not approved/i);
+  });
+
+  it('answers billing, cancelling and refunds from the billing page', () => {
+    const billing = KNOWLEDGE.find((entry) => entry.id === 'billing-refunds');
+    expect(billing?.source.href).toBe(BILLING_PATH);
+    expect(billing?.answer).toMatch(/cancel any time/i);
+    expect(billing?.answer).toMatch(/within 14 days of first paying/);
+    expect(billing?.answer).toMatch(/no overage charges/);
+    expect(billing?.answer).toMatch(/at least 30 days/);
+    expect(billing?.answer).toMatch(/not on sale|nothing can be bought/i);
+    const seller = KNOWLEDGE.find((entry) => entry.id === 'seller');
+    expect(seller?.answer).toContain(SELLER_IDENTITY);
+    expect(seller?.source.href.startsWith(BILLING_PATH)).toBe(true);
   });
 
   it('never claims registration, VAT, an address, certification or unlimited use', () => {

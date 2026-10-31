@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-const pages = ['privacy', 'terms', 'accessibility'] as const;
+const pages = ['privacy', 'terms', 'accessibility', 'renor/billing'] as const;
 const read = (page: string) =>
   readFileSync(path.resolve(__dirname, `../../src/app/(custom)/${page}/page.tsx`), 'utf-8');
 const squash = (text: string) => text.replace(/\s+/g, ' ').trim();
