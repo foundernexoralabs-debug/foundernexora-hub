@@ -4,6 +4,7 @@
 // destinations that are most useful from there. Pages render <ExploreBand page="…" />,
 // so no page ends in a dead end and no two pages end with the same generic block.
 // tests/unit/explore.test.ts checks every internal href resolves to a real page.
+import { BILLING_PATH } from '@/lib/business/billing';
 import { RENOR_APP_URL } from '@/lib/business/ecosystem';
 
 export type DestinationId =
@@ -12,6 +13,7 @@ export type DestinationId =
   | 'renor-beta'
   | 'launch-kit'
   | 'plans'
+  | 'billing'
   | 'plugins'
   | 'plugin-buying'
   | 'projects'
@@ -28,6 +30,7 @@ export type DestinationIcon =
   | 'layers'
   | 'bag'
   | 'receipt'
+  | 'card'
   | 'folder'
   | 'route'
   | 'building'
@@ -75,9 +78,15 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
   },
   plans: {
     title: 'Plans',
-    text: 'Free, Pro, Plus and Max, with weekly AI credits. Paid prices are proposed, not final.',
+    text: 'Free, Pro, Plus and Max, with weekly AI credits. Free is open today; paid plans open when checkout goes live.',
     href: '/renor/plans',
     icon: 'layers',
+  },
+  billing: {
+    title: 'Billing and refunds',
+    text: 'Monthly billing, cancel any time, a 14-day refund window and no overage charges.',
+    href: BILLING_PATH,
+    icon: 'card',
   },
   plugins: {
     title: 'Plugin Store',
@@ -87,7 +96,7 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
   },
   'plugin-buying': {
     title: 'How buying works',
-    text: 'Checkout, delivery and refunds: confirmed and published before anything goes on sale.',
+    text: 'Plugin Store checkout, delivery and refunds: published before the first product is sold.',
     href: '/plugins#buying',
     icon: 'receipt',
   },
@@ -129,7 +138,7 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
   },
   terms: {
     title: 'Terms',
-    text: 'The terms for using this website, and where product terms will live.',
+    text: 'The terms for using this website, who sells Renor plans, and where product terms live.',
     href: '/terms',
     icon: 'file',
   },
@@ -141,6 +150,7 @@ export type ExplorePage =
   | 'launch-kit'
   | 'storyboard'
   | 'plans'
+  | 'billing'
   | 'plugins'
   | 'product'
   | 'projects'
@@ -176,8 +186,12 @@ export const EXPLORE: Record<ExplorePage, ExploreSet> = {
     destinations: ['launch-kit', 'renor', 'renor-beta', 'zero-to-proof'],
   },
   plans: {
-    title: 'Start free today, and follow what comes next.',
-    destinations: ['renor-app', 'renor', 'zero-to-proof', 'contact'],
+    title: 'Start free today, and know exactly how paying works.',
+    destinations: ['renor-app', 'billing', 'renor', 'contact'],
+  },
+  billing: {
+    title: 'Related policies.',
+    destinations: ['plans', 'terms', 'privacy', 'contact'],
   },
   plugins: {
     title: 'More from FounderLab.',
@@ -209,11 +223,11 @@ export const EXPLORE: Record<ExplorePage, ExploreSet> = {
   },
   privacy: {
     title: 'Related policies.',
-    destinations: ['terms', 'plugin-buying', 'accessibility', 'contact'],
+    destinations: ['terms', 'billing', 'accessibility', 'contact'],
   },
   terms: {
     title: 'Related policies.',
-    destinations: ['privacy', 'plugin-buying', 'accessibility', 'contact'],
+    destinations: ['privacy', 'billing', 'plugin-buying', 'contact'],
   },
   'not-found': {
     title: 'Try one of these instead.',

@@ -175,7 +175,7 @@ export default function StoryboardPage() {
               <li>
                 Voice-over runs at about 2.4 words a second; leave a beat of silence at each cut.
               </li>
-              <li>No prices in the film: paid plans are proposals until billing is approved.</li>
+              <li>No prices in the film: paid plans are not on sale until checkout goes live.</li>
             </ul>
           </div>
         </div>

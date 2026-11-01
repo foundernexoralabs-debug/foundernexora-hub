@@ -307,7 +307,7 @@ export default function PluginStorePage() {
               <ul className="mt-6 grid gap-3 type-copy text-muted-foreground">
                 <li>Monthly access to the Renor AI workspace.</li>
                 <li>Weekly AI credits, from Free to Max.</li>
-                <li>Paid prices are proposed and not on sale yet.</li>
+                <li>Paid plans are not on sale yet.</li>
               </ul>
               <Link
                 href="/renor/plans"

@@ -73,5 +73,12 @@ export const navItems: NavItem[] = [
   { label: 'Contact', href: '/contact', group: 'footer', menu: 'Company', order: 9 },
   { label: 'Privacy', href: '/privacy', group: 'footer', menu: 'Legal', order: 10 },
   { label: 'Terms', href: '/terms', group: 'footer', menu: 'Legal', order: 11 },
+  {
+    label: 'Billing and refunds',
+    href: '/renor/billing',
+    group: 'footer',
+    menu: 'Legal',
+    order: 11.5,
+  },
   { label: 'Accessibility', href: '/accessibility', group: 'footer', menu: 'Legal', order: 12 },
 ];

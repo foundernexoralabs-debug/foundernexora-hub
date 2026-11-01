@@ -115,13 +115,15 @@ describe('claims', () => {
       expect(Object.keys(STATUS)).toContain(item.status);
   });
 
-  it('every plan price is a proposal while billing does not exist', () => {
-    for (const plan of PLANS) expect(plan.price.status, plan.name).toBe('proposed');
+  it('every plan price is the founder-approved one', () => {
+    for (const plan of PLANS) expect(plan.price.status, plan.name).toBe('approved');
   });
 
-  it('only Free is open; every paid plan is still proposed', () => {
-    for (const plan of PLANS.filter((entry) => entry.id !== 'free'))
-      expect(plan.state, plan.name).toBe('proposed');
+  it('only Free is open; every paid plan stays off sale until checkout goes live', () => {
+    for (const plan of PLANS.filter((entry) => entry.id !== 'free')) {
+      expect(plan.state, plan.name).toBe('not-on-sale');
+      expect(plan.action.kind, plan.name).toBe('early-list');
+    }
   });
 
   it('every screenshot referenced on the site exists in public/', () => {

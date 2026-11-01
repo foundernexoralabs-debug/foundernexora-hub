@@ -70,10 +70,20 @@ describe('robots.txt', () => {
 });
 
 describe('sitemap.xml', () => {
-  it('lists the accessibility statement alongside the core pages', async () => {
+  it('lists the accessibility statement and the policies alongside the core pages', async () => {
     const { default: sitemap } = await import('../../src/app/sitemap');
     const paths = (await sitemap()).map((entry) => new URL(entry.url).pathname);
-    for (const route of ['/', '/renor', '/renor/plans', '/plugins', '/contact', '/accessibility'])
+    for (const route of [
+      '/',
+      '/renor',
+      '/renor/plans',
+      '/renor/billing',
+      '/plugins',
+      '/contact',
+      '/accessibility',
+      '/privacy',
+      '/terms',
+    ])
       expect(paths, route).toContain(route);
   });
 

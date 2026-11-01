@@ -48,7 +48,8 @@ describe('feature status', () => {
     expect(byId.billing?.status).toBe('planned');
     expect(byId.publishing?.status).toBe('planned');
     expect(byId.desktop?.status).toBe('planned');
-    expect(byId.billing?.text).toMatch(/proposed/i);
+    expect(byId.billing?.text).toMatch(/Billing is not live: nothing can be bought yet/);
+    expect(byId.billing?.text).not.toMatch(/proposed/i);
   });
 
   it('has unique ids and three how-it-works steps', () => {

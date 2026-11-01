@@ -2,14 +2,20 @@
 //
 // Every entry is written from a page on this website (or the single-source constants those
 // pages render), and names that page so the answer can cite and link it. Prices, plans,
-// products, channels and statuses are read from their single sources (plans.ts, plugins.ts,
-// ecosystem.ts), so a correction there corrects the Guide too.
+// products, channels, statuses and billing rules are read from their single sources (plans.ts,
+// billing.ts, plugins.ts, ecosystem.ts), so a correction there corrects the Guide too.
 //
 // Rules, enforced by tests/unit/receptionist-knowledge.test.ts:
 //   - every entry cites a real internal route or a confirmed https URL;
-//   - every paid-plan price is labelled as proposed;
+//   - every paid-plan price says the plan is not on sale until checkout goes live;
 //   - no entry claims company registration, VAT, a legal address or certifications.
 
+import {
+  BILLING_PATH,
+  BILLING_SUMMARY,
+  BILLING_TITLE,
+  SELLER_IDENTITY,
+} from '@/lib/business/billing';
 import {
   CHANNELS,
   CONTACT_EMAIL,
@@ -69,13 +75,12 @@ function areaEntry(id: string, keywords: readonly string[]): KnowledgeEntry {
   };
 }
 
-const paid = PLANS.filter((plan) => plan.state === 'proposed');
+const paid = PLANS.filter((plan) => plan.state === 'not-on-sale');
 
 function planLine(plan: (typeof PLANS)[number]): string {
   const a = plan.allowances;
-  const price =
-    plan.price.amount === 0 ? '£0' : `${plan.price.label} per month (proposed, not approved yet)`;
-  return `${plan.name}: ${price}. ${numberFormat.format(a.creditsPerWeek)} AI credits per week, ${a.activeProjects} active projects, ${a.concurrentJobs} agent job${a.concurrentJobs === 1 ? '' : 's'} at once.`;
+  const price = plan.price.amount === 0 ? '£0' : `${plan.price.label} per month (not on sale yet)`;
+  return `${plan.name}: ${price}. Planned allowances: ${numberFormat.format(a.creditsPerWeek)} AI credits per week, ${a.activeProjects} active projects, ${a.concurrentJobs} agent job${a.concurrentJobs === 1 ? '' : 's'} at once.`;
 }
 
 const planEntries: KnowledgeEntry[] = PLANS.map((plan) => ({
@@ -94,7 +99,10 @@ const planFaqEntries: KnowledgeEntry[] = PLAN_FAQ.map((item, index) => ({
   title: item.q,
   keywords: ['credits', 'limit'],
   answer: item.a,
-  source: { label: 'Plans · Questions', href: '/renor/plans#plan-faq' },
+  // An answer that points to the full rules cites that page; the rest cite the Plans FAQ.
+  source: item.link
+    ? { label: item.link.label, href: item.link.href }
+    : { label: 'Plans · Questions', href: '/renor/plans#plan-faq' },
 }));
 
 const pluginEntries: KnowledgeEntry[] = listedPlugins().map((plugin) => ({
@@ -170,7 +178,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     title: 'Is Renor free? Do I need to pay?',
     keywords: ['free', 'cost', 'pay', 'payment', 'paid', 'trial', 'money', 'charge'],
     answer:
-      'Yes. Renor is free to use while it is in preview, and the Free plan is open today. Pro, Plus and Max have proposed prices that are not approved yet, so nothing can be bought and nothing is charged.',
+      'Yes. Renor is free to use while it is in preview, and the Free plan is open today. Pro, Plus and Max are not on sale yet: they open when checkout goes live, so nothing can be bought and nothing is charged.',
     source: { label: 'Plans', href: '/renor/plans' },
   },
   {
@@ -188,11 +196,41 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
       'tiers',
       'compare',
     ],
-    answer: `${PLANS.map(planLine).join(' ')} Every price is proposed: ${PAID_PLANS_NOTICE}`,
+    answer: `${PLANS.map(planLine).join(' ')} Prices are in pounds sterling. ${PAID_PLANS_NOTICE}`,
     source: { label: 'Plans', href: '/renor/plans' },
   },
   ...planEntries,
   ...planFaqEntries,
+  {
+    id: 'billing-refunds',
+    title: 'How does billing work? Can I cancel or get a refund on a Renor plan?',
+    keywords: [
+      'billing',
+      'refund policy',
+      'refunds',
+      'cancel',
+      'cancellation',
+      'subscription',
+      'money back',
+      'charged',
+      'renewal',
+      'overage',
+      'stripe',
+      'invoice',
+    ],
+    answer: `${BILLING_SUMMARY} Payments are handled by Stripe, and Renor never sees or stores your card number. ${PAID_PLANS_NOTICE}`,
+    source: { label: BILLING_TITLE, href: BILLING_PATH },
+  },
+  {
+    id: 'seller',
+    title: 'Who sells Renor plans? Who am I buying from?',
+    keywords: ['seller', 'who sells', 'sole trader', 'business', 'invoice', 'buying from'],
+    answer: `${SELLER_IDENTITY} For anything about billing, email ${CONTACT_EMAIL}.`,
+    source: {
+      label: `${BILLING_TITLE} · Who you are buying from`,
+      href: `${BILLING_PATH}#who-you-are-buying-from`,
+    },
+  },
   {
     id: 'paid-plans-buy',
     title: 'Can I buy or upgrade to a paid plan now?',
@@ -225,7 +263,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
       'buy',
       'purchase',
       'refund',
-      'policy',
+      'plugin refund',
       'delivery',
       'plug&pay',
       'plugandpay',
@@ -255,7 +293,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     title: 'How does Renor handle my data?',
     keywords: ['renor data', 'account data', 'stored', 'ai provider', 'delete', 'privacy'],
     answer:
-      'Renor is a separate app you sign in to. It stores your account, projects, notes and settings so you can come back to them, and sends your requests to the AI provider you use. Renor’s full privacy terms will be published before any paid plan exists.',
+      'Renor is a separate app you sign in to. It stores your account, projects, notes and settings so you can come back to them, and sends your requests to the AI provider you use. Renor’s full privacy terms will be published before any paid plan goes on sale.',
     source: { label: 'Privacy · Renor', href: '/privacy' },
   },
   {
@@ -317,7 +355,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
       'incorporated',
       'companies house',
     ],
-    answer: `This website does not publish company registration, VAT, a legal address or certification details, so I can’t confirm any of them. For anything legal or business-related, email ${CONTACT_EMAIL}.`,
+    answer: `${SELLER_IDENTITY} This website does not publish a company registration number, VAT details, a postal address or certifications, so I can’t confirm any of them. For anything legal or business-related, email ${CONTACT_EMAIL}.`,
     source: { label: 'Contact', href: '/contact' },
   },
   {
@@ -396,8 +434,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     id: 'terms',
     title: 'What are the terms of use?',
     keywords: ['terms', 'conditions', 'tos', 'licence', 'license', 'legal terms'],
-    answer:
-      'The Terms page covers using this website. Renor is offered as a preview that may change or make mistakes, so check AI output before relying on it. Terms for Renor accounts and Plugin Store sales, including refunds, will be published before they apply.',
+    answer: `The Terms page covers using this website. Renor is offered as a preview that may change or make mistakes, so check AI output before relying on it. Billing, cancellation and refunds for paid plans are on the ${BILLING_TITLE} page. Plugin Store terms, including refunds for digital downloads, will be published before the first product is sold.`,
     source: { label: 'Terms', href: '/terms' },
   },
   {

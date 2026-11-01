@@ -42,7 +42,7 @@ const FACTS = [
   ['What it is', 'An AI workspace for conversations, coding, websites and ongoing projects'],
   ['Status', 'In preview, free to start, with a private beta'],
   ['Where', 'In the browser'],
-  ['Plans', 'Free today. Pro £12, Plus £29 and Max £79 a month are proposed, not on sale'],
+  ['Plans', 'Free today. Pro £12, Plus £29 and Max £79 a month, not on sale yet'],
 ] as const;
 
 const SCREEN_FILES = [
@@ -301,7 +301,7 @@ export default function LaunchKitPage() {
             {[
               { href: '/renor', label: 'Renor: features, tour and private beta', external: false },
               { href: RENOR_APP_URL, label: 'Open the Renor web preview', external: true },
-              { href: '/renor/plans', label: 'Plans and proposed prices', external: false },
+              { href: '/renor/plans', label: 'Plans and prices', external: false },
               { href: '/plugins', label: 'Renor Plugin Store', external: false },
               { href: RENOR_LABS_STORE_URL, label: 'Renor Labs shop on Plug&Pay', external: true },
             ].map((link) =>

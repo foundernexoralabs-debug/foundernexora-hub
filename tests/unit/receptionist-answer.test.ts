@@ -33,7 +33,8 @@ describe('offline mode (no model configured)', () => {
     expect(response.mode).toBe('offline');
     expect(response.kind).toBe('answer');
     expect(response.reply).toContain('£12');
-    expect(response.reply).toMatch(/proposed/i);
+    expect(response.reply).toMatch(/not on sale yet/i);
+    expect(response.reply).not.toMatch(/proposed/i);
     expect(response.sources[0]).toEqual({ label: 'Plans', href: '/renor/plans' });
   });
 
@@ -142,15 +143,13 @@ describe('refusal', () => {
 
 describe('live mode (mocked model)', () => {
   it('returns the cited answer with only the cited pages as sources', async () => {
-    const fetchImpl = fakeModel(
-      'Pro is £12 a month, a proposed price that is not approved yet [1].',
-    );
+    const fetchImpl = fakeModel('Pro is £12 a month and is not on sale yet [1].');
     const { response } = await answerQuestion(ask('How much does Pro cost?'), {
       config: CONFIG,
       fetchImpl,
     });
     expect(response).toMatchObject({ kind: 'answer', mode: 'live', degraded: false });
-    expect(response.reply).toBe('Pro is £12 a month, a proposed price that is not approved yet.');
+    expect(response.reply).toBe('Pro is £12 a month and is not on sale yet.');
     expect(response.sources.length).toBe(1);
     expect(response.sources[0]?.href).toBe('/renor/plans');
   });
@@ -201,7 +200,7 @@ describe('live mode (mocked model)', () => {
     });
     expect(response).toMatchObject({ kind: 'answer', mode: 'offline', degraded: true });
     expect(response.reply).not.toContain(CONFIG.apiKey);
-    expect(response.reply).toMatch(/proposed/i);
+    expect(response.reply).toMatch(/not on sale yet/i);
     expect(trace.fallback).toBeDefined();
   });
 
