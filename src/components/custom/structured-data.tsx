@@ -1,9 +1,8 @@
 // @polsia:user-owned — schema.org structured data (JSON-LD) for search engines.
 // A data block, not executable script, so the strict script-src CSP does not apply to it.
-import { companyName } from '@/lib/brand';
-import { CONTACT_EMAIL, SOCIAL_CHANNELS } from '@/lib/business/ecosystem';
 import { buyHref, categoryOf, type Plugin } from '@/lib/business/plugins';
-import { siteDescription, siteName, siteUrl } from '@/lib/site';
+import { identityGraph, webPageNodes } from '@/lib/business/search-identity';
+import { siteUrl } from '@/lib/site';
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
   // `<` is escaped so the JSON can never close the script element early.
@@ -12,43 +11,13 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: json }} />;
 }
 
-/** FounderLab as an Organization (maker of the Renor brand), plus the Renor WebSite it publishes. */
-export function OrganizationJsonLd() {
-  const organizationId = `${siteUrl}/#organization`;
-  return (
-    <JsonLd
-      data={{
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'Organization',
-            '@id': organizationId,
-            name: companyName,
-            url: siteUrl,
-            email: CONTACT_EMAIL,
-            logo: `${siteUrl}/icon.svg`,
-            description: siteDescription,
-            brand: { '@type': 'Brand', name: 'Renor' },
-            sameAs: SOCIAL_CHANNELS.map((channel) => channel.url),
-            contactPoint: {
-              '@type': 'ContactPoint',
-              contactType: 'customer support',
-              email: CONTACT_EMAIL,
-              availableLanguage: 'English',
-            },
-          },
-          {
-            '@type': 'WebSite',
-            '@id': `${siteUrl}/#website`,
-            url: siteUrl,
-            name: siteName,
-            inLanguage: 'en',
-            publisher: { '@id': organizationId },
-          },
-        ],
-      }}
-    />
-  );
+/**
+ * Who Renor is, for search engines: FounderLab (the Organization) makes Renor (a WebApplication,
+ * also known as Renor AI), published on the Renor website. Built in src/lib/business/search-identity.ts.
+ * Pass `page` to add the page itself and its breadcrumb trail.
+ */
+export function RenorIdentityJsonLd({ page }: { page?: Parameters<typeof webPageNodes>[0] }) {
+  return <JsonLd data={identityGraph(page ? webPageNodes(page) : [])} />;
 }
 
 const STORE_NAME = 'Renor Plugin Store';

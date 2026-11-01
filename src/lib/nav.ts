@@ -17,6 +17,13 @@ export const navItems: NavItem[] = [
   { label: 'Home', href: '/', group: 'primary', order: 0 },
   // Top bar: five slots — Renor ⌄, Plugins ⌄, Projects, Zero to Proof, Company ⌄.
   { label: 'Renor AI', href: '/renor', group: 'primary', menu: 'Renor', order: 1 },
+  {
+    label: 'Capabilities',
+    href: '/renor/capabilities',
+    group: 'primary',
+    menu: 'Renor',
+    order: 1.5,
+  },
   { label: 'Plans', href: '/renor/plans', group: 'primary', menu: 'Renor', order: 2 },
   { label: 'Launch kit', href: '/launch-kit', group: 'primary', menu: 'Renor', order: 2.5 },
   { label: 'Plugin Store', href: '/plugins', group: 'primary', menu: 'Plugins', order: 3 },
@@ -34,6 +41,13 @@ export const navItems: NavItem[] = [
   { label: 'Open Renor', href: RENOR_APP_URL, group: 'secondary', order: 0 },
   // Footer columns: every part of the company, on every page.
   { label: 'Renor AI', href: '/renor', group: 'footer', menu: 'Renor', order: 0 },
+  {
+    label: 'Capabilities',
+    href: '/renor/capabilities',
+    group: 'footer',
+    menu: 'Renor',
+    order: 0.5,
+  },
   { label: 'Plans', href: '/renor/plans', group: 'footer', menu: 'Renor', order: 1 },
   { label: 'Private beta', href: '/renor#beta', group: 'footer', menu: 'Renor', order: 1.2 },
   { label: 'Launch kit', href: '/launch-kit', group: 'footer', menu: 'Renor', order: 1.4 },

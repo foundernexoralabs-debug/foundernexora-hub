@@ -112,12 +112,14 @@ describe('titles and link previews', () => {
     expect(series).toContain('eyebrow="Zero to Proof"');
   });
 
-  it('keep FounderLab, not Renor, as the organisation in structured data', () => {
-    const source = read('src/components/custom/structured-data.tsx');
-    expect(source).toMatch(
-      /'@type': 'Organization',\s*'@id': organizationId,\s*name: companyName,/,
+  it('keep FounderLab, not Renor, as the organisation in structured data', async () => {
+    vi.stubEnv('SKIP_ENV_VALIDATION', '1');
+    const { organizationNode, websiteNode } = await import(
+      '../../src/lib/business/search-identity'
     );
-    expect(source).toMatch(/'@type': 'WebSite',[\s\S]*?name: siteName,/);
+    expect(organizationNode()).toMatchObject({ '@type': 'Organization', name: 'FounderLab' });
+    expect(websiteNode()).toMatchObject({ '@type': 'WebSite', name: 'Renor' });
+    vi.unstubAllEnvs();
   });
 });
 

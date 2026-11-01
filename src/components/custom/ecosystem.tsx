@@ -12,13 +12,22 @@ import { cn } from '@/lib/utils';
  * amber, EXPERIMENTAL violet, PLANNED an outline with a hollow dot. The label always says the
  * status in words; colour is never the only signal.
  */
-export function StatusBadge({ status, className }: { status: StatusKey; className?: string }) {
+export function StatusBadge({
+  status,
+  description,
+  className,
+}: {
+  status: StatusKey;
+  /** What the status means where it is shown; defaults to the site-wide meaning. */
+  description?: string;
+  className?: string;
+}) {
   const entry = STATUS[status];
   return (
     <span
       className={cn('status-badge', className)}
       data-tone={entry.tone}
-      title={entry.description}
+      title={description ?? entry.description}
     >
       <span aria-hidden="true" className="status-badge-dot" />
       {entry.label}
