@@ -324,28 +324,36 @@
 .op-proof-card--checks .op-proof-img {
   max-width: 20rem;
 }
-/* Wide strips stay legible on a phone: shown larger, from their left edge. */
+/* Wide strips stay legible: shown larger, from their left edge, cropped on the right. */
+.op-proof-card--computer .op-proof-shot {
+  justify-content: flex-start;
+  overflow: hidden;
+  padding-right: 0;
+}
+.op-proof-card--computer .op-proof-img {
+  flex-shrink: 0;
+  width: auto;
+  height: 10rem;
+  max-width: none;
+  max-height: none;
+  border-right: 0;
+  border-radius: 0.75rem 0 0 0.75rem;
+}
+@media (min-width: 1024px) {
+  .op-proof-card--computer .op-proof-img {
+    height: 15rem;
+  }
+}
 @media (max-width: 639px) {
-  .op-proof-card--steps .op-proof-shot,
-  .op-proof-card--computer .op-proof-shot {
+  .op-proof-card--steps .op-proof-shot {
     min-height: 0;
     justify-content: flex-start;
     overflow: hidden;
     padding-right: 0;
   }
-  .op-proof-card--steps .op-proof-img,
-  .op-proof-card--computer .op-proof-img {
-    flex-shrink: 0;
-  }
   .op-proof-card--steps .op-proof-img {
+    flex-shrink: 0;
     width: 190%;
-    max-width: none;
-    max-height: none;
-    border-right: 0;
-    border-radius: 0.75rem 0 0 0.75rem;
-  }
-  .op-proof-card--computer .op-proof-img {
-    width: 260%;
     max-width: none;
     max-height: none;
     border-right: 0;

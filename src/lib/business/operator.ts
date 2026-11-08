@@ -77,8 +77,8 @@ export const PROOF: readonly ProofItem[] = [
     image: {
       src: '/assets/renor/proof/renor-computer.webp',
       width: 1008,
-      height: 84,
-      alt: 'Renor Computer bar with the suggestions “Try every button and report anything broken” and “Fill in the form and check it saves”.',
+      height: 214,
+      alt: 'Renor Computer bar with “Let Renor drive” and the suggestions “Try every button and report anything broken” and “Fill in the form and check it saves”, above the preview’s console.',
     },
     captured: PROOF_CAPTURED.tour,
   },
