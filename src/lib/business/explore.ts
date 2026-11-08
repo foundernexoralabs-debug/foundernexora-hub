@@ -4,8 +4,10 @@
 // destinations that are most useful from there. Pages render <ExploreBand page="…" />,
 // so no page ends in a dead end and no two pages end with the same generic block.
 // tests/unit/explore.test.ts checks every internal href resolves to a real page.
+
 import { BILLING_PATH } from '@/lib/business/billing';
 import { RENOR_APP_URL } from '@/lib/business/ecosystem';
+import { isOneTime } from '@/lib/business/pricing';
 
 export type DestinationId =
   | 'renor'
@@ -55,7 +57,7 @@ export interface Destination {
 export const DESTINATIONS: Record<DestinationId, Destination> = {
   renor: {
     title: 'Renor',
-    text: 'The AI workspace for chat, code, websites and projects, with every feature’s status.',
+    text: 'The AI operator: outcome in, work and proof out, with every feature’s status.',
     href: '/renor',
     icon: 'sparkles',
   },
@@ -92,7 +94,9 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
   },
   billing: {
     title: 'Billing and refunds',
-    text: 'Monthly billing, cancel any time, a 14-day refund window and no overage charges.',
+    text: isOneTime()
+      ? 'One payment, nothing renews, and a full refund within 14 days of any purchase.'
+      : 'Monthly billing, cancel any time, a 14-day refund window and no overage charges.',
     href: BILLING_PATH,
     icon: 'card',
   },
@@ -121,8 +125,8 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
     icon: 'route',
   },
   company: {
-    title: 'About FounderLab',
-    text: 'Who we are, what we make, and the rules behind everything we ship.',
+    title: 'The company behind Renor',
+    text: 'Who builds Renor, the founder’s story, and the rules behind everything we ship.',
     href: '/company',
     icon: 'building',
   },

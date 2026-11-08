@@ -21,6 +21,7 @@ import {
   TOUR,
   TOUR_EXAMPLE,
 } from '@/lib/business/launch';
+import { isOneTime, pricingSummary } from '@/lib/business/pricing';
 import { SEARCH_DESCRIPTIONS } from '@/lib/business/search-identity';
 import { pageMetadata } from '@/lib/business/seo';
 
@@ -320,11 +321,8 @@ export default function RenorPage() {
           <div className="grid gap-5 md:grid-cols-3">
             <article className="flex flex-col rounded-2xl border border-border bg-card p-7">
               <p className="text-sm font-semibold">Plans</p>
-              <p className="mt-3 flex-1 type-copy text-muted-foreground">
-                Free is open today. Pro, Plus and Max are £12, £29 and £79 a month, and open when
-                checkout goes live. Nothing is on sale yet.
-              </p>
-              {planShot ? (
+              <p className="mt-3 flex-1 type-copy text-muted-foreground">{pricingSummary()}</p>
+              {planShot && !isOneTime() ? (
                 <ThemedShot
                   shot={planShot}
                   sizes="(min-width: 768px) 24rem, 100vw"

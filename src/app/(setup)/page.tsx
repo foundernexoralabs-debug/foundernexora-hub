@@ -12,6 +12,7 @@ import {
   VisionTeaser,
 } from '@/components/custom/operator-home';
 import { RenorIdentityJsonLd } from '@/components/custom/structured-data';
+import { SHARE_CARDS } from '@/lib/business/operator';
 import { SEARCH_DESCRIPTIONS } from '@/lib/business/search-identity';
 import { pageMetadata } from '@/lib/business/seo';
 
@@ -21,6 +22,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/',
   socialTitle: 'Renor: tell it the outcome. It does the work, and shows the proof.',
   absolute: true,
+  image: SHARE_CARDS.home,
 });
 
 export default function HomePage() {

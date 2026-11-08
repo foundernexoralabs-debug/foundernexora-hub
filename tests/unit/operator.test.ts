@@ -8,6 +8,7 @@ import { COCREATE_URL, DEMO_VIDEO, QR_CODE } from '../../src/lib/business/cocrea
 import { AUDIENCE_ROUTES, HERO, LOOP, PROOF } from '../../src/lib/business/operator';
 import {
   CREDIT_PACKS,
+  isOneTime,
   ONE_TIME_OFFERS,
   PRICING_MODEL,
   pricingSummary,
@@ -157,6 +158,13 @@ describe('pricing flag', () => {
       return ONE_TIME_OFFERS.find((offer) => offer.id === 'lifetime')?.price;
     }
   });
+  it('keeps the billing page and Terms in step with the flag', () => {
+    const billing = read('src/app/(custom)/renor/billing/page.tsx');
+    const terms = read('src/app/(custom)/terms/page.tsx');
+    expect(billing).toContain('isOneTime');
+    expect(terms).toContain('isOneTime');
+    expect(isOneTime('monthly')).toBe(false);
+  });
 });
 
 describe('Co-Create', () => {
@@ -175,5 +183,18 @@ describe('Co-Create', () => {
     const hrefs = navItems.map((item) => item.href);
     expect(hrefs).toContain('/cocreate');
     expect(hrefs).toContain('/vision');
+  });
+});
+
+describe('/llms.txt', () => {
+  it('describes Renor accurately, with the three statuses kept apart', async () => {
+    const { llmsText } = await import('../../src/lib/business/llms');
+    const text = llmsText();
+    expect(text).toMatch(/^# Renor\n\n> Renor/);
+    expect(text).toContain('an AI operator, not a chatbot');
+    expect(text).toContain('## Live today');
+    expect(text).toContain('## Future vision (not built; a direction, not a claim)');
+    expect(text).toContain('https://app.renor.app');
+    expect(text).not.toMatch(/Larkspur|\bbots?\b|testimonial/i);
   });
 });

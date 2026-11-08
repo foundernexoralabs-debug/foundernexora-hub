@@ -19,9 +19,17 @@ export const FOUNDER = {
   byline: 'Ahmed · Founder',
 } as const;
 
-// TODO(owner): two or three short story paragraphs for /company, in your own words: why you
-// started FounderLab, what Renor is for, and how you work. They are not shown until you write
-// them; add them here as `FOUNDER_STORY: readonly string[]` and render them in FounderHero.
+// TODO(owner): DRAFT founder story, written by Claude on 8 November 2026 ONLY from facts already
+// in the sources (the founder's 24 October line, the 2 November first-customer directive, the
+// agent roles on the company bridge). No education, funding, location, family or personal
+// details. Replace with your own words before this ships; FOUNDER_STORY_IS_DRAFT marks it.
+export const FOUNDER_STORY_IS_DRAFT = true;
+
+export const FOUNDER_STORY: readonly string[] = [
+  'Most AI tools answer questions. I wanted one that finishes the work, and can show that it did. That is why I started building Renor in 2026.',
+  'I build Renor in public, as Zero to Proof, with a team of AI agents: one coordinates and reviews evidence, one engineers, one tests. The rule is the same for all of us: nothing counts as done until it has been checked, and everything on this site carries its real status.',
+  'Renor is for founders, freelancers and small service businesses first: people who lose hours between an enquiry, the work and the follow-up. The bigger vision is on the vision page, labelled as vision.',
+];
 
 /** The approved photo files, with their exact pixel sizes. */
 export const FOUNDER_PHOTOS = {

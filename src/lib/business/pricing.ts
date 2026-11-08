@@ -52,7 +52,7 @@ export const ONE_TIME_OFFERS: readonly OneTimeOffer[] = [
     state: 'open',
     includes: [
       '100 hosted AI credits a week',
-      'Unlimited AI on a local model (Ollama)',
+      'AI on a local model (Ollama) uses no credits',
       '150 requests a week on your own API keys',
       'Chat, Code AI, Website Builder, notes and tasks',
       'All 12 interface languages',
@@ -73,7 +73,7 @@ export const ONE_TIME_OFFERS: readonly OneTimeOffer[] = [
     highlight: true,
     includes: [
       'Every feature, and every future update',
-      'Unlimited AI on a local model (Ollama, LM Studio)',
+      'AI on a local model (Ollama, LM Studio) with no credits used',
       '1,000 requests a week on your own API keys, no credits',
       'The same 100 hosted AI credits a week as Free',
       'Priority access to new features',

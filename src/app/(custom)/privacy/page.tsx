@@ -12,7 +12,7 @@ import { pageMetadata } from '@/lib/business/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Privacy',
   description:
-    'What the FounderLab website collects, what it does not, and how Renor handles your work.',
+    'What the Renor website collects, what it does not, and how Renor handles your work.',
   path: '/privacy',
 });
 
@@ -38,7 +38,7 @@ export default function PrivacyPage() {
       <LegalDocument sections={SECTIONS} dateLabel="Last updated" date={UPDATED}>
         <h2 id="this-website">This website</h2>
         <p>
-          The FounderLab website is for reading. It has no accounts, no sign-up forms and no
+          The Renor website (renor.app) is for reading. It has no accounts, no sign-up forms and no
           advertising. The only things you can send us from it are questions and reports through the
           Renor Guide, described below.
         </p>

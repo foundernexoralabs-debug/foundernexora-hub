@@ -25,6 +25,7 @@ import {
   TOUR_EXAMPLE,
   tourImage,
 } from '@/lib/business/launch';
+import { pricingSummary } from '@/lib/business/pricing';
 import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -39,10 +40,13 @@ export const metadata: Metadata = pageMetadata({
 const FACTS = [
   ['Product', 'Renor'],
   ['Made by', 'FounderLab'],
-  ['What it is', 'An AI workspace for conversations, coding, websites and ongoing projects'],
+  [
+    'What it is',
+    'An AI operator: tell it the outcome; it plans, does the work, checks it and shows the proof',
+  ],
   ['Status', 'In preview, open to everyone, free to start'],
   ['Where', 'In the browser'],
-  ['Plans', 'Free today. Pro £12, Plus £29 and Max £79 a month, not on sale yet'],
+  ['Pricing', pricingSummary()],
 ] as const;
 
 const SCREEN_FILES = [

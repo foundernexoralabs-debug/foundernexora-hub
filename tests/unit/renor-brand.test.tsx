@@ -76,7 +76,8 @@ describe('footer', () => {
   });
 
   it('credits FounderLab as the company and holds the copyright for it', () => {
-    expect(text).toContain('FounderLab builds Renor, the AI workspace');
+    expect(text).toContain('Renor is the AI operator');
+    expect(text).toContain('FounderLab also makes the Renor Plugin Store');
     expect(text).toContain(`© ${new Date().getFullYear()} FounderLab. Renor is in preview.`);
     expect(text).not.toMatch(/Renor builds Renor/);
   });

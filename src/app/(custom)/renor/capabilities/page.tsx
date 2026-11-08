@@ -53,7 +53,7 @@ function AtAGlance() {
   const facts = [
     { term: 'Name', detail: 'Renor, also called Renor AI' },
     { term: 'Made by', detail: 'FounderLab' },
-    { term: 'What it is', detail: 'An AI workspace that runs in your browser' },
+    { term: 'What it is', detail: 'An AI operator that runs in your browser' },
     {
       term: 'Open it',
       detail: (
@@ -205,7 +205,7 @@ export default function CapabilitiesPage() {
         title="What Renor AI can do today."
         lede={
           <>
-            Renor AI is the AI workspace by FounderLab. Here is every capability, room by room, with
+            Renor AI is the AI operator by FounderLab. Here is every capability, room by room, with
             its real status: {CAPABILITIES.length} in all, checked against the app. Nothing planned
             is described as ready.
           </>

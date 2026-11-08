@@ -53,7 +53,7 @@ export const PROJECTS: readonly Project[] = [
     status: 'preview',
     kind: 'Flagship product',
     summary:
-      'An AI workspace for chatting, coding, building websites and keeping projects in one place, with results you can check.',
+      'An AI operator: tell it the outcome, and it plans, does the work, checks it and shows the proof.',
     href: '/renor',
     action: 'Explore Renor',
   },
@@ -353,7 +353,7 @@ export const CHANNELS: readonly Channel[] = [
   {
     id: 'github',
     name: 'GitHub',
-    label: 'FounderLab website code on GitHub',
+    label: 'Renor website code on GitHub',
     purpose: 'The public code for this website and its reviewed changes.',
     url: 'https://github.com/foundernexoralabs-debug/foundernexora-hub',
     social: false,

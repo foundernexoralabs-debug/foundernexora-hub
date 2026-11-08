@@ -25,7 +25,8 @@ describe('brand', () => {
   it('names the brand Renor and credits FounderLab as the company that makes it', () => {
     expect(siteName).toBe('Renor');
     expect(companyName).toBe('FounderLab');
-    expect(siteDescription).toMatch(/^FounderLab builds Renor/);
+    expect(siteDescription).toMatch(/^Renor is an AI operator/);
+    expect(siteDescription).toContain('Made by FounderLab');
     expect(brandVisual.og.tagline).toBe('by FounderLab');
   });
 

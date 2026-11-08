@@ -473,8 +473,8 @@ export function SiteFooter() {
             <span className="text-muted-foreground">by {companyName}</span>
           </div>
           <p className="mt-4 type-copy text-muted-foreground">
-            {companyName} builds <span className="font-medium text-foreground">Renor</span>, the AI
-            workspace for chat, code, websites and projects, alongside the{' '}
+            <span className="font-medium text-foreground">Renor</span> is the AI operator: tell it
+            the outcome, and it does the work and shows the proof. {companyName} also makes the{' '}
             <span className="font-medium text-foreground">Renor Plugin Store</span> and{' '}
             <span className="font-medium text-foreground">Zero to Proof</span>, our build in public.
             Every product shows its real status.

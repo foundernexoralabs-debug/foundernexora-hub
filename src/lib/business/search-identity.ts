@@ -2,7 +2,7 @@
 //
 // Other products have names close to Renor's. Search engines tell them apart by the entities a
 // site declares, so every Renor page states the same four facts as one linked graph:
-//   - Renor (also "Renor AI" and "Renor by FounderLab") is a web application, an AI workspace;
+//   - Renor (also "Renor AI" and "Renor by FounderLab") is a software application, an AI operator;
 //   - FounderLab is the organisation that makes and publishes it;
 //   - renor.app is Renor's website, published by FounderLab;
 //   - the profiles in `sameAs` are FounderLab's own, each opened and checked by a person.
@@ -101,7 +101,7 @@ export function brandNode(): Node {
     alternateName: [...RENOR_ALTERNATE_NAMES],
     url: siteUrl,
     logo: LOGO,
-    slogan: 'Think it. Build it. Keep it.',
+    slogan: 'Tell Renor the outcome. It does the work, and shows the proof.',
   };
 }
 
@@ -132,7 +132,8 @@ function openOffers(): Node[] {
 
 export function renorAppNode(): Node {
   return {
-    '@type': 'WebApplication',
+    // SoftwareApplication (founder brief, 8 Nov 2026); operatingSystem says it runs on the web.
+    '@type': 'SoftwareApplication',
     '@id': SCHEMA_IDS.app,
     name: siteName,
     alternateName: [...RENOR_ALTERNATE_NAMES],
@@ -140,7 +141,7 @@ export function renorAppNode(): Node {
     url: RENOR_APP_ADDRESS,
     mainEntityOfPage: `${siteUrl}/renor`,
     applicationCategory: ['BusinessApplication', 'DeveloperApplication'],
-    applicationSubCategory: 'AI workspace',
+    applicationSubCategory: 'AI operator',
     operatingSystem: 'Web',
     browserRequirements: 'Requires a modern web browser with JavaScript enabled.',
     isAccessibleForFree: true,

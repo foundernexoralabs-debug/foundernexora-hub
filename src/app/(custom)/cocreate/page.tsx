@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { COCREATE_PATH, COCREATE_URL, DEMO_VIDEO, EVENT, QR_CODE } from '@/lib/business/cocreate';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { FOUNDER } from '@/lib/business/founder';
-import { LOOP } from '@/lib/business/operator';
+import { LOOP, SHARE_CARDS } from '@/lib/business/operator';
 import { pricingSummary } from '@/lib/business/pricing';
 import { pageMetadata } from '@/lib/business/seo';
 import { CLAIM_STATUS, ledgerBy } from '@/lib/business/vision';
@@ -25,6 +25,7 @@ export const metadata: Metadata = pageMetadata({
   description: DESCRIPTION,
   path: COCREATE_PATH,
   socialTitle: `Renor at ${EVENT.name}, ${EVENT.date}`,
+  image: SHARE_CARDS.cocreate,
 });
 
 export default function CoCreatePage() {

@@ -8,6 +8,7 @@ import { ClaimLedger } from '@/components/custom/claim-ledger';
 import { OpenRenorButton, OpHeading } from '@/components/custom/operator-home';
 import { RenorIdentityJsonLd } from '@/components/custom/structured-data';
 import { Button } from '@/components/ui/button';
+import { SHARE_CARDS } from '@/lib/business/operator';
 import { pageMetadata } from '@/lib/business/seo';
 import {
   CLAIM_STATUS,
@@ -25,6 +26,7 @@ export const metadata: Metadata = pageMetadata({
   description: DESCRIPTION,
   path: '/vision',
   socialTitle: 'The Renor vision, with live, in progress and future kept apart',
+  image: SHARE_CARDS.vision,
 });
 
 export default function VisionPage() {

@@ -38,7 +38,7 @@ const SCHEMA_PROPERTIES: Record<string, readonly string[]> = {
   ],
   Brand: ['name', 'alternateName', 'url', 'logo', 'slogan', 'description'],
   WebSite: ['url', 'name', 'alternateName', 'inLanguage', 'publisher', 'about'],
-  WebApplication: [
+  SoftwareApplication: [
     'name',
     'alternateName',
     'description',
@@ -94,7 +94,7 @@ const page = webPageNodes({
 });
 const graph = identityGraph(page) as { '@context': string; '@graph': Node[] };
 const byType = (type: string) => graph['@graph'].find((node) => node['@type'] === type) as Node;
-const app = byType('WebApplication');
+const app = byType('SoftwareApplication');
 const organization = byType('Organization');
 
 describe('schema.org shape', () => {
@@ -104,7 +104,7 @@ describe('schema.org shape', () => {
       'Organization',
       'Brand',
       'WebSite',
-      'WebApplication',
+      'SoftwareApplication',
       'WebPage',
       'BreadcrumbList',
     ]);

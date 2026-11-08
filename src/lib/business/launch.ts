@@ -282,9 +282,9 @@ export function tourImage(shot: Pick<TourShot, 'file'>, scheme: 'light' | 'dark'
 /* ── Press: short descriptions ─────────────────────────────────────────── */
 
 export const DESCRIPTIONS = {
-  25: 'Renor by FounderLab is an AI workspace for conversations, coding, websites and ongoing projects. It builds apps and sites, checking them before calling them done.',
-  50: 'Renor by FounderLab is an AI workspace where conversations, code, websites and projects live together. Ask a question and get an answer with sources, describe an app and watch it run, or turn your own facts into a website. Every build is checked against your brief, then kept in Projects.',
-  100: 'Renor by FounderLab is an AI workspace for people who make things. Chat handles files and research with sources, and can read answers aloud or hold a live call. Code AI builds multi-file apps, runs them in a live preview and checks each build against the brief before it is called done. The Website Builder writes a site from your real prices, hours and services. Projects keeps every site and app in one place, alongside Notes and Tasks. You choose the model, from Gemini and Groq to a local engine or your own key. Renor is free while in preview.',
+  25: 'Renor by FounderLab is an AI operator, not a chatbot. Tell it the outcome: it plans the work, does it, checks it and shows proof.',
+  50: 'Renor by FounderLab is an AI operator, not a chatbot. Tell it the outcome you want, and it plans the work, picks the right tools, does it, checks the result, shows the proof. Chat, Code AI and the Website Builder are its hands. It runs on your models or ours.',
+  100: 'Renor by FounderLab is an AI operator for founders, freelancers and small service businesses. Tell it the outcome you want, in plain words and any of 12 languages, and it plans the work, does it, checks it and shows you the proof. Its hands are Chat, which handles files and research with sources; Code AI, which builds multi-file apps, previews them and tests them; and the Website Builder, which writes a site from your real facts. Every run leaves receipts. Renor runs on a local model, your own API keys or its own hosted AI, and is free to start.',
 } as const;
 
 /* ── The 60-second film ────────────────────────────────────────────────── */

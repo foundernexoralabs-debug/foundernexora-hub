@@ -213,3 +213,28 @@ export const AUDIENCE_ROUTES: readonly AudienceRoute[] = [
     ],
   },
 ];
+
+/** Static 1200 × 630 share cards (dark stage, the orb, the page's line). */
+export const SHARE_CARDS = {
+  home: {
+    url: '/assets/og/home.png',
+    width: 1200,
+    height: 630,
+    alt: 'Renor, the AI operator: Tell Renor the outcome. It does the work, and shows the proof.',
+    type: 'image/png',
+  },
+  vision: {
+    url: '/assets/og/vision.png',
+    width: 1200,
+    height: 630,
+    alt: 'The Renor vision: turn human intention into verified work. Live today, in progress and future vision, kept apart.',
+    type: 'image/png',
+  },
+  cocreate: {
+    url: '/assets/og/cocreate.png',
+    width: 1200,
+    height: 630,
+    alt: 'Renor at Co-Create London, 19 November 2026: Good to meet you. This is Renor.',
+    type: 'image/png',
+  },
+} as const;
