@@ -378,10 +378,9 @@ export const STORYBOARD: readonly StoryboardShot[] = [
     title: 'End card',
     screen: 'Brand end card (graphic, not an app screen)',
     still: 'orb',
-    action:
-      'The orb settles above the wordmark. The website address and “Join the private beta” fade up.',
-    onScreen: 'Renor by FounderLab. Join the private beta.',
-    voiceOver: 'Renor, by FounderLab. Join the private beta.',
+    action: 'The orb settles above the wordmark. The website address and “Open Renor” fade up.',
+    onScreen: 'Renor. Tell it the outcome.',
+    voiceOver: 'Renor. Tell it the outcome; it does the work, and shows the proof.',
   },
 ];
 
@@ -457,7 +456,7 @@ export const LAUNCH_SOCIAL_IMAGE = {
  * invitation is an email the visitor sends from their own mail app, prefilled from the form.
  */
 export const BETA_EMAIL = CONTACT_EMAIL;
-export const BETA_SUBJECT = 'Renor private beta: request to join';
+export const BETA_SUBJECT = 'Renor early access: request to join';
 
 export const BETA_ROLES = [
   'Founder or solo maker',
@@ -481,7 +480,7 @@ export function betaRequestBody({ name, role, building }: BetaRequest = {}): str
   const lines = [
     'Hello,',
     '',
-    'I would like to join the Renor private beta.',
+    'I would like early access to new Renor features.',
     '',
     `Name: ${clean(name, 80) || '(your name)'}`,
     `I am a: ${clean(role, 60) || '(founder, business owner, developer, creator…)'}`,

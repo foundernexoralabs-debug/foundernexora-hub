@@ -18,7 +18,7 @@ The shot list for Renor's 60-second launch film. The same storyboard is publishe
 | 0:26–0:38 | Build a website | Website Builder: live preview filling in, then the saved site | “Your facts. Your website.” | “Give it your real prices and hours, and the Website Builder writes the site in front of you.” |
 | 0:38–0:46 | Keep it | Projects room with both projects | “Everything you make, in one place.” | “Everything you make lands in Projects, ready to pick up where you left off.” |
 | 0:46–0:53 | Talk to it | Chat live call, then Plan & usage | “Talk, listen, and see your usage.” | “Talk to it out loud, choose your model, and always see where you stand.” |
-| 0:53–1:00 | End card | Brand end card (graphic, not an app screen) | “Renor by FounderLab. Join the private beta.” | “Renor, by FounderLab. Join the private beta.” |
+| 0:53–1:00 | End card | Brand end card (graphic, not an app screen) | “Renor. Tell it the outcome.” | “Renor. Tell it the outcome; it does the work, and shows the proof.” |
 
 ## Shot by shot
 
@@ -67,9 +67,9 @@ The shot list for Renor's 60-second launch film. The same storyboard is publishe
 ### 7. End card (0:53–1:00, 7 s)
 
 - **Screen:** Brand end card (graphic, not an app screen) — reference: `public/assets/renor/orb.webp`
-- **Action:** The orb settles above the wordmark. The website address and “Join the private beta” fade up.
-- **On screen:** “Renor by FounderLab. Join the private beta.”
-- **Voice-over:** “Renor, by FounderLab. Join the private beta.”
+- **Action:** The orb settles above the wordmark. The website address and “Open Renor” fade up.
+- **On screen:** “Renor. Tell it the outcome.”
+- **Voice-over:** “Renor. Tell it the outcome; it does the work, and shows the proof.”
 
 ## Short descriptions
 

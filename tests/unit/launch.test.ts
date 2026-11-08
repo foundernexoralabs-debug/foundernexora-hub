@@ -214,6 +214,9 @@ describe('launch pages stay connected', () => {
     const hrefs = navItems.map((item) => item.href);
     expect(hrefs).toContain('/launch-kit');
     expect(hrefs).toContain('/launch-kit/storyboard');
-    expect(hrefs).toContain('/renor#beta');
+    expect(hrefs).toContain('/vision');
+    expect(hrefs).toContain('/cocreate');
+    // Renor is open to everyone: the stale private-beta entry is gone.
+    expect(hrefs).not.toContain('/renor#beta');
   });
 });

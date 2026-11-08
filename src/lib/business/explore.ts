@@ -73,9 +73,9 @@ export const DESTINATIONS: Record<DestinationId, Destination> = {
     icon: 'external',
   },
   'renor-beta': {
-    title: 'Join the private beta',
+    title: 'Try new features first',
     text: 'Tell us what you want to build. The founder reads every request and replies.',
-    href: '/renor#beta',
+    href: '/renor#early-access',
     icon: 'mail',
   },
   'launch-kit': {

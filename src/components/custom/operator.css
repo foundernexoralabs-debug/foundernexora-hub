@@ -1,0 +1,617 @@
+/* @polsia:user-owned — Renor the AI operator: homepage, /vision, /cocreate and /company bands.
+   Dark "stage" bands carry the orb identity in either theme (the `dark` class switches the
+   tokens inside them); everything else follows the visitor's theme. Motion is opacity and
+   transform only, so nothing shifts layout, and it is off under reduced motion. */
+
+.op-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 76rem;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 640px) {
+  .op-container {
+    padding-inline: 2rem;
+  }
+}
+
+.op-section {
+  padding-block: 5.5rem;
+}
+@media (min-width: 1024px) {
+  .op-section {
+    padding-block: 8rem;
+  }
+}
+
+.op-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--link);
+}
+
+.op-textlink {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: var(--link);
+  text-underline-offset: 4px;
+}
+.op-textlink:hover {
+  text-decoration: underline;
+}
+.op-textlink svg {
+  transition: transform 200ms var(--ease-out);
+}
+.op-textlink:hover svg {
+  transform: translateX(2px);
+}
+
+/* ── The dark stage ─────────────────────────────────────────────── */
+.op-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--foreground);
+  background:
+    radial-gradient(60rem 36rem at 50% -8rem, oklch(0.42 0.17 258 / 0.42), transparent 70%),
+    radial-gradient(40rem 30rem at 85% 110%, oklch(0.35 0.14 268 / 0.25), transparent 70%),
+    oklch(0.13 0.022 262);
+}
+.op-stars {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(1px 1px at 12% 22%, oklch(0.95 0.03 250 / 0.7), transparent 60%),
+    radial-gradient(1px 1px at 28% 68%, oklch(0.95 0.03 250 / 0.5), transparent 60%),
+    radial-gradient(1.5px 1.5px at 46% 12%, oklch(0.95 0.05 250 / 0.6), transparent 60%),
+    radial-gradient(1px 1px at 63% 44%, oklch(0.95 0.03 250 / 0.45), transparent 60%),
+    radial-gradient(1px 1px at 78% 18%, oklch(0.95 0.03 250 / 0.6), transparent 60%),
+    radial-gradient(1.5px 1.5px at 88% 62%, oklch(0.95 0.05 250 / 0.5), transparent 60%),
+    radial-gradient(1px 1px at 6% 84%, oklch(0.95 0.03 250 / 0.5), transparent 60%),
+    radial-gradient(1px 1px at 54% 88%, oklch(0.95 0.03 250 / 0.4), transparent 60%),
+    linear-gradient(to right, oklch(1 0 0 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 0.035) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    4.5rem 4.5rem,
+    4.5rem 4.5rem;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black, transparent 80%);
+}
+.op-stars--soft {
+  opacity: 0.35;
+}
+
+.op-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2rem;
+  border: 1px solid oklch(0.7 0.12 258 / 0.35);
+  border-radius: 999px;
+  background: oklch(0.3 0.08 260 / 0.35);
+  padding: 0.3rem 0.85rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: oklch(0.9 0.05 255);
+}
+.op-pill-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: oklch(0.78 0.16 240);
+  box-shadow: 0 0 0.6rem oklch(0.78 0.16 240);
+}
+
+.op-ghost {
+  background: oklch(1 0 0 / 0.04);
+  border-color: oklch(1 0 0 / 0.18);
+  color: var(--foreground);
+}
+.op-ghost:hover {
+  background: oklch(1 0 0 / 0.08);
+  border-color: oklch(1 0 0 / 0.3);
+}
+.op-cta {
+  box-shadow:
+    0 0 0 1px oklch(0.7 0.16 258 / 0.4),
+    0 10px 30px -10px oklch(0.6 0.2 258 / 0.7);
+}
+
+/* ── Hero ───────────────────────────────────────────────────────── */
+.op-hero {
+  padding: 3.5rem 1.25rem 3.5rem;
+}
+@media (min-width: 640px) {
+  .op-hero {
+    padding: 4.25rem 2rem 4.5rem;
+  }
+}
+.op-hero-inner {
+  margin-inline: auto;
+  max-width: 60rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.op-hero-orb {
+  width: 6.5rem;
+  height: 6.5rem;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 640px) {
+  .op-hero-orb {
+    width: 7.5rem;
+    height: 7.5rem;
+  }
+}
+.op-hero-title {
+  margin-top: 1.5rem;
+  font-size: clamp(2.5rem, 4.4vw + 1rem, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 650;
+}
+.op-hero-accent {
+  display: block;
+  background: linear-gradient(
+    100deg,
+    oklch(0.86 0.1 235),
+    oklch(0.72 0.17 258) 55%,
+    oklch(0.8 0.12 285)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.op-hero-router {
+  margin: 3.5rem auto 0;
+  max-width: 56rem;
+}
+
+/* ── Audience router ────────────────────────────────────────────── */
+.op-router {
+  border: 1px solid oklch(1 0 0 / 0.1);
+  border-radius: 1.25rem;
+  background: oklch(0.18 0.025 262 / 0.75);
+  padding: 1.25rem;
+  text-align: left;
+  backdrop-filter: blur(8px);
+}
+@media (min-width: 640px) {
+  .op-router {
+    padding: 1.5rem 1.75rem;
+  }
+}
+.op-router-list {
+  display: grid;
+  height: auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.25rem;
+  background: oklch(1 0 0 / 0.05);
+  border-radius: 1.25rem;
+  padding: 0.25rem;
+}
+@media (min-width: 640px) {
+  .op-router-list {
+    display: inline-flex;
+    border-radius: 999px;
+  }
+}
+.op-router-tab {
+  min-height: 2.5rem;
+  border-radius: 999px;
+  padding-inline: 1rem;
+  font-size: 0.9375rem;
+  color: var(--muted-foreground);
+}
+.op-router-tab[data-state="active"] {
+  background: oklch(0.55 0.2 258);
+  color: oklch(1 0 0);
+  box-shadow: 0 4px 16px -6px oklch(0.6 0.2 258 / 0.8);
+}
+.op-router-panel {
+  margin-top: 1.25rem;
+  min-height: 9.5rem;
+}
+.op-route-link {
+  display: flex;
+  height: 100%;
+  min-height: 3.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 1px solid oklch(1 0 0 / 0.09);
+  border-radius: 0.875rem;
+  background: oklch(1 0 0 / 0.03);
+  padding: 0.75rem 1rem;
+  transition:
+    border-color 200ms var(--ease-out),
+    background-color 200ms var(--ease-out);
+}
+.op-route-link:hover {
+  border-color: oklch(0.7 0.16 258 / 0.55);
+  background: oklch(0.5 0.15 258 / 0.12);
+}
+.op-route-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.op-route-arrow {
+  color: var(--link);
+  transition: transform 200ms var(--ease-out);
+}
+.op-route-link:hover .op-route-arrow {
+  transform: translateX(2px);
+}
+
+/* ── Proof ──────────────────────────────────────────────────────── */
+.op-proof {
+  padding-block: 5rem 6rem;
+  border-top: 1px solid oklch(1 0 0 / 0.06);
+}
+@media (min-width: 1024px) {
+  .op-proof {
+    padding-block: 7rem 8rem;
+  }
+}
+.op-proof-grid {
+  margin-top: 3rem;
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 1024px) {
+  .op-proof-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .op-proof-card--steps {
+    grid-column: span 4;
+  }
+  .op-proof-card--checks {
+    grid-column: span 2;
+  }
+  .op-proof-card--computer {
+    grid-column: span 3;
+  }
+  .op-proof-card--keys {
+    grid-column: span 3;
+  }
+}
+.op-proof-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid oklch(1 0 0 / 0.09);
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg, oklch(0.2 0.03 262 / 0.9), oklch(0.16 0.024 262 / 0.9));
+}
+.op-proof-shot {
+  display: flex;
+  flex: 1;
+  min-height: 11rem;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid oklch(1 0 0 / 0.07);
+  background: radial-gradient(30rem 14rem at 50% 0%, oklch(0.45 0.16 258 / 0.18), transparent 70%);
+  padding: 1.5rem;
+}
+.op-proof-img {
+  width: 100%;
+  height: auto;
+  max-height: 20rem;
+  object-fit: contain;
+  border-radius: 0.75rem;
+  border: 1px solid oklch(1 0 0 / 0.08);
+  box-shadow: 0 20px 50px -24px oklch(0 0 0 / 0.9);
+}
+.op-proof-card--checks .op-proof-img {
+  max-width: 20rem;
+}
+/* Wide strips stay legible on a phone: shown larger, from their left edge. */
+@media (max-width: 639px) {
+  .op-proof-card--steps .op-proof-shot,
+  .op-proof-card--computer .op-proof-shot {
+    min-height: 0;
+    justify-content: flex-start;
+    overflow: hidden;
+    padding-right: 0;
+  }
+  .op-proof-card--steps .op-proof-img,
+  .op-proof-card--computer .op-proof-img {
+    flex-shrink: 0;
+  }
+  .op-proof-card--steps .op-proof-img {
+    width: 190%;
+    max-width: none;
+    max-height: none;
+    border-right: 0;
+    border-radius: 0.75rem 0 0 0.75rem;
+  }
+  .op-proof-card--computer .op-proof-img {
+    width: 260%;
+    max-width: none;
+    max-height: none;
+    border-right: 0;
+    border-radius: 0.75rem 0 0 0.75rem;
+  }
+}
+.op-proof-copy {
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+.op-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: oklch(0.85 0.14 160);
+}
+.op-status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 0.5rem currentColor;
+}
+
+/* ── Loop ───────────────────────────────────────────────────────── */
+.op-loop {
+  position: relative;
+  margin-top: 4rem;
+  display: grid;
+  gap: 2.25rem;
+}
+.op-loop::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 1.375rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--brand-400),
+    color-mix(in oklch, var(--brand-400) 15%, transparent)
+  );
+}
+.op-loop-step {
+  position: relative;
+  padding-left: 4.25rem;
+}
+.op-loop-node {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklch, var(--brand-500) 45%, transparent);
+  background: var(--background);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--link);
+  box-shadow: 0 0 0 6px var(--background);
+}
+.op-loop-label {
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--link);
+}
+@media (min-width: 1024px) {
+  .op-loop {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .op-loop::before {
+    top: 1.375rem;
+    bottom: auto;
+    left: 1.375rem;
+    right: 1.375rem;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      var(--brand-400),
+      color-mix(in oklch, var(--brand-400) 20%, transparent)
+    );
+  }
+  .op-loop-step {
+    padding-left: 0;
+    padding-top: 4.25rem;
+  }
+}
+
+/* ── Own your AI ────────────────────────────────────────────────── */
+.op-tile {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--card);
+  padding: 1.5rem;
+}
+.op-tile-icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: 0.75rem;
+  background: color-mix(in oklch, var(--brand-500) 14%, transparent);
+  color: var(--link);
+}
+.op-price-card {
+  position: relative;
+  border: 1px solid color-mix(in oklch, var(--brand-500) 40%, var(--border));
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(
+      24rem 14rem at 100% 0%,
+      color-mix(in oklch, var(--brand-500) 16%, transparent),
+      transparent 70%
+    ), var(--card);
+  padding: 2rem;
+  box-shadow: 0 30px 60px -40px var(--shadow-brand-color);
+}
+@media (min-width: 1024px) {
+  .op-price-card {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+/* ── Vision teaser ──────────────────────────────────────────────── */
+.op-vision {
+  padding-block: 6rem;
+}
+@media (min-width: 1024px) {
+  .op-vision {
+    padding-block: 8.5rem;
+  }
+}
+.op-horizons {
+  margin-top: 3.5rem;
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .op-horizons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.op-horizon {
+  border: 1px solid oklch(1 0 0 / 0.09);
+  border-radius: 1.25rem;
+  background: oklch(1 0 0 / 0.03);
+  padding: 1.5rem;
+}
+
+/* ── Closing ────────────────────────────────────────────────────── */
+.op-closing {
+  border-radius: 1.75rem;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+.op-closing-orb {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0 auto 1.75rem;
+}
+
+/* ── Ledger (/vision) ───────────────────────────────────────────── */
+.op-ledger {
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 1024px) {
+  .op-ledger {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+.op-ledger-col {
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: var(--card);
+  overflow: hidden;
+}
+.op-ledger-head {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.op-ledger-col[data-status="live"] .op-ledger-head {
+  background: color-mix(in oklch, oklch(0.72 0.15 160) 10%, transparent);
+}
+.op-ledger-col[data-status="in-progress"] .op-ledger-head {
+  background: color-mix(in oklch, oklch(0.78 0.14 75) 10%, transparent);
+}
+.op-ledger-col[data-status="future"] .op-ledger-head {
+  background: color-mix(in oklch, var(--brand-500) 12%, transparent);
+}
+.op-ledger-row {
+  padding: 1.25rem 1.5rem;
+}
+.op-ledger-row + .op-ledger-row {
+  border-top: 1px solid var(--border);
+}
+.op-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+.op-tag[data-tone="live"]::before,
+.op-tag[data-tone="in-progress"]::before,
+.op-tag[data-tone="future"]::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+}
+.op-tag[data-tone="live"]::before {
+  background: oklch(0.68 0.16 155);
+}
+.op-tag[data-tone="in-progress"]::before {
+  background: oklch(0.75 0.15 75);
+}
+.op-tag[data-tone="future"]::before {
+  background: var(--brand-400);
+}
+
+/* ── QR (/cocreate) ─────────────────────────────────────────────── */
+.op-qr {
+  border-radius: 1.25rem;
+  background: oklch(1 0 0);
+  padding: 0.75rem;
+  box-shadow: 0 30px 60px -30px oklch(0.55 0.2 258 / 0.7);
+}
+
+/* ── Entrance motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .op-rise {
+    animation: op-rise 700ms var(--ease-out) both;
+  }
+}
+@keyframes op-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.op-loop-node--inline {
+  position: relative;
+  box-shadow: none;
+}

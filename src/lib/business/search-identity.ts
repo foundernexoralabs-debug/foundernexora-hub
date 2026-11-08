@@ -25,7 +25,7 @@ export const RENOR_ALTERNATE_NAMES = ['Renor AI', `${siteName} by ${companyName}
  * and what it is, in under 160 characters so search results show it whole.
  */
 export const SEARCH_DESCRIPTIONS = {
-  home: 'Renor AI is FounderLab’s AI workspace: chat, Code AI with a live preview, a Website Builder, and notes and tasks that keep projects together. Free to start.',
+  home: 'Renor AI is an operator, not a chatbot: tell it the outcome and it plans, does the work, checks it and shows the proof. Your models or ours. Free to start.',
   renor:
     'Renor AI by FounderLab is one workspace for chat, code, websites, notes and tasks. It builds apps and sites, then checks them against your brief.',
   capabilities:
