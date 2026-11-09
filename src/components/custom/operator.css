@@ -602,6 +602,105 @@
   box-shadow: 0 30px 60px -30px oklch(0.55 0.2 258 / 0.7);
 }
 
+/* ── The run, screen by screen (/cocreate; also the offline demo) ── */
+.op-offline {
+  max-width: 48rem;
+  border: 1px solid oklch(0.7 0.12 258 / 0.3);
+  border-radius: 1rem;
+  background: oklch(0.3 0.08 260 / 0.25);
+  padding: 1rem 1.25rem;
+}
+.op-run {
+  margin-top: 3rem;
+  display: grid;
+  gap: 3rem;
+  max-width: 48rem;
+}
+.op-run-body {
+  min-width: 0;
+}
+/* Wide screens: the words beside their screen, so the run reads as one row per step. */
+@media (min-width: 1024px) {
+  .op-run {
+    max-width: none;
+  }
+  .op-run-body {
+    display: grid;
+    grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+}
+/* The event pill: one line where it fits, otherwise name above date, centred. */
+@media (max-width: 479px) {
+  .op-pill--event {
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 0.5rem;
+    row-gap: 0.1rem;
+    border-radius: 1rem;
+    max-width: 17rem;
+  }
+  .op-pill--event .op-pill-sep {
+    display: none;
+  }
+}
+.op-run-step {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 639px) {
+  .op-run-step {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+}
+.op-run-shot {
+  margin-top: 1.25rem;
+  overflow: hidden;
+  border: 1px solid oklch(1 0 0 / 0.09);
+  border-radius: 1rem;
+  background:
+    radial-gradient(30rem 14rem at 50% 0%, oklch(0.45 0.16 258 / 0.18), transparent 70%),
+    oklch(0.16 0.024 262);
+  padding: 1.25rem;
+}
+@media (min-width: 1024px) {
+  .op-run-shot {
+    margin-top: 0;
+  }
+}
+/* Shown at no more than their real size, so the small strips stay sharp and legible. */
+.op-run-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.625rem;
+  border: 1px solid oklch(1 0 0 / 0.08);
+}
+/* The two wide strips read from their left edge on a phone instead of shrinking to nothing. */
+@media (max-width: 639px) {
+  .op-run-shot--build,
+  .op-run-shot--verify {
+    padding-right: 0;
+  }
+  .op-run-shot--build .op-run-img {
+    max-width: none;
+    width: 150%;
+    border-right: 0;
+    border-radius: 0.625rem 0 0 0.625rem;
+  }
+  .op-run-shot--verify .op-run-img {
+    max-width: none;
+    width: auto;
+    height: 8.5rem;
+    border-right: 0;
+    border-radius: 0.625rem 0 0 0.625rem;
+  }
+}
+
 /* ── Entrance motion ────────────────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
   .op-rise {

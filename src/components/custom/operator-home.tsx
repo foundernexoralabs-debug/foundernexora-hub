@@ -58,12 +58,20 @@ export function OpHeading({
 export function OpenRenorButton({
   className,
   label = HERO.primary.label,
+  variant = 'brand',
 }: {
   className?: string;
   label?: string;
+  /** 'outline' when another action on the same row is the primary one. */
+  variant?: 'brand' | 'outline';
 }) {
   return (
-    <Button asChild variant="brand" size="xl" className={cn('op-cta', className)}>
+    <Button
+      asChild
+      variant={variant}
+      size="xl"
+      className={cn(variant === 'brand' && 'op-cta', className)}
+    >
       <a href={HERO.primary.href} target="_blank" rel="noopener noreferrer">
         {label} <ArrowUpRight aria-hidden="true" className="size-4" />
         <span className="sr-only"> (opens in a new tab)</span>

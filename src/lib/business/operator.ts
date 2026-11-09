@@ -9,6 +9,7 @@
 //   - every proof picture is a real Renor screen (no invented business, testimonial or metric);
 //   - anything that is not shipped lives in vision.ts, labelled in progress or future vision.
 import { CAPABILITIES_PATH } from '@/lib/business/capabilities';
+import { EVENT } from '@/lib/business/cocreate';
 import { CONTACT_MAILTO, PUBLIC_REPO_URL, RENOR_APP_URL } from '@/lib/business/ecosystem';
 
 /** The one line a visitor must understand in ten seconds. */
@@ -199,7 +200,7 @@ export const AUDIENCE_ROUTES: readonly AudienceRoute[] = [
     links: [
       { label: 'The vision and the ledger', href: '/vision', note: 'Live, in progress, future' },
       { label: 'The company', href: '/company', note: 'Who builds Renor' },
-      { label: 'Co-Create London', href: '/cocreate', note: '19 November 2026' },
+      { label: EVENT.name, href: '/cocreate', note: EVENT.date },
     ],
   },
   {
@@ -234,7 +235,7 @@ export const SHARE_CARDS = {
     url: '/assets/og/cocreate.png',
     width: 1200,
     height: 630,
-    alt: 'Renor at Co-Create London, 19 November 2026: Good to meet you. This is Renor.',
+    alt: `Renor at ${EVENT.name}, ${EVENT.date}: Good to meet you. This is Renor.`,
     type: 'image/png',
   },
 } as const;
