@@ -305,7 +305,8 @@ export interface Channel {
 
 /**
  * The Renor Labs shop home on Plug&Pay: the single source for every link to it.
- * Its /home page, because the bare domain returns 404 (checked 22 October 2026).
+ * Its /home page, because the bare domain returns 404 (checked 22 October and again on
+ * 9 November 2026, when /home answered 200).
  */
 export const RENOR_LABS_STORE_URL = 'https://renorlabs.plugandpay.com/home';
 

@@ -21,6 +21,7 @@ import {
   notifyHref,
   type Plugin,
   PURCHASE_NOTE,
+  SALES_PAGE_NOTE,
 } from '@/lib/business/plugins';
 import { cn } from '@/lib/utils';
 
@@ -279,12 +280,22 @@ export function PurchasePanel({ plugin }: { plugin: Plugin }) {
           <div className="grid gap-2.5">
             <NotifyButton plugin={plugin} variant="brand" className="w-full" />
             {plugin.salesPageUrl ? (
-              <Button asChild variant="outline" size="xl" className="w-full">
-                <a href={plugin.salesPageUrl} target="_blank" rel="noopener noreferrer">
-                  See full details <ArrowUpRight aria-hidden="true" className="size-4" />
-                  <span className="sr-only"> on the sales page (opens in a new tab)</span>
-                </a>
-              </Button>
+              <>
+                <Button asChild variant="outline" size="xl" className="w-full">
+                  <a
+                    href={plugin.salesPageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-describedby={`sales-note-${plugin.slug}`}
+                  >
+                    See full details <ArrowUpRight aria-hidden="true" className="size-4" />
+                    <span className="sr-only"> on the sales page (opens in a new tab)</span>
+                  </a>
+                </Button>
+                <p id={`sales-note-${plugin.slug}`} className="type-meta text-muted-foreground">
+                  {SALES_PAGE_NOTE}
+                </p>
+              </>
             ) : null}
           </div>
         </>
