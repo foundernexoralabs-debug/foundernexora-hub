@@ -7,16 +7,17 @@ import { ExploreBand } from '@/components/custom/explore';
 import { LegalDocument, type LegalSection } from '@/components/custom/legal-document';
 import { BILLING_PATH, BILLING_TITLE, SELLER_IDENTITY } from '@/lib/business/billing';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
+import { isOneTime } from '@/lib/business/pricing';
 import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Terms',
   description:
-    'Terms for using the FounderLab website, who sells Renor’s paid plans, and where billing, refund and Plugin Store terms live.',
+    'Terms for using the Renor website, who sells Renor, and where billing, refund and Plugin Store terms live.',
   path: '/terms',
 });
 
-const UPDATED = '31 October 2026';
+const UPDATED = '8 November 2026';
 
 const SECTIONS: readonly LegalSection[] = [
   { id: 'what-this-website-is', title: 'What this website is' },
@@ -34,9 +35,10 @@ export default function TermsPage() {
       <LegalDocument sections={SECTIONS} dateLabel="Last updated" date={UPDATED}>
         <h2 id="what-this-website-is">What this website is</h2>
         <p>
-          This website describes FounderLab and its projects. We work to keep it accurate, and every
-          product and feature shows its status (live, preview, experimental or planned). Features
-          described as planned are intentions, not promises, and may change.
+          This website, renor.app, describes Renor and the other projects of FounderLab, the company
+          that makes it. We work to keep it accurate, and every product and feature shows its status
+          (live, preview, experimental or planned). Features described as planned are intentions,
+          not promises, and may change.
         </p>
 
         <h2 id="previews">Previews</h2>
@@ -54,15 +56,27 @@ export default function TermsPage() {
         </p>
 
         <h2 id="product-terms">Product and Plugin Store terms</h2>
-        <p>
-          How Renor’s paid plans (Pro, Plus and Max) are billed, how to cancel, the 14-day refund on
-          your first subscription and how price changes are announced are set out in{' '}
-          <Link href={BILLING_PATH} className="text-foreground underline underline-offset-4">
-            {BILLING_TITLE}
-          </Link>
-          . Paid plans are not on sale yet; those rules apply from the day checkout goes live. Full
-          terms for Renor accounts will be published before then.
-        </p>
+        {isOneTime() ? (
+          <p>
+            How Lifetime and AI credit packs are paid for, and the 14-day refund on every purchase,
+            are set out in{' '}
+            <Link href={BILLING_PATH} className="text-foreground underline underline-offset-4">
+              {BILLING_TITLE}
+            </Link>
+            . Nothing is on sale yet; those rules apply from the day checkout goes live. Full terms
+            for Renor accounts will be published before then.
+          </p>
+        ) : (
+          <p>
+            How Renor’s paid plans (Pro, Plus and Max) are billed, how to cancel, the 14-day refund
+            on your first subscription and how price changes are announced are set out in{' '}
+            <Link href={BILLING_PATH} className="text-foreground underline underline-offset-4">
+              {BILLING_TITLE}
+            </Link>
+            . Paid plans are not on sale yet; those rules apply from the day checkout goes live.
+            Full terms for Renor accounts will be published before then.
+          </p>
+        )}
         <p>
           Terms for anything sold in the{' '}
           <Link href="/plugins" className="text-foreground underline underline-offset-4">

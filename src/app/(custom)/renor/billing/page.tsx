@@ -3,6 +3,9 @@
 // Paid plans are not on sale yet, and the page says so before any rule. It makes no VAT or tax
 // claim, names no card statement descriptor and carries no personal details: those stay out until
 // confirmed (tests/unit/billing-page.test.ts). Uses the same LegalDocument layout as Privacy and Terms.
+// PRICING_MODEL picks the version: 'monthly' is the founder's 31 October policy below; 'one-time'
+// (Free + Lifetime + credit packs) follows the app's own one-time purchase terms of 7 November
+// (src/features/legal/legalContent.js on launch-x/integration-v). Both are drafts for the founder.
 import {
   BellRing,
   CalendarClock,
@@ -20,14 +23,28 @@ import { LegalDocument, type LegalSection } from '@/components/custom/legal-docu
 import { BILLING_PATH, BILLING_TITLE, SELLER_IDENTITY } from '@/lib/business/billing';
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/business/ecosystem';
 import { PAID_PLANS_NOTICE, PLANS, priceList } from '@/lib/business/plans';
+import { CREDIT_PACK_NOTE, isOneTime, ONE_TIME_NOTICE } from '@/lib/business/pricing';
 import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: BILLING_TITLE,
-  description:
-    'How paying for Renor Pro, Plus and Max works: billed monthly in advance, cancel any time, a 14-day refund on your first subscription, no overage charges and 30 days’ notice of any price change.',
+  description: isOneTime()
+    ? 'How paying for Renor works: Lifetime and AI credit packs are single payments, nothing renews, and you can ask for a full refund within 14 days.'
+    : 'How paying for Renor Pro, Plus and Max works: billed monthly in advance, cancel any time, a 14-day refund on your first subscription, no overage charges and 30 days’ notice of any price change.',
   path: BILLING_PATH,
 });
+
+const UPDATED_ONE_TIME = '8 November 2026';
+
+const ONE_TIME_SECTIONS: readonly LegalSection[] = [
+  { id: 'what-you-can-buy', title: 'What you can buy' },
+  { id: 'how-paying-works', title: 'How paying works' },
+  { id: 'lifetime', title: 'Lifetime' },
+  { id: 'credit-packs', title: 'AI credit packs' },
+  { id: 'refunds', title: 'Refunds' },
+  { id: 'your-statutory-rights', title: 'Your statutory rights' },
+  { id: 'who-you-are-buying-from', title: 'Who you are buying from' },
+];
 
 const UPDATED = '31 October 2026';
 
@@ -132,6 +149,108 @@ function AtAGlance() {
 }
 
 export default function BillingPage() {
+  return isOneTime() ? <OneTimeBillingPage /> : <MonthlyBillingPage />;
+}
+
+function OneTimeBillingPage() {
+  return (
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
+      <PageHero
+        eyebrow={BILLING_TITLE}
+        title="Pay once. Nothing renews."
+        lede={
+          <>
+            How paying for Lifetime and AI credit packs works, and when you get money back. Last
+            updated {UPDATED_ONE_TIME}.
+          </>
+        }
+      />
+      <LegalDocument sections={ONE_TIME_SECTIONS} dateLabel="Last updated" date={UPDATED_ONE_TIME}>
+        <div
+          role="note"
+          className="rounded-tile border border-amber-600/30 bg-amber-50 p-4 text-[0.9375rem] leading-relaxed text-amber-950 sm:p-5 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-100"
+        >
+          <strong className="font-semibold">Nothing is on sale yet.</strong> {ONE_TIME_NOTICE} These
+          rules apply from the day checkout goes live. To hear when it does, join the early list on
+          the{' '}
+          <Link href="/renor/plans" className="font-semibold underline underline-offset-4">
+            Pricing page
+          </Link>
+          .
+        </div>
+
+        <h2 id="what-you-can-buy">What you can buy</h2>
+        <p>
+          Renor is free to use. Lifetime and AI credit packs are optional one-time purchases, priced
+          in pounds sterling on the{' '}
+          <Link href="/renor/plans" className={LINK}>
+            Pricing page
+          </Link>
+          . There is no subscription.
+        </p>
+
+        <h2 id="how-paying-works">How paying works</h2>
+        <p>
+          The price is shown before you pay, and nothing is charged without your agreement. Each
+          purchase is a single payment: nothing renews and nothing is charged again. Payments are
+          handled by Stripe, our payment provider. Renor never sees or stores your card number.
+        </p>
+
+        <h2 id="lifetime">Lifetime</h2>
+        <p>
+          Lifetime is a single payment that unlocks Renor’s features on your account for as long as
+          Renor is offered, with AI on your own models: a local model or your own API keys. A local
+          model runs on your own computer, so it works only while that computer is on, and nothing
+          runs in the background while your device is off. Lifetime includes the same weekly
+          allowance of Renor’s hosted AI as the Free plan. The fair-use limits shown in Renor’s
+          Settings apply to everyone.
+        </p>
+
+        <h2 id="credit-packs">AI credit packs</h2>
+        <p>
+          AI credit packs are a single payment for a fixed number of credits on Renor’s hosted AI.{' '}
+          {CREDIT_PACK_NOTE}
+        </p>
+
+        <h2 id="refunds">Refunds</h2>
+        <p>
+          You can ask for a full refund within 14 days of a purchase, for any reason, by writing to{' '}
+          <a href={CONTACT_MAILTO} className={LINK}>
+            {CONTACT_EMAIL}
+          </a>{' '}
+          from the account that paid. After 14 days, we refund where the law requires it or where
+          something we sold did not work as described. A refunded purchase, or one reversed through
+          your card provider, is removed from your account; anything you made stays yours. Refunds
+          go back to the payment method you paid with.
+        </p>
+
+        <h2 id="your-statutory-rights">Your statutory rights</h2>
+        <p>Nothing on this page affects your statutory rights.</p>
+
+        <h2 id="who-you-are-buying-from">Who you are buying from</h2>
+        <p>{SELLER_IDENTITY}</p>
+        <p>
+          Questions about a purchase or a refund? Email{' '}
+          <a href={CONTACT_MAILTO} className={LINK}>
+            {CONTACT_EMAIL}
+          </a>
+          . A person reads every message. For how we handle your data, see{' '}
+          <Link href="/privacy" className={LINK}>
+            Privacy
+          </Link>
+          ; for using this website, see{' '}
+          <Link href="/terms" className={LINK}>
+            Terms
+          </Link>
+          .
+        </p>
+      </LegalDocument>
+      <ExploreBand page="billing" />
+    </main>
+  );
+}
+
+function MonthlyBillingPage() {
   return (
     <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero

@@ -13,9 +13,9 @@ import {
 import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Contact FounderLab',
+  title: 'Contact Renor',
   description:
-    'How to reach FounderLab: email, feedback on the website and Renor, bug reports and questions.',
+    'How to reach the team behind Renor: email, feedback on the website and Renor, bug reports and questions.',
   path: '/contact',
 });
 

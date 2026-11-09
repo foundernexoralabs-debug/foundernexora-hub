@@ -12,6 +12,7 @@
 // item reads as available, or a status here contradicts the /renor feature cards (launch.ts).
 import { STATUS, type StatusKey } from '@/lib/business/ecosystem';
 import { PAID_PLANS_NOTICE, PLANS } from '@/lib/business/plans';
+import { isOneTime } from '@/lib/business/pricing';
 
 export type CapabilityStatus = Extract<StatusKey, 'live' | 'preview' | 'planned'>;
 
@@ -489,8 +490,10 @@ export const CAPABILITIES: readonly Capability[] = [
   {
     id: 'access-paid-plans',
     area: 'access',
-    name: 'Paid plans',
-    text: `${listOf(paidPlans.map((plan) => plan.name))}, at ${pricePrefix}${listOf(paidPlans.map((plan) => plan.price.label))} a month. Not on sale yet: there is no checkout, and nothing can be bought or charged.`,
+    name: isOneTime() ? 'Lifetime and credit packs' : 'Paid plans',
+    text: isOneTime()
+      ? `Lifetime (£99, one payment) and one-time AI credit packs. Monthly plans (${listOf(paidPlans.map((plan) => `${plan.name} ${plan.price.label}`))} a month) are paused. Not on sale yet: there is no checkout, and nothing can be bought or charged.`
+      : `${listOf(paidPlans.map((plan) => plan.name))}, at ${pricePrefix}${listOf(paidPlans.map((plan) => plan.price.label))} a month. Not on sale yet: there is no checkout, and nothing can be bought or charged.`,
     status: 'planned',
     feature: 'billing',
   },

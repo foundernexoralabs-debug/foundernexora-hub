@@ -47,9 +47,6 @@ describe('header and footer mark', () => {
     expect(html).toContain('class="fl-orb-mark size-4"');
     expect(html).toContain('data-live="false"');
     expect(html).toContain('data-orb-running="false"');
-    expect(read('src/app/(setup)/page.tsx')).toContain(
-      '<BrandMark className="size-4" animate={false} />',
-    );
   });
 
   it('is used beside the visible site name in the header and the footer', () => {

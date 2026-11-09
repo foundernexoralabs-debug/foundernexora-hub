@@ -3,7 +3,12 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { FOUNDER, FOUNDER_PHOTO_READY, FOUNDER_PHOTOS } from '../../src/lib/business/founder';
+import {
+  FOUNDER,
+  FOUNDER_PHOTO_READY,
+  FOUNDER_PHOTOS,
+  FOUNDER_STORY,
+} from '../../src/lib/business/founder';
 
 const publicDir = path.resolve(__dirname, '../../public');
 
@@ -39,9 +44,9 @@ describe('founder', () => {
   });
 
   it('uses the approved name, alt text and line', () => {
-    expect(FOUNDER.name).toBe('Ahmed');
-    expect(FOUNDER.alt).toBe('Ahmed, founder of FounderLab, in front of the Renor blue orb glow');
-    expect(FOUNDER.byline).toBe('Ahmed · Founder');
+    expect(FOUNDER.name).toBe('Ahmad');
+    expect(FOUNDER.alt).toBe('Ahmad, founder of Renor, in front of the Renor blue orb glow');
+    expect(FOUNDER.byline).toBe('Ahmad · Founder');
     expect(FOUNDER.line).toBe('Building the next generation of intelligent systems.');
     expect(FOUNDER.intro).toContain('turn intelligence into useful action');
     expect(FOUNDER.intro).toContain('AI-native technology company');
@@ -59,7 +64,11 @@ describe('founder', () => {
       path.resolve(__dirname, '../../src/lib/business/founder.ts'),
       'utf-8',
     );
+    // The story is a clearly marked draft for the founder to replace, made only of sourced facts.
     expect(source).toContain('TODO(owner)');
-    expect(source).not.toMatch(/export const FOUNDER_STORY/);
+    expect(source).toContain('export const FOUNDER_STORY_IS_DRAFT = true;');
+    expect(FOUNDER_STORY.join(' ')).not.toMatch(
+      /universit|degree|college|school|funding|raised|investor|Sheffield|family|health|migra/i,
+    );
   });
 });

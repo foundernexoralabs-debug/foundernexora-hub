@@ -4,7 +4,15 @@
 // no checkout link. Terms and Privacy point to it instead of promising terms "before they apply".
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+// These tests pin the monthly policy (PRICING_MODEL 'monthly'); the one-time version is covered
+// by tests/unit/billing-one-time.test.tsx. vi.mock is hoisted above the page imports.
+vi.mock('../../src/lib/business/pricing', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../src/lib/business/pricing')>();
+  return { ...actual, PRICING_MODEL: 'monthly', isOneTime: () => false };
+});
+
 import PrivacyPage from '../../src/app/(custom)/privacy/page';
 import BillingPage, { metadata } from '../../src/app/(custom)/renor/billing/page';
 import TermsPage from '../../src/app/(custom)/terms/page';
@@ -174,7 +182,7 @@ describe('Terms and Privacy agree with the billing page', () => {
     expect(render(TermsPage)).toContain(`href="${BILLING_PATH}"`);
     expect(terms).toContain(BILLING_TITLE);
     expect(terms).toContain(SELLER_IDENTITY);
-    expect(terms).toContain('Last updated 31 October 2026.');
+    expect(terms).toContain('Last updated 8 November 2026.');
     expect(terms).not.toMatch(/will be published before they apply/);
   });
 

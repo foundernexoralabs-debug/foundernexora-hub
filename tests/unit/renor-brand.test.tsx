@@ -57,8 +57,11 @@ describe('header', () => {
     expect(header).not.toMatch(/aria-label="FounderLab/);
   });
 
-  it('links the series as Zero to Proof, at /zero-to-proof', () => {
-    expect(header).toMatch(/<a [^>]*href="\/zero-to-proof"[^>]*>Zero to Proof<\/a>/);
+  it('links the series as Zero to Proof, at /zero-to-proof (in the Company menu)', () => {
+    const series = navItems.find(
+      (item) => item.group === 'primary' && item.href === '/zero-to-proof',
+    );
+    expect(series).toMatchObject({ label: 'Zero to Proof', menu: 'Company' });
     expect(header).not.toMatch(MISSPELT_SERIES);
   });
 });
@@ -73,7 +76,8 @@ describe('footer', () => {
   });
 
   it('credits FounderLab as the company and holds the copyright for it', () => {
-    expect(text).toContain('FounderLab builds Renor, the AI workspace');
+    expect(text).toContain('Renor is the AI operator');
+    expect(text).toContain('FounderLab also makes the Renor Plugin Store');
     expect(text).toContain(`© ${new Date().getFullYear()} FounderLab. Renor is in preview.`);
     expect(text).not.toMatch(/Renor builds Renor/);
   });
@@ -104,7 +108,7 @@ describe('titles and link previews', () => {
 
   it('give the home page a Renor title and the series page a Zero to Proof title', () => {
     expect(read('src/app/(setup)/page.tsx')).toContain(
-      "title: 'Renor by FounderLab — an AI workspace for people who make things',",
+      "title: 'Renor — the AI operator. Tell it the outcome; it does the work and shows the proof',",
     );
     const series = read('src/app/(custom)/zero-to-proof/page.tsx');
     expect(series).toContain("title: 'Zero to Proof — building Renor in public',");

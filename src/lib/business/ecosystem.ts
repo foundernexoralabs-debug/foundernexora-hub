@@ -53,7 +53,7 @@ export const PROJECTS: readonly Project[] = [
     status: 'preview',
     kind: 'Flagship product',
     summary:
-      'An AI workspace for chatting, coding, building websites and keeping projects in one place, with results you can check.',
+      'An AI operator: tell it the outcome, and it plans, does the work, checks it and shows the proof.',
     href: '/renor',
     action: 'Explore Renor',
   },
@@ -305,7 +305,8 @@ export interface Channel {
 
 /**
  * The Renor Labs shop home on Plug&Pay: the single source for every link to it.
- * Its /home page, because the bare domain returns 404 (checked 22 October 2026).
+ * Its /home page, because the bare domain returns 404 (checked 22 October and again on
+ * 9 November 2026, when /home answered 200).
  */
 export const RENOR_LABS_STORE_URL = 'https://renorlabs.plugandpay.com/home';
 
@@ -353,7 +354,7 @@ export const CHANNELS: readonly Channel[] = [
   {
     id: 'github',
     name: 'GitHub',
-    label: 'FounderLab website code on GitHub',
+    label: 'Renor website code on GitHub',
     purpose: 'The public code for this website and its reviewed changes.',
     url: 'https://github.com/foundernexoralabs-debug/foundernexora-hub',
     social: false,

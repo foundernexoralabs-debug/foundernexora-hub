@@ -12,7 +12,13 @@
 // renorlabs.plugandpay.com stays in the allowlist because it is the founder's real
 // shop; keeping it there is harmless while every product is 'opening-soon', because
 // gate 1 already fails. tests/unit/plugins.test.ts fails the build for any product
-// that would show a buy button without passing both gates.
+// that would show a buy button without passing both gates, and
+// tests/unit/store-links.test.ts fails it for any Plug&Pay URL the site would link that is
+// not a verified live store page or the checkout of a purchasable product.
+//
+// Checked on 9 November 2026: both checkouts (…/checkout/tradelaunch-…) and the bare shop
+// domain return 404; the shop home (/home) and the Kit's sales page return 200. The sales
+// page's own buy button points at the inactive checkout, so the site says so beside the link.
 
 import { CONTACT_MAILTO } from '@/lib/business/ecosystem';
 
@@ -118,7 +124,7 @@ export const VERIFIED_CHECKOUT_HOSTS: readonly string[] = ['renorlabs.plugandpay
 
 const FOUNDERLAB: PluginPublisher = { name: 'FounderLab', kind: 'first-party' };
 
-/** Read from the Plug&Pay API on 22 October 2026. Both checkouts are inactive. */
+/** Read from the Plug&Pay API on 22 October 2026; rechecked 9 November 2026. Both checkouts are inactive. */
 export const PLUGINS: readonly Plugin[] = [
   {
     slug: 'tradelaunch-electrician-business-kit',
@@ -151,7 +157,7 @@ export const PLUGINS: readonly Plugin[] = [
     salesPageUrl: 'https://renorlabs.plugandpay.com/electrician-business-kit-uk',
     reviewStatus: 'approved',
     publisher: FOUNDERLAB,
-    verifiedOn: '2026-10-22',
+    verifiedOn: '2026-11-09',
   },
   {
     slug: 'tradelaunch-90-day-local-growth-pack',
@@ -182,7 +188,7 @@ export const PLUGINS: readonly Plugin[] = [
     salesPageUrl: null,
     reviewStatus: 'approved',
     publisher: FOUNDERLAB,
-    verifiedOn: '2026-10-22',
+    verifiedOn: '2026-11-09',
   },
 ];
 
@@ -250,6 +256,39 @@ export function isPurchasable(plugin: Plugin): boolean {
 export function buyHref(plugin: Plugin): string | null {
   return isPurchasable(plugin) ? plugin.checkoutUrl : null;
 }
+
+/**
+ * Public Plug&Pay pages the site may link while sales are closed, each checked to return 200
+ * (9 November 2026). A checkout is never on this list: it is linkable only through buyHref().
+ */
+export const LIVE_STORE_PAGES = {
+  checkedOn: '2026-11-09',
+  urls: [
+    'https://renorlabs.plugandpay.com/home',
+    'https://renorlabs.plugandpay.com/electrician-business-kit-uk',
+  ],
+} as const;
+
+/**
+ * True when the site may link to `url`: anything off Plug&Pay, a live store page, or the
+ * checkout of a product that is purchasable right now. Everything else (an inactive
+ * checkout, the bare shop domain, an unchecked page) would be a dead end, so it is refused.
+ */
+export function isLinkableStoreUrl(url: string, all: readonly Plugin[] = PLUGINS): boolean {
+  let host: string;
+  try {
+    host = new URL(url).hostname;
+  } catch {
+    return true;
+  }
+  if (host !== 'plugandpay.com' && !host.endsWith('.plugandpay.com')) return true;
+  if ((LIVE_STORE_PAGES.urls as readonly string[]).includes(url)) return true;
+  return all.some((plugin) => buyHref(plugin) === url);
+}
+
+/** Said beside a sales-page link while its product's checkout is still closed. */
+export const SALES_PAGE_NOTE =
+  'The sales page is live, but its checkout opens only when sales do, so its buy button will not work yet.';
 
 /** A mailto that asks to hear when a product opens, with the subject filled in. */
 export function notifyHref(plugin: Plugin): string {

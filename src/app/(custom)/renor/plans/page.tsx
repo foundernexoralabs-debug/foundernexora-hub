@@ -2,12 +2,15 @@
 // (31 October 2026) and allowances are planned, labelled as such. No paid plan can be bought until
 // checkout goes live, so paid buttons join an early list by email. How billing, cancelling and
 // refunds work links to /renor/billing. Rules enforced by tests/unit/plans.test.ts.
+// PRICING_MODEL (src/lib/business/pricing.ts) picks what this page shows: 'one-time' (Free +
+// Lifetime £99 + credit packs, the app's next release) or 'monthly' (the plans below).
 import { ArrowRight, ArrowUpRight, Boxes, Cpu, Gauge, Info, Layers, Mail } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Eyebrow, PageHero, SectionHeading } from '@/components/custom/ecosystem';
 import { ExploreBand } from '@/components/custom/explore';
 import { FaqList } from '@/components/custom/faq-list';
+import { OneTimePricing } from '@/components/custom/one-time-pricing';
 import { Button } from '@/components/ui/button';
 import { BILLING_PATH, BILLING_TITLE } from '@/lib/business/billing';
 import { RENOR_APP_URL } from '@/lib/business/ecosystem';
@@ -21,15 +24,23 @@ import {
   PLANS,
   type Plan,
 } from '@/lib/business/plans';
+import { isOneTime } from '@/lib/business/pricing';
 import { pageMetadata } from '@/lib/business/seo';
 import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = pageMetadata({
-  title: 'Renor plans — Free, Pro, Plus and Max',
-  description:
-    'Start Renor free today. Pro, Plus and Max are £12, £29 and £79 a month with weekly AI credits, and open when checkout goes live. Join the early list by email.',
-  path: '/renor/plans',
-});
+export const metadata: Metadata = isOneTime()
+  ? pageMetadata({
+      title: 'Renor pricing — Free, or Lifetime for £99 once',
+      description:
+        'Start Renor free today. Lifetime is £99, one payment, to run Renor on your own models; hosted AI comes in one-time credit packs. No subscription. Not on sale yet.',
+      path: '/renor/plans',
+    })
+  : pageMetadata({
+      title: 'Renor plans — Free, Pro, Plus and Max',
+      description:
+        'Start Renor free today. Pro, Plus and Max are £12, £29 and £79 a month with weekly AI credits, and open when checkout goes live. Join the early list by email.',
+      path: '/renor/plans',
+    });
 
 const ALLOWANCE_ICONS = { credits: Gauge, projects: Boxes, jobs: Layers, models: Cpu } as const;
 
@@ -154,6 +165,42 @@ function PlanCard({ plan }: { plan: Plan }) {
 }
 
 export default function PlansPage() {
+  return isOneTime() ? <OneTimePlansPage /> : <MonthlyPlansPage />;
+}
+
+function OneTimePlansPage() {
+  return (
+    <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
+      <PageHero
+        eyebrow="Renor pricing"
+        title="Free to start. Pay once, if ever."
+        lede={
+          <>
+            Use Renor free today. Lifetime is one payment to run Renor on your own models, and
+            hosted AI comes in one-time packs.{' '}
+            <strong className="font-semibold text-foreground">
+              No subscription, and nothing on sale until checkout goes live.
+            </strong>
+          </>
+        }
+      >
+        <Button asChild variant="brand" size="xl">
+          <a href={RENOR_APP_URL} target="_blank" rel="noopener noreferrer">
+            Open Renor free <ArrowUpRight aria-hidden="true" className="size-4" />
+            <span className="sr-only"> (opens Renor in a new tab)</span>
+          </a>
+        </Button>
+        <Button asChild variant="outline" size="xl">
+          <a href="#plans">Compare Free and Lifetime</a>
+        </Button>
+      </PageHero>
+      <OneTimePricing />
+      <ExploreBand page="plans" />
+    </main>
+  );
+}
+
+function MonthlyPlansPage() {
   return (
     <main id="main" tabIndex={-1} className="min-h-screen bg-background text-foreground">
       <PageHero

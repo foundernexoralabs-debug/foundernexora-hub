@@ -12,7 +12,7 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
 }
 
 /**
- * Who Renor is, for search engines: FounderLab (the Organization) makes Renor (a WebApplication,
+ * Who Renor is, for search engines: FounderLab (the Organization) makes Renor (a SoftwareApplication,
  * also known as Renor AI), published on the Renor website. Built in src/lib/business/search-identity.ts.
  * Pass `page` to add the page itself and its breadcrumb trail.
  */

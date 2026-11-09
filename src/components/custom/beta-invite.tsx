@@ -1,5 +1,5 @@
 'use client';
-// @polsia:user-owned — "Join the private beta". This site has no form backend (no database
+// @polsia:user-owned — "Try new features first" (early access). This site has no form backend (no database
 // model, no email service), so the form writes an email the visitor sends from their own
 // mail app, addressed to the one public address. Nothing is stored or sent by this page.
 import { Check, Copy, Mail } from 'lucide-react';

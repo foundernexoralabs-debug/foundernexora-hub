@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/business/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Accessibility',
   description:
-    'How the FounderLab website is built to be usable by everyone, what we have checked, its known limits and how to report a barrier.',
+    'How the Renor website is built to be usable by everyone, what we have checked, its known limits and how to report a barrier.',
   path: '/accessibility',
 });
 

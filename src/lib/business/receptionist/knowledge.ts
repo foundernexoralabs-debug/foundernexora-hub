@@ -34,6 +34,13 @@ import {
   REFUND_NOTE,
   SEPARATE_FROM_PLANS,
 } from '@/lib/business/plugins';
+import {
+  CREDIT_PACKS,
+  isOneTime,
+  ONE_TIME_NOTICE,
+  ONE_TIME_OFFERS,
+  pricingSummary,
+} from '@/lib/business/pricing';
 
 /** Where an answer comes from: shown as a link under every answer. */
 export interface KnowledgeSource {
@@ -77,6 +84,14 @@ function areaEntry(id: string, keywords: readonly string[]): KnowledgeEntry {
 
 const paid = PLANS.filter((plan) => plan.state === 'not-on-sale');
 
+/** With the one-time pricing flag on, monthly plans are paused: every monthly answer says so. */
+const ONE_TIME = isOneTime();
+const MONTHLY_PAUSED = ONE_TIME
+  ? `Monthly plans are paused: ${pricingSummary()} The paused monthly plan was: `
+  : '';
+const ONE_TIME_REFUNDS =
+  'Lifetime and AI credit packs are single payments: nothing renews. You can ask for a full refund within 14 days of a purchase, for any reason.';
+
 function planLine(plan: (typeof PLANS)[number]): string {
   const a = plan.allowances;
   const price = plan.price.amount === 0 ? '£0' : `${plan.price.label} per month (not on sale yet)`;
@@ -90,7 +105,7 @@ const planEntries: KnowledgeEntry[] = PLANS.map((plan) => ({
   answer:
     plan.state === 'open'
       ? `${planLine(plan)} ${plan.forWho} Free is open today: ${plan.action.note}`
-      : `${planLine(plan)} ${plan.forWho} ${PAID_PLANS_NOTICE} You can join the early list by email from the Plans page.`,
+      : `${MONTHLY_PAUSED}${planLine(plan)} ${plan.forWho} ${PAID_PLANS_NOTICE} You can join the early list by email from the Plans page.`,
   source: { label: 'Plans', href: '/renor/plans' },
 }));
 
@@ -177,8 +192,9 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     id: 'is-renor-free',
     title: 'Is Renor free? Do I need to pay?',
     keywords: ['free', 'cost', 'pay', 'payment', 'paid', 'trial', 'money', 'charge'],
-    answer:
-      'Yes. Renor is free to use while it is in preview, and the Free plan is open today. Pro, Plus and Max are not on sale yet: they open when checkout goes live, so nothing can be bought and nothing is charged.',
+    answer: ONE_TIME
+      ? `Yes. Renor is free to use, and the Free plan is open today. ${pricingSummary()} ${ONE_TIME_NOTICE}`
+      : 'Yes. Renor is free to use while it is in preview, and the Free plan is open today. Pro, Plus and Max are not on sale yet: they open when checkout goes live, so nothing can be bought and nothing is charged.',
     source: { label: 'Plans', href: '/renor/plans' },
   },
   {
@@ -196,7 +212,9 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
       'tiers',
       'compare',
     ],
-    answer: `${PLANS.map(planLine).join(' ')} Prices are in pounds sterling. ${PAID_PLANS_NOTICE}`,
+    answer: ONE_TIME
+      ? `${ONE_TIME_OFFERS.map((offer) => `${offer.name}: ${offer.price} ${offer.period}. ${offer.includes.join('; ')}.`).join(' ')} AI credit packs: ${CREDIT_PACKS.map((pack) => `${numberFormat.format(pack.credits)} credits for ${pack.price}`).join(', ')}, each a single payment. Prices are in pounds sterling. ${ONE_TIME_NOTICE}`
+      : `${PLANS.map(planLine).join(' ')} Prices are in pounds sterling. ${PAID_PLANS_NOTICE}`,
     source: { label: 'Plans', href: '/renor/plans' },
   },
   ...planEntries,
@@ -218,7 +236,9 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
       'stripe',
       'invoice',
     ],
-    answer: `${BILLING_SUMMARY} Payments are handled by Stripe, and Renor never sees or stores your card number. ${PAID_PLANS_NOTICE}`,
+    answer: ONE_TIME
+      ? `${ONE_TIME_REFUNDS} Payments are handled by Stripe, and Renor never sees or stores your card number. ${ONE_TIME_NOTICE}`
+      : `${BILLING_SUMMARY} Payments are handled by Stripe, and Renor never sees or stores your card number. ${PAID_PLANS_NOTICE}`,
     source: { label: BILLING_TITLE, href: BILLING_PATH },
   },
   {
@@ -235,7 +255,9 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     id: 'paid-plans-buy',
     title: 'Can I buy or upgrade to a paid plan now?',
     keywords: ['buy', 'upgrade', 'checkout', 'card', 'early list', 'waitlist', 'subscribe'],
-    answer: `Not yet. ${PAID_PLANS_NOTICE} To hear when ${paid.map((plan) => plan.name).join(', ')} open, use “Join the early list” on the Plans page: it opens your email app, and no payment is taken.`,
+    answer: ONE_TIME
+      ? `Not yet. ${ONE_TIME_NOTICE} To hear when Lifetime opens, use “Join the early list” on the Pricing page: it opens your email app, and no payment is taken.`
+      : `Not yet. ${PAID_PLANS_NOTICE} To hear when ${paid.map((plan) => plan.name).join(', ')} open, use “Join the early list” on the Plans page: it opens your email app, and no payment is taken.`,
     source: { label: 'Plans', href: '/renor/plans' },
   },
   {
@@ -449,7 +471,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     title: 'Who am I talking to? Are you a person?',
     keywords: ['who are you', 'are you human', 'are you real', 'assistant', 'guide', 'ai'],
     answer:
-      'I’m the Renor Guide, an AI assistant on the FounderLab website. I answer only from this website’s pages and link the page each answer comes from. When I don’t know, I pass your question to the team.',
+      'I’m the Renor Guide, an AI assistant on the Renor website. I answer only from this website’s pages and link the page each answer comes from. When I don’t know, I pass your question to the team.',
     source: { label: 'Contact', href: '/contact' },
   },
 ];

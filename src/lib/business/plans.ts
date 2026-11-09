@@ -141,7 +141,7 @@ export const PLANS: readonly Plan[] = [
       creditsPerWeek: 6000,
       activeProjects: 100,
       concurrentJobs: 8,
-      models: 'Everything in Plus, with the highest priority and background autonomous work',
+      models: 'Everything in Plus, with the highest priority, and background work once it ships',
     },
   },
 ];

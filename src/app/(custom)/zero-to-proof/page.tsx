@@ -28,7 +28,7 @@ import { cn } from '@/lib/utils';
 export const metadata: Metadata = pageMetadata({
   title: 'Zero to Proof — building Renor in public',
   description:
-    'Zero to Proof follows FounderLab’s founder building Renor in public: what was built, what broke, and what was actually proven.',
+    'Zero to Proof follows Renor’s founder building it in public: what was built, what broke, and what was actually proven.',
   path: '/zero-to-proof',
 });
 
@@ -87,7 +87,7 @@ export default function ZeroToProofPage() {
       <PageHero
         eyebrow="Zero to Proof"
         title="Building a real AI product in public, from zero to proof."
-        lede="Zero to Proof follows the founder of FounderLab building Renor: what was built, what broke, and what was actually proven. If you came from a video, this is where the work lives."
+        lede="Zero to Proof follows Renor’s founder building it in public: what was built, what broke, and what was actually proven. If you came from a video, this is where the work lives."
         byline={<FounderByline />}
       >
         <Button asChild variant="brand" size="xl">

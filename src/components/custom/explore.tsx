@@ -91,7 +91,7 @@ export function ExploreBand({ page }: { page: ExplorePage }) {
       className="border-t border-border bg-band px-5 py-16 sm:px-8 sm:py-20"
     >
       <div className="mx-auto max-w-screen-xl">
-        <Eyebrow>Explore FounderLab</Eyebrow>
+        <Eyebrow>Explore Renor</Eyebrow>
         <h2 id="explore-title" className="mt-4 max-w-2xl font-display type-heading text-balance">
           {title}
         </h2>

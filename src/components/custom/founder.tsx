@@ -32,7 +32,7 @@ function FounderInitial({ className }: { className?: string }) {
   );
 }
 
-/** 48px round photo with a 1px orb-blue ring and a small glow, plus "Ahmed · Founder". */
+/** 48px round photo with a 1px orb-blue ring and a small glow, plus "Ahmad · Founder". */
 export function FounderByline({ className }: { className?: string }) {
   return (
     <p className={cn('flex items-center gap-3', className)}>

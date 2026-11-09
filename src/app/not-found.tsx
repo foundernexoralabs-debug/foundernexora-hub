@@ -26,8 +26,8 @@ export default function NotFound() {
             <Eyebrow>Error 404 · Lost in space</Eyebrow>
             <h1 className="mt-5 font-display type-title text-balance">This page does not exist.</h1>
             <p className="mt-6 type-lead text-pretty text-muted-foreground">
-              The link may be old or mistyped. Everything FounderLab makes is one step away below.
-              If a link on this site brought you here, tell us at{' '}
+              The link may be old or mistyped. Everything on the Renor website is one step away
+              below. If a link on this site brought you here, tell us at{' '}
               <a
                 href={CONTACT_MAILTO}
                 className="font-medium text-foreground underline underline-offset-4"

@@ -25,6 +25,7 @@ import {
   TOUR_EXAMPLE,
   tourImage,
 } from '@/lib/business/launch';
+import { pricingSummary } from '@/lib/business/pricing';
 import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -39,10 +40,13 @@ export const metadata: Metadata = pageMetadata({
 const FACTS = [
   ['Product', 'Renor'],
   ['Made by', 'FounderLab'],
-  ['What it is', 'An AI workspace for conversations, coding, websites and ongoing projects'],
-  ['Status', 'In preview, free to start, with a private beta'],
+  [
+    'What it is',
+    'An AI operator: tell it the outcome; it plans, does the work, checks it and shows the proof',
+  ],
+  ['Status', 'In preview, open to everyone, free to start'],
   ['Where', 'In the browser'],
-  ['Plans', 'Free today. Pro £12, Plus £29 and Max £79 a month, not on sale yet'],
+  ['Pricing', pricingSummary()],
 ] as const;
 
 const SCREEN_FILES = [
@@ -299,7 +303,7 @@ export default function LaunchKitPage() {
           </div>
           <div className="grid gap-4 self-start">
             {[
-              { href: '/renor', label: 'Renor: features, tour and private beta', external: false },
+              { href: '/renor', label: 'Renor: features, tour and early access', external: false },
               { href: RENOR_APP_URL, label: 'Open the Renor web preview', external: true },
               { href: '/renor/plans', label: 'Plans and prices', external: false },
               { href: '/plugins', label: 'Renor Plugin Store', external: false },

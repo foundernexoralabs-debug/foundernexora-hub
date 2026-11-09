@@ -1,5 +1,5 @@
 // @polsia:user-owned — the Renor introduction: what it is, who it is for, how it works, a tour
-// of real screens, every feature with its honest status, known limits, and the private beta.
+// of real screens, every feature with its honest status, known limits, and early access.
 // Launch content lives in src/lib/business/launch.ts; area limits in ecosystem.ts.
 import { ArrowDown, ArrowRight, ArrowUpRight, Info, Megaphone, ShoppingBag } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -21,6 +21,7 @@ import {
   TOUR,
   TOUR_EXAMPLE,
 } from '@/lib/business/launch';
+import { isOneTime, pricingSummary } from '@/lib/business/pricing';
 import { SEARCH_DESCRIPTIONS } from '@/lib/business/search-identity';
 import { pageMetadata } from '@/lib/business/seo';
 
@@ -71,7 +72,7 @@ export default function RenorPage() {
           <FounderOrb state="active" className="size-24 sm:size-28" />
           <p className="mt-7 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-semibold tracking-[0.08em] uppercase shadow-xs">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-emerald-500" />
-            Renor by FounderLab · Private beta
+            Renor · the AI operator
           </p>
           <h1 className="mt-6 font-display type-display text-balance">
             <span className="whitespace-nowrap">Think it.</span>{' '}
@@ -85,19 +86,19 @@ export default function RenorPage() {
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <Button asChild variant="brand" size="xl">
-              <a href="#beta">
-                Join the private beta <ArrowDown aria-hidden="true" className="size-4" />
-              </a>
-            </Button>
-            <Button asChild variant="outline" size="xl">
               <a href={RENOR_APP_URL} target="_blank" rel="noopener noreferrer">
                 Open Renor <ArrowUpRight aria-hidden="true" className="size-4" />
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </Button>
+            <Button asChild variant="outline" size="xl">
+              <a href="#early-access">
+                Try new features first <ArrowDown aria-hidden="true" className="size-4" />
+              </a>
+            </Button>
           </div>
           <p className="mt-5 type-meta text-muted-foreground">
-            Free to start while in preview. No card, no paid plan yet.
+            Free to start. No card. Nothing to buy yet.
           </p>
         </div>
         <div className="mx-auto mt-14 max-w-6xl sm:mt-16">
@@ -242,9 +243,9 @@ export default function RenorPage() {
         </div>
       </section>
 
-      {/* ── Private beta ─────────────────────────────────────────────── */}
+      {/* ── Early access ─────────────────────────────────────────────── */}
       <section
-        id="beta"
+        id="early-access"
         aria-labelledby="beta-title"
         className="relative isolate scroll-mt-20 overflow-hidden border-y border-border bg-band px-5 py-20 sm:px-8 sm:py-28"
       >
@@ -254,13 +255,13 @@ export default function RenorPage() {
         />
         <div className="mx-auto grid max-w-screen-xl items-start gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div>
-            <Eyebrow>Private beta</Eyebrow>
+            <Eyebrow>Early access</Eyebrow>
             <h2 id="beta-title" className="mt-4 font-display type-heading text-balance">
               Help shape Renor before everyone else.
             </h2>
             <p className="mt-5 type-lead text-pretty text-muted-foreground">
-              Beta testers try new parts of Renor before they reach everyone, and tell us what works
-              and what does not. Tell us a little about what you want to build.
+              Renor is open to everyone. Early testers also try new parts before they reach
+              everyone, and tell us what works and what does not. Tell us what you want to build.
             </p>
             <ul className="mt-8 grid gap-3 type-copy">
               <li className="flex gap-3">
@@ -275,14 +276,14 @@ export default function RenorPage() {
                   aria-hidden="true"
                   className="mt-2 size-1.5 shrink-0 rounded-full bg-brand-500"
                 />
-                No payment: Renor is free while it is in preview.
+                No payment: early access is free.
               </li>
               <li className="flex gap-3">
                 <span
                   aria-hidden="true"
                   className="mt-2 size-1.5 shrink-0 rounded-full bg-brand-500"
                 />
-                Want to start straight away? The web preview is open to everyone.
+                Want to start straight away? Renor is open to everyone now.
               </li>
             </ul>
             <a
@@ -291,7 +292,7 @@ export default function RenorPage() {
               rel="noopener noreferrer"
               className="mt-6 inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-link underline-offset-4 hover:underline"
             >
-              Open the web preview <ArrowUpRight aria-hidden="true" className="size-4" />
+              Open Renor <ArrowUpRight aria-hidden="true" className="size-4" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
@@ -320,11 +321,8 @@ export default function RenorPage() {
           <div className="grid gap-5 md:grid-cols-3">
             <article className="flex flex-col rounded-2xl border border-border bg-card p-7">
               <p className="text-sm font-semibold">Plans</p>
-              <p className="mt-3 flex-1 type-copy text-muted-foreground">
-                Free is open today. Pro, Plus and Max are £12, £29 and £79 a month, and open when
-                checkout goes live. Nothing is on sale yet.
-              </p>
-              {planShot ? (
+              <p className="mt-3 flex-1 type-copy text-muted-foreground">{pricingSummary()}</p>
+              {planShot && !isOneTime() ? (
                 <ThemedShot
                   shot={planShot}
                   sizes="(min-width: 768px) 24rem, 100vw"

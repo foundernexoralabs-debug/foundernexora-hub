@@ -1,4 +1,5 @@
-// @polsia:user-owned — About FounderLab. Only facts that can be checked; no invented history.
+// @polsia:user-owned — the company behind Renor. Only facts that can be checked; no invented
+// history. The founder story is a DRAFT (founder.ts) until the founder writes his own.
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,6 +13,7 @@ import {
 } from '@/components/custom/editorial';
 import { ExploreBand } from '@/components/custom/explore';
 import { FounderHero } from '@/components/custom/founder';
+import { SELLER_IDENTITY } from '@/lib/business/billing';
 import {
   CONTACT_EMAIL,
   CONTACT_MAILTO,
@@ -19,13 +21,13 @@ import {
   PUBLIC_REPO_URL,
   STATUS,
 } from '@/lib/business/ecosystem';
-import { FOUNDER } from '@/lib/business/founder';
+import { FOUNDER, FOUNDER_STORY } from '@/lib/business/founder';
 import { pageMetadata } from '@/lib/business/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'About FounderLab',
+  title: 'The company behind Renor',
   description:
-    'FounderLab is a technology company building Renor and practical AI-native tools, with honest status for everything it makes.',
+    'Renor by FounderLab: who builds Renor, the AI operator, how we work, the founder’s story, and how to reach us. Honest status for everything we make.',
   path: '/company',
 });
 
@@ -106,21 +108,30 @@ export default function CompanyPage() {
               title="A small technology company that would rather prove than promise."
             >
               <p className="max-w-[60ch] type-lead text-pretty text-muted-foreground">
-                FounderLab builds Renor, an AI workspace for people who make things, and a small
-                family of related projects. Everything we publish says plainly what works today and
-                what does not yet.
+                Renor is an AI operator: tell it the outcome, and it plans, does the work, checks it
+                and shows the proof. It is made by FounderLab, the company name you will see on the
+                footer and on invoices. Everything we publish says plainly what works today and what
+                does not yet.
               </p>
             </Chapter>
+            <Chapter number={2} kicker="The story" id="story-title" title="Why Renor exists.">
+              <div className="grid max-w-[60ch] gap-6 type-lead text-pretty text-muted-foreground">
+                {FOUNDER_STORY.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                ))}
+              </div>
+              <p className="mt-6 type-meta font-semibold text-foreground">{FOUNDER.byline}</p>
+            </Chapter>
             <Chapter
-              number={2}
+              number={3}
               kicker="What we do"
               id="what-we-do-title"
               title="One company, a few focused projects."
             >
               <div className="grid max-w-[60ch] gap-6 type-lead text-pretty text-muted-foreground">
                 <p>
-                  Renor is the flagship: chat, coding, website building and project memory in one
-                  workspace, with results you can check. Around it sit the Plugin Store for the
+                  Renor is the flagship: an operator that uses chat, Code AI and the Website Builder
+                  as its hands, with results you can check. Around it sit the Plugin Store for the
                   digital kits we make, and Zero to Proof, where the building happens in public.
                 </p>
                 <p>
@@ -130,6 +141,12 @@ export default function CompanyPage() {
                 </p>
               </div>
               <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-base">
+                <Link
+                  href="/vision"
+                  className="inline-flex min-h-11 items-center gap-2 font-semibold text-link underline-offset-4 hover:underline"
+                >
+                  The vision and the ledger <ArrowRight aria-hidden="true" className="size-4" />
+                </Link>
                 <Link
                   href="/projects"
                   className="inline-flex min-h-11 items-center gap-2 font-semibold text-link underline-offset-4 hover:underline"
@@ -147,11 +164,11 @@ export default function CompanyPage() {
                 </a>
               </div>
             </Chapter>
-            <PullQuote cite="From About FounderLab">
+            <PullQuote cite="Renor by FounderLab">
               Everything we publish says plainly what works today and what does not yet.
             </PullQuote>
             <Chapter
-              number={3}
+              number={4}
               kicker="How we work"
               id="how-we-work"
               title="The rules behind everything we ship."
@@ -165,7 +182,7 @@ export default function CompanyPage() {
                 {principles.map((principle, index) => (
                   <li key={principle.title} className="border-t border-border pt-5">
                     <p className="type-mono text-[0.9375rem] font-semibold text-link">
-                      {chapterNumber(3)}.{index + 1}
+                      {chapterNumber(4)}.{index + 1}
                     </p>
                     <h3 className="mt-2 font-display type-subheading">{principle.title}</h3>
                     <p className="mt-2 type-copy text-pretty text-muted-foreground">
@@ -175,9 +192,36 @@ export default function CompanyPage() {
                 ))}
               </ol>
             </Chapter>
+            <Chapter
+              number={5}
+              kicker="Contact and legal"
+              id="legal-title"
+              title="Who you are dealing with."
+            >
+              <div className="grid max-w-[60ch] gap-5 type-lead text-pretty text-muted-foreground">
+                <p>{SELLER_IDENTITY}</p>
+                <p>
+                  Investors, press and customers: email{' '}
+                  <a
+                    href={CONTACT_MAILTO}
+                    className="font-semibold text-link underline-offset-4 hover:underline"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                  . A person reads every message. Approved descriptions and images are in the{' '}
+                  <Link
+                    href="/launch-kit"
+                    className="font-semibold text-link underline-offset-4 hover:underline"
+                  >
+                    press kit
+                  </Link>
+                  .
+                </p>
+              </div>
+            </Chapter>
           </div>
           <FactsRail
-            title="FounderLab at a glance"
+            title="Renor at a glance"
             facts={companyFacts}
             footnote="Statuses come from the projects page and change only when the work does."
           />

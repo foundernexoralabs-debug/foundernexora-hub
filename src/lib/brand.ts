@@ -13,7 +13,7 @@ export const siteName = 'Renor';
 /** The company behind Renor: footer attribution, copyright and the schema.org Organization. */
 export const companyName = 'FounderLab';
 export const siteDescription =
-  'FounderLab builds Renor, an AI workspace for chatting, coding, building websites and keeping projects together, alongside the Renor Plugin Store and Zero to Proof, its build-in-public journey.';
+  'Renor is an AI operator: tell it the outcome and it plans, does the work, checks it and shows the proof. Made by FounderLab, with the Renor Plugin Store and Zero to Proof.';
 
 export const brandVisual = {
   themeColor: THEME_COLOR,

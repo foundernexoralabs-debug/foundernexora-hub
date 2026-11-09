@@ -7,6 +7,7 @@ import { BILLING_PATH, SELLER_IDENTITY } from '../../src/lib/business/billing';
 import { CHANNELS, RENOR_APP_URL } from '../../src/lib/business/ecosystem';
 import { PLANS } from '../../src/lib/business/plans';
 import { findPlugin } from '../../src/lib/business/plugins';
+import { isOneTime } from '../../src/lib/business/pricing';
 import { makesForbiddenClaim } from '../../src/lib/business/receptionist/guard';
 import { KNOWLEDGE } from '../../src/lib/business/receptionist/knowledge';
 
@@ -71,10 +72,16 @@ describe('Renor Guide knowledge base', () => {
   it('answers billing, cancelling and refunds from the billing page', () => {
     const billing = KNOWLEDGE.find((entry) => entry.id === 'billing-refunds');
     expect(billing?.source.href).toBe(BILLING_PATH);
-    expect(billing?.answer).toMatch(/cancel any time/i);
-    expect(billing?.answer).toMatch(/within 14 days of first paying/);
-    expect(billing?.answer).toMatch(/no overage charges/);
-    expect(billing?.answer).toMatch(/at least 30 days/);
+    if (isOneTime()) {
+      // One-time pricing (src/lib/business/pricing.ts): single payments and a 14-day refund.
+      expect(billing?.answer).toMatch(/nothing renews/i);
+      expect(billing?.answer).toMatch(/full refund within 14 days/);
+    } else {
+      expect(billing?.answer).toMatch(/cancel any time/i);
+      expect(billing?.answer).toMatch(/within 14 days of first paying/);
+      expect(billing?.answer).toMatch(/no overage charges/);
+      expect(billing?.answer).toMatch(/at least 30 days/);
+    }
     expect(billing?.answer).toMatch(/not on sale|nothing can be bought/i);
     const seller = KNOWLEDGE.find((entry) => entry.id === 'seller');
     expect(seller?.answer).toContain(SELLER_IDENTITY);
