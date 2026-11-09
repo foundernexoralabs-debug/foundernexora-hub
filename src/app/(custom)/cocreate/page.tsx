@@ -294,6 +294,7 @@ export default function CoCreatePage() {
               width={264}
               height={264}
               unoptimized
+              loading="eager"
               className="size-full"
             />
           </div>

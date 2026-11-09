@@ -722,3 +722,10 @@
   position: relative;
   box-shadow: none;
 }
+
+/* On the dark stage in light mode the page's --link is the light theme's blue: give the step
+   numbers and labels a light blue that passes AA on the stage in both themes. */
+.op-stage .op-loop-node,
+.op-stage .op-loop-label {
+  color: oklch(0.8 0.11 255);
+}

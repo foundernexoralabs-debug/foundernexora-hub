@@ -359,7 +359,7 @@ export function SiteNav() {
                         asChild
                         variant="ghost"
                         className={cn(
-                          'h-11 w-full justify-start text-base',
+                          'h-11 w-full shrink-0 justify-start text-base',
                           isActive(slot.item.href) && 'bg-accent text-accent-foreground',
                         )}
                       >
@@ -372,7 +372,7 @@ export function SiteNav() {
                         </Link>
                       </Button>
                     ) : (
-                      <div key={`menu:${slot.label}`} className="flex flex-col gap-1">
+                      <div key={`menu:${slot.label}`} className="flex shrink-0 flex-col gap-1">
                         <p className="px-3 pt-2 text-sm font-medium text-muted-foreground">
                           {slot.label}
                         </p>
@@ -382,7 +382,7 @@ export function SiteNav() {
                             asChild
                             variant="ghost"
                             className={cn(
-                              'h-11 w-full justify-start pl-6 text-base',
+                              'h-11 w-full shrink-0 justify-start pl-6 text-base',
                               isActive(item.href) && 'bg-accent text-accent-foreground',
                             )}
                           >
@@ -397,7 +397,7 @@ export function SiteNav() {
                     ),
                   )}
                   {secondary.length > 0 && (
-                    <div className="mt-2 flex flex-col gap-1 border-t border-border pt-4">
+                    <div className="mt-2 flex shrink-0 flex-col gap-1 border-t border-border pt-4">
                       {secondary.map((item) => (
                         <Button
                           key={item.href}
