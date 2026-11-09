@@ -69,7 +69,9 @@ describe('plans', () => {
     expect(plan('free')?.allowances.models).toMatch(/efficient models/i);
     expect(plan('pro')?.allowances.models).toMatch(/stronger models/i);
     expect(plan('plus')?.allowances.models).toMatch(/strongest models.*reasoning.*coding/i);
-    expect(plan('max')?.allowances.models).toMatch(/highest priority.*background autonomous/i);
+    expect(plan('max')?.allowances.models).toMatch(
+      /highest priority.*background work once it ships/i,
+    );
     const plus = plan('plus');
     expect(plus && allowanceLines(plus)[0]?.value).toBe('1,800 per week');
   });

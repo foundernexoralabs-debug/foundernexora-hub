@@ -47,12 +47,12 @@ export const ONE_TIME_OFFERS: readonly OneTimeOffer[] = [
     id: 'free',
     name: 'Free',
     price: '£0',
-    period: 'for ever',
+    period: 'no card needed',
     forWho: 'Everything you need to try Renor properly.',
     state: 'open',
     includes: [
       '100 hosted AI credits a week',
-      'AI on a local model (Ollama) uses no credits',
+      'AI on a local model (Ollama) on your own computer, no credits',
       '150 requests a week on your own API keys',
       'Chat, Code AI, Website Builder, notes and tasks',
       'All 12 interface languages',
@@ -73,7 +73,7 @@ export const ONE_TIME_OFFERS: readonly OneTimeOffer[] = [
     highlight: true,
     includes: [
       'Every feature, and every future update',
-      'AI on a local model (Ollama, LM Studio) with no credits used',
+      'AI on a local model (Ollama, LM Studio) on your own computer, no credits',
       '1,000 requests a week on your own API keys, no credits',
       'The same 100 hosted AI credits a week as Free',
       'Priority access to new features',
@@ -104,7 +104,7 @@ export const CREDIT_PACK_NOTE =
 
 /** Said plainly wherever prices appear. */
 export const ONE_TIME_NOTICE =
-  'Lifetime and credit packs open when checkout goes live. Until then nothing can be bought and nothing is charged. Monthly plans are paused.';
+  'Lifetime and credit packs open when checkout goes live; payments are still in test mode. Until then nothing can be bought and nothing is charged. Monthly plans are paused.';
 
 /** Short answers for the one-time model. */
 export const ONE_TIME_FAQ: readonly { q: string; a: string }[] = [
@@ -121,12 +121,16 @@ export const ONE_TIME_FAQ: readonly { q: string; a: string }[] = [
     a: 'Credits measure the hosted AI work Renor does for you. Harder tasks and stronger models use more. Local models and your own keys use none.',
   },
   {
+    q: 'Does Renor keep working when my computer is off?',
+    a: 'No. Nothing runs in the background while your device is off; background work is in progress, not live. Local models need your own computer on. Renor’s hosted AI has a free weekly allowance, with fallback to another provider when one is busy.',
+  },
+  {
     q: 'Can I get a refund?',
     a: 'Yes. Ask within 14 days of a purchase, for any reason, from the account that paid. After that we refund where the law requires it or where something did not work as described.',
   },
   {
     q: 'Is anything unlimited?',
-    a: 'Only what costs nobody anything: AI on your own local model. Everything else has clear, published limits.',
+    a: 'No. AI on your own local model uses no credits, but it runs on your own computer, so it is limited by that computer and only works while it is on. Everything else has clear, published limits.',
   },
 ];
 

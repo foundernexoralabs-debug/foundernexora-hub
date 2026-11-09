@@ -3,6 +3,7 @@
 // say more than the pages do: the operator story, the ledger, the pricing flag and the channels.
 import { companyName, siteName } from '@/lib/brand';
 import { RENOR_APP_ADDRESS } from '@/lib/business/capabilities';
+import { EVENT } from '@/lib/business/cocreate';
 import { CONTACT_EMAIL, SOCIAL_CHANNELS } from '@/lib/business/ecosystem';
 import { FOUNDER } from '@/lib/business/founder';
 import { HERO, LOOP, OWN_AI } from '@/lib/business/operator';
@@ -36,6 +37,12 @@ ${claims('in-progress')}
 ## ${CLAIM_STATUS.future.label} (not built; a direction, not a claim)
 ${claims('future')}
 
+## Limits (say these when asked)
+- Nothing runs in the background while the user's device is off; background work is in progress, not live.
+- Local models (Ollama) run on the user's own computer, which has to be on.
+- Hosted AI has a free weekly allowance, with fallback when a provider is busy. AI credit packs are one-time.
+- Lifetime (£99, one payment) and credit packs are not on sale yet: payments are in test mode.
+
 ## Facts
 - App: ${RENOR_APP_ADDRESS} (free account)
 - Website: ${siteUrl}/
@@ -52,7 +59,7 @@ ${claims('future')}
 - [Pricing](${siteUrl}/renor/plans)
 - [Company](${siteUrl}/company): who builds Renor, contact and legal
 - [Press kit](${siteUrl}/launch-kit): approved descriptions and images
-- [Co-Create London](${siteUrl}/cocreate)
+- [${EVENT.name}, ${EVENT.date}](${siteUrl}/cocreate)
 - [Guides](${RENOR_APP_ADDRESS}/start): how to use Renor and connect models
 
 ## Official profiles

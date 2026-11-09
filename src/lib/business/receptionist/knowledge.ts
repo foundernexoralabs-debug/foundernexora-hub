@@ -471,7 +471,7 @@ export const KNOWLEDGE: readonly KnowledgeEntry[] = [
     title: 'Who am I talking to? Are you a person?',
     keywords: ['who are you', 'are you human', 'are you real', 'assistant', 'guide', 'ai'],
     answer:
-      'I’m the Renor Guide, an AI assistant on the FounderLab website. I answer only from this website’s pages and link the page each answer comes from. When I don’t know, I pass your question to the team.',
+      'I’m the Renor Guide, an AI assistant on the Renor website. I answer only from this website’s pages and link the page each answer comes from. When I don’t know, I pass your question to the team.',
     source: { label: 'Contact', href: '/contact' },
   },
 ];

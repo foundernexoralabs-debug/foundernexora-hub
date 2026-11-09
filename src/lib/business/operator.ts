@@ -137,7 +137,7 @@ export const OWN_AI = [
   {
     id: 'local',
     title: 'Local models, free and private',
-    text: 'Run Ollama on your own computer and your prompts never leave it. No credits used.',
+    text: 'Run Ollama on your own computer and your prompts never leave it. No credits used; it works while that computer is on.',
   },
   {
     id: 'keys',

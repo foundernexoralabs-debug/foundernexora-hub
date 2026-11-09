@@ -199,9 +199,11 @@ function OneTimeBillingPage() {
         <h2 id="lifetime">Lifetime</h2>
         <p>
           Lifetime is a single payment that unlocks Renor’s features on your account for as long as
-          Renor is offered, with AI on your own models: a local model or your own API keys. It
-          includes the same weekly allowance of Renor’s hosted AI as the Free plan. The fair-use
-          limits shown in Renor’s Settings apply to everyone.
+          Renor is offered, with AI on your own models: a local model or your own API keys. A local
+          model runs on your own computer, so it works only while that computer is on, and nothing
+          runs in the background while your device is off. Lifetime includes the same weekly
+          allowance of Renor’s hosted AI as the Free plan. The fair-use limits shown in Renor’s
+          Settings apply to everyone.
         </p>
 
         <h2 id="credit-packs">AI credit packs</h2>

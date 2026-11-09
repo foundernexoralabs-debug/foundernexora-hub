@@ -129,7 +129,7 @@ export const LEDGER: readonly LedgerEntry[] = [
     id: 'background',
     claim: 'Keeps working in the background',
     detail:
-      'Long jobs continue while you do something else, with a heartbeat, bounded spend and a stop button.',
+      'Long jobs continue while you do something else, with a heartbeat, bounded spend and a stop button. Not live: today nothing runs while your device is off.',
     status: 'in-progress',
     since: '28 October 2026',
   },
