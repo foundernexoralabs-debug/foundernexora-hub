@@ -44,9 +44,9 @@ describe('founder', () => {
   });
 
   it('uses the approved name, alt text and line', () => {
-    expect(FOUNDER.name).toBe('Ahmed');
-    expect(FOUNDER.alt).toBe('Ahmed, founder of FounderLab, in front of the Renor blue orb glow');
-    expect(FOUNDER.byline).toBe('Ahmed · Founder');
+    expect(FOUNDER.name).toBe('Ahmad');
+    expect(FOUNDER.alt).toBe('Ahmad, founder of Renor, in front of the Renor blue orb glow');
+    expect(FOUNDER.byline).toBe('Ahmad · Founder');
     expect(FOUNDER.line).toBe('Building the next generation of intelligent systems.');
     expect(FOUNDER.intro).toContain('turn intelligence into useful action');
     expect(FOUNDER.intro).toContain('AI-native technology company');

@@ -1,22 +1,23 @@
 // @polsia:user-owned — the founder, as the site shows him. Only what the founder has approved:
-// his first name, his role, the display line and the three approved photos of the same
-// front-facing portrait in public/founder/ (unedited). No invented biography, milestones or
-// achievements: the story paragraphs are the founder's to write (see TODO(owner) below).
+// his public display name "Ahmad" (first name only, confirmed by the founder on 9 November 2026;
+// never the full name and never another spelling: tests/unit/founder-name.test.ts enforces it),
+// his role, the display line and the three approved photos of the same front-facing portrait
+// in public/founder/ (unedited). No invented biography, milestones or achievements: the story paragraphs are the founder's to write (see TODO(owner) below).
 
 /** All three approved photos are in public/founder/. Set to false to show the "A" orb instead. */
 export const FOUNDER_PHOTO_READY = true;
 
 export const FOUNDER = {
-  name: 'Ahmed',
+  name: 'Ahmad',
   role: 'Founder',
   /** The /company headline and intro, in the founder's own words (24 October 2026). */
   line: 'Building the next generation of intelligent systems.',
   intro:
     'Renor began with a simple ambition: turn intelligence into useful action. We’re building an AI-native technology company designed to create, operate and continuously improve powerful digital systems.',
   /** Alt text for every founder photo (they are crops of the same picture). */
-  alt: 'Ahmed, founder of FounderLab, in front of the Renor blue orb glow',
+  alt: 'Ahmad, founder of Renor, in front of the Renor blue orb glow',
   /** The byline under bylined pages, e.g. Zero to Proof. */
-  byline: 'Ahmed · Founder',
+  byline: 'Ahmad · Founder',
 } as const;
 
 // TODO(owner): DRAFT founder story, written by Claude on 8 November 2026 ONLY from facts already
