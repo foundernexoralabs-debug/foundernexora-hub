@@ -39,9 +39,9 @@ describe('founder', () => {
   });
 
   it('uses the approved name, alt text and line', () => {
-    expect(FOUNDER.name).toBe('Ahmed');
-    expect(FOUNDER.alt).toBe('Ahmed, founder of FounderLab, in front of the Renor blue orb glow');
-    expect(FOUNDER.byline).toBe('Ahmed · Founder');
+    expect(FOUNDER.name).toBe('Ahmad');
+    expect(FOUNDER.alt).toBe('Ahmad, founder of FounderLab, in front of the Renor blue orb glow');
+    expect(FOUNDER.byline).toBe('Ahmad · Founder');
     expect(FOUNDER.line).toBe('Building the next generation of intelligent systems.');
     expect(FOUNDER.intro).toContain('turn intelligence into useful action');
     expect(FOUNDER.intro).toContain('AI-native technology company');
@@ -61,5 +61,15 @@ describe('founder', () => {
     );
     expect(source).toContain('TODO(owner)');
     expect(source).not.toMatch(/export const FOUNDER_STORY/);
+  });
+});
+
+// Founder decision (9–10 Nov 2026): the public display name is exactly "Ahmad".
+// The live site still said "Ahmed"; nothing on the site may use another spelling.
+describe('founder name spelling', () => {
+  it('no source file uses "Ahmed" or "Ahmet"', async () => {
+    const { execSync } = await import('node:child_process');
+    const hits = execSync('git grep -n -I -E "Ahmed|Ahmet" -- src public || true', { encoding: 'utf8' }).trim();
+    expect(hits).toBe('');
   });
 });

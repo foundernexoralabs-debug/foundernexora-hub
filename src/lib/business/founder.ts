@@ -7,16 +7,16 @@
 export const FOUNDER_PHOTO_READY = true;
 
 export const FOUNDER = {
-  name: 'Ahmed',
+  name: 'Ahmad',
   role: 'Founder',
   /** The /company headline and intro, in the founder's own words (24 October 2026). */
   line: 'Building the next generation of intelligent systems.',
   intro:
     'Renor began with a simple ambition: turn intelligence into useful action. We’re building an AI-native technology company designed to create, operate and continuously improve powerful digital systems.',
   /** Alt text for every founder photo (they are crops of the same picture). */
-  alt: 'Ahmed, founder of FounderLab, in front of the Renor blue orb glow',
+  alt: 'Ahmad, founder of FounderLab, in front of the Renor blue orb glow',
   /** The byline under bylined pages, e.g. Zero to Proof. */
-  byline: 'Ahmed · Founder',
+  byline: 'Ahmad · Founder',
 } as const;
 
 // TODO(owner): two or three short story paragraphs for /company, in your own words: why you
