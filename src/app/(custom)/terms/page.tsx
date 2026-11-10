@@ -16,12 +16,13 @@ export const metadata: Metadata = pageMetadata({
   path: '/terms',
 });
 
-const UPDATED = '31 October 2026';
+const UPDATED = '10 November 2026';
 
 const SECTIONS: readonly LegalSection[] = [
   { id: 'what-this-website-is', title: 'What this website is' },
   { id: 'previews', title: 'Previews' },
   { id: 'content-and-code', title: 'Content and code' },
+  { id: 'no-copying', title: 'No copying of Renor' },
   { id: 'product-terms', title: 'Product and Plugin Store terms' },
   { id: 'who-we-are', title: 'Who we are' },
   { id: 'changes-and-contact', title: 'Changes and contact' },
@@ -51,6 +52,19 @@ export default function TermsPage() {
           The source code of this website is public on GitHub under its stated licence. Product
           names, the Renor and FounderLab brands and the screenshots on this site belong to
           FounderLab.
+        </p>
+
+        <h2 id="no-copying">No copying of Renor</h2>
+        <p>
+          You may not copy, clone, imitate or reverse-engineer Renor, including its name, logo,
+          brand, interface design or the way the product works, and you may not present a copy as
+          your own or as connected with us. You may not use Renor, its AI or this website to build a
+          copy of Renor, or to extract its prompts, internal instructions or private company
+          information. You are welcome to use Renor to build your own, original products.
+        </p>
+        <p>
+          The licence on this website’s public source code covers that code only. It gives no right
+          to use the Renor or FounderLab names, logos, product design or screenshots.
         </p>
 
         <h2 id="product-terms">Product and Plugin Store terms</h2>

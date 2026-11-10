@@ -174,7 +174,7 @@ describe('Terms and Privacy agree with the billing page', () => {
     expect(render(TermsPage)).toContain(`href="${BILLING_PATH}"`);
     expect(terms).toContain(BILLING_TITLE);
     expect(terms).toContain(SELLER_IDENTITY);
-    expect(terms).toContain('Last updated 31 October 2026.');
+    expect(terms).toContain('Last updated 10 November 2026.');
     expect(terms).not.toMatch(/will be published before they apply/);
   });
 
